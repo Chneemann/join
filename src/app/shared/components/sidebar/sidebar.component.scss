@@ -34,9 +34,14 @@ nav {
     display: flex;
     align-items: center;
     font-size: 16px;
-    font-weight: 400;
     width: 100%;
-    color: var(--white);
+    color: var(--lightgray);
+  }
+  &:hover {
+    background-color: var(--very-dark-blue);
+  }
+  &:active {
+    background-color: var(--very-dark-blue);
   }
 }
 
@@ -44,14 +49,14 @@ nav {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 66px 0;
+  margin-bottom: 30px;
   div {
     width: 105px;
     padding: 8px;
     display: flex;
     text-align: center;
     justify-content: center;
-    color: var(--white);
+    color: var(--lightgray);
     padding-top: 2vh;
     padding-bottom: 2vh;
     cursor: pointer;

@@ -1,5 +1,7 @@
 * {
-  margin: auto;
+  margin: 0;
+  scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
 }
 
 :root {
@@ -7,4 +9,51 @@
   --bgContent: #f6f7f8;
   --white: #fff;
   --black: #000;
+  --lightgray: #cdcdcd;
+  --light-blue: #29abe2;
+  --very-dark-blue: #091931;
+  --very-light-gray: #f6f7f8;
+}
+
+/*------------- SCROLLBAR -------------*/
+
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bgSidebar);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--lightgray);
+  border-radius: 10px;
+  border: 3px solid var(--black);
+}
+
+/*------------- FONTS -------------*/
+
+/* inter-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/inter/inter-v13-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-600 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./assets/fonts/inter/inter-v13-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-800 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  src: url("./assets/fonts/inter/inter-v13-latin-800.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
