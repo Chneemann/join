@@ -6,6 +6,7 @@
 app-sidebar {
   width: 232px;
   height: 100%;
+  background-color: var(--bgSidebar);
 }
 
 main {
@@ -17,10 +18,12 @@ main {
 app-header {
   height: 96px;
   width: 100%;
+  background-color: var(--white);
 }
 
 .content {
-  width: calc(100vw - 232px);
+  width: calc(100vw - 232px - 64px);
   height: 100vh;
   padding: 64px 0 0 64px;
+  background-color: var(--bgContent);
 }
