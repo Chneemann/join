@@ -61,7 +61,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
   width: 264px;
   height: 168px;
   border-radius: 30px;
@@ -90,14 +89,18 @@
 .urgent {
   width: 560px;
   .right {
-    width: 40%;
+    width: 58%;
   }
   .left {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
-    width: 40%;
+    width: 52%;
+  }
+  .line {
+    height: 100px;
+    width: 2px;
+    background-color: var(--gray);
   }
   img {
     height: 69px;
@@ -152,8 +155,19 @@
   }
 }
 
-.line {
-  height: 100px;
-  width: 2px;
-  background-color: var(--gray);
+@media screen and (max-width: 1250px) {
+  .right-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .header {
+    .title {
+      font-size: 50px;
+    }
+    .metrics-txt {
+      font-size: 24px;
+    }
+  }
 }

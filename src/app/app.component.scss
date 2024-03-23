@@ -24,9 +24,21 @@ app-header {
 
 .content {
   width: calc(100% - 128px);
-  min-width: calc(100vw - 232px - 128px);
+  min-width: calc(100vw - 232px - 64px);
   height: 100vh;
-  padding: 64px;
+  padding: 64px 0 0 64px;
   background-color: var(--bgContent);
   overflow-y: auto;
+}
+
+@media screen and (max-width: 910px) {
+  .content {
+    display: flex;
+    justify-content: center;
+    min-width: calc(100vw);
+    padding: 32px 0 0 0;
+  }
+  app-sidebar {
+    display: none;
+  }
 }
