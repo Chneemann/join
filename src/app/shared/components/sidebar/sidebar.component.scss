@@ -45,6 +45,10 @@ nav {
   }
 }
 
+.active {
+  background-color: var(--very-dark-blue);
+}
+
 .reference {
   display: flex;
   align-items: center;
