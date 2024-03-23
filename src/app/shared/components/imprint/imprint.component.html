@@ -1,0 +1,54 @@
+<section>
+  <div>
+    <div class="header">
+      <h1>{{ "imprint.headline" | translate }}</h1>
+      <img
+        (click)="backClicked()"
+        src="./../../../../assets/img/arrow-left.svg"
+      />
+    </div>
+    {{ "imprint.tmg" | translate }}
+    <br /><br />
+    <p>Andre Kempf</p>
+    <p>Großschneidersweg 2a</p>
+    <p>76149 Karlsruhe</p>
+    <h3>{{ "imprint.contact" | translate }}</h3>
+    <p>
+      {{ "imprint.tel" | translate }}:
+      <a href="tel:01724180328">0172-4180328</a>
+    </p>
+    <p>
+      {{ "imprint.mail" | translate }}:
+      <a href="mailto:mail@andre-kempf.com">mail&#64;andre-kempf.com</a>
+    </p>
+    <br />
+    <h2>{{ "imprint.disclaimer" | translate }}:</h2>
+
+    <h3>{{ "imprint.liabilityContentHeadline" | translate }}</h3>
+
+    <p>{{ "imprint.liabilityContentDescription" | translate }}</p>
+
+    <h3>{{ "imprint.liabilityLinksHeadline" | translate }}</h3>
+
+    <p>{{ "imprint.liabilityLinksDescription" | translate }}</p>
+
+    <h3>{{ "imprint.copyrightHeadline" | translate }}</h3>
+
+    <p>{{ "imprint.copyrightDescription" | translate }}</p>
+
+    <h3>{{ "imprint.dataProtectionHeadline" | translate }}</h3>
+
+    <p>{{ "imprint.dataProtectionDescription" | translate }}</p>
+    <br />
+    <p>
+      {{ "imprint.sourceText0" | translate }}
+      <a href="https://www.impressum-generator.de/" target="_blank">{{
+        "imprint.sourceLink0" | translate
+      }}</a>
+      {{ "imprint.sourceText1" | translate }}
+      <a href="https://www.kanzlei-hasselbach.de/" target="_blank">{{
+        "imprint.sourceLink1" | translate
+      }}</a>
+    </p>
+  </div>
+</section>
