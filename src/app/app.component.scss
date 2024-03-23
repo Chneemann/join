@@ -7,7 +7,15 @@ app-sidebar {
   width: 232px;
   height: 100%;
   background-color: var(--bgSidebar);
-  overflow-y: none;
+}
+
+app-sidebar-mobile {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background-color: var(--bgSidebar);
 }
 
 main {
@@ -35,10 +43,14 @@ app-header {
   .content {
     display: flex;
     justify-content: center;
-    min-width: calc(100vw);
+    width: 100vw;
+    height: calc(100vh - 210px);
     padding: 32px 0 0 0;
   }
   app-sidebar {
     display: none;
+  }
+  app-sidebar-mobile {
+    display: unset;
   }
 }
