@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-help',
+  selector: 'app-privacy-policy',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
-  templateUrl: './help.component.html',
-  styleUrl: './help.component.scss',
+  imports: [TranslateModule],
+  templateUrl: './privacy-policy.component.html',
+  styleUrl: './privacy-policy.component.scss',
 })
-export class HelpComponent {
+export class PrivacyPolicyComponent {
   constructor(private location: Location) {}
 
   backClicked() {

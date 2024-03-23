@@ -2,7 +2,7 @@
   <img class="logo" src="./assets/img/sidebar/logo.svg" alt="" />
 
   <nav>
-    <div id="navLinkSummary" class="nav-links-inner">
+    <div id="navLinkSummary" class="nav-links-inner" routerLink="summary">
       <img src="./assets/img/sidebar/summary.svg" alt="sumary" /><span
         >Summary</span
       >
@@ -23,7 +23,7 @@
   </nav>
 
   <div class="reference">
-    <div>Privacy Policy</div>
+    <div routerLink="privacy-policy">Privacy Policy</div>
     <div>Legal Notice</div>
     <div onclick="logout()">Log out</div>
   </div>

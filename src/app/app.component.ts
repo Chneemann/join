@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,8 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 })
 export class AppComponent {
   title = 'join';
+
+  constructor(public langService: LanguageService, private router: Router) {
+    this.router.events.subscribe((event) => {});
+  }
 }

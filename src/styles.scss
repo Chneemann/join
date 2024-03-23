@@ -16,6 +16,13 @@
   --very-light-gray: #f6f7f8;
 }
 
+.wrapping-wort {
+  overflow: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
 /*------------- SCROLLBAR -------------*/
 
 *::-webkit-scrollbar {
