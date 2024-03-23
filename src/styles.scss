@@ -12,6 +12,7 @@
   --gray: #a8a8a8;
   --light-gray: #cdcdcd;
   --light-blue: #29abe2;
+  --dark-blue: #2b3647;
   --very-dark-blue: #091931;
   --very-light-gray: #f6f7f8;
 }
@@ -56,6 +57,14 @@
   font-style: normal;
   font-weight: 600;
   src: url("./assets/fonts/inter/inter-v13-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* inter-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./assets/fonts/inter/inter-v13-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 /* inter-800 - latin */
 @font-face {
