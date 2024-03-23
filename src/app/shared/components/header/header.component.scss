@@ -1,8 +1,12 @@
 section {
+  height: 96px;
+}
+
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: calc(100% - 3px);
+  height: 93px;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
 }
 

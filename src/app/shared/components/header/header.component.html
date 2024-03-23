@@ -1,9 +1,12 @@
 <section>
-  <div class="headline">Kanban Project Management Tool</div>
-  <div class="left-frame">
-    <div class="img-help" routerLink="help">
-      <img src="./../../../../assets/img/sidebar/help.svg" alt="" />
+  <div class="header">
+    <div class="headline">Kanban Project Management Tool</div>
+    <div class="left-frame">
+      <div class="img-help" routerLink="help">
+        <img src="./../../../../assets/img/sidebar/help.svg" alt="" />
+      </div>
+      <div class="img-user" (click)="toggleNavbar()">G</div>
     </div>
-    <div class="img-user">G</div>
   </div>
 </section>
+<app-navbar *ngIf="navbarVisible"></app-navbar>
