@@ -35,12 +35,12 @@ h3 {
     height: 32px;
     cursor: pointer;
     margin-left: 48px;
-  }
-  &:hover {
-    width: 36px;
-    height: 36px;
-    background-color: var(--light-gray);
-    border-radius: 18px;
+    &:hover {
+      width: 36px;
+      height: 36px;
+      background-color: var(--light-gray);
+      border-radius: 18px;
+    }
   }
 }
 
