@@ -15,10 +15,13 @@ export class SidebarComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.getCurrentPath();
+  }
+
+  getCurrentPath() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentPath = this.router.url.substring(1);
-        console.log(this.currentPath);
       }
     });
   }

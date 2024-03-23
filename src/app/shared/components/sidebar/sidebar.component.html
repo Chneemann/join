@@ -17,8 +17,9 @@
     <div
       id="navLinkAddTask"
       class="nav-links-inner"
+      routerLink="add-task"
       [ngClass]="{
-        active: currentPath == 'addtask'
+        active: currentPath == 'add-task'
       }"
     >
       <img src="./assets/img/sidebar/add-task.svg" alt="addtask" /><span
@@ -28,6 +29,7 @@
     <div
       id="navLinkBoard"
       class="nav-links-inner"
+      routerLink="board"
       [ngClass]="{
         active: currentPath == 'board'
       }"
@@ -37,6 +39,7 @@
     <div
       id="navLinkContacts"
       class="nav-links-inner"
+      routerLink="contacts"
       [ngClass]="{
         active: currentPath == 'contacts'
       }"
