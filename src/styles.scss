@@ -9,7 +9,8 @@
   --bgContent: #f6f7f8;
   --white: #fff;
   --black: #000;
-  --lightgray: #cdcdcd;
+  --gray: #a8a8a8;
+  --light-gray: #cdcdcd;
   --light-blue: #29abe2;
   --very-dark-blue: #091931;
   --very-light-gray: #f6f7f8;
@@ -26,7 +27,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--lightgray);
+  background-color: var(--light-gray);
   border-radius: 10px;
   border: 3px solid var(--black);
 }

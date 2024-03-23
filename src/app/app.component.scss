@@ -7,6 +7,7 @@ app-sidebar {
   width: 232px;
   height: 100%;
   background-color: var(--bgSidebar);
+  overflow-y: none;
 }
 
 main {
@@ -22,8 +23,10 @@ app-header {
 }
 
 .content {
-  width: calc(100vw - 232px - 64px);
+  width: calc(100% - 128px);
+  min-width: calc(100vw - 232px - 128px);
   height: 100vh;
-  padding: 64px 0 0 64px;
+  padding: 64px;
   background-color: var(--bgContent);
+  overflow-y: auto;
 }
