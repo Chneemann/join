@@ -1,8 +1,7 @@
-<section>
+<section *ngIf="index !== undefined">
   <div
     class="content"
     draggable="true"
-    *ngIf="index !== undefined"
     (dragstart)="dragDropService.startDragging($event, index)"
   >
     <div
@@ -22,3 +21,5 @@
     </div>
   </div>
 </section>
+
+<div *ngIf="index === undefined" class="empty-task">No tasks</div>
