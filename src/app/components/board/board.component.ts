@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { DragDropService } from '../../services/drag-drop.service';
 import { CommonModule } from '@angular/common';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-board',
@@ -11,24 +12,20 @@ import { CommonModule } from '@angular/common';
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
-  tasks = [
-    {
-      id: '1',
-      category: 'HTML',
-      status: 'todo',
-    },
-    {
-      id: '2',
-      category: 'CSS',
-      status: 'done',
-    },
-  ];
-
-  constructor(public dragDropService: DragDropService) {
+  constructor(
+    public dragDropService: DragDropService,
+    public firebaseService: FirebaseService
+  ) {
     this.dragDropService.itemDropped.subscribe(({ index, status }) => {
-      if (index >= 0 && index < this.tasks.length) {
-        this.tasks[index].status = status;
-      }
+      this.firebaseService.allTasks[index].status = status;
+      this.firebaseService.updateTask(
+        this.firebaseService.allTasks[index].id,
+        index
+      );
     });
+  }
+
+  ngOnInit() {
+    this.firebaseService.updateAllTasks();
   }
 }

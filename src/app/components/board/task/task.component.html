@@ -7,12 +7,14 @@
   >
     <div
       class="category"
-      style="background-color: var(--generateTaskCategoryColor(id))"
+      [style.background-color]="generateCategoryColor(index)"
     >
-      category
+      {{ firebaseService.allTasks[index].category }}
     </div>
-    <div class="headline">title</div>
-    <div class="description">description</div>
+    <div class="headline">{{ firebaseService.allTasks[index].title }}</div>
+    <div class="description">
+      {{ firebaseService.allTasks[index].description }}
+    </div>
     checkSubtasks(tasks[id].id)
     <div class="footer">
       <div class="footer-badge"></div>

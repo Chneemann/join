@@ -44,9 +44,15 @@
             onclick="openAddTaskPage('todo')"
           />
         </div>
-        <div id="content-todo" *ngFor="let task of tasks; index as i">
-          <app-task *ngIf="task.status === 'todo'" [index]="i"></app-task>
-          <ng-template [ngIf]="task.status === undefined || task.status === ''">
+        <div
+          id="content-todo"
+          *ngFor="let task of firebaseService.allTasks; index as i"
+        >
+          <app-task
+            *ngIf="firebaseService.allTasks[i].status === 'todo'"
+            [index]="i"
+          ></app-task>
+          <ng-template [ngIf]="firebaseService.allTasks[i].status === ''">
             empthy
           </ng-template>
         </div>
@@ -64,11 +70,14 @@
             onclick="openAddTaskPage('inprogress')"
           />
         </div>
-        <div id="content-inprogress" *ngFor="let task of tasks; index as i">
-          <app-task *ngIf="task.status === 'inprogress'" [index]="i"></app-task>
-          <ng-template [ngIf]="task.status === undefined || task.status === ''">
-            empthy
-          </ng-template>
+        <div
+          id="content-inprogress"
+          *ngFor="let task of firebaseService.allTasks; index as i"
+        >
+          <app-task
+            *ngIf="firebaseService.allTasks[i].status === 'inprogress'"
+            [index]="i"
+          ></app-task>
         </div>
       </div>
 
@@ -85,14 +94,14 @@
             onclick="openAddTaskPage('awaitfeedback')"
           />
         </div>
-        <div id="content-awaitfeedback" *ngFor="let task of tasks; index as i">
+        <div
+          id="content-awaitfeedback"
+          *ngFor="let task of firebaseService.allTasks; index as i"
+        >
           <app-task
-            *ngIf="task.status === 'awaitfeedback'"
+            *ngIf="firebaseService.allTasks[i].status === 'awaitfeedback'"
             [index]="i"
           ></app-task>
-          <ng-template [ngIf]="task.status === undefined || task.status === ''">
-            empthy
-          </ng-template>
         </div>
       </div>
 
@@ -109,11 +118,14 @@
             onclick="openAddTaskPage('done')"
           />
         </div>
-        <div id="content-done" *ngFor="let task of tasks; index as i">
-          <app-task *ngIf="task.status === 'done'" [index]="i"></app-task>
-          <ng-template [ngIf]="task.status === undefined || task.status === ''">
-            empthy
-          </ng-template>
+        <div
+          id="content-done"
+          *ngFor="let task of firebaseService.allTasks; index as i"
+        >
+          <app-task
+            *ngIf="firebaseService.allTasks[i].status === 'done'"
+            [index]="i"
+          ></app-task>
         </div>
       </div>
     </div>
