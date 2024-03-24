@@ -4,12 +4,10 @@ section {
   padding-right: 24px;
 }
 
-h1 {
-  margin: 0;
-}
-
-.blue {
-  background-color: var(--blue);
+.title {
+  font-size: 61px;
+  font-weight: 700;
+  padding-right: 24px;
 }
 
 /*------------- HEADER -------------*/
@@ -25,19 +23,41 @@ h1 {
   display: flex;
   align-items: center;
   position: relative;
+  input {
+    width: 312px;
+    padding: 8px 16px;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid var(--gray);
+    background-color: var(--white);
+    background-image: url("./../../../assets/img/board/search.svg");
+    background-position-x: calc(100% - 10px);
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 24px;
+  }
+}
+
+.line {
+  position: absolute;
+  top: 8px;
+  right: 215px;
+  height: 18px;
+  width: 1px;
+  background-color: var(--gray);
+  margin: 0 6px;
 }
 
 .btn-inside {
   display: flex;
   justify-content: center;
   align-items: center;
+  span {
+    margin-right: 4px;
+  }
 }
 
-.btn-inside span {
-  margin-right: 4px;
-}
-
-.btn-addtask {
+.btn {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -52,35 +72,10 @@ h1 {
   font-size: 21px;
   font-weight: 700;
   margin-left: 16px;
-}
-
-.btn-addtask:hover {
-  background-color: var(--light-blue);
-  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
-}
-
-.search input {
-  width: 312px;
-  padding: 8px 16px;
-  align-items: center;
-  border-radius: 10px;
-  border: 1px solid var(--gray);
-  background-color: var(--white);
-  background-image: url("./../../../assets/img/board/search.svg");
-  background-position-x: calc(100% - 10px);
-  background-position-y: center;
-  background-repeat: no-repeat;
-  background-size: 24px;
-}
-
-.line {
-  position: absolute;
-  top: 8px;
-  right: 215px;
-  height: 18px;
-  width: 1px;
-  background-color: var(--gray);
-  margin: 0 6px;
+  &:hover {
+    background-color: var(--light-blue);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
 }
 
 /*------------- HEADLINE -------------*/
@@ -89,7 +84,7 @@ h1 {
   max-width: calc(1080px + 32px);
 }
 
-#content-headline {
+.status {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -97,37 +92,32 @@ h1 {
   margin-top: 48px;
 }
 
-.content-headline {
+.headline {
   display: flex;
   justify-content: space-between;
   min-width: 246px;
-}
-
-.content-headline span {
-  color: var(--blue-gray);
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.content-headline img {
-  border-radius: 8px;
-  border: 2px solid var(--dark-blue);
-  cursor: pointer;
-}
-
-.content-headline img:hover {
-  filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
-    brightness(92%) contrast(92%);
+  span {
+    color: var(--blue-gray);
+    font-size: 20px;
+    font-weight: 700;
+  }
+  img {
+    border-radius: 8px;
+    border: 2px solid var(--dark-blue);
+    cursor: pointer;
+    &:hover {
+      filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg);
+    }
+  }
 }
 
 /*------------- CONTENT -------------*/
 
-.content-column {
+.column {
   display: flex;
   flex-direction: column;
   padding-right: 32px;
-}
-
-.content-column:first-child {
-  padding-left: 0;
+  &:first-child {
+    padding-left: 0;
+  }
 }

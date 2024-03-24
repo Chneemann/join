@@ -14,15 +14,18 @@ export class FirebaseService {
   firestore: Firestore = inject(Firestore);
 
   allTasks: any[] = [];
+  filteredTasks: any[] = [];
 
   updateAllTasks() {
     onSnapshot(collection(this.firestore, 'tasks'), (list) => {
       if (!list.empty) {
         this.allTasks = [];
+        this.filteredTasks = [];
         list.forEach((doc) => {
           const taskData = doc.data();
           taskData['id'] = doc.id;
           this.allTasks.push(taskData);
+          this.filteredTasks.push(taskData);
         });
       } else {
         console.info('No such document!');

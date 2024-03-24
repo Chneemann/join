@@ -10,18 +10,18 @@
 ></div>
 <section>
   <div class="header">
-    <h1>Board</h1>
+    <div class="title">Board</div>
     <div class="search">
       <div>
         <input
-          id="searchfield"
+          #searchField
           type="text"
           placeholder="Find Task"
-          oninput="searchTask()"
+          (input)="searchTask()"
         />
         <span class="line"></span>
       </div>
-      <button class="btn-addtask" type="submit" onclick="openAddTaskPage()">
+      <button class="btn" type="submit" onclick="openAddTaskPage()">
         <div class="btn-inside">
           <span>Add Task</span>
           <img src="./../../../assets/img/board/add_white.svg" alt="check" />
@@ -30,13 +30,13 @@
     </div>
   </div>
   <div class="content">
-    <div id="content-headline">
+    <div class="status">
       <div
-        class="content-column"
+        class="column"
         (dragover)="dragDropService.allowDrop($event)"
         (drop)="dragDropService.drop($event, 'todo')"
       >
-        <div class="content-headline">
+        <div class="headline">
           <span>To do</span
           ><img
             src="./../../../assets/img/board/add.svg"
@@ -44,12 +44,12 @@
             onclick="openAddTaskPage('todo')"
           />
         </div>
-        <div id="content-todo">
+        <div id="todo">
           <ng-container *ngIf="!isTaskRendered('todo')">
             <app-task [index]="undefined"></app-task>
           </ng-container>
           <ng-container
-            *ngFor="let task of firebaseService.allTasks; index as i"
+            *ngFor="let task of firebaseService.filteredTasks; index as i"
           >
             <ng-container *ngIf="task.status === 'todo'">
               <app-task [index]="i"></app-task>
@@ -58,11 +58,11 @@
         </div>
       </div>
       <div
-        class="content-column"
+        class="column"
         (dragover)="dragDropService.allowDrop($event)"
         (drop)="dragDropService.drop($event, 'inprogress')"
       >
-        <div class="content-headline">
+        <div class="headline">
           <span>In progress</span
           ><img
             src="./../../../assets/img/board/add.svg"
@@ -70,12 +70,12 @@
             onclick="openAddTaskPage('inprogress')"
           />
         </div>
-        <div id="content-inprogress">
+        <div id="inprogress">
           <ng-container *ngIf="!isTaskRendered('inprogress')">
             <app-task [index]="undefined"></app-task>
           </ng-container>
           <ng-container
-            *ngFor="let task of firebaseService.allTasks; index as i"
+            *ngFor="let task of firebaseService.filteredTasks; index as i"
           >
             <ng-container *ngIf="task.status === 'inprogress'">
               <app-task [index]="i"></app-task>
@@ -84,11 +84,11 @@
         </div>
       </div>
       <div
-        class="content-column"
+        class="column"
         (dragover)="dragDropService.allowDrop($event)"
         (drop)="dragDropService.drop($event, 'awaitfeedback')"
       >
-        <div class="content-headline">
+        <div class="headline">
           <span>Await feedback</span
           ><img
             src="./../../../assets/img/board/add.svg"
@@ -96,12 +96,12 @@
             onclick="openAddTaskPage('awaitfeedback')"
           />
         </div>
-        <div id="content-awaitfeedback">
+        <div id="awaitfeedback">
           <ng-container *ngIf="!isTaskRendered('awaitfeedback')">
             <app-task [index]="undefined"></app-task>
           </ng-container>
           <ng-container
-            *ngFor="let task of firebaseService.allTasks; index as i"
+            *ngFor="let task of firebaseService.filteredTasks; index as i"
           >
             <ng-container *ngIf="task.status === 'awaitfeedback'">
               <app-task [index]="i"></app-task>
@@ -110,11 +110,11 @@
         </div>
       </div>
       <div
-        class="content-column"
+        class="column"
         (dragover)="dragDropService.allowDrop($event)"
         (drop)="dragDropService.drop($event, 'done')"
       >
-        <div class="content-headline">
+        <div class="headline">
           <span>Done</span
           ><img
             src="./../../../assets/img/board/add.svg"
@@ -122,12 +122,12 @@
             onclick="openAddTaskPage('done')"
           />
         </div>
-        <div id="content-done">
+        <div id="done">
           <ng-container *ngIf="!isTaskRendered('done')">
             <app-task [index]="undefined"></app-task>
           </ng-container>
           <ng-container
-            *ngFor="let task of firebaseService.allTasks; index as i"
+            *ngFor="let task of firebaseService.filteredTasks; index as i"
           >
             <ng-container *ngIf="task.status === 'done'">
               <app-task [index]="i"></app-task>
