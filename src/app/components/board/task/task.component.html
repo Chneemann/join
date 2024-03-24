@@ -2,9 +2,8 @@
   <div
     class="content"
     draggable="true"
-    ondragstart="startDragging(
-    tasks[id].id
-  )"
+    *ngIf="index !== undefined"
+    (dragstart)="dragDropService.startDragging($event, index)"
   >
     <div
       class="category"
@@ -16,7 +15,7 @@
     <div class="description">description</div>
     checkSubtasks(tasks[id].id)
     <div class="footer">
-      <div id="footer-badge">checkAssignetContacts(tasks[id].id)</div>
+      <div class="footer-badge"></div>
       <div class="footer-priority"></div>
     </div>
   </div>

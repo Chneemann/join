@@ -33,8 +33,8 @@
     <div id="content-headline">
       <div
         class="content-column"
-        ondragover="allowDrop(event)"
-        ondrop="drop('todo')"
+        (dragover)="dragDropService.allowDrop($event)"
+        (drop)="dragDropService.drop($event, 'todo')"
       >
         <div class="content-headline">
           <span>To do</span
@@ -44,13 +44,17 @@
             onclick="openAddTaskPage('todo')"
           />
         </div>
-        <div id="content-todo"><app-task></app-task></div>
+        <div id="content-todo" *ngFor="let task of tasks; index as i">
+          <app-task *ngIf="task.status === 'todo'" [index]="i"></app-task>
+          <ng-template [ngIf]="task.status === undefined || task.status === ''">
+            empthy
+          </ng-template>
+        </div>
       </div>
-
       <div
         class="content-column"
-        ondragover="allowDrop(event)"
-        ondrop="drop('inprogress')"
+        (dragover)="dragDropService.allowDrop($event)"
+        (drop)="dragDropService.drop($event, 'inprogress')"
       >
         <div class="content-headline">
           <span>In progress</span
@@ -60,13 +64,18 @@
             onclick="openAddTaskPage('inprogress')"
           />
         </div>
-        <div id="content-inprogress"><app-task></app-task></div>
+        <div id="content-inprogress" *ngFor="let task of tasks; index as i">
+          <app-task *ngIf="task.status === 'inprogress'" [index]="i"></app-task>
+          <ng-template [ngIf]="task.status === undefined || task.status === ''">
+            empthy
+          </ng-template>
+        </div>
       </div>
 
       <div
         class="content-column"
-        ondragover="allowDrop(event)"
-        ondrop="drop('awaitfeedback')"
+        (dragover)="dragDropService.allowDrop($event)"
+        (drop)="dragDropService.drop($event, 'awaitfeedback')"
       >
         <div class="content-headline">
           <span>Await feedback</span
@@ -76,13 +85,21 @@
             onclick="openAddTaskPage('awaitfeedback')"
           />
         </div>
-        <div id="content-awaitfeedback"><app-task></app-task></div>
+        <div id="content-awaitfeedback" *ngFor="let task of tasks; index as i">
+          <app-task
+            *ngIf="task.status === 'awaitfeedback'"
+            [index]="i"
+          ></app-task>
+          <ng-template [ngIf]="task.status === undefined || task.status === ''">
+            empthy
+          </ng-template>
+        </div>
       </div>
 
       <div
         class="content-column"
-        ondragover="allowDrop(event)"
-        ondrop="drop('done')"
+        (dragover)="dragDropService.allowDrop($event)"
+        (drop)="dragDropService.drop($event, 'done')"
       >
         <div class="content-headline">
           <span>Done</span
@@ -92,7 +109,12 @@
             onclick="openAddTaskPage('done')"
           />
         </div>
-        <div id="content-done"><app-task></app-task></div>
+        <div id="content-done" *ngFor="let task of tasks; index as i">
+          <app-task *ngIf="task.status === 'done'" [index]="i"></app-task>
+          <ng-template [ngIf]="task.status === undefined || task.status === ''">
+            empthy
+          </ng-template>
+        </div>
       </div>
     </div>
     <div id="content-tasks"></div>

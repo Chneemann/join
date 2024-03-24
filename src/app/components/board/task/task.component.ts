@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { DragDropService } from '../../../services/drag-drop.service';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
-export class TaskComponent {}
+export class TaskComponent {
+  @Input() index: number | undefined;
+
+  constructor(public dragDropService: DragDropService) {}
+}
