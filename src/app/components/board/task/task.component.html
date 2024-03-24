@@ -1,4 +1,10 @@
+<section>
+  {{ task }}
+</section>
+
+<!--
 <section *ngIf="index !== undefined">
+  {{ task.title }}
   <div
     class="content"
     draggable="true"
@@ -6,7 +12,9 @@
   >
     <div
       class="category"
-      [style.background-color]="generateCategoryColor(index)"
+      [style.background-color]="
+        categoryColors.get(firebaseService.allTasks[index].category)
+      "
     >
       {{ firebaseService.allTasks[index].category }}
     </div>
@@ -14,12 +22,41 @@
     <div class="description">
       {{ firebaseService.allTasks[index].description }}
     </div>
-    checkSubtasks(tasks[id].id)
+    <ng-container *ngIf="firebaseService.allTasks[index].subtasksTitle > ''">
+      <div class="subtask">
+        <div class="subtask-line">
+          <span
+            class="filler-full"
+            [style.width.%]="completedSubtasksPercent(index)"
+          ></span>
+        </div>
+        <div class="subtask-text">
+          {{ completedSubtasks(index) }} /
+          {{ firebaseService.allTasks[index].subtasksTitle.length }} Subtasks
+        </div>
+      </div>
+    </ng-container>
     <div class="footer">
-      <div class="footer-badge"></div>
-      <div class="footer-priority"></div>
+      <div class="footer-badge">
+        <ng-container *ngIf="firebaseService.allTasks[index].assigned">
+          <div
+            *ngFor="
+              let assigned of firebaseService.allTasks[index].assigned;
+              index as i
+            "
+          >
+            <span class="footer-badged"></span>
+          </div>
+        </ng-container>
+      </div>
+      <div
+        class="footer-priority prio-{{
+          firebaseService.allTasks[index].priority
+        }}"
+      ></div>
     </div>
   </div>
 </section>
 
 <div *ngIf="index === undefined" class="empty-task">No tasks</div>
+-->

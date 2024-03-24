@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
-import { FirebaseService } from '../../../services/firebase.service';
+import { TaskService } from '../../../services/task.service';
 
 @Component({
   selector: 'app-task',
@@ -12,24 +12,33 @@ import { FirebaseService } from '../../../services/firebase.service';
 })
 export class TaskComponent {
   @Input() index: number | undefined;
+  @Input() task: any;
+
+  categoryColors = new Map<string, string>([
+    ['HTML', '#E54B20'],
+    ['CSS', '#214CE4'],
+    ['JavaScript', '#D5BA32'],
+    ['Angular', '#DD002D'],
+  ]);
 
   constructor(
     public dragDropService: DragDropService,
-    public firebaseService: FirebaseService
+    private taskService: TaskService
   ) {}
 
-  generateCategoryColor(index: number) {
-    const task = this.firebaseService.allTasks[index];
-    if (task.category === 'HTML') {
-      return '#E54B20';
-    } else if (task.category === 'CSS') {
-      return '#214CE4';
-    } else if (task.category === 'JavaScript') {
-      return '#D5BA32';
-    } else if (task.category === 'Angular') {
-      return '#DD002D';
-    } else {
-      return '';
-    }
+  // Subtasks
+
+  completedSubtasks(index: number) {
+    const subtasks = this.taskService.allTasks[index].subtasksDone;
+    return subtasks.filter((subtask: boolean) => subtask === true).length;
+  }
+
+  completedSubtasksPercent(index: number): number {
+    const subtasks = this.taskService.allTasks[index].subtasksDone;
+    const completedSubtasksCount = subtasks.filter(
+      (subtask: boolean) => subtask === true
+    ).length;
+
+    return (completedSubtasksCount / subtasks.length) * 100;
   }
 }

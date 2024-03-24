@@ -81,13 +81,13 @@ section {
   justify-content: center;
   align-items: flex-start;
   border-radius: 8px;
-  background-color: var(--very-light-gray3);
+  background-color: var(--very-light-gray);
   margin-right: 11px;
 }
 
 .filler-full {
   border-radius: 16px;
-  background-color: var(--medium-blue);
+  background-color: var(--light-blue);
   height: 8px;
 }
 
@@ -104,7 +104,7 @@ section {
   width: 100%;
 }
 
-#footer-badge {
+.footer-badge {
   display: flex;
   width: 170px;
   overflow: auto;
@@ -118,17 +118,18 @@ section {
   min-height: 32px;
   border-radius: 45px;
   border: 1px solid var(--white);
+  background-color: red;
   color: var(--white);
   font-size: 12px;
   font-weight: 400;
 }
 
-#footer-badge span {
+.footer-badge span {
   margin-right: 4px;
   text-shadow: 1px 1px 2px var(--black);
 }
 
-#footer-badge span:first-child {
+.footer-badge span:first-child {
   margin-left: 0 !important;
 }
 
