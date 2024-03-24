@@ -1,0 +1,23 @@
+<section>
+  <div
+    class="content"
+    draggable="true"
+    ondragstart="startDragging(
+    tasks[id].id
+  )"
+  >
+    <div
+      class="category"
+      style="background-color: var(--generateTaskCategoryColor(id))"
+    >
+      category
+    </div>
+    <div class="headline">title</div>
+    <div class="description">description</div>
+    checkSubtasks(tasks[id].id)
+    <div class="footer">
+      <div id="footer-badge">checkAssignetContacts(tasks[id].id)</div>
+      <div class="footer-priority"></div>
+    </div>
+  </div>
+</section>
