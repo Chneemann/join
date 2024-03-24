@@ -1,1 +1,100 @@
-<p>board works!</p>
+<div
+  id="task-overlay-cart"
+  class="dialog-bg d-none"
+  onclick="closeCart(event)"
+></div>
+<div
+  id="add-task-dialog"
+  class="dialog-bg d-none"
+  onclick="closeAddTask(event)"
+></div>
+<section>
+  <div class="header">
+    <h1>Board</h1>
+    <div class="search">
+      <div>
+        <input
+          id="searchfield"
+          type="text"
+          placeholder="Find Task"
+          oninput="searchTask()"
+        />
+        <span class="line"></span>
+      </div>
+      <button class="btn-addtask" type="submit" onclick="openAddTaskPage()">
+        <div class="btn-inside">
+          <span>Add Task</span>
+          <img src="./../../../assets/img/board/add_white.svg" alt="check" />
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <div id="content-headline">
+      <div
+        class="content-column"
+        ondragover="allowDrop(event)"
+        ondrop="drop('todo')"
+      >
+        <div class="content-headline">
+          <span>To do</span
+          ><img
+            src="./../../../assets/img/board/add.svg"
+            alt="add"
+            onclick="openAddTaskPage('todo')"
+          />
+        </div>
+        <div id="content-todo" class="content-tasks"></div>
+      </div>
+
+      <div
+        class="content-column"
+        ondragover="allowDrop(event)"
+        ondrop="drop('inprogress')"
+      >
+        <div class="content-headline">
+          <span>In progress</span
+          ><img
+            src="./../../../assets/img/board/add.svg"
+            alt="add"
+            onclick="openAddTaskPage('inprogress')"
+          />
+        </div>
+        <div id="content-inprogress" class="content-tasks"></div>
+      </div>
+
+      <div
+        class="content-column"
+        ondragover="allowDrop(event)"
+        ondrop="drop('awaitfeedback')"
+      >
+        <div class="content-headline">
+          <span>Await feedback</span
+          ><img
+            src="./../../../assets/img/board/add.svg"
+            alt="add"
+            onclick="openAddTaskPage('awaitfeedback')"
+          />
+        </div>
+        <div id="content-awaitfeedback" class="content-tasks"></div>
+      </div>
+
+      <div
+        class="content-column"
+        ondragover="allowDrop(event)"
+        ondrop="drop('done')"
+      >
+        <div class="content-headline">
+          <span>Done</span
+          ><img
+            src="./../../../assets/img/board/add.svg"
+            alt="add"
+            onclick="openAddTaskPage('done')"
+          />
+        </div>
+        <div id="content-done" class="content-tasks"></div>
+      </div>
+    </div>
+    <div id="content-tasks"></div>
+  </div>
+</section>
