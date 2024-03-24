@@ -1,1 +1,53 @@
-<p>sidebar-mobile works!</p>
+<section>
+  <nav>
+    <div
+      class="nav-links"
+      routerLink="summary"
+      [ngClass]="{
+        active: currentPath == 'summary'
+      }"
+    >
+      <img
+        src="./../../../../../assets/img/sidebar/summary.svg"
+        alt="summary"
+      />
+      <p>Summary</p>
+    </div>
+    <div
+      class="nav-links"
+      routerLink="board"
+      [ngClass]="{
+        active: currentPath == 'board'
+      }"
+    >
+      <img src="./../../../../../assets/img/sidebar/board.svg" alt="board" />
+      <p>Board</p>
+    </div>
+    <div
+      class="nav-links"
+      routerLink="add-task"
+      [ngClass]="{
+        active: currentPath == 'add-task'
+      }"
+    >
+      <img
+        src="./../../../../../assets/img/sidebar/add-task.svg"
+        alt="addtask"
+      />
+      <p>Add Tasks</p>
+    </div>
+    <div
+      class="nav-links"
+      routerLink="contacts"
+      [ngClass]="{
+        active: currentPath == 'contacts'
+      }"
+    >
+      <img
+        src="./../../../../../assets/img/sidebar/contacts.svg"
+        alt="contacts"
+      />
+      <p>Contacts</p>
+    </div>
+  </nav>
+</section>
