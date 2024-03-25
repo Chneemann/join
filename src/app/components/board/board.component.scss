@@ -222,6 +222,7 @@ section {
     display: flex;
     width: calc(100vw - 85px);
     overflow-x: auto;
+    padding: 0 5px;
   }
 
   app-task {

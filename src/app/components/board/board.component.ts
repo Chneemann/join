@@ -45,8 +45,11 @@ export class BoardComponent {
     const index = this.taskService.allTasks.findIndex((task) => task.id === id);
     if (index !== -1) {
       this.taskService.allTasks[index].status = status;
-      if (this.taskService.filteredTasks.length > 0) {
-        this.taskService.filteredTasks[index].status = status;
+      const filteredIndex = this.taskService.filteredTasks.findIndex(
+        (task) => task.id === id
+      );
+      if (filteredIndex !== -1) {
+        this.taskService.filteredTasks[filteredIndex].status = status;
       }
       this.taskService.updateTask(id, index);
     }
