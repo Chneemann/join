@@ -6,6 +6,7 @@ import {
   onSnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
+import { Task } from '../interfaces/task.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,8 @@ import {
 export class TaskService {
   firestore: Firestore = inject(Firestore);
 
-  allTasks: any[] = [];
-  filteredTasks: any[] = [];
+  allTasks: Task[] = [];
+  filteredTasks: Task[] = [];
 
   unsubTask;
 
@@ -26,8 +27,7 @@ export class TaskService {
     return onSnapshot(this.getTaskRef(), (list) => {
       this.allTasks = [];
       list.forEach((element) => {
-        const taskData = element.data();
-        taskData['id'] = element.id;
+        const taskData = { ...(element.data() as Task), id: element.id };
         this.allTasks.push(taskData);
       });
     });
