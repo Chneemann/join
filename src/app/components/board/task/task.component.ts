@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
 import { TaskService } from '../../../services/task.service';
+import { Task } from '../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-task',
@@ -11,7 +12,7 @@ import { TaskService } from '../../../services/task.service';
   styleUrl: './task.component.scss',
 })
 export class TaskComponent {
-  @Input() task: any;
+  @Input() task!: Task;
 
   categoryColors = new Map<string, string>([
     ['HTML', '#E54B20'],

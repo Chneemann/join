@@ -14,7 +14,7 @@
     <div class="description">
       {{ task.description }}
     </div>
-    <ng-container *ngIf="task.subtasksTitle > ''">
+    <ng-container *ngIf="task.subtasksTitle.length > 0">
       <div class="subtask">
         <div class="subtask-line">
           <span
