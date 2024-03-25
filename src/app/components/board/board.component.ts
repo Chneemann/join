@@ -15,27 +15,27 @@ import { TaskComponent } from './task/task.component';
 export class BoardComponent {
   @ViewChild('searchField') searchField!: ElementRef;
 
-  allTasks: Task[] = [];
-
   constructor(
     public dragDropService: DragDropService,
     private taskService: TaskService
   ) {}
 
   ngOnInit() {
-    this.dragDropService.itemDropped.subscribe(({ index, status }) => {
-      this.handleItemDropped(index, status);
+    this.dragDropService.itemDropped.subscribe(({ id, status }) => {
+      this.handleItemDropped(id, status);
     });
   }
 
-  getTask() {
-    return this.taskService.allTasks;
+  getTask(status: string) {
+    return this.taskService.allTasks.filter((task) => task.status === status);
   }
 
-  handleItemDropped(index: number, status: string): void {
-    let firebaseId = this.taskService.allTasks[index].id;
-    this.taskService.allTasks[index].status = status;
-    this.taskService.updateTask(firebaseId, index);
+  handleItemDropped(id: string, status: string): void {
+    const index = this.taskService.allTasks.findIndex((task) => task.id === id);
+    if (index !== -1) {
+      this.taskService.allTasks[index].status = status;
+      this.taskService.updateTask(id, index);
+    }
     this.searchField.nativeElement.value = '';
   }
 

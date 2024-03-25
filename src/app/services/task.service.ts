@@ -26,7 +26,10 @@ export class TaskService {
     return onSnapshot(this.getTaskRef(), (list) => {
       this.allTasks = [];
       list.forEach((element) => {
-        this.allTasks.push(element.data());
+        const taskData = element.data();
+        taskData['id'] = element.id;
+        this.allTasks.push(taskData);
+        this.filteredTasks.push(taskData);
       });
     });
   }

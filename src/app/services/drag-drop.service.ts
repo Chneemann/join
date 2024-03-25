@@ -4,12 +4,12 @@ import { Injectable, EventEmitter } from '@angular/core';
   providedIn: 'root',
 })
 export class DragDropService {
-  itemDropped = new EventEmitter<{ index: number; status: string }>();
+  itemDropped = new EventEmitter<{ id: string; status: string }>();
 
   constructor() {}
 
-  startDragging(event: DragEvent, index: number) {
-    event.dataTransfer?.setData('text/plain', index.toString());
+  startDragging(event: DragEvent, id: string) {
+    event.dataTransfer?.setData('text/plain', id);
   }
 
   allowDrop(event: DragEvent) {
@@ -20,9 +20,9 @@ export class DragDropService {
     event.preventDefault();
     const dataTransfer = event.dataTransfer;
     if (dataTransfer) {
-      const index = +dataTransfer.getData('text/plain');
-      if (!isNaN(index)) {
-        this.itemDropped.emit({ index, status });
+      const id = dataTransfer.getData('text/plain');
+      if (id) {
+        this.itemDropped.emit({ id, status });
       }
     }
   }

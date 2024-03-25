@@ -11,7 +11,6 @@ import { TaskService } from '../../../services/task.service';
   styleUrl: './task.component.scss',
 })
 export class TaskComponent {
-  @Input() index: number | undefined;
   @Input() task: any;
 
   categoryColors = new Map<string, string>([
@@ -28,13 +27,13 @@ export class TaskComponent {
 
   // Subtasks
 
-  completedSubtasks(index: number) {
-    const subtasks = this.taskService.allTasks[index].subtasksDone;
+  completedSubtasks() {
+    const subtasks = this.task.subtasksDone;
     return subtasks.filter((subtask: boolean) => subtask === true).length;
   }
 
-  completedSubtasksPercent(index: number): number {
-    const subtasks = this.taskService.allTasks[index].subtasksDone;
+  completedSubtasksPercent(): number {
+    const subtasks = this.task.subtasksDone;
     const completedSubtasksCount = subtasks.filter(
       (subtask: boolean) => subtask === true
     ).length;

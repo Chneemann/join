@@ -121,3 +121,22 @@ section {
     padding-left: 0;
   }
 }
+
+/*------------- EMPTY TASK -------------*/
+
+.empty-task {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 243px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px dashed var(--gray);
+  background-color: var(--very-light-gray2);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray);
+  margin: 15.5px 0;
+}
