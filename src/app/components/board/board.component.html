@@ -31,7 +31,7 @@
           <span>To do</span
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
-        <div id="todo">
+        <div id="todo" class="details">
           <ng-container *ngIf="getTask('todo').length > 0; else noTask">
             <app-task
               *ngFor="let task of getTask('todo')"
@@ -53,7 +53,7 @@
           <span>In progress</span
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
-        <div id="inprogress">
+        <div id="inprogress" class="details">
           <ng-container *ngIf="getTask('inprogress').length > 0; else noTask">
             <app-task
               *ngFor="let task of getTask('inprogress')"
@@ -75,7 +75,7 @@
           <span>Await feedback</span
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
-        <div id="awaitfeedback">
+        <div id="awaitfeedback" class="details">
           <ng-container
             *ngIf="getTask('awaitfeedback').length > 0; else noTask"
           >
@@ -99,14 +99,13 @@
           <span>Done</span
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
-        <div id="todo">
+        <div id="todo" class="details">
           <ng-container *ngIf="getTask('done').length > 0; else noTask">
             <app-task
               *ngFor="let task of getTask('done')"
               [task]="task"
             ></app-task>
           </ng-container>
-
           <ng-template #noTask>
             <div class="empty-task">No tasks</div>
           </ng-template>

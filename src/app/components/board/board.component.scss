@@ -1,6 +1,7 @@
 section {
   margin: 0;
   background-color: var(--very-light-gray);
+  padding-bottom: 32px;
 }
 
 .title {
@@ -186,7 +187,7 @@ section {
   .search {
     padding-right: 0;
     input {
-      width: calc(100vw - 120px);
+      width: calc(100vw - 113px);
     }
     .line {
       right: 35px;
@@ -211,21 +212,25 @@ section {
     width: 100%;
     padding-right: 0;
   }
+
   .empty-task {
+    width: 100%;
     max-width: 100%;
   }
-  #inprogress {
+
+  .details {
     display: flex;
     width: calc(100vw - 85px);
     overflow-x: auto;
   }
+
   app-task {
     padding-right: 16px;
   }
 }
 
 @media screen and (max-width: 450px) {
-  #inprogress {
+  .details {
     width: calc(100vw - 55px);
   }
 
