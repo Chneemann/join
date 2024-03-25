@@ -170,7 +170,6 @@ section {
   }
   .status {
     justify-content: center;
-    padding-left: 16px;
   }
 }
 
@@ -178,7 +177,6 @@ section {
   .header {
     flex-direction: column;
     align-items: flex-start;
-    margin: 16px;
   }
 
   .title {
@@ -204,6 +202,36 @@ section {
     padding: 3px;
     span {
       display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 635px) {
+  .column {
+    width: 100%;
+    padding-right: 0;
+  }
+  .empty-task {
+    max-width: 100%;
+  }
+  #inprogress {
+    display: flex;
+    width: calc(100vw - 85px);
+    overflow-x: auto;
+  }
+  app-task {
+    padding-right: 16px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #inprogress {
+    width: calc(100vw - 55px);
+  }
+
+  .search {
+    input {
+      width: calc(100vw - 80px);
     }
   }
 }
