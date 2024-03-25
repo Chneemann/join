@@ -41,14 +41,24 @@ app-header {
   .content {
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: calc(100vw - 64px);
     height: calc(100vh - 210px);
-    padding: 32px 0 0 0;
+    padding: 32px;
   }
   app-sidebar {
     display: none;
   }
   app-sidebar-mobile {
     display: unset;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .content {
+    display: flex;
+    justify-content: center;
+    width: calc(100vw - 32px);
+    height: calc(100vh - 210px);
+    padding: 32px 16px;
   }
 }
