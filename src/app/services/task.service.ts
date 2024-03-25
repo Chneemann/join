@@ -29,7 +29,6 @@ export class TaskService {
         const taskData = element.data();
         taskData['id'] = element.id;
         this.allTasks.push(taskData);
-        this.filteredTasks.push(taskData);
       });
     });
   }
@@ -54,5 +53,9 @@ export class TaskService {
       title: task.title,
       status: task.status,
     };
+  }
+
+  ngOnDestroy() {
+    this.unsubTask;
   }
 }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { TaskComponent } from './task/task.component';
+import { EMPTY, isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -26,26 +27,29 @@ export class BoardComponent {
     });
   }
 
+  ngOnDestroy() {
+    this.taskService.unsubTask();
+  }
+
   getTask(status: string) {
-    return this.taskService.allTasks.filter((task) => task.status === status);
+    if (this.taskService.filteredTasks.length > 0) {
+      return this.taskService.filteredTasks.filter(
+        (task) => task.status === status
+      );
+    } else {
+      return this.taskService.allTasks.filter((task) => task.status === status);
+    }
   }
 
   handleItemDropped(id: string, status: string): void {
     const index = this.taskService.allTasks.findIndex((task) => task.id === id);
     if (index !== -1) {
       this.taskService.allTasks[index].status = status;
+      if (this.taskService.filteredTasks.length > 0) {
+        this.taskService.filteredTasks[index].status = status;
+      }
       this.taskService.updateTask(id, index);
     }
-    this.searchField.nativeElement.value = '';
-  }
-
-  isTaskRendered(taskColumn: string): boolean {
-    for (let task of this.taskService.filteredTasks) {
-      if (task.status === taskColumn) {
-        return true;
-      }
-    }
-    return false;
   }
 
   searchTask(): void {
