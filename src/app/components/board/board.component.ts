@@ -43,11 +43,11 @@ export class BoardComponent {
 
   handleItemDropped(id: string, status: string): void {
     const index = this.taskService.allTasks.findIndex((task) => task.id === id);
+    const filteredIndex = this.taskService.filteredTasks.findIndex(
+      (task) => task.id === id
+    );
     if (index !== -1) {
       this.taskService.allTasks[index].status = status;
-      const filteredIndex = this.taskService.filteredTasks.findIndex(
-        (task) => task.id === id
-      );
       if (filteredIndex !== -1) {
         this.taskService.filteredTasks[filteredIndex].status = status;
       }
