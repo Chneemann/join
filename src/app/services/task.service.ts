@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import {
   Firestore,
   collection,
@@ -13,6 +13,7 @@ import { Task } from '../interfaces/task.interface';
 })
 export class TaskService {
   firestore: Firestore = inject(Firestore);
+  tasksLoaded: EventEmitter<void> = new EventEmitter<void>();
 
   allTasks: Task[] = [];
   filteredTasks: Task[] = [];
@@ -30,6 +31,7 @@ export class TaskService {
         const taskData = { ...(element.data() as Task), id: element.id };
         this.allTasks.push(taskData);
       });
+      this.tasksLoaded.emit();
     });
   }
 

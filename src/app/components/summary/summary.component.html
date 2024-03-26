@@ -13,7 +13,7 @@
             <img src="./../../../assets/img/summary/pencil.svg" alt="" />
           </div>
           <div class="details">
-            <span>1</span>
+            <span>{{ todoTasksCount }}</span>
             <p>To-do</p>
           </div>
         </div>
@@ -22,7 +22,7 @@
             <img src="./../../../assets/img/summary/rake.svg" alt="" />
           </div>
           <div class="details">
-            <span>1</span>
+            <span>{{ doneTasksCount }}</span>
             <p>Done</p>
           </div>
         </div>
@@ -52,19 +52,19 @@
       <div class="bottom-frame">
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>5</span>
+            <span>{{ allTasksCount }}</span>
             <p>Task in Board</p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>2</span>
+            <span>{{ inprogressTasksCount }}</span>
             <p>Task in Progress</p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>2</span>
+            <span>{{ awaitfeedbackTasksCount }}</span>
             <p>Awaiting Feedback</p>
           </div>
         </div>
