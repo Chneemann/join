@@ -32,7 +32,7 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="todo" class="details">
-          @for(task of todoTasks; ; track task) {
+          @for(task of todoTasks; track task) {
           <app-task [task]="task"></app-task>
           } @empty {
           <app-task-empty>No tasks</app-task-empty>

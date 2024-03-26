@@ -22,22 +22,19 @@ export class TaskService {
 
   subTaskList() {
     return new Observable<void>((observer) => {
-      const unsubscribe = onSnapshot(this.getTaskRef(), (list) => {
-        this.allTasks = [];
-        list.forEach((element) => {
-          const taskData = { ...(element.data() as Task), id: element.id };
-          this.allTasks.push(taskData);
-        });
-        observer.next();
-      });
-
-      // Cleanup function
+      const unsubscribe = onSnapshot(
+        collection(this.firestore, 'tasks'),
+        (list) => {
+          this.allTasks = [];
+          list.forEach((element) => {
+            const taskData = { ...(element.data() as Task), id: element.id };
+            this.allTasks.push(taskData);
+          });
+          observer.next();
+        }
+      );
       return () => unsubscribe();
     });
-  }
-
-  getTaskRef() {
-    return collection(this.firestore, 'tasks');
   }
 
   async updateTask(taskId: any, index: number) {

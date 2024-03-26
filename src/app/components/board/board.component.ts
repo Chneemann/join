@@ -24,19 +24,21 @@ export class BoardComponent {
   constructor(
     public dragDropService: DragDropService,
     private taskService: TaskService
-  ) {}
-
-  ngOnInit() {
-    this.dragDropService.itemDropped.subscribe(({ id, status }) => {
-      this.handleItemDropped(id, status);
-    });
+  ) {
     this.taskService.subTaskList().subscribe(() => {
       this.loadAllTasks();
     });
   }
 
+  ngOnInit() {
+    this.dragDropService.itemDropped.subscribe(({ id, status }) => {
+      this.handleItemDropped(id, status);
+    });
+  }
+
   getTask(status: string): Task[] {
-    if (this.taskService.filteredTasks.length > 0) {
+    const search = this.searchField.nativeElement.value.toLowerCase();
+    if (this.taskService.filteredTasks.length >= 0 && search !== '') {
       return this.taskService.filteredTasks.filter(
         (task) => task.status === status
       );
@@ -74,5 +76,6 @@ export class BoardComponent {
         task.description.toLowerCase().includes(search) ||
         task.category.toLowerCase().includes(search)
     );
+    this.loadAllTasks();
   }
 }
