@@ -28,10 +28,6 @@ export class BoardComponent {
     });
   }
 
-  ngOnDestroy() {
-    this.taskService.unsubTask();
-  }
-
   getTask(status: string) {
     if (this.taskService.filteredTasks.length > 0) {
       return this.taskService.filteredTasks.filter(

@@ -7,31 +7,32 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { Task } from '../interfaces/task.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   firestore: Firestore = inject(Firestore);
-  tasksLoaded: EventEmitter<void> = new EventEmitter<void>();
 
   allTasks: Task[] = [];
   filteredTasks: Task[] = [];
 
-  unsubTask;
-
-  constructor() {
-    this.unsubTask = this.subTaskList();
-  }
+  constructor() {}
 
   subTaskList() {
-    return onSnapshot(this.getTaskRef(), (list) => {
-      this.allTasks = [];
-      list.forEach((element) => {
-        const taskData = { ...(element.data() as Task), id: element.id };
-        this.allTasks.push(taskData);
+    return new Observable<void>((observer) => {
+      const unsubscribe = onSnapshot(this.getTaskRef(), (list) => {
+        this.allTasks = [];
+        list.forEach((element) => {
+          const taskData = { ...(element.data() as Task), id: element.id };
+          this.allTasks.push(taskData);
+        });
+        observer.next();
       });
-      this.tasksLoaded.emit();
+
+      // Cleanup function
+      return () => unsubscribe();
     });
   }
 
@@ -55,9 +56,5 @@ export class TaskService {
       title: task.title,
       status: task.status,
     };
-  }
-
-  ngOnDestroy() {
-    this.unsubTask;
   }
 }
