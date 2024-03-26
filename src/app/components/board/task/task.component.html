@@ -29,8 +29,9 @@
     }
     <div class="footer">
       <div class="footer-badge">
-        @if (task.assigned) { @for (assigned of task.assigned; track assigned) {
-        <span class="footer-badged">{{ assigned }}</span>
+        @if (task.assigned.length > 0) { @for (assigned of task.assigned; track
+        assigned) {
+        <span class="footer-badged">{{ userBadged(assigned) }}</span>
         } }
       </div>
       <div class="footer-priority prio-{{ task.priority }}"></div>

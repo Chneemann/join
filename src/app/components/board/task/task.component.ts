@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
 import { TaskService } from '../../../services/task.service';
+import { UserService } from '../../../services/user.service';
 import { Task } from '../../../interfaces/task.interface';
 
 @Component({
@@ -23,12 +24,17 @@ export class TaskComponent {
 
   constructor(
     public dragDropService: DragDropService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private userService: UserService
   ) {}
+
+  ngOnDestroy() {
+    this.userService.unsubUser();
+  }
 
   // Subtasks
 
-  completedSubtasks() {
+  completedSubtasks(): number {
     return this.task.subtasksDone.filter((subtask: boolean) => subtask === true)
       .length;
   }
@@ -40,5 +46,23 @@ export class TaskComponent {
     ).length;
 
     return (completedSubtasksCount / subtasks.length) * 100;
+  }
+
+  // Assigned
+
+  userBadged(id: number) {
+    const userId = String(id);
+    const user = this.userService.allUsers.find((user) => user.id === userId);
+    if (user) {
+      if (user.firstName === 'Guest') {
+        return user.firstName.charAt(0);
+      } else {
+        const firstNameLetter = user.firstName.charAt(0);
+        const lastNameLetter = user.lastName.charAt(0);
+        return firstNameLetter + lastNameLetter;
+      }
+    } else {
+      return;
+    }
   }
 }

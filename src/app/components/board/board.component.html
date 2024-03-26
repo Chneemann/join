@@ -91,10 +91,10 @@
           <span>Done</span
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
-        <div id="todo" class="details">
-          @if(getTask('todo').length > 0) {
+        <div id="done" class="details">
+          @if(getTask('done').length > 0) {
           <app-task
-            *ngFor="let task of getTask('todo')"
+            *ngFor="let task of getTask('done')"
             [task]="task"
           ></app-task>
           } @else {
