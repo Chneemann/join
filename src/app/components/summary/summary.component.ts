@@ -49,7 +49,17 @@ export class SummaryComponent {
       (task) => task.priority === 'urgent'
     );
     this.urgentTasksCount = filteredTasks.length;
-    if (filteredTasks.length > 0) {
+    this.nextUrgentTasks(filteredTasks);
+  }
+
+  nextUrgentTasks(filteredTasks: any[]) {
+    if (filteredTasks.length >= 2) {
+      let timestamps = [];
+      for (let i = 0; i < filteredTasks.length; i++) {
+        timestamps.push(filteredTasks[i].timestamp);
+      }
+      this.urgentTasksDate = this.timeConverter(Math.min(...timestamps));
+    } else if (filteredTasks.length > 0) {
       for (let i = 0; i < filteredTasks.length; i++) {
         this.urgentTasksDate = this.timeConverter(filteredTasks[i].timestamp);
       }
