@@ -16,6 +16,10 @@ import { TaskEmptyComponent } from './task/task-empty/task-empty.component';
 })
 export class BoardComponent {
   @ViewChild('searchField') searchField!: ElementRef;
+  todoTasks: Task[] = [];
+  inprogressTasks: Task[] = [];
+  awaitfeedbackTasks: Task[] = [];
+  doneTasks: Task[] = [];
 
   constructor(
     public dragDropService: DragDropService,
@@ -26,9 +30,12 @@ export class BoardComponent {
     this.dragDropService.itemDropped.subscribe(({ id, status }) => {
       this.handleItemDropped(id, status);
     });
+    this.taskService.subTaskList().subscribe(() => {
+      this.loadAllTasks();
+    });
   }
 
-  getTask(status: string) {
+  getTask(status: string): Task[] {
     if (this.taskService.filteredTasks.length > 0) {
       return this.taskService.filteredTasks.filter(
         (task) => task.status === status
@@ -36,6 +43,13 @@ export class BoardComponent {
     } else {
       return this.taskService.allTasks.filter((task) => task.status === status);
     }
+  }
+
+  loadAllTasks() {
+    this.todoTasks = this.getTask('todo');
+    this.inprogressTasks = this.getTask('inprogress');
+    this.awaitfeedbackTasks = this.getTask('awaitfeedback');
+    this.doneTasks = this.getTask('done');
   }
 
   handleItemDropped(id: string, status: string): void {
