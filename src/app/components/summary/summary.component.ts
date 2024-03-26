@@ -15,11 +15,14 @@ export class SummaryComponent {
   inprogressTasksCount: Number = 0;
   awaitfeedbackTasksCount: Number = 0;
   doneTasksCount: Number = 0;
+  urgentTasksCount: Number = 0;
+  urgentTasksDate: String = '';
 
   constructor(private taskService: TaskService) {
     this.taskService.tasksLoaded.subscribe(() => {
       this.updateTasksCount();
       this.updateAllTasksCount();
+      this.updateUrgentTasksCount();
     });
   }
 
@@ -39,5 +42,40 @@ export class SummaryComponent {
       (task) => task.status === status
     );
     return filteredTasks.length;
+  }
+
+  updateUrgentTasksCount() {
+    const filteredTasks = this.taskService.allTasks.filter(
+      (task) => task.priority === 'urgent'
+    );
+    this.urgentTasksCount = filteredTasks.length;
+    if (filteredTasks.length > 0) {
+      for (let i = 0; i < filteredTasks.length; i++) {
+        this.urgentTasksDate = this.timeConverter(filteredTasks[i].timestamp);
+      }
+    }
+  }
+
+  timeConverter(timestamp: number) {
+    var a = new Date(timestamp * 1000);
+    var months = [
+      'Jan.',
+      'Feb.',
+      'Mar.',
+      'Apr.',
+      'May.',
+      'Jun.',
+      'Jul.',
+      'Aug.',
+      'Sep.',
+      'Oct.',
+      'Nov.',
+      'Dec.',
+    ];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var time = month + ' ' + date + ', ' + year;
+    return time;
   }
 }
