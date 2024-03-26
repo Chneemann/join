@@ -29,8 +29,8 @@ export class TaskComponent {
   // Subtasks
 
   completedSubtasks() {
-    const subtasks = this.task.subtasksDone;
-    return subtasks.filter((subtask: boolean) => subtask === true).length;
+    return this.task.subtasksDone.filter((subtask: boolean) => subtask === true)
+      .length;
   }
 
   completedSubtasksPercent(): number {
