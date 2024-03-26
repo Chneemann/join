@@ -14,26 +14,24 @@
     <div class="description">
       {{ task.description }}
     </div>
-    <ng-container *ngIf="task.subtasksTitle.length > 0">
-      <div class="subtask">
-        <div class="subtask-line">
-          <span
-            class="filler-full"
-            [style.width.%]="completedSubtasksPercent()"
-          ></span>
-        </div>
-        <div class="subtask-text">
-          {{ completedSubtasks() }} / {{ task.subtasksTitle.length }} Subtasks
-        </div>
+    @if(task.subtasksTitle.length > 0) {
+    <div class="subtask">
+      <div class="subtask-line">
+        <span
+          class="filler-full"
+          [style.width.%]="completedSubtasksPercent()"
+        ></span>
       </div>
-    </ng-container>
+      <div class="subtask-text">
+        {{ completedSubtasks() }} / {{ task.subtasksTitle.length }} Subtasks
+      </div>
+    </div>
+    }
     <div class="footer">
       <div class="footer-badge">
-        <ng-container *ngIf="task.assigned">
-          <div *ngFor="let assigned of task.assigned; index as i">
-            <span class="footer-badged"></span>
-          </div>
-        </ng-container>
+        @if (task.assigned) { @for (assigned of task.assigned; track assigned) {
+        <span class="footer-badged">{{ assigned }}</span>
+        } }
       </div>
       <div class="footer-priority prio-{{ task.priority }}"></div>
     </div>
