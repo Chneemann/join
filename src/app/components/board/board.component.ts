@@ -5,11 +5,12 @@ import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { TaskComponent } from './task/task.component';
 import { EMPTY, isEmpty } from 'rxjs';
+import { TaskEmptyComponent } from './task/task-empty/task-empty.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskComponent],
+  imports: [CommonModule, TaskComponent, TaskEmptyComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
