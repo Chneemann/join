@@ -32,16 +32,14 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="todo" class="details">
-          <ng-container *ngIf="getTask('todo').length > 0; else noTask">
-            <app-task
-              *ngFor="let task of getTask('todo')"
-              [task]="task"
-            ></app-task>
-          </ng-container>
-
-          <ng-template #noTask>
-            <div class="empty-task">No tasks</div>
-          </ng-template>
+          @if(getTask('todo').length > 0) {
+          <app-task
+            *ngFor="let task of getTask('todo')"
+            [task]="task"
+          ></app-task>
+          } @else {
+          <div class="empty-task">No tasks</div>
+          }
         </div>
       </div>
       <div
@@ -54,16 +52,14 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="inprogress" class="details">
-          <ng-container *ngIf="getTask('inprogress').length > 0; else noTask">
-            <app-task
-              *ngFor="let task of getTask('inprogress')"
-              [task]="task"
-            ></app-task>
-          </ng-container>
-
-          <ng-template #noTask>
-            <div class="empty-task">No tasks</div>
-          </ng-template>
+          @if(getTask('inprogress').length > 0) {
+          <app-task
+            *ngFor="let task of getTask('inprogress')"
+            [task]="task"
+          ></app-task>
+          } @else {
+          <div class="empty-task">No tasks</div>
+          }
         </div>
       </div>
       <div
@@ -76,18 +72,14 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="awaitfeedback" class="details">
-          <ng-container
-            *ngIf="getTask('awaitfeedback').length > 0; else noTask"
-          >
-            <app-task
-              *ngFor="let task of getTask('awaitfeedback')"
-              [task]="task"
-            ></app-task>
-          </ng-container>
-
-          <ng-template #noTask>
-            <div class="empty-task">No tasks</div>
-          </ng-template>
+          @if(getTask('awaitfeedback').length > 0) {
+          <app-task
+            *ngFor="let task of getTask('awaitfeedback')"
+            [task]="task"
+          ></app-task>
+          } @else {
+          <div class="empty-task">No tasks</div>
+          }
         </div>
       </div>
       <div
@@ -100,15 +92,14 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="todo" class="details">
-          <ng-container *ngIf="getTask('done').length > 0; else noTask">
-            <app-task
-              *ngFor="let task of getTask('done')"
-              [task]="task"
-            ></app-task>
-          </ng-container>
-          <ng-template #noTask>
-            <div class="empty-task">No tasks</div>
-          </ng-template>
+          @if(getTask('todo').length > 0) {
+          <app-task
+            *ngFor="let task of getTask('todo')"
+            [task]="task"
+          ></app-task>
+          } @else {
+          <div class="empty-task">No tasks</div>
+          }
         </div>
       </div>
     </div>
