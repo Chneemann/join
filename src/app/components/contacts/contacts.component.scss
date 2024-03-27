@@ -1,0 +1,28 @@
+.btn-inside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 56px;
+  width: 302px;
+  padding: 8px 8px 8px 16px;
+  border-radius: 10px;
+  border: 0;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 21px;
+  font-weight: 700;
+  &:hover {
+    background-color: var(--light-blue);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+  img {
+    padding-left: 12px;
+  }
+}

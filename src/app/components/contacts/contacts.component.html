@@ -1,1 +1,17 @@
-<p>contacts works!</p>
+<section>
+  <div class="left-frame">
+    <button class="btn" type="submit">
+      <div class="btn-inside">
+        <span>Add new contact</span>
+        <img src="./../../../assets/img/contact/add.svg" alt="check" />
+      </div>
+    </button>
+
+    @for (sortLetter of usersFirstLetter; track allUsers) {
+    <div>{{ sortLetter }}</div>
+    @for (count of usersByFirstLetter[sortLetter]; track usersByFirstLetter; let
+    index = $index) {
+    <div>{{ usersByFirstLetter[sortLetter][index] }}</div>
+    } }
+  </div>
+</section>

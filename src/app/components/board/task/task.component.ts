@@ -28,10 +28,6 @@ export class TaskComponent {
     private userService: UserService
   ) {}
 
-  ngOnDestroy() {
-    this.userService.unsubUser();
-  }
-
   // Subtasks
 
   completedSubtasks(): number {
