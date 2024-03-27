@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
@@ -61,5 +62,18 @@ export class ContactsComponent {
       .map((user) => user.firstName);
   }
 
-  userName() {}
+  displayUserName(id: string) {
+    let currentUser = this.allUsers.filter((user) => user.id === id);
+    return currentUser[0].firstName + ', ' + currentUser[0].lastName;
+  }
+
+  displayInitials(id: string) {
+    let currentUser = this.allUsers.filter((user) => user.id === id);
+    return currentUser[0].initials;
+  }
+
+  displayInitialsColor(id: string) {
+    let currentUser = this.allUsers.filter((user) => user.id === id);
+    return currentUser[0].color;
+  }
 }

@@ -7,11 +7,31 @@
       </div>
     </button>
 
-    @for (sortLetter of usersFirstLetter; track allUsers) {
-    <div>{{ sortLetter }}</div>
-    @for (count of usersByFirstLetter[sortLetter]; track usersByFirstLetter; let
-    index = $index) {
-    <div>{{ usersByFirstLetter[sortLetter][index] }}</div>
-    } }
+    <div class="content">
+      @for (sortLetter of usersFirstLetter; track allUsers) {
+      <div class="first-letter">{{ sortLetter }}</div>
+      <div class="line"></div>
+      @for (count of usersByFirstLetter[sortLetter]; track usersByFirstLetter;
+      let index = $index) {
+      <div class="contact">
+        <div
+          class="circle"
+          [ngStyle]="{
+            'background-color': displayInitialsColor(
+              usersByFirstLetter[sortLetter][index]
+            )
+          }"
+        >
+          <div class="initials">
+            {{ displayInitials(usersByFirstLetter[sortLetter][index]) }}
+          </div>
+        </div>
+        <div class="details">
+          <p>{{ displayUserName(usersByFirstLetter[sortLetter][index]) }}</p>
+          <a href="tel:">asdasdasd</a>
+        </div>
+      </div>
+      } }
+    </div>
   </div>
 </section>
