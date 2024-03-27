@@ -102,6 +102,16 @@ section {
   }
 }
 
+.right-frame {
+  position: absolute;
+  top: -64px;
+  left: 339px;
+  width: calc(100vw - 635px);
+  min-height: calc(100vh - 128px);
+  padding: 64px 48px 48px 48px;
+  box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
 @media screen and (max-width: 910px) {
   .left-frame {
     position: fixed;

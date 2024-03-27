@@ -13,17 +13,26 @@
       <div class="line"></div>
       @for (count of usersByFirstLetter[sortLetter]; track usersByFirstLetter;
       let index = $index) {
-      <div class="contact">
+      <div
+        class="contact"
+        routerLink="/contacts/{{ usersByFirstLetter[sortLetter] }}"
+      >
         <div
           class="circle"
           [ngStyle]="{
-            'background-color': displayInitialsColor(
-              usersByFirstLetter[sortLetter][index]
+            'background-color': displayUserDetails(
+              usersByFirstLetter[sortLetter][index],
+              'color'
             )
           }"
         >
           <div class="initials">
-            {{ displayInitials(usersByFirstLetter[sortLetter][index]) }}
+            {{
+              displayUserDetails(
+                usersByFirstLetter[sortLetter][index],
+                "initials"
+              )
+            }}
           </div>
         </div>
         <div class="details">
@@ -34,4 +43,10 @@
       } }
     </div>
   </div>
+  @if (paramsId) {
+  <div class="right-frame">
+    <h2>Contacts</h2>
+    <p>{{ displayUserName(paramsId) }}</p>
+  </div>
+  }
 </section>

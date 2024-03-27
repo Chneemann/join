@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
@@ -14,13 +15,35 @@ export class ContactsComponent {
   allUsers: User[] = [];
   usersFirstLetter: string[] = [];
   usersByFirstLetter: { [key: string]: string[] } = {};
+  userMap: { [key: string]: User } = {};
+  paramsId = '';
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private route: ActivatedRoute) {
     this.userService.subUserList().subscribe(() => {
       this.allUsers = this.loadAllUser();
+      this.organizeUserData();
       this.sortAllUsers();
       this.sortUsersFirstLetter();
       this.sortUsersByFirstLetter();
+    });
+  }
+
+  ngOnInit(): void {
+    this.routeUserId();
+  }
+
+  routeUserId() {
+    if (this.route.params.subscribe()) {
+      this.route.params.subscribe((params) => {
+        this.paramsId = params['id'];
+      });
+    }
+  }
+
+  organizeUserData() {
+    this.userMap = {};
+    this.allUsers.forEach((user) => {
+      this.userMap[user.id] = user;
     });
   }
 
@@ -55,27 +78,18 @@ export class ContactsComponent {
     });
   }
 
-  displayUser(firstLetter: string) {
-    return this.allUsers
-      .filter(
-        (user) =>
-          user.firstName.charAt(0).toUpperCase() === firstLetter.toUpperCase()
-      )
-      .map((user) => user.firstName);
-  }
-
   displayUserName(id: string) {
-    let currentUser = this.allUsers.filter((user) => user.id === id);
-    return currentUser[0].firstName + ', ' + currentUser[0].lastName;
+    if (this.userMap[id]) {
+      return this.userMap[id].firstName + ', ' + this.userMap[id].lastName;
+    }
+    return '';
   }
 
-  displayInitials(id: string) {
-    let currentUser = this.allUsers.filter((user) => user.id === id);
-    return currentUser[0].initials;
-  }
-
-  displayInitialsColor(id: string) {
-    let currentUser = this.allUsers.filter((user) => user.id === id);
-    return currentUser[0].color;
+  displayUserDetails(id: string, query: keyof User) {
+    if (this.userMap[id]) {
+      const user = this.userMap[id];
+      return user[query];
+    }
+    return '';
   }
 }

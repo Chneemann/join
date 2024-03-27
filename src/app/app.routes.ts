@@ -13,6 +13,7 @@ export const routes: Routes = [
   { path: 'add-task', component: AddTaskComponent },
   { path: 'board', component: BoardComponent },
   { path: 'contacts', component: ContactsComponent },
+  { path: 'contacts/:id', component: ContactsComponent },
   { path: 'help', component: HelpComponent },
   { path: 'imprint', component: ImprintComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
