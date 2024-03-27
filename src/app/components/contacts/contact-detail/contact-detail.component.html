@@ -1,8 +1,37 @@
 <section>
-  <div class="header">
+  <div class="headerline">
     <div class="title">Contacts</div>
     <div class="blue-bar"></div>
     <div class="metrics-txt">Better with a team</div>
   </div>
-  <p>{{ userService.displayUserName(paramsId) }}</p>
+  <div class="content">
+    <div class="header">
+      <div
+        class="circle"
+        [ngStyle]="{
+          'background-color': userService.displayUserDetails(paramsId, 'color')
+        }"
+      >
+        <div class="initials">
+          {{ userService.displayUserDetails(paramsId, "initials") }}
+        </div>
+      </div>
+      <div class="details">
+        <div class="name">
+          {{ userService.displayUserDetails(paramsId, "firstName") }}
+          {{ userService.displayUserDetails(paramsId, "lastName") }}
+        </div>
+        <div class="btns">
+          <div class="btn">
+            <img src="./../../../../assets/img/contact/edit.svg" alt="" />
+            <p>edit</p>
+          </div>
+          <div class="btn">
+            <img src="./../../../../assets/img/contact/delete.svg" alt="" />
+            <p>delete</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

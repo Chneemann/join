@@ -36,19 +36,33 @@
           </div>
         </div>
         <div class="details">
-          <p>
-            {{
-              userService.displayUserName(usersByFirstLetter[sortLetter][index])
-            }}
-          </p>
-          <span>
+          <div class="name">
+            <div class="first-name">
+              {{
+                userService.displayUserDetails(
+                  usersByFirstLetter[sortLetter][index],
+                  "firstName"
+                )
+              }}
+            </div>
+            <span>,&nbsp;</span>
+            <div class="last-name">
+              {{
+                userService.displayUserDetails(
+                  usersByFirstLetter[sortLetter][index],
+                  "lastName"
+                )
+              }}
+            </div>
+          </div>
+          <div class="email">
             {{
               userService.displayUserDetails(
                 usersByFirstLetter[sortLetter][index],
                 "email"
               )
             }}
-          </span>
+          </div>
         </div>
       </div>
       } }

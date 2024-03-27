@@ -42,13 +42,6 @@ export class UserService {
     });
   }
 
-  displayUserName(id: string) {
-    if (this.userMap[id]) {
-      return this.userMap[id].firstName + ', ' + this.userMap[id].lastName;
-    }
-    return 'sd';
-  }
-
   displayUserDetails(id: string, query: keyof User) {
     if (this.userMap[id]) {
       const user = this.userMap[id];

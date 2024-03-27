@@ -52,7 +52,7 @@ section {
 .first-letter {
   font-size: 20px;
   font-weight: 400;
-  padding-left: 38px;
+  padding-left: 32px;
   margin: 32px 0 12px 0;
 }
 
@@ -66,7 +66,7 @@ section {
 .contact {
   display: flex;
   align-items: center;
-  padding: 15px 24px;
+  padding: 16px;
   border-radius: 10px;
   cursor: pointer;
   &:hover {
@@ -79,26 +79,51 @@ section {
   justify-content: center;
   align-items: center;
   width: 42px;
+  min-width: 42px;
   height: 42px;
   border-radius: 100%;
+  border: 2px solid var(--white);
   .initials {
+    font-size: 12px;
+    font-weight: 400;
     color: var(--white);
     text-shadow: 1px 1px 2px var(--black);
   }
 }
 
 .details {
-  margin-left: 32px;
-  p {
+  margin-left: 24px;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  .first-name,
+  .last-name,
+  span {
     font-size: 20px;
     font-weight: 400;
     margin-bottom: 6px;
   }
-  span {
-    font-size: 16px;
-    font-weight: 400;
-    text-decoration: none;
-    color: var(--light-blue);
+}
+
+.email {
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--light-blue);
+}
+
+@media screen and (max-width: 1150px) {
+  .left-frame {
+    position: fixed;
+    top: 96px;
+    left: 232px;
+    width: calc(100vw - 232px);
+    min-height: calc(100vh - 207px);
+    background-color: var(--bgContent);
   }
 }
 

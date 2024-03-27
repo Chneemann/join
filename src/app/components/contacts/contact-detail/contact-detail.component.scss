@@ -2,13 +2,13 @@ section {
   position: absolute;
   top: -64px;
   left: 339px;
-  width: calc(100vw - 635px);
+  width: calc(100vw - 747px);
   min-height: calc(100vh - 128px);
   padding: 64px 48px 48px 48px;
   box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
-.header {
+.headerline {
   display: flex;
   align-items: center;
   position: relative;
@@ -27,5 +27,108 @@ section {
     height: 80%;
     width: 3px;
     background-color: var(--light-blue);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-top: 48px;
+  max-width: 100%;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  min-width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  border: 4px solid var(--white);
+  .initials {
+    font-size: 47px;
+    font-weight: 500;
+    color: var(--white);
+    text-shadow: 1px 1px 2px var(--black);
+  }
+}
+
+.details {
+  margin-left: 32px;
+  overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  font-size: 47px;
+  font-weight: 500;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  padding-top: 12px;
+  img {
+    width: 20px;
+    height: 20px;
+    padding-right: 12px;
+  }
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    padding-right: 24px;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg);
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .headerline {
+    .title {
+      font-size: 50px;
+    }
+    .metrics-txt {
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 1235px) {
+  .headerline {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 0;
+    height: 100%;
+    .metrics-txt {
+      padding-left: 0;
+    }
+    .blue-bar {
+      position: absolute;
+      bottom: -15px;
+      height: 3px;
+      width: 100px;
+    }
+  }
+
+  .name {
+    display: block;
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  section {
+    display: none;
   }
 }

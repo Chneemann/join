@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
