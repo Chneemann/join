@@ -33,5 +33,18 @@
         </div>
       </div>
     </div>
+    <div class="contact">
+      <div class="headline">Contact Information</div>
+      <div class="info">
+        <p>Email:</p>
+        <a [href]="'mail:' + userService.displayUserDetails(paramsId, 'email')">
+          {{ userService.displayUserDetails(paramsId, "email") }}
+        </a>
+        <p>Phone:</p>
+        <a [href]="'tel:' + userService.displayUserDetails(paramsId, 'phone')">
+          {{ userService.displayUserDetails(paramsId, "phone") }}
+        </a>
+      </div>
+    </div>
   </div>
 </section>

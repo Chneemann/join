@@ -127,6 +127,32 @@ section {
   }
 }
 
+.contact {
+  margin-top: 48px;
+  .headline {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .info {
+    margin-top: 16px;
+    p {
+      font-size: 16px;
+      font-weight: 700;
+      padding: 24px 0 12px 0;
+    }
+    a {
+      font-size: 16px;
+      font-weight: 400;
+      text-decoration: none;
+      color: var(--light-blue);
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1150px) {
   section {
     display: none;
