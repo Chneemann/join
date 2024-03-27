@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ContactDetailComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
@@ -18,10 +19,9 @@ export class ContactsComponent {
   userMap: { [key: string]: User } = {};
   paramsId = '';
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(public userService: UserService, private route: ActivatedRoute) {
     this.userService.subUserList().subscribe(() => {
       this.allUsers = this.loadAllUser();
-      this.organizeUserData();
       this.sortAllUsers();
       this.sortUsersFirstLetter();
       this.sortUsersByFirstLetter();
@@ -38,13 +38,6 @@ export class ContactsComponent {
         this.paramsId = params['id'];
       });
     }
-  }
-
-  organizeUserData() {
-    this.userMap = {};
-    this.allUsers.forEach((user) => {
-      this.userMap[user.id] = user;
-    });
   }
 
   loadAllUser(): User[] {
@@ -76,20 +69,5 @@ export class ContactsComponent {
       }
       this.usersByFirstLetter[firstLetter].push(user.id);
     });
-  }
-
-  displayUserName(id: string) {
-    if (this.userMap[id]) {
-      return this.userMap[id].firstName + ', ' + this.userMap[id].lastName;
-    }
-    return '';
-  }
-
-  displayUserDetails(id: string, query: keyof User) {
-    if (this.userMap[id]) {
-      const user = this.userMap[id];
-      return user[query];
-    }
-    return '';
   }
 }

@@ -20,7 +20,7 @@
         <div
           class="circle"
           [ngStyle]="{
-            'background-color': displayUserDetails(
+            'background-color': userService.displayUserDetails(
               usersByFirstLetter[sortLetter][index],
               'color'
             )
@@ -28,7 +28,7 @@
         >
           <div class="initials">
             {{
-              displayUserDetails(
+              userService.displayUserDetails(
                 usersByFirstLetter[sortLetter][index],
                 "initials"
               )
@@ -36,17 +36,25 @@
           </div>
         </div>
         <div class="details">
-          <p>{{ displayUserName(usersByFirstLetter[sortLetter][index]) }}</p>
-          <a href="tel:">asdasdasd</a>
+          <p>
+            {{
+              userService.displayUserName(usersByFirstLetter[sortLetter][index])
+            }}
+          </p>
+          <span>
+            {{
+              userService.displayUserDetails(
+                usersByFirstLetter[sortLetter][index],
+                "email"
+              )
+            }}
+          </span>
         </div>
       </div>
       } }
     </div>
   </div>
   @if (paramsId) {
-  <div class="right-frame">
-    <h2>Contacts</h2>
-    <p>{{ displayUserName(paramsId) }}</p>
-  </div>
+  <app-contact-detail></app-contact-detail>
   }
 </section>

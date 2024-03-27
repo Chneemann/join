@@ -1,0 +1,31 @@
+section {
+  position: absolute;
+  top: -64px;
+  left: 339px;
+  width: calc(100vw - 635px);
+  min-height: calc(100vh - 128px);
+  padding: 64px 48px 48px 48px;
+  box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 73px;
+  .title {
+    font-size: 61px;
+    font-weight: 700;
+    padding-right: 24px;
+  }
+  .metrics-txt {
+    font-size: 27px;
+    font-weight: 400;
+    padding-left: 24px;
+  }
+  .blue-bar {
+    height: 80%;
+    width: 3px;
+    background-color: var(--light-blue);
+  }
+}
