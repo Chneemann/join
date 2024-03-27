@@ -10,7 +10,9 @@
       <div class="top-frame">
         <div class="todo-done" routerLink="/board">
           <div class="circle">
-            <img src="./../../../assets/img/summary/pencil.svg" alt="" />
+            <div class="inline">
+              <img src="./../../../assets/img/summary/pencil.svg" alt="" />
+            </div>
           </div>
           <div class="details">
             <span>{{ todoTasksCount }}</span>
@@ -57,19 +59,19 @@
         <div class="tasks" routerLink="/board">
           <div class="details">
             <span>{{ allTasksCount }}</span>
-            <p>Task in Board</p>
+            <p>Task<br />in Board</p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
             <span>{{ inprogressTasksCount }}</span>
-            <p>Task in Progress</p>
+            <p>Task in<br />Progress</p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
             <span>{{ awaitfeedbackTasksCount }}</span>
-            <p>Awaiting Feedback</p>
+            <p>Awaiting<br />Feedback</p>
           </div>
         </div>
       </div>
