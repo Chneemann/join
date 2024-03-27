@@ -38,12 +38,14 @@ export class ContactsComponent {
   }
 
   sortUsersFirstLetter() {
+    this.usersFirstLetter = [];
     this.usersFirstLetter = Array.from(
       new Set(this.allUsers.map((user) => user.firstName[0].toUpperCase()))
     );
   }
 
   sortUsersByFirstLetter() {
+    this.usersByFirstLetter = {};
     this.allUsers.forEach((user) => {
       const firstLetter = user.firstName[0].toUpperCase();
       if (!this.usersByFirstLetter[firstLetter]) {

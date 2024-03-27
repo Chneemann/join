@@ -37,7 +37,7 @@ section {
   top: -64px;
   left: -64px;
   width: 400px;
-  height: calc(100vh - 128px);
+  min-height: calc(100vh - 128px);
   background-color: var(--white);
   padding-top: 32px;
   box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.1);
@@ -46,14 +46,14 @@ section {
 .content {
   display: flex;
   flex-direction: column;
-  padding: 48px 24px 24px 24px;
+  padding: 24px;
 }
 
 .first-letter {
   font-size: 20px;
   font-weight: 400;
   padding-left: 38px;
-  margin-bottom: 12px;
+  margin: 32px 0 12px 0;
 }
 
 .line {
@@ -99,5 +99,16 @@ section {
     font-weight: 400;
     text-decoration: none;
     color: var(--light-blue);
+  }
+}
+
+@media screen and (max-width: 910px) {
+  .left-frame {
+    position: fixed;
+    top: 96px;
+    left: 0px;
+    width: 100vw;
+    min-height: calc(100vh - 207px);
+    background-color: var(--bgContent);
   }
 }
