@@ -8,6 +8,24 @@ section {
   box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
+/*------------- ANIMATION -------------*/
+
+.animation-coming-in {
+  animation: coming-in 1s ease-in-out;
+  opacity: 1;
+}
+
+@keyframes coming-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100vw);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .headerline {
   display: flex;
   align-items: center;

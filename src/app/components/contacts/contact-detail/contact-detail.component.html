@@ -5,7 +5,12 @@
     <div class="metrics-txt">Better with a team</div>
   </div>
   @if (paramsId) {
-  <div>
+  <div
+    class="contact-details"
+    [ngClass]="{
+      'animation-coming-in': paramsId
+    }"
+  >
     <div class="header">
       <div
         class="circle"

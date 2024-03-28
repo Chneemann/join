@@ -16,10 +16,8 @@ export class TaskComponent {
   @Input() task!: Task;
 
   categoryColors = new Map<string, string>([
-    ['HTML', '#E54B20'],
-    ['CSS', '#214CE4'],
-    ['JavaScript', '#D5BA32'],
-    ['Angular', '#DD002D'],
+    ['User Story', '#0038ff'],
+    ['Technical Task', '#20d7c2'],
   ]);
 
   constructor(
