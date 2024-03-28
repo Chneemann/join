@@ -1,5 +1,6 @@
 section {
   word-wrap: break-word;
+  padding-right: 64px;
 }
 
 .header {
@@ -50,5 +51,13 @@ a {
   text-decoration: none;
   &:hover {
     text-decoration: underline;
+  }
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 910px) {
+  section {
+    padding-right: 0;
   }
 }

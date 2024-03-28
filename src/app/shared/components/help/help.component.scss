@@ -1,5 +1,5 @@
 section {
-  width: 100%;
+  padding-right: 64px;
   a {
     text-decoration: none;
     color: var(--gray);
@@ -59,6 +59,14 @@ h3 {
 
 .color {
   color: var(--light-blue);
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 910px) {
+  section {
+    padding-right: 0;
+  }
 }
 
 @media (max-width: 634px) {

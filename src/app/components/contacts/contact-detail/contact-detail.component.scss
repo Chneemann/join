@@ -8,24 +8,6 @@ section {
   box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
-/*------------- ANIMATION -------------*/
-
-.animation-coming-in {
-  animation: coming-in 250ms ease-in-out;
-  opacity: 1;
-}
-
-@keyframes coming-in {
-  0% {
-    opacity: 0;
-    transform: translateX(100vw);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 .headerline {
   display: flex;
   align-items: center;
@@ -111,25 +93,51 @@ section {
   }
 }
 
-/* Custom transition */
-@keyframes rotate-out {
-  to {
-    transform: rotate(90deg);
+.contact {
+  margin-top: 48px;
+  .headline {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .info {
+    margin-top: 16px;
+    p {
+      font-size: 16px;
+      font-weight: 700;
+      padding: 24px 0 12px 0;
+    }
+    a {
+      font-size: 16px;
+      font-weight: 400;
+      text-decoration: none;
+      color: var(--light-blue);
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
-@keyframes rotate-in {
-  from {
-    transform: rotate(-90deg);
+
+/*------------- ANIMATION -------------*/
+
+.animation-coming-in {
+  animation: coming-in 250ms ease-in-out;
+  opacity: 1;
+}
+
+@keyframes coming-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100vw);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
-::view-transition-old(count),
-::view-transition-new(count) {
-  animation-duration: 200ms;
-  animation-name: -ua-view-transition-fade-in, rotate-in;
-}
-::view-transition-old(count) {
-  animation-name: -ua-view-transition-fade-out, rotate-out;
-}
+
+/*------------- RESPONSIVE -------------*/
 
 @media screen and (max-width: 1300px) {
   .headerline {
@@ -162,32 +170,6 @@ section {
   .name {
     display: block;
     font-size: 32px;
-  }
-}
-
-.contact {
-  margin-top: 48px;
-  .headline {
-    font-size: 20px;
-    font-weight: 400;
-  }
-  .info {
-    margin-top: 16px;
-    p {
-      font-size: 16px;
-      font-weight: 700;
-      padding: 24px 0 12px 0;
-    }
-    a {
-      font-size: 16px;
-      font-weight: 400;
-      text-decoration: none;
-      color: var(--light-blue);
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
 
