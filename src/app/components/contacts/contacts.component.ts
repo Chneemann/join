@@ -16,8 +16,7 @@ export class ContactsComponent {
   allUsers: User[] = [];
   usersFirstLetter: string[] = [];
   usersByFirstLetter: { [key: string]: string[] } = {};
-  userMap: { [key: string]: User } = {};
-  paramsId = '';
+  paramsId: string = '';
 
   constructor(public userService: UserService, private route: ActivatedRoute) {
     this.userService.subUserList().subscribe(() => {
