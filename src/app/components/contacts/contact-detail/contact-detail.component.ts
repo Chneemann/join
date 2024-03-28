@@ -12,7 +12,7 @@ import { ContactsComponent } from '../contacts.component';
   styleUrl: './contact-detail.component.scss',
 })
 export class ContactDetailComponent {
-  @Input() paramsId: string = '';
+  @Input() currentUserId: string = '';
 
   constructor(public userService: UserService) {}
 }

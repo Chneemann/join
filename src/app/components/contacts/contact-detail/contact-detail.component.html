@@ -4,28 +4,31 @@
     <div class="blue-bar"></div>
     <div class="metrics-txt">Better with a team</div>
   </div>
-  @if (paramsId) {
+  @if (currentUserId) {
   <div
     class="contact-details"
     [ngClass]="{
-      'animation-coming-in': paramsId
+      'animation-coming-in': currentUserId
     }"
   >
     <div class="header">
       <div
         class="circle"
         [ngStyle]="{
-          'background-color': userService.displayUserDetails(paramsId, 'color')
+          'background-color': userService.displayUserDetails(
+            currentUserId,
+            'color'
+          )
         }"
       >
         <div class="initials">
-          {{ userService.displayUserDetails(paramsId, "initials") }}
+          {{ userService.displayUserDetails(currentUserId, "initials") }}
         </div>
       </div>
       <div class="details">
         <div class="name">
-          {{ userService.displayUserDetails(paramsId, "firstName") }}
-          {{ userService.displayUserDetails(paramsId, "lastName") }}
+          {{ userService.displayUserDetails(currentUserId, "firstName") }}
+          {{ userService.displayUserDetails(currentUserId, "lastName") }}
         </div>
         <div class="btns">
           <div class="btn">
@@ -43,12 +46,20 @@
       <div class="headline">Contact Information</div>
       <div class="info">
         <p>Email:</p>
-        <a [href]="'mail:' + userService.displayUserDetails(paramsId, 'email')">
-          {{ userService.displayUserDetails(paramsId, "email") }}
+        <a
+          [href]="
+            'mail:' + userService.displayUserDetails(currentUserId, 'email')
+          "
+        >
+          {{ userService.displayUserDetails(currentUserId, "email") }}
         </a>
         <p>Phone:</p>
-        <a [href]="'tel:' + userService.displayUserDetails(paramsId, 'phone')">
-          {{ userService.displayUserDetails(paramsId, "phone") }}
+        <a
+          [href]="
+            'tel:' + userService.displayUserDetails(currentUserId, 'phone')
+          "
+        >
+          {{ userService.displayUserDetails(currentUserId, "phone") }}
         </a>
       </div>
     </div>

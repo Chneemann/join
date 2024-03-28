@@ -16,7 +16,7 @@ export class ContactsComponent {
   allUsers: User[] = [];
   usersFirstLetter: string[] = [];
   usersByFirstLetter: { [key: string]: string[] } = {};
-  paramsId: string = '';
+  currentUserId: string = '';
 
   constructor(public userService: UserService, private route: ActivatedRoute) {
     this.userService.subUserList().subscribe(() => {
@@ -34,7 +34,7 @@ export class ContactsComponent {
   routeUserId() {
     if (this.route.params.subscribe()) {
       this.route.params.subscribe((params) => {
-        this.paramsId = params['id'];
+        this.currentUserId = params['id'];
       });
     }
   }
