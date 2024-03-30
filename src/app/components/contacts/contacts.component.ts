@@ -36,18 +36,21 @@ export class ContactsComponent {
     return this.userService.getUsers().filter((user) => user.initials !== 'G');
   }
 
-  sortAllUsers() {
-    return [...this.loadAllUserWithoutGuest()].sort((a, b) =>
-      (a.initials?.toLowerCase() ?? '').localeCompare(
-        b.initials?.toLowerCase() ?? ''
-      )
+  sortUsersByFirstLetter(sortLetter: string) {
+    return this.loadAllUserWithoutGuest().filter(
+      (user) => user.initials.substring(0, 1) === sortLetter
     );
   }
 
-  sortUsersFirstLetter(userId: string) {
-    const filteredUsers = this.loadAllUserWithoutGuest().filter(
-      (user) => user.id === userId
+  checkUsersFirstLetter() {
+    let usersFirstLetter = [];
+    usersFirstLetter = Array.from(
+      new Set(
+        this.loadAllUserWithoutGuest().map((user) =>
+          user.firstName[0].toUpperCase()
+        )
+      )
     );
-    return filteredUsers;
+    return usersFirstLetter;
   }
 }

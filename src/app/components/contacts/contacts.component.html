@@ -7,10 +7,10 @@
       </div>
     </button>
     <div class="content">
-      @for (sortLetter of this.sortAllUsers(); track sortLetter) {
-      <div class="first-letter">{{ sortLetter.firstName }}</div>
+      @for (sortLetter of this.checkUsersFirstLetter(); track sortLetter) {
+      <div class="first-letter">{{ sortLetter }}</div>
       <div class="line"></div>
-      @for (user of this.sortUsersFirstLetter(sortLetter.id); track user; let
+      @for (user of this.sortUsersByFirstLetter(sortLetter); track user; let
       index = $index) {
       <div class="contact" routerLink="/contacts/{{ user.id }}">
         <div
