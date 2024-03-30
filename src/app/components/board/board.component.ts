@@ -55,6 +55,7 @@ export class BoardComponent {
   }
 
   clearInput() {
+    this.searchInput = false;
     this.searchValue = '';
     this.searchTask();
   }
@@ -62,6 +63,8 @@ export class BoardComponent {
   updateSearchInput() {
     if (this.searchValue) {
       this.searchInput = this.searchValue.toLowerCase().length > 0;
+    } else {
+      this.searchInput = false;
     }
     return this.searchInput;
   }
