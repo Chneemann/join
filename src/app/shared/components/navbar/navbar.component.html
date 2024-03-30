@@ -1,4 +1,5 @@
-<nav id="navbar" class="navbar d-none">
+@if (navbarVisible) {
+<nav class="navbar d-none">
   <div class="link" routerLink="imprint">
     <span>Legal Notice</span>
   </div>
@@ -9,3 +10,25 @@
     <span>Log out</span>
   </div>
 </nav>
+} @else if (navbarLanguageVisible) {
+<nav class="navbar language d-none">
+  <div
+    class="link"
+    (click)="langService.switchLanguage('en')"
+    [ngClass]="{
+      active: langService.currentLang === 'en'
+    }"
+  >
+    <span>English</span>
+  </div>
+  <div
+    class="link"
+    (click)="langService.switchLanguage('de')"
+    [ngClass]="{
+      active: langService.currentLang === 'de'
+    }"
+  >
+    <span>German</span>
+  </div>
+</nav>
+}

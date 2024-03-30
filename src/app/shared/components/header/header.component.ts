@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
@@ -12,23 +12,30 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   navbarVisible: boolean = false;
-
-  constructor(private elementRef: ElementRef) {}
+  navbarLanguageVisible: boolean = false;
 
   toggleNavbar() {
     this.navbarVisible = !this.navbarVisible;
   }
 
+  toggleLanguage() {
+    this.navbarLanguageVisible = !this.navbarLanguageVisible;
+  }
+
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-
-    // Überprüfe, ob der Klick außerhalb der Navbar erfolgt ist
     if (
       !targetElement.closest('app-navbar') &&
       !targetElement.closest('.img-user')
     ) {
       this.navbarVisible = false;
+    }
+    if (
+      !targetElement.closest('app-navbar') &&
+      !targetElement.closest('.img-language')
+    ) {
+      this.navbarLanguageVisible = false;
     }
   }
 }

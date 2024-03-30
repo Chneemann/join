@@ -15,20 +15,17 @@
       <div
         class="circle"
         [ngStyle]="{
-          'background-color': userService.displayUserDetails(
-            currentUserId,
-            'color'
-          )
+          'background-color': userService.getUserDetails(currentUserId, 'color')
         }"
       >
         <div class="initials">
-          {{ userService.displayUserDetails(currentUserId, "initials") }}
+          {{ userService.getUserDetails(currentUserId, "initials") }}
         </div>
       </div>
       <div class="details">
         <div class="name">
-          {{ userService.displayUserDetails(currentUserId, "firstName") }}
-          {{ userService.displayUserDetails(currentUserId, "lastName") }}
+          {{ userService.getUserDetails(currentUserId, "firstName") }}
+          {{ userService.getUserDetails(currentUserId, "lastName") }}
         </div>
         <div class="btns">
           <div class="btn">
@@ -47,19 +44,13 @@
       <div class="info">
         <p>Email:</p>
         <a
-          [href]="
-            'mail:' + userService.displayUserDetails(currentUserId, 'email')
-          "
+          [href]="'mail:' + userService.getUserDetails(currentUserId, 'email')"
         >
-          {{ userService.displayUserDetails(currentUserId, "email") }}
+          {{ userService.getUserDetails(currentUserId, "email") }}
         </a>
         <p>Phone:</p>
-        <a
-          [href]="
-            'tel:' + userService.displayUserDetails(currentUserId, 'phone')
-          "
-        >
-          {{ userService.displayUserDetails(currentUserId, "phone") }}
+        <a [href]="'tel:' + userService.getUserDetails(currentUserId, 'phone')">
+          {{ userService.getUserDetails(currentUserId, "phone") }}
         </a>
       </div>
     </div>

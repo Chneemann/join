@@ -13,23 +13,36 @@
   z-index: 1;
 }
 
+.language {
+  height: 108px;
+}
+
 .link {
   display: flex;
   align-items: center;
   height: 46px;
   padding: 8px 16px;
   border-radius: 8px;
-  color: var(--very-light-gray4);
+  color: var(--white);
   cursor: pointer;
+  &:hover {
+    background-color: var(--very-dark-blue);
+    span {
+      color: var(--light-blue);
+    }
+  }
+}
+
+.active {
+  background-color: var(--very-dark-blue);
+  cursor: unset;
+  span {
+    color: var(--light-blue);
+  }
 }
 
 span {
   color: var(--white);
   font-size: 16px;
   font-weight: 400;
-}
-
-.link:hover {
-  color: var(--light-blue);
-  background-color: var(--very-dark-blue);
 }

@@ -18,14 +18,7 @@ export class ContactsComponent {
   usersByFirstLetter: { [key: string]: string[] } = {};
   currentUserId: string = '';
 
-  constructor(public userService: UserService, private route: ActivatedRoute) {
-    this.userService.subUserList().subscribe(() => {
-      this.allUsers = this.loadAllUser();
-      this.sortAllUsers();
-      this.sortUsersFirstLetter();
-      this.sortUsersByFirstLetter();
-    });
-  }
+  constructor(public userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.routeUserId();
@@ -39,34 +32,22 @@ export class ContactsComponent {
     }
   }
 
-  loadAllUser(): User[] {
-    // Without Guest
-    return this.userService.allUsers.filter((user, index) => index !== 0);
+  loadAllUserWithoutGuest(): User[] {
+    return this.userService.getUsers().filter((user) => user.initials !== 'G');
   }
 
   sortAllUsers() {
-    this.allUsers = [...this.allUsers].sort((a, b) =>
-      (a.firstName?.toLowerCase() ?? '').localeCompare(
-        b.firstName?.toLowerCase() ?? ''
+    return [...this.loadAllUserWithoutGuest()].sort((a, b) =>
+      (a.initials?.toLowerCase() ?? '').localeCompare(
+        b.initials?.toLowerCase() ?? ''
       )
     );
   }
 
-  sortUsersFirstLetter() {
-    this.usersFirstLetter = [];
-    this.usersFirstLetter = Array.from(
-      new Set(this.allUsers.map((user) => user.firstName[0].toUpperCase()))
+  sortUsersFirstLetter(userId: string) {
+    const filteredUsers = this.loadAllUserWithoutGuest().filter(
+      (user) => user.id === userId
     );
-  }
-
-  sortUsersByFirstLetter() {
-    this.usersByFirstLetter = {};
-    this.allUsers.forEach((user) => {
-      const firstLetter = user.firstName[0].toUpperCase();
-      if (!this.usersByFirstLetter[firstLetter]) {
-        this.usersByFirstLetter[firstLetter] = [];
-      }
-      this.usersByFirstLetter[firstLetter].push(user.id);
-    });
+    return filteredUsers;
   }
 }

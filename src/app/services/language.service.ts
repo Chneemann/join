@@ -6,15 +6,17 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageService {
   currentLang = 'en';
-  currentFlag = 'de';
 
   constructor(private translate: TranslateService) {
     this.translate.setDefaultLang(this.currentLang);
   }
 
-  switchLanguage() {
-    this.currentLang = this.currentLang === 'en' ? 'de' : 'en';
-    this.currentFlag = this.currentLang === 'en' ? 'de' : 'en';
+  switchLanguage(lang: string) {
+    if (lang === 'en') {
+      this.currentLang = 'en';
+    } else if (lang == 'de') {
+      this.currentLang = 'de';
+    }
     this.translate.use(this.currentLang);
   }
 }

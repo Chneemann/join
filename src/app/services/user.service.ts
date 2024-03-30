@@ -1,52 +1,53 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { User } from '../interfaces/user.interface';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
 
   allUsers: User[] = [];
-  userMap: { [key: string]: User } = {};
+  isUserLogin: boolean = true;
+
+  unsubUser;
 
   constructor() {
-    this.subUserList().subscribe(() => {
-      this.organizeUserData();
-    });
+    this.unsubUser = this.subUserList();
+  }
+
+  getUsers(): User[] {
+    return this.allUsers;
   }
 
   subUserList() {
-    return new Observable<void>((observer) => {
-      const unsubscribe = onSnapshot(
-        collection(this.firestore, 'users'),
-        (list) => {
-          this.allUsers = [];
-          list.forEach((element) => {
-            const taskData = { ...(element.data() as User), id: element.id };
-            this.allUsers.push(taskData);
-          });
-          observer.next();
-        }
-      );
-      return () => unsubscribe();
+    return onSnapshot(collection(this.firestore, 'users'), (list) => {
+      this.allUsers = [];
+      list.forEach((element) => {
+        this.allUsers.push(this.setUserObject(element.data(), element.id));
+      });
     });
   }
 
-  organizeUserData() {
-    this.userMap = {};
-    this.allUsers.forEach((user) => {
-      this.userMap[user.id] = user;
-    });
+  setUserObject(obj: any, id: string): User {
+    return {
+      id: id,
+      firstName: obj.firstName,
+      lastName: obj.lastName,
+      email: obj.email,
+      phone: obj.phone,
+      initials: obj.initials,
+      color: obj.color,
+    };
   }
 
-  displayUserDetails(id: string, query: keyof User) {
-    if (this.userMap[id]) {
-      const user = this.userMap[id];
-      return user[query];
-    }
-    return '';
+  getUserDetails(userId: string, query: keyof User) {
+    const filteredUsers = this.getUsers().filter((user) => user.id === userId);
+    return filteredUsers.map((user) => user[query]);
+  }
+
+  ngOnDestroy() {
+    this.unsubUser();
   }
 }

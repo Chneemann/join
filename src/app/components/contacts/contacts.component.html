@@ -6,62 +6,35 @@
         <img src="./../../../assets/img/contact/add.svg" alt="check" />
       </div>
     </button>
-
     <div class="content">
-      @for (sortLetter of usersFirstLetter; track allUsers) {
-      <div class="first-letter">{{ sortLetter }}</div>
+      @for (sortLetter of this.sortAllUsers(); track sortLetter) {
+      <div class="first-letter">{{ sortLetter.firstName }}</div>
       <div class="line"></div>
-      @for (count of usersByFirstLetter[sortLetter]; track usersByFirstLetter;
-      let index = $index) {
-      <div
-        class="contact"
-        routerLink="/contacts/{{ usersByFirstLetter[sortLetter] }}"
-      >
+      @for (user of this.sortUsersFirstLetter(sortLetter.id); track user; let
+      index = $index) {
+      <div class="contact" routerLink="/contacts/{{ user.id }}">
         <div
           class="circle"
           [ngStyle]="{
-            'background-color': userService.displayUserDetails(
-              usersByFirstLetter[sortLetter][index],
-              'color'
-            )
+            'background-color': userService.getUserDetails(user.id, 'color')
           }"
         >
           <div class="initials">
-            {{
-              userService.displayUserDetails(
-                usersByFirstLetter[sortLetter][index],
-                "initials"
-              )
-            }}
+            {{ userService.getUserDetails(user.id, "initials") }}
           </div>
         </div>
         <div class="details">
           <div class="name">
             <div class="first-name">
-              {{
-                userService.displayUserDetails(
-                  usersByFirstLetter[sortLetter][index],
-                  "firstName"
-                )
-              }}
+              {{ userService.getUserDetails(user.id, "firstName") }}
             </div>
             <span>,&nbsp;</span>
             <div class="last-name">
-              {{
-                userService.displayUserDetails(
-                  usersByFirstLetter[sortLetter][index],
-                  "lastName"
-                )
-              }}
+              {{ userService.getUserDetails(user.id, "lastName") }}
             </div>
           </div>
           <div class="email">
-            {{
-              userService.displayUserDetails(
-                usersByFirstLetter[sortLetter][index],
-                "email"
-              )
-            }}
+            {{ userService.getUserDetails(user.id, "email") }}
           </div>
         </div>
       </div>
