@@ -1,13 +1,13 @@
 @if (navbarVisible) {
 <nav class="navbar d-none">
-  <div class="link" routerLink="imprint">
-    <span>Legal Notice</span>
-  </div>
   <div class="link" routerLink="privacy-policy">
-    <span>Privacy Policy</span>
+    <span>{{ "navbar.privacyPolicy" | translate }}</span>
+  </div>
+  <div class="link" routerLink="imprint">
+    <span>{{ "navbar.legalNotice" | translate }}</span>
   </div>
   <div class="link" onclick="logout()">
-    <span>Log out</span>
+    <span>{{ "navbar.logout" | translate }}</span>
   </div>
 </nav>
 } @else if (navbarLanguageVisible) {
@@ -19,7 +19,7 @@
       active: langService.currentLang === 'en'
     }"
   >
-    <span>English</span>
+    <span>{{ "navbar.english" | translate }}</span>
   </div>
   <div
     class="link"
@@ -28,7 +28,7 @@
       active: langService.currentLang === 'de'
     }"
   >
-    <span>German</span>
+    <span>{{ "navbar.german" | translate }}</span>
   </div>
 </nav>
 }

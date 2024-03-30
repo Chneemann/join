@@ -1,4 +1,31 @@
 {
+  "header": {
+    "headline": "Kanban Project Management Tool"
+  },
+  "navbar": {
+    "privacyPolicy": "Privacy policy",
+    "legalNotice": "Legal notice",
+    "logout": "Abmelden",
+    "english": "English",
+    "german": "German"
+  },
+  "summary": {
+    "headlineDescription": "Key Metrics at a Glance",
+    "morning": "Good Morning",
+    "afternoon": "Good Afternoon",
+    "evening": "Good Evening",
+    "todo": "To-do",
+    "done": "Done",
+    "urgent": "Urgent",
+    "upcomingDeadline": "Upcoming Deadline",
+    "noDeadline": "No Deadline",
+    "taskBoard0": "Tasks in",
+    "taskBoard1": "Board",
+    "taskProgress0": "Tasks in",
+    "taskProgress1": "Progress",
+    "taskAwaitingFeedback0": "Awaiting",
+    "taskAwaitingFeedback1": "Feedback"
+  },
   "help": {
     "header": "Help",
     "welcome": "Welcome to the help page for Join, your guide to using our kanban project management tool. Here, we'll provide an overview of what Join is, how it can benefit you, and how to use it.",
@@ -23,7 +50,7 @@
     "footer": "Enjoy using Join!"
   },
   "imprint": {
-    "headline": "Imprint",
+    "headline": "Legal notice (Imprint)",
     "tmg": "Information according to §5 TMG",
     "contact": "Contact",
     "tel": "Telephone",

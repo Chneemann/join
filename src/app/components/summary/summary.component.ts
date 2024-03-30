@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../interfaces/task.interface';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, TranslateModule],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })

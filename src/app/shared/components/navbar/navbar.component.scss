@@ -25,6 +25,12 @@
   border-radius: 8px;
   color: var(--white);
   cursor: pointer;
+  span {
+    width: 118px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
   &:hover {
     background-color: var(--very-dark-blue);
     span {

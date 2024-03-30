@@ -43,10 +43,12 @@ section {
   display: flex;
   align-items: center;
   width: 56px;
-  cursor: pointer;
-  &:hover {
-    filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
-      brightness(92%) contrast(92%);
+  img {
+    cursor: pointer;
+    &:hover {
+      filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
+        brightness(92%) contrast(92%);
+    }
   }
 }
 

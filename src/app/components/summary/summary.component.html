@@ -2,7 +2,9 @@
   <div class="header">
     <div class="title">Join 360</div>
     <div class="blue-bar"></div>
-    <div class="metrics-txt">Key Metrics at a Glance</div>
+    <div class="metrics-txt">
+      {{ "summary.headlineDescription" | translate }}
+    </div>
   </div>
   <div class="content">
     <div class="left-container">
@@ -16,7 +18,7 @@
           </div>
           <div class="details">
             <span>{{ displayNumberOfTaskStatus("todo") }}</span>
-            <p>To-do</p>
+            <p>{{ "summary.todo" | translate }}</p>
           </div>
         </div>
         <div class="todo-done" routerLink="/board">
@@ -25,7 +27,7 @@
           </div>
           <div class="details">
             <span>{{ displayNumberOfTaskStatus("done") }}</span>
-            <p>Done</p>
+            <p>{{ "summary.done" | translate }}</p>
           </div>
         </div>
       </div>
@@ -36,7 +38,7 @@
             <img src="./../../../assets/img/summary/urgent.svg" alt="" />
             <div class="details">
               <span>{{ displayNumberOfTaskStatusUrgent().length }}</span>
-              <p>Done</p>
+              <p>{{ "summary.urgent" | translate }}</p>
             </div>
           </div>
           <div class="line"></div>
@@ -45,9 +47,11 @@
               <div>
                 @if (displayNumberOfTaskStatusUrgent().length) {
                 <span>{{ nextUrgentTasks() }}</span>
-                <p class="spacer">Upcoming Deadline</p>
+                <p class="spacer">
+                  {{ "summary.upcomingDeadline" | translate }}
+                </p>
                 } @else {
-                <p>No Deadline</p>
+                <p>{{ "summary.noDeadline" | translate }}</p>
                 }
               </div>
             </div>
@@ -59,19 +63,31 @@
         <div class="tasks" routerLink="/board">
           <div class="details">
             <span>{{ displayNumberOfAllTasks() }}</span>
-            <p>Task<br />in Board</p>
+            <p>
+              {{ "summary.taskBoard0" | translate }}<br />{{
+                "summary.taskBoard1" | translate
+              }}
+            </p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
             <span>{{ displayNumberOfTaskStatus("inprogress") }}</span>
-            <p>Task in<br />Progress</p>
+            <p>
+              {{ "summary.taskProgress0" | translate }}<br />{{
+                "summary.taskProgress1" | translate
+              }}
+            </p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
             <span>{{ displayNumberOfTaskStatus("awaitfeedback") }}</span>
-            <p>Awaiting<br />Feedback</p>
+            <p>
+              {{ "summary.taskAwaitingFeedback0" | translate }}<br />{{
+                "summary.taskAwaitingFeedback1" | translate
+              }}
+            </p>
           </div>
         </div>
       </div>

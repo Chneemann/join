@@ -20,6 +20,7 @@ main {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  min-width: calc(100vw - 232px);
 }
 
 app-header {
@@ -43,9 +44,15 @@ app-header {
     height: calc(100vh - 240px);
     padding: 32px;
   }
+
+  main {
+    min-width: calc(100vw);
+  }
+
   app-sidebar {
     display: none;
   }
+
   app-sidebar-mobile {
     display: unset;
   }

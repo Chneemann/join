@@ -1,4 +1,8 @@
 section {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
   padding-right: 64px;
   a {
     text-decoration: none;
@@ -48,7 +52,7 @@ h3 {
   margin-top: 24px;
   td:first-child {
     display: flex;
-    font-size: 27px;
+    font-size: 20px;
     font-weight: 700;
     margin-right: 35px;
   }
@@ -69,9 +73,18 @@ h3 {
   }
 }
 
-@media (max-width: 634px) {
+@media screen and (max-width: 500px) {
   h1 {
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 47px;
+  }
+
+  h2 {
+    font-size: 27px;
+  }
+
+  .content-table {
+    td:first-child {
+      margin-right: 12px;
+    }
   }
 }
