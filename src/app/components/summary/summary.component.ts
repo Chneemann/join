@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TaskService } from '../../services/task.service';
+import { Task } from '../../interfaces/task.interface';
 
 @Component({
   selector: 'app-summary',
@@ -10,58 +11,34 @@ import { TaskService } from '../../services/task.service';
   styleUrl: './summary.component.scss',
 })
 export class SummaryComponent {
-  allTasksCount: Number = 0;
-  todoTasksCount: Number = 0;
-  inprogressTasksCount: Number = 0;
-  awaitfeedbackTasksCount: Number = 0;
-  doneTasksCount: Number = 0;
-  urgentTasksCount: Number = 0;
-  urgentTasksDate: String = '';
+  constructor(private taskService: TaskService) {}
 
-  constructor(private taskService: TaskService) {
-    this.updateTasksCount();
-    this.updateAllTasksCount();
-    this.updateUrgentTasksCount();
+  displayNumberOfAllTasks() {
+    return this.taskService.getAllTasks().length;
   }
 
-  updateAllTasksCount() {
-    this.allTasksCount = this.taskService.allTasks.length;
-  }
-
-  updateTasksCount() {
-    this.todoTasksCount = this.countTasks('todo');
-    this.inprogressTasksCount = this.countTasks('inprogress');
-    this.awaitfeedbackTasksCount = this.countTasks('awaitfeedback');
-    this.doneTasksCount = this.countTasks('done');
-  }
-
-  countTasks(status: string): number {
-    const filteredTasks = this.taskService.allTasks.filter(
-      (task) => task.status === status
-    );
+  displayNumberOfTaskStatus(query: string) {
+    const filteredTasks = this.taskService
+      .getAllTasks()
+      .filter((task) => task.status === query);
     return filteredTasks.length;
   }
 
-  updateUrgentTasksCount() {
-    const filteredTasks = this.taskService.allTasks.filter(
-      (task) => task.priority === 'urgent'
-    );
-    this.urgentTasksCount = filteredTasks.length;
-    this.nextUrgentTasks(filteredTasks);
+  displayNumberOfTaskStatusUrgent() {
+    return this.taskService
+      .getAllTasks()
+      .filter((task) => task.priority === 'urgent');
   }
 
-  nextUrgentTasks(filteredTasks: any[]) {
-    if (filteredTasks.length >= 2) {
-      let timestamps = [];
-      for (let i = 0; i < filteredTasks.length; i++) {
-        timestamps.push(filteredTasks[i].timestamp);
-      }
-      this.urgentTasksDate = this.timeConverter(Math.min(...timestamps));
-    } else if (filteredTasks.length > 0) {
-      for (let i = 0; i < filteredTasks.length; i++) {
-        this.urgentTasksDate = this.timeConverter(filteredTasks[i].timestamp);
-      }
+  nextUrgentTasks() {
+    const urgentTasks = this.displayNumberOfTaskStatusUrgent();
+    if (urgentTasks.length >= 2) {
+      const timestamps = urgentTasks.map((task) => task.timestamp);
+      return this.timeConverter(Math.min(...timestamps));
+    } else if (urgentTasks.length > 0) {
+      return this.timeConverter(urgentTasks[0].timestamp);
     }
+    return;
   }
 
   timeConverter(timestamp: number) {

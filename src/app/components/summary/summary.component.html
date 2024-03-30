@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="details">
-            <span>{{ todoTasksCount }}</span>
+            <span>{{ displayNumberOfTaskStatus("todo") }}</span>
             <p>To-do</p>
           </div>
         </div>
@@ -24,7 +24,7 @@
             <img src="./../../../assets/img/summary/rake.svg" alt="" />
           </div>
           <div class="details">
-            <span>{{ doneTasksCount }}</span>
+            <span>{{ displayNumberOfTaskStatus("done") }}</span>
             <p>Done</p>
           </div>
         </div>
@@ -35,7 +35,7 @@
           <div class="left">
             <img src="./../../../assets/img/summary/urgent.svg" alt="" />
             <div class="details">
-              <span>{{ urgentTasksCount }}</span>
+              <span>{{ displayNumberOfTaskStatusUrgent().length }}</span>
               <p>Done</p>
             </div>
           </div>
@@ -43,9 +43,9 @@
           <div class="right">
             <div class="date">
               <div>
-                @if (urgentTasksCount) {
-                <span>{{ urgentTasksDate }}</span>
-                <p>Upcoming Deadline</p>
+                @if (displayNumberOfTaskStatusUrgent().length) {
+                <span>{{ nextUrgentTasks() }}</span>
+                <p class="spacer">Upcoming Deadline</p>
                 } @else {
                 <p>No Deadline</p>
                 }
@@ -58,19 +58,19 @@
       <div class="bottom-frame">
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>{{ allTasksCount }}</span>
+            <span>{{ displayNumberOfAllTasks() }}</span>
             <p>Task<br />in Board</p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>{{ inprogressTasksCount }}</span>
+            <span>{{ displayNumberOfTaskStatus("inprogress") }}</span>
             <p>Task in<br />Progress</p>
           </div>
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>{{ awaitfeedbackTasksCount }}</span>
+            <span>{{ displayNumberOfTaskStatus("awaitfeedback") }}</span>
             <p>Awaiting<br />Feedback</p>
           </div>
         </div>
