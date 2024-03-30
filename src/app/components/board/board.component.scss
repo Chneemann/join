@@ -30,12 +30,6 @@ section {
     align-items: center;
     border-radius: 10px;
     border: 1px solid var(--gray);
-    background-color: var(--white);
-    background-image: url("./../../../assets/img/board/search.svg");
-    background-position-x: calc(100% - 10px);
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: 24px;
   }
   .line {
     position: absolute;
@@ -46,6 +40,32 @@ section {
     background-color: var(--gray);
     margin: 0 6px;
   }
+  .icon-clear {
+    position: absolute;
+    top: 7px;
+    right: 225px;
+    cursor: pointer;
+    &:hover {
+      filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg);
+    }
+    filter: invert(41%) sepia(8%) saturate(762%) hue-rotate(176deg)
+      brightness(94%) contrast(86%);
+    width: 20px;
+    height: 20px;
+  }
+  .icon-search {
+    position: absolute;
+    top: 4px;
+    right: 223px;
+    filter: invert(41%) sepia(8%) saturate(762%) hue-rotate(176deg)
+      brightness(94%) contrast(86%);
+    width: 25px;
+    height: 25px;
+  }
+}
+
+d-none {
+  display: none;
 }
 
 .btn-inside {

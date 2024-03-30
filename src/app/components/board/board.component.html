@@ -8,8 +8,24 @@
           id="search-task"
           type="text"
           placeholder="Find Task"
+          [(ngModel)]="searchValue"
           (input)="searchTask()"
         />
+        <span>
+          @if (this.searchInput) {
+          <img
+            src="./../../../assets/img/board/clear.svg"
+            class="icon-clear"
+            alt="clear"
+            (click)="clearInput()"
+          />
+          } @else {
+          <img
+            src="./../../../assets/img/board/search.svg"
+            class="icon-search"
+            alt="search"
+          />}</span
+        >
         <span class="line"></span>
       </div>
       <button class="btn" type="submit">

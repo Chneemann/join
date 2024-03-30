@@ -5,22 +5,22 @@ import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { TaskComponent } from './task/task.component';
 import { TaskEmptyComponent } from './task/task-empty/task-empty.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskComponent, TaskEmptyComponent],
+  imports: [CommonModule, TaskComponent, TaskEmptyComponent, FormsModule],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
-  @ViewChild('searchField') searchField!: ElementRef;
   constructor(
     public dragDropService: DragDropService,
     private taskService: TaskService
   ) {}
-
-  search!: string;
+  searchValue: string = '';
+  searchInput: boolean = false;
 
   ngOnInit() {
     this.dragDropService.itemDropped.subscribe(({ id, status }) => {
@@ -29,19 +29,15 @@ export class BoardComponent {
   }
 
   getTaskStatus(status: string) {
-    if (this.searchField) {
-      this.search = this.searchField.nativeElement.value.toLowerCase();
-      if (this.search.length > 0) {
-        return this.taskService
-          .getFiltertTasks()
-          .filter((task) => task.status === status);
-      } else {
-        return this.taskService
-          .getAllTasks()
-          .filter((task) => task.status === status);
-      }
+    if (this.updateSearchInput()) {
+      return this.taskService
+        .getFiltertTasks()
+        .filter((task) => task.status === status);
+    } else {
+      return this.taskService
+        .getAllTasks()
+        .filter((task) => task.status === status);
     }
-    return;
   }
 
   handleItemDropped(id: string, status: string): void {
@@ -58,14 +54,27 @@ export class BoardComponent {
     }
   }
 
+  clearInput() {
+    this.searchValue = '';
+    this.searchTask();
+  }
+
+  updateSearchInput() {
+    if (this.searchValue) {
+      this.searchInput = this.searchValue.toLowerCase().length > 0;
+    }
+    return this.searchInput;
+  }
+
   searchTask(): void {
+    this.updateSearchInput();
     this.taskService.filteredTasks = this.taskService
       .getAllTasks()
       .filter(
         (task) =>
-          task.title.toLowerCase().includes(this.search) ||
-          task.description.toLowerCase().includes(this.search) ||
-          task.category.toLowerCase().includes(this.search)
+          task.title.toLowerCase().includes(this.searchValue) ||
+          task.description.toLowerCase().includes(this.searchValue) ||
+          task.category.toLowerCase().includes(this.searchValue)
       );
   }
 }
