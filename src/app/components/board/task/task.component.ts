@@ -22,7 +22,6 @@ export class TaskComponent {
 
   constructor(
     public dragDropService: DragDropService,
-    private taskService: TaskService,
     private userService: UserService
   ) {}
 

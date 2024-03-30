@@ -21,21 +21,12 @@ export class UserService implements OnDestroy {
     return onSnapshot(collection(this.firestore, 'users'), (list) => {
       this.allUsers = [];
       list.forEach((element) => {
-        this.allUsers.push(this.setUserObject(element.data(), element.id));
+        const taskData = element.data() as User;
+        const taskWithId = { ...taskData };
+        taskWithId.id = element.id;
+        this.allUsers.push(taskWithId);
       });
     });
-  }
-
-  setUserObject(obj: any, id: string): User {
-    return {
-      id: id,
-      firstName: obj.firstName,
-      lastName: obj.lastName,
-      email: obj.email,
-      phone: obj.phone,
-      initials: obj.initials,
-      color: obj.color,
-    };
   }
 
   getUsers(): User[] {

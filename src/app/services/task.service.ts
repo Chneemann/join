@@ -26,24 +26,12 @@ export class TaskService implements OnDestroy {
     return onSnapshot(collection(this.firestore, 'tasks'), (list) => {
       this.allTasks = [];
       list.forEach((element) => {
-        this.allTasks.push(this.setUserObject(element.data(), element.id));
+        const taskData = element.data() as Task;
+        const taskWithId = { ...taskData };
+        taskWithId.id = element.id;
+        this.allTasks.push(taskWithId);
       });
     });
-  }
-
-  setUserObject(obj: any, id: string): Task {
-    return {
-      id: id,
-      title: obj.title,
-      description: obj.description,
-      category: obj.category,
-      status: obj.status,
-      priority: obj.priority,
-      subtasksTitle: obj.subtasksTitle,
-      subtasksDone: obj.subtasksDone,
-      assigned: obj.assigned,
-      timestamp: obj.timestamp,
-    };
   }
 
   getAllTasks(): Task[] {
@@ -55,21 +43,11 @@ export class TaskService implements OnDestroy {
   }
 
   async updateTask(taskId: any, index: number) {
-    await updateDoc(
-      doc(collection(this.firestore, 'tasks'), taskId),
-      this.getCleanJson(this.allTasks[index])
-    ).catch((err) => {
+    await updateDoc(doc(collection(this.firestore, 'tasks'), taskId), {
+      status: this.allTasks[index].status,
+    }).catch((err) => {
       console.error(err);
     });
-  }
-
-  getCleanJson(task: any): {} {
-    return {
-      category: task.category,
-      description: task.description,
-      title: task.title,
-      status: task.status,
-    };
   }
 
   ngOnDestroy() {
