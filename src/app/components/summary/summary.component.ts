@@ -19,11 +19,9 @@ export class SummaryComponent {
   urgentTasksDate: String = '';
 
   constructor(private taskService: TaskService) {
-    this.taskService.subTaskList().subscribe(() => {
-      this.updateTasksCount();
-      this.updateAllTasksCount();
-      this.updateUrgentTasksCount();
-    });
+    this.updateTasksCount();
+    this.updateAllTasksCount();
+    this.updateUrgentTasksCount();
   }
 
   updateAllTasksCount() {

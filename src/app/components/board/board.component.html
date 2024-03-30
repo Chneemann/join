@@ -32,7 +32,7 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="todo" class="details">
-          @for(task of todoTasks; track task) {
+          @for(task of getTaskStatus("todo"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
           <app-task-empty>No tasks</app-task-empty>
@@ -49,7 +49,7 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="inprogress" class="details">
-          @for(task of inprogressTasks; track task) {
+          @for(task of getTaskStatus("inprogress"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
           <app-task-empty>No tasks</app-task-empty>
@@ -66,7 +66,7 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="awaitfeedback" class="details">
-          @for(task of awaitfeedbackTasks; track task) {
+          @for(task of getTaskStatus("awaitfeedback"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
           <app-task-empty>No tasks</app-task-empty>
@@ -83,7 +83,7 @@
           ><img src="./../../../assets/img/board/add.svg" alt="add" />
         </div>
         <div id="done" class="details">
-          @for(task of doneTasks; track task) {
+          @for(task of getTaskStatus("done"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
           <app-task-empty>No tasks</app-task-empty>

@@ -17,10 +17,6 @@ export class UserService implements OnDestroy {
     this.unsubUser = this.subUserList();
   }
 
-  getUsers(): User[] {
-    return this.allUsers;
-  }
-
   subUserList() {
     return onSnapshot(collection(this.firestore, 'users'), (list) => {
       this.allUsers = [];
@@ -40,6 +36,10 @@ export class UserService implements OnDestroy {
       initials: obj.initials,
       color: obj.color,
     };
+  }
+
+  getUsers(): User[] {
+    return this.allUsers;
   }
 
   getUserDetails(userId: string, query: keyof User) {

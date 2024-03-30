@@ -46,7 +46,7 @@ export class TaskComponent {
 
   userBadged(id: number) {
     const userId = String(id);
-    const user = this.userService.allUsers.find((user) => user.id === userId);
+    const user = this.userService.getUsers().find((user) => user.id === userId);
     if (user) {
       if (user.firstName === 'Guest') {
         return user.firstName.charAt(0);

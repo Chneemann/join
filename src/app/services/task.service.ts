@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, OnDestroy, inject } from '@angular/core';
 import {
   Firestore,
   collection,
@@ -7,34 +7,51 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { Task } from '../interfaces/task.interface';
-import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root',
 })
-export class TaskService {
+export class TaskService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
 
   allTasks: Task[] = [];
   filteredTasks: Task[] = [];
 
-  constructor() {}
+  unsubTask;
+
+  constructor() {
+    this.unsubTask = this.subTaskList();
+  }
 
   subTaskList() {
-    return new Observable<void>((observer) => {
-      const unsubscribe = onSnapshot(
-        collection(this.firestore, 'tasks'),
-        (list) => {
-          this.allTasks = [];
-          list.forEach((element) => {
-            const taskData = { ...(element.data() as Task), id: element.id };
-            this.allTasks.push(taskData);
-          });
-          observer.next();
-        }
-      );
-      return () => unsubscribe();
+    return onSnapshot(collection(this.firestore, 'tasks'), (list) => {
+      this.allTasks = [];
+      list.forEach((element) => {
+        this.allTasks.push(this.setUserObject(element.data(), element.id));
+      });
     });
+  }
+
+  setUserObject(obj: any, id: string): Task {
+    return {
+      id: id,
+      title: obj.title,
+      description: obj.description,
+      category: obj.category,
+      status: obj.status,
+      priority: obj.priority,
+      subtasksTitle: obj.subtasksTitle,
+      subtasksDone: obj.subtasksDone,
+      assigned: obj.assigned,
+      timestamp: obj.timestamp,
+    };
+  }
+
+  getAllTasks(): Task[] {
+    return this.allTasks;
+  }
+
+  getFiltertTasks(): Task[] {
+    return this.filteredTasks;
   }
 
   async updateTask(taskId: any, index: number) {
@@ -53,5 +70,9 @@ export class TaskService {
       title: task.title,
       status: task.status,
     };
+  }
+
+  ngOnDestroy() {
+    this.unsubTask();
   }
 }

@@ -15,19 +15,12 @@ import { TaskEmptyComponent } from './task/task-empty/task-empty.component';
 })
 export class BoardComponent {
   @ViewChild('searchField') searchField!: ElementRef;
-  todoTasks: Task[] = [];
-  inprogressTasks: Task[] = [];
-  awaitfeedbackTasks: Task[] = [];
-  doneTasks: Task[] = [];
-
   constructor(
     public dragDropService: DragDropService,
     private taskService: TaskService
-  ) {
-    this.taskService.subTaskList().subscribe(() => {
-      this.loadAllTasks();
-    });
-  }
+  ) {}
+
+  search!: string;
 
   ngOnInit() {
     this.dragDropService.itemDropped.subscribe(({ id, status }) => {
@@ -35,22 +28,20 @@ export class BoardComponent {
     });
   }
 
-  getTask(status: string): Task[] {
-    const search = this.searchField.nativeElement.value.toLowerCase();
-    if (this.taskService.filteredTasks.length >= 0 && search !== '') {
-      return this.taskService.filteredTasks.filter(
-        (task) => task.status === status
-      );
-    } else {
-      return this.taskService.allTasks.filter((task) => task.status === status);
+  getTaskStatus(status: string) {
+    if (this.searchField) {
+      this.search = this.searchField.nativeElement.value.toLowerCase();
+      if (this.search.length > 0) {
+        return this.taskService
+          .getFiltertTasks()
+          .filter((task) => task.status === status);
+      } else {
+        return this.taskService
+          .getAllTasks()
+          .filter((task) => task.status === status);
+      }
     }
-  }
-
-  loadAllTasks() {
-    this.todoTasks = this.getTask('todo');
-    this.inprogressTasks = this.getTask('inprogress');
-    this.awaitfeedbackTasks = this.getTask('awaitfeedback');
-    this.doneTasks = this.getTask('done');
+    return;
   }
 
   handleItemDropped(id: string, status: string): void {
@@ -68,13 +59,13 @@ export class BoardComponent {
   }
 
   searchTask(): void {
-    const search = this.searchField.nativeElement.value.toLowerCase();
-    this.taskService.filteredTasks = this.taskService.allTasks.filter(
-      (task) =>
-        task.title.toLowerCase().includes(search) ||
-        task.description.toLowerCase().includes(search) ||
-        task.category.toLowerCase().includes(search)
-    );
-    this.loadAllTasks();
+    this.taskService.filteredTasks = this.taskService
+      .getAllTasks()
+      .filter(
+        (task) =>
+          task.title.toLowerCase().includes(this.search) ||
+          task.description.toLowerCase().includes(this.search) ||
+          task.category.toLowerCase().includes(this.search)
+      );
   }
 }

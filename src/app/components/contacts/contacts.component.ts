@@ -43,8 +43,7 @@ export class ContactsComponent {
   }
 
   checkUsersFirstLetter() {
-    let usersFirstLetter = [];
-    usersFirstLetter = Array.from(
+    let usersFirstLetter = Array.from(
       new Set(
         this.loadAllUserWithoutGuest().map((user) =>
           user.firstName[0].toUpperCase()
