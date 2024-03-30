@@ -30,7 +30,11 @@
     <div class="footer">
       <div class="footer-badge">
         @for (assigned of task.assigned; track assigned) {
-        <span class="footer-badged">{{ userBadged(assigned) }}</span>
+        <span
+          class="footer-badged"
+          [style.background-color]="userBadgedColor(assigned)"
+          >{{ userBadged(assigned) }}</span
+        >
         }
       </div>
       <div class="footer-priority prio-{{ task.priority }}"></div>

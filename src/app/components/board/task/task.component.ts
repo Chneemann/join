@@ -45,7 +45,9 @@ export class TaskComponent {
 
   userBadged(id: number) {
     const userId = String(id);
-    const user = this.userService.getUsers().find((user) => user.id === userId);
+    const user = this.userService
+      .getAllUsers()
+      .find((user) => user.id === userId);
     if (user) {
       if (user.firstName === 'Guest') {
         return user.firstName.charAt(0);
@@ -54,6 +56,18 @@ export class TaskComponent {
         const lastNameLetter = user.lastName.charAt(0);
         return firstNameLetter + lastNameLetter;
       }
+    } else {
+      return;
+    }
+  }
+
+  userBadgedColor(id: number) {
+    const userId = String(id);
+    const user = this.userService
+      .getAllUsers()
+      .find((user) => user.id === userId);
+    if (user) {
+      return user.color;
     } else {
       return;
     }

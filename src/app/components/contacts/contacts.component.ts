@@ -33,7 +33,9 @@ export class ContactsComponent {
   }
 
   loadAllUserWithoutGuest(): User[] {
-    return this.userService.getUsers().filter((user) => user.initials !== 'G');
+    return this.userService
+      .getAllUsers()
+      .filter((user) => user.initials !== 'G');
   }
 
   sortUsersByFirstLetter(sortLetter: string) {
