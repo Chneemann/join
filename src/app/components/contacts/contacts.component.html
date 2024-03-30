@@ -1,5 +1,8 @@
 <section>
-  <div class="left-frame">
+  <div
+    class="left-frame"
+    [ngClass]="{ 'd-none': !showAllUsers && currentUserId != undefined }"
+  >
     <button class="btn" type="submit">
       <div class="btn-inside">
         <span>Add new contact</span>
@@ -41,5 +44,8 @@
       } }
     </div>
   </div>
-  <app-contact-detail [currentUserId]="currentUserId"></app-contact-detail>
+  <app-contact-detail
+    [ngClass]="{ 'd-none': !showAllUsers && currentUserId == undefined }"
+    [currentUserId]="currentUserId"
+  ></app-contact-detail>
 </section>

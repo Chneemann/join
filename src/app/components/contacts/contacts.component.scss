@@ -2,6 +2,10 @@ section {
   position: relative;
 }
 
+.d-none {
+  display: none;
+}
+
 .btn-inside {
   display: flex;
   justify-content: center;
@@ -135,7 +139,22 @@ section {
     top: 96px;
     left: 0px;
     width: 100vw;
-    min-height: calc(100vh - 207px);
     background-color: var(--bgContent);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .left-frame {
+    padding: 0;
+  }
+
+  .btn {
+    display: none;
+  }
+
+  .first-letter {
+    &:first-child {
+      margin-top: 0;
+    }
   }
 }

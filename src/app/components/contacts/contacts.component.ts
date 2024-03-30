@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
@@ -16,12 +16,14 @@ export class ContactsComponent {
   allUsers: User[] = [];
   usersFirstLetter: string[] = [];
   usersByFirstLetter: { [key: string]: string[] } = {};
+  showAllUsers!: boolean;
   currentUserId: string = '';
 
   constructor(public userService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.routeUserId();
+    this.onResize();
   }
 
   routeUserId() {
@@ -30,6 +32,16 @@ export class ContactsComponent {
         this.currentUserId = params['id'];
       });
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (window.innerWidth <= 1150 && this.currentUserId != '') {
+      this.showAllUsers = false;
+    } else {
+      this.showAllUsers = true;
+    }
+    console.log(this.showAllUsers);
   }
 
   loadAllUserWithoutGuest(): User[] {

@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from '../contacts.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-detail',
@@ -11,7 +12,11 @@ import { ContactsComponent } from '../contacts.component';
   styleUrl: './contact-detail.component.scss',
 })
 export class ContactDetailComponent {
-  @Input() currentUserId: string = '';
+  @Input() currentUserId!: string;
 
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, private router: Router) {}
+
+  closeUserDetails() {
+    this.router.navigate(['contacts']);
+  }
 }
