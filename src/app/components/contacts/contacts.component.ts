@@ -41,7 +41,6 @@ export class ContactsComponent {
     } else {
       this.showAllUsers = true;
     }
-    console.log(this.showAllUsers);
   }
 
   loadAllUserWithoutGuest(): User[] {

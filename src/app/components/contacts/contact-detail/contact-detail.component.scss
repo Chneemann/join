@@ -70,8 +70,7 @@ section {
   }
 }
 
-.details {
-  margin-left: 32px;
+.word-wrap {
   overflow: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -82,13 +81,14 @@ section {
   display: flex;
   align-items: center;
   font-size: 47px;
-  font-weight: 500;
+  font-weight: 600;
+  padding-left: 32px;
 }
 
 .btns {
   display: flex;
   align-items: center;
-  padding-top: 12px;
+  padding: 12px 0 0 32px;
   img {
     width: 20px;
     height: 20px;
@@ -226,6 +226,23 @@ section {
 
   section {
     width: calc(100vw - 36px);
+  }
+
+  .name {
+    font-size: 36px;
+    font-weight: 600;
+    padding-left: 18px;
+  }
+
+  .circle {
+    width: 80px;
+    min-width: 80px;
+    height: 80px;
+    border: 2px solid var(--white);
+    .initials {
+      font-size: 27px;
+      font-weight: 400;
+    }
   }
 
   .headerline {
