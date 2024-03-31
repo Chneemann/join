@@ -80,6 +80,15 @@ section {
   }
 }
 
+.contact-active {
+  color: var(--white);
+  background-color: var(--dark-blue);
+  cursor: unset;
+  &:hover {
+    background-color: var(--dark-blue);
+  }
+}
+
 .circle {
   display: flex;
   justify-content: center;
@@ -99,20 +108,26 @@ section {
 
 .details {
   margin-left: 24px;
-  overflow-x: auto;
   width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 .name {
   display: flex;
   align-items: center;
-  .first-name,
-  .last-name,
-  span {
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 6px;
-  }
+  max-width: 100%; /* Adjust this width as necessary */
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.last-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .email {
@@ -120,8 +135,10 @@ section {
   font-weight: 400;
   text-decoration: none;
   color: var(--light-blue);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
 /*------------- RESPONSIVE -------------*/
 
 @media screen and (max-width: 1150px) {

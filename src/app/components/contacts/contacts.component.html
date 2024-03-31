@@ -15,7 +15,13 @@
       <div class="line"></div>
       @for (user of this.sortUsersByFirstLetter(sortLetter); track user; let
       index = $index) {
-      <div class="contact" routerLink="/contacts/{{ user.id }}">
+      <div
+        class="contact"
+        routerLink="/contacts/{{ user.id }}"
+        [ngClass]="{
+          'contact-active': currentUserId === user.id
+        }"
+      >
         <div
           class="circle"
           [ngStyle]="{
@@ -28,13 +34,13 @@
         </div>
         <div class="details">
           <div class="name">
-            <div class="first-name">
+            <p>
               {{ userService.getUserDetails(user.id, "firstName") }}
-            </div>
+            </p>
             <span>,&nbsp;</span>
-            <div class="last-name">
+            <p class="last-name">
               {{ userService.getUserDetails(user.id, "lastName") }}
-            </div>
+            </p>
           </div>
           <div class="email">
             {{ userService.getUserDetails(user.id, "email") }}
