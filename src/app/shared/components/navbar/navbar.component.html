@@ -1,9 +1,21 @@
 @if (navbarVisible) {
 <nav class="navbar d-none">
-  <div class="link" routerLink="privacy-policy">
+  <div
+    class="link"
+    routerLink="privacy-policy"
+    [ngClass]="{
+      active: currentRoute === '/privacy-policy'
+    }"
+  >
     <span>{{ "navbar.privacyPolicy" | translate }}</span>
   </div>
-  <div class="link" routerLink="imprint">
+  <div
+    class="link"
+    routerLink="imprint"
+    [ngClass]="{
+      active: currentRoute === '/imprint'
+    }"
+  >
     <span>{{ "navbar.legalNotice" | translate }}</span>
   </div>
   <div class="link" onclick="logout()">
@@ -14,21 +26,23 @@
 <nav class="navbar language d-none">
   <div
     class="link"
-    (click)="langService.switchLanguage('en')"
     [ngClass]="{
       active: langService.currentLang === 'en'
     }"
   >
-    <span>{{ "navbar.english" | translate }}</span>
+    <span (click)="langService.switchLanguage('en')">{{
+      "navbar.english" | translate
+    }}</span>
   </div>
   <div
     class="link"
-    (click)="langService.switchLanguage('de')"
     [ngClass]="{
       active: langService.currentLang === 'de'
     }"
   >
-    <span>{{ "navbar.german" | translate }}</span>
+    <span (click)="langService.switchLanguage('de')">{{
+      "navbar.german" | translate
+    }}</span>
   </div>
 </nav>
 }

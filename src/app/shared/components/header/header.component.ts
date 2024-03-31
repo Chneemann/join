@@ -38,5 +38,9 @@ export class HeaderComponent {
     ) {
       this.navbarLanguageVisible = false;
     }
+    if (targetElement.closest('.link')) {
+      this.navbarVisible = false;
+      this.navbarLanguageVisible = false;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { LanguageService } from '../../../services/language.service';
 import { CommonModule } from '@angular/common';
@@ -16,5 +16,11 @@ export class NavbarComponent {
   @Input() navbarVisible: boolean = false;
   @Input() navbarLanguageVisible: boolean = false;
 
-  constructor(public langService: LanguageService) {}
+  currentRoute: string = '';
+
+  constructor(public langService: LanguageService, private router: Router) {}
+
+  ngOnInit() {
+    this.currentRoute = this.router.url;
+  }
 }
