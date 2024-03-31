@@ -10,7 +10,7 @@
       </div>
     </button>
     <div class="content">
-      @for (sortLetter of this.checkUsersFirstLetter(); track sortLetter) {
+      @for (sortLetter of this.sortFirstLetter(); track sortLetter) {
       <div class="first-letter">{{ sortLetter }}</div>
       <div class="line"></div>
       @for (user of this.sortUsersByFirstLetter(sortLetter); track user; let

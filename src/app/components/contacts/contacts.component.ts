@@ -55,13 +55,12 @@ export class ContactsComponent {
     );
   }
 
-  checkUsersFirstLetter() {
+  sortFirstLetter() {
+    let filteretArray = this.loadAllUserWithoutGuest().sort((a, b) =>
+      a.firstName.localeCompare(b.firstName)
+    );
     let usersFirstLetter = Array.from(
-      new Set(
-        this.loadAllUserWithoutGuest().map((user) =>
-          user.firstName[0].toUpperCase()
-        )
-      )
+      new Set(filteretArray.map((user) => user.firstName[0].toUpperCase()))
     );
     return usersFirstLetter;
   }
