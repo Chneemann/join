@@ -4,6 +4,7 @@ section {
   overflow-wrap: break-word;
   white-space: normal;
   padding-right: 64px;
+  margin-bottom: 32px;
   a {
     text-decoration: none;
     color: var(--gray);
@@ -70,6 +71,7 @@ h3 {
 @media screen and (max-width: 910px) {
   section {
     padding-right: 0;
+    margin-bottom: 0;
   }
 }
 
