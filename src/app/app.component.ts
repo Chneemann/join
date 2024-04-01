@@ -7,7 +7,6 @@ import { SidebarMobileComponent } from './shared/components/sidebar/sidebar-mobi
 import { ContactEditComponent } from './components/contacts/contact-edit/contact-edit.component';
 import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
-import { Observable } from 'rxjs';
 import { ContactDeleteComponent } from './components/contacts/contact-delete/contact-delete.component';
 
 @Component({
@@ -40,9 +39,6 @@ export class AppComponent {
   }
 
   getUserIdInLocalStorage() {
-    localStorage.setItem(
-      'currentUserId',
-      JSON.stringify('5EX7gnwPPGEDbN186Rdw')
-    );
+    localStorage.setItem('currentUser', JSON.stringify('5EX7gnwPPGEDbN186Rdw'));
   }
 }

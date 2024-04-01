@@ -57,7 +57,6 @@ export class ContactFormComponent implements OnChanges {
   }
 
   deleteContact() {
-    this.userService.deleteUser(this.currentUserId);
     this.sharedService.isDeleteContactDialogOpen = false;
     this.sharedService.isAnyDialogOpen = false;
   }

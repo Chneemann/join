@@ -4,6 +4,10 @@
   font-family: "Inter", sans-serif;
 }
 
+body {
+  background-color: var(--bgContent);
+}
+
 :root {
   --bgSidebar: #2b3647;
   --bgContent: #f6f7f8;
