@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SharedService {
-  isAnyDialogOpen: boolean = true;
-  isEditDialogOpen: boolean = true;
+  isAnyDialogOpen: boolean = false;
+  isEditDialogOpen: boolean = false;
   currentUserId: string = '';
 
   constructor() {}

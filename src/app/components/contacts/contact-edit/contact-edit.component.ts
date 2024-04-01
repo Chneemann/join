@@ -12,10 +12,7 @@ import { SharedService } from '../../../services/shared.service';
   styleUrl: './contact-edit.component.scss',
 })
 export class ContactEditComponent {
-  @Input() currentUserId!: string | undefined;
+  @Input() currentUserId!: string;
 
-  constructor(
-    public userService: UserService,
-    public sharedService: SharedService
-  ) {}
+  constructor(public userService: UserService) {}
 }

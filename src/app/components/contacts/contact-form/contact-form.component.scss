@@ -1,0 +1,94 @@
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+span {
+  font-size: 14px;
+  font-weight: 400;
+  color: red;
+  padding: 0 0 10px 20px;
+}
+
+.name {
+  display: flex;
+}
+
+.contact-formular {
+  display: flex;
+  flex-direction: column;
+  min-width: 480px;
+  .btn-delete {
+    padding: 12px;
+    margin: 12px 12px;
+    border-radius: 10px;
+    color: var(--red);
+    background-color: var(--white);
+    border: 1px solid var(--red);
+    font-size: 23px;
+    font-weight: 400;
+    cursor: pointer;
+    &:hover {
+      color: var(--white);
+      background-color: var(--red);
+      border-color: var(--black);
+    }
+  }
+  input {
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 12px;
+    margin: 12px 12px;
+    width: 90%;
+    &:hover {
+      border-color: var(--light-blue);
+    }
+    &:focus {
+      border-color: var(--light-blue);
+      outline: none;
+    }
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 111px;
+  height: 57px;
+  margin: 0 24px;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.btn-save {
+  padding: 15px 30px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border-color: var(--black);
+  background-color: var(--light-gray);
+  font-size: 23px;
+  font-weight: 400;
+  transition: 200ms ease-in-out;
+  &:hover:not(:disabled) {
+    background-color: var(--light-blue) !important;
+    cursor: pointer;
+  }
+  &:not(:disabled) {
+    background-color: var(--very-dark-blue) !important;
+    color: var(--white);
+  }
+  &:hover {
+    cursor: default;
+  }
+}

@@ -9,6 +9,16 @@
     "english": "English",
     "german": "German"
   },
+  "form": {
+    "btn-delete": "Delete",
+    "btn-save": "Save",
+    "invalid-name": "Your name is required!",
+    "invalid-email": "Your email is required!",
+    "invalid-msg": "More than 10 letters are required!",
+    "invalid-checkbox": "Please accept the privacy policy!",
+    "msg-send0": "Your message has been sent successfully.",
+    "msg-send1": "I will contact you shortly."
+  },
   "summary": {
     "headlineDescription": "Key Metrics at a Glance",
     "morning": "Good Morning",

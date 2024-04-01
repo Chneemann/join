@@ -61,3 +61,17 @@ section {
     }
   }
 }
+
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}

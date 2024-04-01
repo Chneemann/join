@@ -1,5 +1,11 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
-import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { User } from '../interfaces/user.interface';
 
 @Injectable({
@@ -42,6 +48,15 @@ export class UserService implements OnDestroy {
     return this.getAllUsers()
       .filter((user) => user.id === userId)
       .map((user) => user[query]);
+  }
+
+  async updateUserData(userId: string, data: any) {
+    await updateDoc(
+      doc(collection(this.firestore, 'users'), userId),
+      data
+    ).catch((err) => {
+      console.error(err);
+    });
   }
 
   ngOnDestroy() {

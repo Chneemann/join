@@ -5,23 +5,23 @@
       <p>Edit contact</p>
     </div>
     <div class="content">
-      <div
-        class="circle"
-        [ngStyle]="{
-          'background-color': userService.getUserDetails(
-            sharedService.currentUserId,
-            'color'
-          )
-        }"
-      >
-        <div class="initials">
-          {{
-            userService.getUserDetails(sharedService.currentUserId, "initials")
-          }}
+      <div class="badge">
+        <div
+          class="circle"
+          [ngStyle]="{
+            'background-color': userService.getUserDetails(
+              currentUserId,
+              'color'
+            )
+          }"
+        >
+          <div class="initials">
+            {{ userService.getUserDetails(currentUserId, "initials") }}
+          </div>
         </div>
       </div>
       <div class="form">
-        <app-contact-form></app-contact-form>
+        <app-contact-form [currentUserId]="currentUserId"></app-contact-form>
       </div>
     </div>
   </div>

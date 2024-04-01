@@ -1,1 +1,91 @@
-<p>contact-form works!</p>
+<section>
+  <form
+    (ngSubmit)="onSubmit(contactForm)"
+    #contactForm="ngForm"
+    onsubmit="return false"
+    class="contact-formular"
+  >
+    <div class="name">
+      <input
+        id="firstName"
+        type="text"
+        class="firstName"
+        name="firstName"
+        #firstName="ngModel"
+        placeholder="{{ contactData.firstName }}"
+        [(ngModel)]="contactData.firstName"
+        autocomplete="off"
+        required
+      />
+      @if (!firstName.valid && firstName.touched) {
+      <span>{{ "form.invalid-name" | translate }}</span>
+      }
+      <input
+        id="lastName"
+        type="text"
+        class="lastName"
+        name="lastName"
+        #lastName="ngModel"
+        placeholder="{{ contactData.lastName }}"
+        [(ngModel)]="contactData.lastName"
+        autocomplete="off"
+        required
+      />
+      @if (!lastName.valid && lastName.touched) {
+      <span>{{ "form.invalid-name" | translate }}</span>
+      }
+    </div>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      #email="ngModel"
+      placeholder="{{ contactData.email }}"
+      [(ngModel)]="contactData.email"
+      autocomplete="off"
+      required
+    />
+    @if (!email.valid && email.touched) {
+    <span>{{ "form.invalid-email" | translate }}</span>
+    }
+    <input
+      id="phone"
+      type="phone"
+      name="phone"
+      #phone="ngModel"
+      placeholder="{{ contactData.phone }}"
+      [(ngModel)]="contactData.phone"
+      autocomplete="off"
+      required
+    />
+    @if (!phone.valid && phone.touched) {
+    <span>{{ "form.invalid-msg" | translate }}</span>
+    }
+    <div class="btns">
+      <div class="btn" (click)="deleteContact()">
+        <input
+          class="btn-delete"
+          type="button"
+          value="{{ 'form.btn-delete' | translate }}"
+        />
+      </div>
+      <div class="btn">
+        <input
+          class="btn-save"
+          type="submit"
+          value="{{ 'form.btn-save' | translate }}"
+          [disabled]="
+            firstName.invalid ||
+            !contactData.firstName ||
+            lastName.invalid ||
+            !contactData.lastName ||
+            email.invalid ||
+            !contactData.email ||
+            phone.invalid ||
+            !contactData.phone
+          "
+        />
+      </div>
+    </div>
+  </form>
+</section>
