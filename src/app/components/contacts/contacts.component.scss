@@ -1,9 +1,7 @@
 section {
   position: relative;
-}
-
-.d-none {
-  display: none;
+  height: 100%;
+  width: 100%;
 }
 
 .btn-inside {
@@ -163,11 +161,10 @@ section {
 
 @media screen and (max-width: 910px) {
   .left-frame {
-    position: relative;
-    top: -32px;
-    left: -32px;
-    width: calc(100vw);
-    min-height: calc(100vh - 208px);
+    padding: 0;
+    left: -16px;
+    width: calc(100vw - 16px);
+    min-height: calc(100vh - 176px);
   }
 
   .btn-inside {
@@ -198,9 +195,9 @@ section {
 
 @media screen and (max-width: 450px) {
   .left-frame {
-    padding: 0;
+    top: -32px;
     left: -16px;
-    min-height: calc(100vh - 176px);
+    width: calc(100vw);
   }
 
   .first-letter {
