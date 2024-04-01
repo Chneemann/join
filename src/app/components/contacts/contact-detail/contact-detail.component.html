@@ -6,6 +6,7 @@
       <div class="metrics-txt">Better with a team</div>
     </div>
     <img
+      [ngClass]="{ 'd-none': !currentUserId }"
       (click)="closeUserDetails()"
       src="./../../../../assets/img/arrow-left.svg"
     />

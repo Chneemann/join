@@ -17,9 +17,6 @@
         autocomplete="off"
         required
       />
-      @if (!firstName.valid && firstName.touched) {
-      <span>{{ "form.invalid-name" | translate }}</span>
-      }
       <input
         id="lastName"
         type="text"
@@ -31,10 +28,15 @@
         autocomplete="off"
         required
       />
-      @if (!lastName.valid && lastName.touched) {
-      <span>{{ "form.invalid-name" | translate }}</span>
-      }
     </div>
+    @if ((!firstName.valid && firstName.touched) && (!lastName.valid &&
+    lastName.touched)) {
+    <span>{{ "contact-dialog-form.invalid-name" | translate }}</span>
+    } @else { @if (!firstName.valid && firstName.touched) {
+    <span>{{ "contact-dialog-form.invalid-firstName" | translate }}</span>
+    } @else { @if (!lastName.valid && lastName.touched) {
+    <span>{{ "contact-dialog-form.invalid-lastName" | translate }}</span>
+    } } }
     <input
       id="email"
       type="email"
@@ -46,7 +48,7 @@
       required
     />
     @if (!email.valid && email.touched) {
-    <span>{{ "form.invalid-email" | translate }}</span>
+    <span>{{ "contact-dialog-form.invalid-email" | translate }}</span>
     }
     <input
       id="phone"
@@ -59,7 +61,7 @@
       required
     />
     @if (!phone.valid && phone.touched) {
-    <span>{{ "form.invalid-msg" | translate }}</span>
+    <span>{{ "contact-dialog-form.invalid-phone" | translate }}</span>
     }
     <div class="btns">
       <div class="btn">
@@ -67,14 +69,14 @@
           (click)="deleteContact()"
           class="btn-delete"
           type="button"
-          value="{{ 'form.btn-delete' | translate }}"
+          value="{{ 'contact-dialog-form.btn-delete' | translate }}"
         />
       </div>
       <div class="btn">
         <input
           class="btn-save"
           type="submit"
-          value="{{ 'form.btn-save' | translate }}"
+          value="{{ 'contact-dialog-form.btn-save' | translate }}"
           [disabled]="
             firstName.invalid ||
             !contactData.firstName ||

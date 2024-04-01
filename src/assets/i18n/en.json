@@ -9,15 +9,14 @@
     "english": "English",
     "german": "German"
   },
-  "form": {
+  "contact-dialog-form": {
     "btn-delete": "Delete",
     "btn-save": "Save",
-    "invalid-name": "Your name is required!",
-    "invalid-email": "Your email is required!",
-    "invalid-msg": "More than 10 letters are required!",
-    "invalid-checkbox": "Please accept the privacy policy!",
-    "msg-send0": "Your message has been sent successfully.",
-    "msg-send1": "I will contact you shortly."
+    "invalid-firstName": "A first name is required!",
+    "invalid-lastName": "A last name is required!",
+    "invalid-name": "A first name & last name is required!",
+    "invalid-email": "A email is required!",
+    "invalid-phone": "A phone number is required!"
   },
   "contact-delete-dialog": {
     "btn-cancle": "Cancle",

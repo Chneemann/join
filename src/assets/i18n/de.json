@@ -9,6 +9,19 @@
     "english": "Englisch",
     "german": "Deutsch"
   },
+  "contact-dialog-form": {
+    "btn-delete": "Löschen",
+    "btn-save": "Sichern",
+    "invalid-firstName": "Ein Vorname ist erforderlich!",
+    "invalid-lastName": "Ein Nachname ist erforderlich!",
+    "invalid-name": "Ein Vorname & Nachname ist erforderlich!",
+    "invalid-email": "Eine E-Mail Adresse ist erforderlich!",
+    "invalid-phone": "Eine Telefonnummer ist erforderlich!"
+  },
+  "contact-delete-dialog": {
+    "btn-cancle": "Abbrechen",
+    "btn-delete": "Löschen"
+  },
   "summary": {
     "headlineDescription": "Schlüsselmetriken auf einen Blick",
     "morning": "Guten Morgen",
