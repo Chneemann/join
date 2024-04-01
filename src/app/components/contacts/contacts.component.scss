@@ -143,25 +143,28 @@ section {
 
 @media screen and (max-width: 1150px) {
   .left-frame {
-    position: fixed;
-    top: 96px;
-    left: 232px;
+    position: absolute;
+    top: -64px;
+    left: -64px;
     width: calc(100vw - 232px);
-    min-height: calc(100vh - 207px);
   }
 }
 
 @media screen and (max-width: 910px) {
   .left-frame {
-    top: 96px;
-    left: 0px;
-    width: 100vw;
+    position: relative;
+    top: -32px;
+    left: -32px;
+    width: calc(100vw);
+    min-height: calc(100vh - 208px);
   }
 }
 
 @media screen and (max-width: 450px) {
   .left-frame {
     padding: 0;
+    left: -16px;
+    min-height: calc(100vh - 176px);
   }
 
   .btn {
