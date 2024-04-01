@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { SharedService } from '../../../services/shared.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-delete',
@@ -12,10 +14,15 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ContactDeleteComponent {
   @Input() currentUserId!: string;
 
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   deleteContact() {
-    console.log('Contact deleted');
+    this.userService.deleteUser(this.currentUserId);
+    this.router.navigate(['contacts']);
     this.sharedService.isDeleteContactDialogOpen = false;
     this.sharedService.isAnyDialogOpen = false;
   }
