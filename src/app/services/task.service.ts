@@ -26,9 +26,7 @@ export class TaskService implements OnDestroy {
     return onSnapshot(collection(this.firestore, 'tasks'), (list) => {
       this.allTasks = [];
       list.forEach((element) => {
-        const taskData = element.data() as Task;
-        const taskWithId = { ...taskData };
-        taskWithId.id = element.id;
+        const taskWithId = { id: element.id, ...element.data() } as Task;
         this.allTasks.push(taskWithId);
       });
     });
