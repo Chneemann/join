@@ -10,8 +10,16 @@
   </div>
   <app-sidebar-mobile></app-sidebar-mobile>
 </div>
-@if (sharedService.isEditDialogOpen) {
+@if (sharedService.isEditContactDialogOpen) {
 <app-contact-edit
   [currentUserId]="sharedService.currentUserId"
+  [ngClass]="{
+    'blur-background': sharedService.isDeleteContactDialogOpen,
+    'd-none': sharedService.isDeleteContactDialogOpen
+  }"
 ></app-contact-edit>
+} @if (sharedService.isDeleteContactDialogOpen) {
+<app-contact-delete
+  [currentUserId]="sharedService.currentUserId"
+></app-contact-delete>
 }

@@ -1,0 +1,82 @@
+section {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  width: 600px;
+  height: 170px;
+  border-radius: 26px;
+  border: 2px solid rgba($color: #000000, $alpha: 0.1);
+  p {
+    font-size: 27px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 111px;
+  height: 57px;
+  margin: 0 24px;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.btn-cancle {
+  padding: 12px;
+  margin: 12px 12px;
+  border-radius: 10px;
+  border-color: var(--black);
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-size: 23px;
+  font-weight: 400;
+  transition: 125ms ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--light-blue);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.btn-delete {
+  padding: 12px;
+  margin: 12px 12px;
+  border-radius: 10px;
+  color: var(--red);
+  background-color: var(--white);
+  border: 1px solid var(--red);
+  font-size: 23px;
+  font-weight: 400;
+  transition: 125ms ease-in-out;
+  cursor: pointer;
+  &:hover {
+    color: var(--white);
+    background-color: var(--red);
+    border-color: var(--black);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+}

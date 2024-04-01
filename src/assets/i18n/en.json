@@ -19,6 +19,10 @@
     "msg-send0": "Your message has been sent successfully.",
     "msg-send1": "I will contact you shortly."
   },
+  "contact-delete-dialog": {
+    "btn-cancle": "Cancle",
+    "btn-delete": "Delete"
+  },
   "summary": {
     "headlineDescription": "Key Metrics at a Glance",
     "morning": "Good Morning",

@@ -62,8 +62,9 @@
     <span>{{ "form.invalid-msg" | translate }}</span>
     }
     <div class="btns">
-      <div class="btn" (click)="deleteContact()">
+      <div class="btn">
         <input
+          (click)="deleteContact()"
           class="btn-delete"
           type="button"
           value="{{ 'form.btn-delete' | translate }}"

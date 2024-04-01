@@ -27,7 +27,13 @@ export class ContactDetailComponent {
   }
 
   openEditDialog() {
-    this.sharedService.isEditDialogOpen = !this.sharedService.isEditDialogOpen;
+    this.sharedService.isAnyDialogOpen = true;
+    this.sharedService.isEditContactDialogOpen = true;
+  }
+
+  deleteContact() {
+    this.sharedService.isAnyDialogOpen = true;
+    this.sharedService.isDeleteContactDialogOpen = true;
   }
 
   @HostListener('document:click', ['$event'])
@@ -35,10 +41,14 @@ export class ContactDetailComponent {
     const targetElement = event.target as HTMLElement;
     if (targetElement.closest('.btn-edit')) {
       this.sharedService.isAnyDialogOpen = true;
-      this.sharedService.isEditDialogOpen = true;
+      this.sharedService.isEditContactDialogOpen = true;
+    } else if (targetElement.closest('.btn-delete')) {
+      this.sharedService.isAnyDialogOpen = true;
+      this.sharedService.isDeleteContactDialogOpen = true;
     } else if (!targetElement.closest('.dialog')) {
       this.sharedService.isAnyDialogOpen = false;
-      this.sharedService.isEditDialogOpen = false;
+      this.sharedService.isEditContactDialogOpen = false;
+      this.sharedService.isDeleteContactDialogOpen = false;
     }
   }
 }

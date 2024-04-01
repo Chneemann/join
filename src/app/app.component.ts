@@ -8,6 +8,7 @@ import { ContactEditComponent } from './components/contacts/contact-edit/contact
 import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
 import { Observable } from 'rxjs';
+import { ContactDeleteComponent } from './components/contacts/contact-delete/contact-delete.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { Observable } from 'rxjs';
     SidebarComponent,
     SidebarMobileComponent,
     ContactEditComponent,
+    ContactDeleteComponent,
     CommonModule,
   ],
   templateUrl: './app.component.html',

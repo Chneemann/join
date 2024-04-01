@@ -28,11 +28,13 @@ span {
     border: 1px solid var(--red);
     font-size: 23px;
     font-weight: 400;
+    transition: 125ms ease-in-out;
     cursor: pointer;
     &:hover {
       color: var(--white);
       background-color: var(--red);
       border-color: var(--black);
+      box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
     }
   }
   input {
@@ -79,8 +81,9 @@ span {
   background-color: var(--light-gray);
   font-size: 23px;
   font-weight: 400;
-  transition: 200ms ease-in-out;
+  transition: 125ms ease-in-out;
   &:hover:not(:disabled) {
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
     background-color: var(--light-blue) !important;
     cursor: pointer;
   }

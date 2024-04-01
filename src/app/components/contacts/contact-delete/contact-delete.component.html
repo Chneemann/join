@@ -1,0 +1,17 @@
+<section>
+  <div class="dialog">
+    <p>Do you really want to delete the contact?</p>
+    <div class="btns">
+      <div class="btn">
+        <div class="btn-cancle" (click)="deleteCancle()">
+          {{ "contact-delete-dialog.btn-cancle" | translate }}
+        </div>
+      </div>
+      <div class="btn">
+        <div class="btn-delete" (click)="deleteContact()">
+          {{ "contact-delete-dialog.btn-delete" | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

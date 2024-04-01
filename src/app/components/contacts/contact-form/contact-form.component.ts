@@ -57,11 +57,12 @@ export class ContactFormComponent implements OnChanges {
   }
 
   deleteContact() {
-    this.closeEditDialog();
+    this.sharedService.isDeleteContactDialogOpen = true;
+    this.sharedService.isAnyDialogOpen = true;
   }
 
   closeEditDialog() {
-    this.sharedService.isEditDialogOpen = false;
+    this.sharedService.isEditContactDialogOpen = false;
     this.sharedService.isAnyDialogOpen = false;
   }
 }
