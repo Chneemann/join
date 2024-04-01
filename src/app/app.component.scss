@@ -38,6 +38,10 @@ app-header {
   overflow-y: auto;
 }
 
+.blur-background {
+  filter: blur(5px);
+}
+
 @media screen and (max-width: 910px) {
   .main-content {
     width: calc(100vw - 64px);

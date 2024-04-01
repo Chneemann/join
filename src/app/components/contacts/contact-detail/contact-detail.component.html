@@ -34,9 +34,9 @@
           {{ userService.getUserDetails(currentUserId, "lastName") }}
         </div>
         <div class="btns">
-          <div class="btn">
+          <div class="btn btn-edit">
             <img src="./../../../../assets/img/contact/edit.svg" alt="" />
-            <p>edit</p>
+            <p (click)="openEditDialog()">edit</p>
           </div>
           <div class="btn">
             <img src="./../../../../assets/img/contact/delete.svg" alt="" />

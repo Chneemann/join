@@ -1,0 +1,28 @@
+<section>
+  <div class="dialog">
+    <div class="header">
+      <img src="./../../../../assets/img/logo.svg" alt="" />
+      <p>Edit contact</p>
+    </div>
+    <div class="content">
+      <div
+        class="circle"
+        [ngStyle]="{
+          'background-color': userService.getUserDetails(
+            sharedService.currentUserId,
+            'color'
+          )
+        }"
+      >
+        <div class="initials">
+          {{
+            userService.getUserDetails(sharedService.currentUserId, "initials")
+          }}
+        </div>
+      </div>
+      <div class="form">
+        <app-contact-form></app-contact-form>
+      </div>
+    </div>
+  </div>
+</section>

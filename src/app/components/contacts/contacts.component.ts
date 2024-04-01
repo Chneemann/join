@@ -4,6 +4,7 @@ import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-contacts',
@@ -19,7 +20,11 @@ export class ContactsComponent {
   showAllUsers!: boolean;
   currentUserId: string = '';
 
-  constructor(public userService: UserService, private route: ActivatedRoute) {}
+  constructor(
+    public userService: UserService,
+    private route: ActivatedRoute,
+    private sharedService: SharedService
+  ) {}
 
   ngOnInit(): void {
     this.routeUserId();
@@ -30,6 +35,7 @@ export class ContactsComponent {
     if (this.route.params.subscribe()) {
       this.route.params.subscribe((params) => {
         this.currentUserId = params['id'];
+        this.sharedService.currentUserId = params['id'];
       });
     }
   }

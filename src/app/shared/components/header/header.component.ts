@@ -27,7 +27,7 @@ export class HeaderComponent {
   }
 
   @HostListener('document:click', ['$event'])
-  onClick(event: MouseEvent) {
+  checkOpenNavbar(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
     if (
       !targetElement.closest('app-navbar') &&
