@@ -34,4 +34,15 @@ export class AppComponent {
   ) {
     this.router.events.subscribe((event) => {});
   }
+
+  ngOnInit() {
+    this.getUserIdInLocalStorage();
+  }
+
+  getUserIdInLocalStorage() {
+    localStorage.setItem(
+      'currentUserId',
+      JSON.stringify('5EX7gnwPPGEDbN186Rdw')
+    );
+  }
 }
