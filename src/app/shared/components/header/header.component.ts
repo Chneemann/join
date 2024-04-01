@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
 export class HeaderComponent {
   navbarVisible: boolean = false;
   navbarLanguageVisible: boolean = false;
+
+  constructor(public userService: UserService) {}
 
   toggleNavbar() {
     this.navbarVisible = !this.navbarVisible;

@@ -13,7 +13,14 @@
       <div class="img-language" (click)="toggleLanguage()">
         <img src="./../../../../assets/img/header/language.svg" alt="" />
       </div>
-      <div class="img-user" (click)="toggleNavbar()">G</div>
+      <div class="img-user" (click)="toggleNavbar()">
+        {{
+          this.userService.getUserDetails(
+            userService.getCurrentUserId(),
+            "initials"
+          )
+        }}
+      </div>
     </div>
   </div>
 </section>

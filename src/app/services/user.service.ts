@@ -31,6 +31,13 @@ export class UserService implements OnDestroy {
     return this.allUsers;
   }
 
+  getCurrentUserId() {
+    let currentUser = localStorage.getItem('currentUser');
+    if (currentUser !== null) {
+      return JSON.parse(currentUser)[0].id;
+    }
+  }
+
   getUserDetails(userId: string, query: keyof User) {
     return this.getAllUsers()
       .filter((user) => user.id === userId)

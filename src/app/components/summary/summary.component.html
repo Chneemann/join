@@ -93,8 +93,21 @@
       </div>
     </div>
     <div class="right-container">
-      <p>Good Morning,</p>
-      <span id="welcome-user">Guest</span>
+      <p>{{ displayGreeting() }},</p>
+      <span id="welcome-user"
+        >{{
+          this.userService.getUserDetails(
+            userService.getCurrentUserId(),
+            "firstName"
+          )
+        }}<br />
+        {{
+          this.userService.getUserDetails(
+            userService.getCurrentUserId(),
+            "lastName"
+          )
+        }}</span
+      >
     </div>
   </div>
 </section>

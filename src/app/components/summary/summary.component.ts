@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TaskService } from '../../services/task.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-summary',
@@ -11,7 +12,11 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './summary.component.scss',
 })
 export class SummaryComponent {
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    public userService: UserService,
+    private translateService: TranslateService
+  ) {}
 
   displayNumberOfAllTasks() {
     return this.taskService.getAllTasks().length;
@@ -62,5 +67,18 @@ export class SummaryComponent {
     var date = a.getDate();
     var time = month + ' ' + date + ', ' + year;
     return time;
+  }
+
+  displayGreeting() {
+    let currentTime = new Date();
+    let localTime = new Date(currentTime.getTime() + 3600000);
+    let currentHour = localTime.getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      return this.translateService.instant('summary.morning');
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return this.translateService.instant('summary.afternoon');
+    } else {
+      return this.translateService.instant('summary.evening');
+    }
   }
 }
