@@ -29,20 +29,18 @@
     [ngClass]="{
       active: langService.currentLang === 'en'
     }"
+    (click)="langService.switchLanguage('en')"
   >
-    <span (click)="langService.switchLanguage('en')">{{
-      "navbar.english" | translate
-    }}</span>
+    <span>{{ "navbar.english" | translate }}</span>
   </div>
   <div
     class="link"
     [ngClass]="{
       active: langService.currentLang === 'de'
     }"
+    (click)="langService.switchLanguage('de')"
   >
-    <span (click)="langService.switchLanguage('de')">{{
-      "navbar.german" | translate
-    }}</span>
+    <span>{{ "navbar.german" | translate }}</span>
   </div>
 </nav>
 }

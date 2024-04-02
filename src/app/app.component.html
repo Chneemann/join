@@ -1,12 +1,10 @@
 <div [ngClass]="{ 'blur-background': sharedService.isAnyDialogOpen }">
   <div class="container">
     <app-sidebar></app-sidebar>
-    <main>
-      <app-header></app-header>
-      <div class="main-content">
-        <router-outlet></router-outlet>
-      </div>
-    </main>
+    <app-header></app-header>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
   <app-sidebar-mobile></app-sidebar-mobile>
 </div>

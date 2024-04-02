@@ -1,5 +1,5 @@
 .navbar {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   top: 96px;
@@ -10,7 +10,7 @@
   border-radius: 20px 0 20px 20px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  z-index: 2;
+  z-index: 5;
 }
 
 .language {
@@ -51,9 +51,4 @@ span {
   color: var(--white);
   font-size: 16px;
   font-weight: 400;
-}
-
-/*------------- RESPONSIVE -------------*/
-
-@media screen and (max-width: 910px) {
 }

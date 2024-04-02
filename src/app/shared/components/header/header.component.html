@@ -1,29 +1,28 @@
-<section>
-  <div class="header">
-    <img
-      class="logo"
-      src="./../../../../assets/img/header/logo.svg"
-      alt="logo"
-    />
-    <div class="headline">{{ "header.headline" | translate }}</div>
-    <div class="left-frame">
-      <div class="img-help" routerLink="help">
-        <img src="./../../../../assets/img/header/help.svg" alt="" />
-      </div>
-      <div class="img-language" (click)="toggleLanguage()">
-        <img src="./../../../../assets/img/header/language.svg" alt="" />
-      </div>
-      <div class="img-user" (click)="toggleNavbar()">
-        {{
-          this.userService.getUserDetails(
-            userService.getCurrentUserId(),
-            "initials"
-          )
-        }}
-      </div>
+<div class="header">
+  <img class="logo" src="./../../../../assets/img/header/logo.svg" alt="logo" />
+  <div class="headline">{{ "header.headline" | translate }}</div>
+  <div class="navbar">
+    <div class="img-help" routerLink="help">
+      <img src="./../../../../assets/img/header/help.svg" alt="" />
+    </div>
+    <div class="img-language">
+      <img
+        class="img-lang"
+        (click)="toggleLanguage()"
+        src="./../../../../assets/img/header/language.svg"
+        alt=""
+      />
+    </div>
+    <div class="img-user" (click)="toggleNavbar()">
+      {{
+        this.userService.getUserDetails(
+          userService.getCurrentUserId(),
+          "initials"
+        )
+      }}
     </div>
   </div>
-</section>
+</div>
 <app-navbar *ngIf="navbarVisible" [navbarVisible]="navbarVisible"></app-navbar>
 <app-navbar
   *ngIf="navbarLanguageVisible"

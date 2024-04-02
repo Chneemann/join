@@ -53,8 +53,10 @@
       } }
     </div>
   </div>
-  <app-contact-detail
-    [ngClass]="{ 'd-none': !showAllUsers && currentUserId == undefined }"
-    [currentUserId]="currentUserId"
-  ></app-contact-detail>
+  <div class="right-frame">
+    <app-contact-detail
+      [ngClass]="{ 'd-none': !showAllUsers && currentUserId == undefined }"
+      [currentUserId]="currentUserId"
+    ></app-contact-detail>
+  </div>
 </section>

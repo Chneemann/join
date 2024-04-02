@@ -37,7 +37,7 @@ export class HeaderComponent {
     }
     if (
       !targetElement.closest('app-navbar') &&
-      !targetElement.closest('.img-language')
+      !targetElement.closest('.img-lang')
     ) {
       this.navbarLanguageVisible = false;
     }
