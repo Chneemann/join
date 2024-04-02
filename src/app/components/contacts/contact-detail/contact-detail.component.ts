@@ -5,16 +5,23 @@ import { ContactsComponent } from '../contacts.component';
 import { Router } from '@angular/router';
 import { ContactEditComponent } from '../contact-edit/contact-edit.component';
 import { SharedService } from '../../../services/shared.service';
-
+import { ContactNavComponent } from '../contact-nav/contact-nav.component';
 @Component({
   selector: 'app-contact-detail',
   standalone: true,
-  imports: [CommonModule, ContactsComponent, ContactEditComponent],
+  imports: [
+    CommonModule,
+    ContactsComponent,
+    ContactEditComponent,
+    ContactNavComponent,
+  ],
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.scss',
 })
 export class ContactDetailComponent {
   @Input() currentUserId!: string | undefined;
+
+  isMobileNavbarOpen: boolean = false;
 
   constructor(
     public userService: UserService,
@@ -24,6 +31,10 @@ export class ContactDetailComponent {
 
   closeUserDetails() {
     this.router.navigate(['contacts']);
+  }
+
+  toggleNav() {
+    this.isMobileNavbarOpen = !this.isMobileNavbarOpen;
   }
 
   openEditDialog() {

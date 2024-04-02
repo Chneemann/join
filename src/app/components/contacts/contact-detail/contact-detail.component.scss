@@ -126,6 +126,31 @@
   }
 }
 
+.btn-mobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  height: 56px;
+  width: 56px;
+  border-radius: 100%;
+  border: 0;
+  background-color: var(--dark-blue);
+  z-index: 1;
+  cursor: pointer;
+  img {
+    padding: 0;
+    width: 7px;
+    height: 32px;
+  }
+  &:hover {
+    background-color: var(--light-blue);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+}
+
 /*------------- ANIMATION -------------*/
 
 .animation-coming-in {

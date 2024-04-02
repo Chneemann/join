@@ -44,6 +44,9 @@
             <p (click)="deleteContact()">delete</p>
           </div>
         </div>
+        <div class="btn-mobile" (click)="toggleNav()">
+          <img src="./../../../assets/img/contact/points.svg" alt="check" />
+        </div>
       </div>
     </div>
     <div class="contact word-wrap">
@@ -62,5 +65,10 @@
       </div>
     </div>
   </div>
+  } @if (isMobileNavbarOpen) {
+  <app-contact-nav
+    [deleteContact]="deleteContact"
+    [openEditDialog]="openEditDialog"
+  ></app-contact-nav>
   }
 </section>
