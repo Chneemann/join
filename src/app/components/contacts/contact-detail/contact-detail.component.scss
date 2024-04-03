@@ -127,7 +127,7 @@
 }
 
 .btn-mobile {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -208,6 +208,10 @@
 @media screen and (max-width: 450px) {
   .btns {
     display: none;
+  }
+
+  .btn-mobile {
+    display: flex;
   }
 
   .name {

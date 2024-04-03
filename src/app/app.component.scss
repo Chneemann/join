@@ -33,6 +33,7 @@ app-sidebar-mobile {
   padding: 64px;
   background-color: var(--bgContent);
   overflow-y: auto;
+  z-index: 1;
 }
 
 .blur-background {
