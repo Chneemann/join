@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { ContactFormComponent } from '../contact-form/contact-form.component';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user.service';
-import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
+import { BtnCloseComponent } from '../../../shared/components/buttons/btn-close/btn-close.component';
 
 @Component({
   selector: 'app-contact-edit',
   standalone: true,
-  imports: [CommonModule, ContactFormComponent, BtnBackComponent],
+  imports: [CommonModule, ContactFormComponent, BtnCloseComponent],
   templateUrl: './contact-edit.component.html',
   styleUrl: './contact-edit.component.scss',
 })
