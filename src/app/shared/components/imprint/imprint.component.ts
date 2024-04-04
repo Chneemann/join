@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { BtnBackComponent } from '../buttons/btn-back/btn-back.component';
 
 @Component({
   selector: 'app-imprint',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, BtnBackComponent],
   templateUrl: './imprint.component.html',
   styleUrl: './imprint.component.scss',
 })
