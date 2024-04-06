@@ -15,8 +15,8 @@
     </div>
     <div class="img-user" (click)="toggleNavbar()">
       {{
-        this.userService.getUserDetails(
-          userService.getCurrentUserId(),
+        this.firebaseService.getUserDetails(
+          firebaseService.getCurrentUserId(),
           "initials"
         )
       }}

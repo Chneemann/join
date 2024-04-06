@@ -1,11 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DragDropService } from '../../services/drag-drop.service';
 import { CommonModule } from '@angular/common';
-import { Task } from '../../interfaces/task.interface';
-import { TaskService } from '../../services/task.service';
 import { TaskComponent } from './task/task.component';
 import { TaskEmptyComponent } from './task/task-empty/task-empty.component';
 import { FormsModule } from '@angular/forms';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-board',
@@ -17,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class BoardComponent {
   constructor(
     public dragDropService: DragDropService,
-    private taskService: TaskService
+    private firebaseService: FirebaseService
   ) {}
   searchValue: string = '';
   searchInput: boolean = false;
@@ -30,27 +29,29 @@ export class BoardComponent {
 
   getTaskStatus(status: string) {
     if (this.updateSearchInput()) {
-      return this.taskService
+      return this.firebaseService
         .getFiltertTasks()
         .filter((task) => task.status === status);
     } else {
-      return this.taskService
+      return this.firebaseService
         .getAllTasks()
         .filter((task) => task.status === status);
     }
   }
 
   handleItemDropped(id: string, status: string): void {
-    const index = this.taskService.allTasks.findIndex((task) => task.id === id);
-    const filteredIndex = this.taskService.filteredTasks.findIndex(
+    const index = this.firebaseService.allTasks.findIndex(
+      (task) => task.id === id
+    );
+    const filteredIndex = this.firebaseService.filteredTasks.findIndex(
       (task) => task.id === id
     );
     if (index !== -1) {
-      this.taskService.allTasks[index].status = status;
+      this.firebaseService.allTasks[index].status = status;
       if (filteredIndex !== -1) {
-        this.taskService.filteredTasks[filteredIndex].status = status;
+        this.firebaseService.filteredTasks[filteredIndex].status = status;
       }
-      this.taskService.updateTask(id, index);
+      this.firebaseService.updateTask(id, index);
     }
   }
 
@@ -71,7 +72,7 @@ export class BoardComponent {
 
   searchTask(): void {
     this.updateSearchInput();
-    this.taskService.filteredTasks = this.taskService
+    this.firebaseService.filteredTasks = this.firebaseService
       .getAllTasks()
       .filter(
         (task) =>

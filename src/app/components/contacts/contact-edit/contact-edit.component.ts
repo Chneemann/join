@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ContactFormComponent } from '../contact-form/contact-form.component';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../../services/user.service';
 import { BtnCloseComponent } from '../../../shared/components/buttons/btn-close/btn-close.component';
+import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({
   selector: 'app-contact-edit',
@@ -14,5 +14,5 @@ import { BtnCloseComponent } from '../../../shared/components/buttons/btn-close/
 export class ContactEditComponent {
   @Input() currentUserId!: string;
 
-  constructor(public userService: UserService) {}
+  constructor(public firebaseService: FirebaseService) {}
 }

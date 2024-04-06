@@ -28,25 +28,25 @@
         <div
           class="circle"
           [ngStyle]="{
-            'background-color': userService.getUserDetails(user.id, 'color')
+            'background-color': firebaseService.getUserDetails(user.id, 'color')
           }"
         >
           <div class="initials">
-            {{ userService.getUserDetails(user.id, "initials") }}
+            {{ firebaseService.getUserDetails(user.id, "initials") }}
           </div>
         </div>
         <div class="details">
           <div class="name">
             <p>
-              {{ userService.getUserDetails(user.id, "firstName") }}
+              {{ firebaseService.getUserDetails(user.id, "firstName") }}
             </p>
             <span>,&nbsp;</span>
             <p class="last-name">
-              {{ userService.getUserDetails(user.id, "lastName") }}
+              {{ firebaseService.getUserDetails(user.id, "lastName") }}
             </p>
           </div>
           <div class="email">
-            {{ userService.getUserDetails(user.id, "email") }}
+            {{ firebaseService.getUserDetails(user.id, "email") }}
           </div>
         </div>
       </div>

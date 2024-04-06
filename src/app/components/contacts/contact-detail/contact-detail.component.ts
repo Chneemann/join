@@ -1,11 +1,11 @@
 import { Component, HostListener, Input } from '@angular/core';
-import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from '../contacts.component';
 import { Router } from '@angular/router';
 import { ContactEditComponent } from '../contact-edit/contact-edit.component';
 import { SharedService } from '../../../services/shared.service';
 import { ContactNavComponent } from '../contact-nav/contact-nav.component';
+import { FirebaseService } from '../../../services/firebase.service';
 @Component({
   selector: 'app-contact-detail',
   standalone: true,
@@ -24,9 +24,9 @@ export class ContactDetailComponent {
   isMobileNavbarOpen: boolean = false;
 
   constructor(
-    public userService: UserService,
     private router: Router,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    public firebaseService: FirebaseService
   ) {}
 
   closeUserDetails() {

@@ -7,22 +7,56 @@ import {
   onSnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
+import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
-
 @Injectable({
   providedIn: 'root',
 })
-export class UserService implements OnDestroy {
+export class FirebaseService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
 
+  allTasks: Task[] = [];
+  filteredTasks: Task[] = [];
   allUsers: User[] = [];
   isUserLogin: boolean = true;
 
+  unsubTask;
   unsubUser;
 
   constructor() {
+    this.unsubTask = this.subTaskList();
     this.unsubUser = this.subUserList();
   }
+
+  // ------------- TASKS ------------- //
+
+  subTaskList() {
+    return onSnapshot(collection(this.firestore, 'tasks'), (list) => {
+      this.allTasks = [];
+      list.forEach((element) => {
+        const taskWithId = { id: element.id, ...element.data() } as Task;
+        this.allTasks.push(taskWithId);
+      });
+    });
+  }
+
+  getAllTasks(): Task[] {
+    return this.allTasks;
+  }
+
+  getFiltertTasks(): Task[] {
+    return this.filteredTasks;
+  }
+
+  async updateTask(taskId: any, index: number) {
+    await updateDoc(doc(collection(this.firestore, 'tasks'), taskId), {
+      status: this.allTasks[index].status,
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  // ------------- USERS ------------- //
 
   subUserList() {
     return onSnapshot(collection(this.firestore, 'users'), (list) => {
@@ -69,6 +103,7 @@ export class UserService implements OnDestroy {
   }
 
   ngOnDestroy() {
+    this.unsubTask();
     this.unsubUser();
   }
 }

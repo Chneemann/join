@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserService } from '../../../services/user.service';
+import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +16,7 @@ export class HeaderComponent {
   navbarVisible: boolean = false;
   navbarLanguageVisible: boolean = false;
 
-  constructor(public userService: UserService) {}
+  constructor(public firebaseService: FirebaseService) {}
 
   toggleNavbar() {
     this.navbarVisible = !this.navbarVisible;

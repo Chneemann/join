@@ -1,10 +1,10 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { SharedService } from '../../services/shared.service';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-contacts',
@@ -21,7 +21,7 @@ export class ContactsComponent {
   currentUserId: string = '';
 
   constructor(
-    public userService: UserService,
+    public firebaseService: FirebaseService,
     private route: ActivatedRoute,
     private sharedService: SharedService
   ) {}
@@ -50,7 +50,7 @@ export class ContactsComponent {
   }
 
   loadAllUserWithoutGuest(): User[] {
-    return this.userService
+    return this.firebaseService
       .getAllUsers()
       .filter((user) => user.initials !== 'G');
   }

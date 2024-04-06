@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserService } from '../../../services/user.service';
 import { SharedService } from '../../../services/shared.service';
+import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -15,7 +15,7 @@ export class ContactFormComponent implements OnChanges {
   @Input() currentUserId!: string;
 
   constructor(
-    public userService: UserService,
+    private firebaseService: FirebaseService,
     private sharedService: SharedService
   ) {
     this.updateContactData();
@@ -35,23 +35,23 @@ export class ContactFormComponent implements OnChanges {
   }
 
   private updateContactData() {
-    this.contactData.firstName = this.userService
+    this.contactData.firstName = this.firebaseService
       .getUserDetails(this.currentUserId, 'firstName')
       .join(', ');
-    this.contactData.lastName = this.userService
+    this.contactData.lastName = this.firebaseService
       .getUserDetails(this.currentUserId, 'lastName')
       .join(', ');
-    this.contactData.email = this.userService
+    this.contactData.email = this.firebaseService
       .getUserDetails(this.currentUserId, 'email')
       .join(', ');
-    this.contactData.phone = this.userService
+    this.contactData.phone = this.firebaseService
       .getUserDetails(this.currentUserId, 'phone')
       .join(', ');
   }
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      this.userService.updateUserData(this.currentUserId, this.contactData);
+      this.firebaseService.updateUserData(this.currentUserId, this.contactData);
       this.closeEditDialog();
     }
   }

@@ -96,14 +96,14 @@
       <p>{{ displayGreeting() }},</p>
       <span id="welcome-user"
         >{{
-          this.userService.getUserDetails(
-            userService.getCurrentUserId(),
+          this.firebaseService.getUserDetails(
+            firebaseService.getCurrentUserId(),
             "firstName"
           )
         }}<br />
         {{
-          this.userService.getUserDetails(
-            userService.getCurrentUserId(),
+          this.firebaseService.getUserDetails(
+            firebaseService.getCurrentUserId(),
             "lastName"
           )
         }}</span

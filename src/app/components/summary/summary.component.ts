@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TaskService } from '../../services/task.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { UserService } from '../../services/user.service';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-summary',
@@ -13,24 +12,23 @@ import { UserService } from '../../services/user.service';
 })
 export class SummaryComponent {
   constructor(
-    private taskService: TaskService,
-    public userService: UserService,
+    public firebaseService: FirebaseService,
     private translateService: TranslateService
   ) {}
 
   displayNumberOfAllTasks() {
-    return this.taskService.getAllTasks().length;
+    return this.firebaseService.getAllTasks().length;
   }
 
   displayNumberOfTaskStatus(query: string) {
-    const filteredTasks = this.taskService
+    const filteredTasks = this.firebaseService
       .getAllTasks()
       .filter((task) => task.status === query);
     return filteredTasks.length;
   }
 
   displayNumberOfTaskStatusUrgent() {
-    return this.taskService
+    return this.firebaseService
       .getAllTasks()
       .filter((task) => task.priority === 'urgent');
   }

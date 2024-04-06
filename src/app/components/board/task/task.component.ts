@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
-import { TaskService } from '../../../services/task.service';
-import { UserService } from '../../../services/user.service';
 import { Task } from '../../../interfaces/task.interface';
+import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({
   selector: 'app-task',
@@ -22,7 +21,7 @@ export class TaskComponent {
 
   constructor(
     public dragDropService: DragDropService,
-    private userService: UserService
+    private firebaseService: FirebaseService
   ) {}
 
   // Subtasks
@@ -45,7 +44,7 @@ export class TaskComponent {
 
   userBadged(id: number) {
     const userId = String(id);
-    const user = this.userService
+    const user = this.firebaseService
       .getAllUsers()
       .find((user) => user.id === userId);
     if (user) {
@@ -63,7 +62,7 @@ export class TaskComponent {
 
   userBadgedColor(id: number) {
     const userId = String(id);
-    const user = this.userService
+    const user = this.firebaseService
       .getAllUsers()
       .find((user) => user.id === userId);
     if (user) {

@@ -12,14 +12,14 @@
         <div
           class="circle"
           [ngStyle]="{
-            'background-color': userService.getUserDetails(
+            'background-color': firebaseService.getUserDetails(
               currentUserId,
               'color'
             )
           }"
         >
           <div class="initials">
-            {{ userService.getUserDetails(currentUserId, "initials") }}
+            {{ firebaseService.getUserDetails(currentUserId, "initials") }}
           </div>
         </div>
       </div>

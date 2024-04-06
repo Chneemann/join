@@ -22,17 +22,20 @@
       <div
         class="circle"
         [ngStyle]="{
-          'background-color': userService.getUserDetails(currentUserId, 'color')
+          'background-color': firebaseService.getUserDetails(
+            currentUserId,
+            'color'
+          )
         }"
       >
         <div class="initials">
-          {{ userService.getUserDetails(currentUserId, "initials") }}
+          {{ firebaseService.getUserDetails(currentUserId, "initials") }}
         </div>
       </div>
       <div class="word-wrap">
         <div class="name">
-          {{ userService.getUserDetails(currentUserId, "firstName") }}
-          {{ userService.getUserDetails(currentUserId, "lastName") }}
+          {{ firebaseService.getUserDetails(currentUserId, "firstName") }}
+          {{ firebaseService.getUserDetails(currentUserId, "lastName") }}
         </div>
         <div class="btns">
           <div class="btn btn-edit">
@@ -54,13 +57,19 @@
       <div class="info">
         <p>Email:</p>
         <a
-          [href]="'mail:' + userService.getUserDetails(currentUserId, 'email')"
+          [href]="
+            'mail:' + firebaseService.getUserDetails(currentUserId, 'email')
+          "
         >
-          {{ userService.getUserDetails(currentUserId, "email") }}
+          {{ firebaseService.getUserDetails(currentUserId, "email") }}
         </a>
         <p>Phone:</p>
-        <a [href]="'tel:' + userService.getUserDetails(currentUserId, 'phone')">
-          {{ userService.getUserDetails(currentUserId, "phone") }}
+        <a
+          [href]="
+            'tel:' + firebaseService.getUserDetails(currentUserId, 'phone')
+          "
+        >
+          {{ firebaseService.getUserDetails(currentUserId, "phone") }}
         </a>
       </div>
     </div>
