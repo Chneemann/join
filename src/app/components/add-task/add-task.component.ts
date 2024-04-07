@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { AssignedComponent } from './assigned/assigned.component';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, AssignedComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
@@ -16,6 +17,7 @@ export class AddTaskComponent {
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
+  isAssignedOpen: boolean = false;
 
   taskData = {
     title: '',
@@ -30,6 +32,10 @@ export class AddTaskComponent {
     if (storedTaskData) {
       this.taskData = JSON.parse(storedTaskData);
     }
+  }
+
+  toggleAssignedMenu() {
+    this.isAssignedOpen = !this.isAssignedOpen;
   }
 
   checkDateInput() {
@@ -77,6 +83,14 @@ export class AddTaskComponent {
     if (ngForm.submitted && ngForm.form.valid) {
       console.log('Send completed');
       this.removeTaskData();
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  checkOpenNavbar(event: MouseEvent) {
+    const targetElement = event.target as HTMLElement;
+    if (!targetElement.closest('.assigned')) {
+      this.isAssignedOpen = false;
     }
   }
 }

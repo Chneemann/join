@@ -55,6 +55,18 @@
             }
           </div>
         </div>
+        <div class="assigned">
+          <p>Assigned to</p>
+          <input
+            class="searchfield"
+            type="text"
+            autocomplete="off"
+            (click)="toggleAssignedMenu()"
+          />
+          @if (isAssignedOpen) {
+          <app-assigned></app-assigned>
+          }
+        </div>
       </div>
       <div class="middle-spacer"><div class="line"></div></div>
       <div class="right-side">
