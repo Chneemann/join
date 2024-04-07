@@ -11,6 +11,8 @@ import { User } from '../../../interfaces/user.interface';
   styleUrl: './assigned.component.scss',
 })
 export class AssignedComponent {
+  @Input() filteredUsers: User[] = [];
+  @Input() searchInput: boolean = false;
   assigned: string[] = [];
 
   constructor(public firebaseService: FirebaseService) {
@@ -45,9 +47,11 @@ export class AssignedComponent {
     }
   }
 
-  loadAllUserWithoutGuest(): User[] {
-    return this.firebaseService
-      .getAllUsers()
-      .filter((user) => user.initials !== 'G');
+  displayAssigned() {
+    if (this.searchInput) {
+      return this.filteredUsers;
+    } else {
+      return this.firebaseService.getAllUserWithoutGuest();
+    }
   }
 }

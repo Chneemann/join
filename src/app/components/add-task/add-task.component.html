@@ -58,13 +58,21 @@
         <div class="assigned">
           <p>Assigned to</p>
           <input
-            class="searchfield"
+            #searchField
+            id="search-assigned"
+            class="search-assigned"
+            name="search"
             type="text"
+            [(ngModel)]="searchValue"
+            (input)="searchTask()"
             autocomplete="off"
             (click)="toggleAssignedMenu()"
           />
           @if (isAssignedOpen) {
-          <app-assigned></app-assigned>
+          <app-assigned
+            [filteredUsers]="filteredUsers"
+            [searchInput]="searchInput"
+          ></app-assigned>
           }
         </div>
       </div>

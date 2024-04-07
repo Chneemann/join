@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
+import { User } from '../../interfaces/user.interface';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-add-task',
@@ -17,7 +19,12 @@ export class AddTaskComponent {
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
-  isAssignedOpen: boolean = true;
+  isAssignedOpen: boolean = false;
+  searchValue: string = '';
+  searchInput: boolean = false;
+  filteredUsers: User[] = [];
+
+  constructor(public firebaseService: FirebaseService) {}
 
   taskData = {
     title: '',
@@ -35,6 +42,27 @@ export class AddTaskComponent {
     } else {
       this.saveTaskData();
     }
+  }
+
+  updateSearchInput() {
+    if (this.searchValue) {
+      this.searchInput = this.searchValue.toLowerCase().length > 0;
+    } else {
+      this.searchInput = false;
+    }
+    return this.searchInput;
+  }
+
+  searchTask(): void {
+    this.updateSearchInput();
+    this.filteredUsers = this.firebaseService
+      .getAllUserWithoutGuest()
+      .filter(
+        (user) =>
+          user.firstName.toLowerCase().includes(this.searchValue) ||
+          user.lastName.toLowerCase().includes(this.searchValue) ||
+          user.initials.toLowerCase().includes(this.searchValue)
+      );
   }
 
   toggleAssignedMenu() {
@@ -93,7 +121,7 @@ export class AddTaskComponent {
   @HostListener('document:click', ['$event'])
   checkOpenNavbar(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-    if (!targetElement.closest('.assigned')) {
+    if (!targetElement.closest('.search-assigned')) {
       this.isAssignedOpen = false;
     }
   }

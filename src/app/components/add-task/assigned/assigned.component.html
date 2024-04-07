@@ -1,5 +1,5 @@
 <section>
-  @for (user of loadAllUserWithoutGuest(); track user; let index = $index) {
+  @for (user of displayAssigned(); track user; let index = $index) {
   <div
     class="content"
     (click)="addAssignedToTask(user.id)"
