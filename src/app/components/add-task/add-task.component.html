@@ -17,9 +17,9 @@
           id="title"
           name="title"
           #title="ngModel"
+          (input)="saveTaskData()"
           placeholder="{{ taskData.title }}"
           [(ngModel)]="taskData.title"
-          placeholder="Enter a title"
           autocomplete="off"
           required
         />
@@ -37,9 +37,9 @@
           name="description"
           #description="ngModel"
           minlength="10"
+          (input)="saveTaskData()"
           placeholder="{{ taskData.description }}"
           [(ngModel)]="taskData.description"
-          placeholder="Enter a title"
           autocomplete="off"
           required
         ></textarea>
@@ -59,9 +59,9 @@
           id="date"
           name="date"
           #date="ngModel"
+          (input)="saveTaskData()"
           placeholder="{{ taskData.date }}"
           [(ngModel)]="taskData.date"
-          placeholder=""
           autocomplete="off"
           required
         />
@@ -69,6 +69,61 @@
           @if (!date.valid && date.touched) {
           <p>You must enter a date.</p>
           }
+        </div>
+      </div>
+      <div class="priority">
+        <p>Prio<span class="red-dot">*</span></p>
+        <div class="btns">
+          <button
+            type="button"
+            class="btn"
+            [ngClass]="{
+              'btn-active': taskData.priority == 'urgent'
+            }"
+            [ngStyle]="{
+              'background-color':
+                taskData.priority == 'urgent' ? 'red' : 'white'
+            }"
+            (click)="tooglePriority('urgent')"
+          >
+            <div class="btn-text">
+              <span>Urgent</span>
+              <img src="./../../../assets/img/urgent.svg" alt="" />
+            </div>
+          </button>
+          <button
+            type="button"
+            class="btn"
+            [ngClass]="{
+              'btn-active': taskData.priority == 'medium'
+            }"
+            [ngStyle]="{
+              'background-color':
+                taskData.priority == 'medium' ? 'orange' : 'white'
+            }"
+            (click)="tooglePriority('medium')"
+          >
+            <div class="btn-text">
+              <span>Medium</span>
+              <img src="./../../../assets/img/medium.svg" alt="" />
+            </div>
+          </button>
+          <button
+            type="button"
+            class="btn"
+            [ngClass]="{
+              'btn-active': taskData.priority == 'low'
+            }"
+            [ngStyle]="{
+              'background-color': taskData.priority == 'low' ? 'green' : 'white'
+            }"
+            (click)="tooglePriority('low')"
+          >
+            <div class="btn-text">
+              <span>Low</span>
+              <img src="./../../../assets/img/low.svg" alt="" />
+            </div>
+          </button>
         </div>
       </div>
     </div>
