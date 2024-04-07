@@ -11,7 +11,8 @@ section {
 }
 
 input,
-textarea {
+textarea,
+select {
   font-size: 20px;
   font-weight: 400;
   border-radius: 10px;
@@ -79,6 +80,7 @@ p {
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  margin-bottom: 36px;
 }
 
 .btn-text {
@@ -91,8 +93,7 @@ p {
   background-color: var(--white);
   font-size: 20px;
   font-weight: 400;
-  width: 136px;
-  margin-bottom: 16px;
+  min-width: 125px;
   border-radius: 10px;
   border: 1px solid var(--light-gray);
   padding: 10px 16px;
@@ -110,6 +111,12 @@ p {
 
 .btn:hover {
   box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.category {
+  select {
+    width: 100%;
+  }
 }
 
 /*------------- SUBMIT BUTTON -------------*/

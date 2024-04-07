@@ -12,6 +12,7 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 export class AddTaskComponent {
   @ViewChild('title', { static: true }) titleField!: NgModel;
   @ViewChild('description', { static: true }) descriptionField!: NgModel;
+  @ViewChild('category', { static: true }) categoryField!: NgModel;
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
@@ -21,6 +22,7 @@ export class AddTaskComponent {
     description: '',
     date: this.currentDate,
     priority: 'medium',
+    category: '',
   };
 
   ngOnInit() {
@@ -61,12 +63,14 @@ export class AddTaskComponent {
   untouchedFormFields() {
     this.titleField.control.markAsUntouched();
     this.descriptionField.control.markAsUntouched();
+    this.categoryField.control.markAsUntouched();
   }
 
   clearFormData() {
     this.taskData.title = '';
     this.taskData.description = '';
     this.taskData.date = this.currentDate;
+    this.taskData.category = '';
   }
 
   onSubmit(ngForm: NgForm) {

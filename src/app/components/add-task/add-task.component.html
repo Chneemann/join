@@ -135,6 +135,28 @@
             </button>
           </div>
         </div>
+        <div class="category">
+          <p>Category<span class="red-dot">*</span></p>
+          <select
+            id="category"
+            name="category"
+            #category="ngModel"
+            (change)="saveTaskData()"
+            [(ngModel)]="taskData.category"
+            required
+          >
+            <option value="" disabled [selected]="!taskData.category">
+              Select task category
+            </option>
+            <option value="1">User Story</option>
+            <option value="2">Technical Task</option>
+          </select>
+          <div class="error-msg">
+            @if (!category.valid && category.touched) {
+            <p>You must select a category</p>
+            }
+          </div>
+        </div>
       </div>
     </div>
     <div class="form-buttons">
@@ -155,8 +177,10 @@
           !taskData.description ||
           date.invalid ||
           !taskData.date ||
+          dateInPast ||
           !taskData.priority ||
-          dateInPast
+          category.invalid ||
+          !taskData.category
         "
       />
     </div>
