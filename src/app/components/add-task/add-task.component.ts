@@ -121,7 +121,10 @@ export class AddTaskComponent {
   @HostListener('document:click', ['$event'])
   checkOpenNavbar(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-    if (!targetElement.closest('.search-assigned')) {
+    if (
+      !targetElement.closest('.search-assigned') &&
+      !targetElement.closest('app-assigned')
+    ) {
       this.isAssignedOpen = false;
     }
   }
