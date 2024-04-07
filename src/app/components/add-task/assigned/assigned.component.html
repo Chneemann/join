@@ -1,1 +1,41 @@
-<section><p>assigned works!</p></section>
+<section>
+  @for (user of loadAllUserWithoutGuest(); track user; let index = $index) {
+  <div
+    class="content"
+    (click)="addAssignedToTask(user.id)"
+    [ngClass]="{ selected: assigned.includes(user.id) }"
+  >
+    <div
+      class="circle"
+      [ngStyle]="{
+        'background-color': firebaseService.getUserDetails(user.id, 'color')
+      }"
+    >
+      <div class="initials">
+        {{ firebaseService.getUserDetails(user.id, "initials") }}
+      </div>
+    </div>
+    <div class="details">
+      <div class="name">
+        <p>
+          {{ firebaseService.getUserDetails(user.id, "firstName") }}
+        </p>
+        <span>,&nbsp;</span>
+        <p class="last-name">
+          {{ firebaseService.getUserDetails(user.id, "lastName") }}
+        </p>
+      </div>
+    </div>
+    <div class="checkbox">
+      @if (assigned.includes(user.id)) {
+      <img
+        src="./../../../../assets/img/add-task/checkbox-checked.svg"
+        alt=""
+      />
+      } @else {
+      <img src="./../../../../assets/img/add-task/checkbox-empty.svg" alt="" />
+      }
+    </div>
+  </div>
+  }
+</section>

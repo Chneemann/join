@@ -17,7 +17,7 @@ export class AddTaskComponent {
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
-  isAssignedOpen: boolean = false;
+  isAssignedOpen: boolean = true;
 
   taskData = {
     title: '',
@@ -25,12 +25,15 @@ export class AddTaskComponent {
     date: this.currentDate,
     priority: 'medium',
     category: '',
+    assigned: [],
   };
 
   ngOnInit() {
     const storedTaskData = localStorage.getItem('taskData');
     if (storedTaskData) {
       this.taskData = JSON.parse(storedTaskData);
+    } else {
+      this.saveTaskData();
     }
   }
 
@@ -77,6 +80,7 @@ export class AddTaskComponent {
     this.taskData.description = '';
     this.taskData.date = this.currentDate;
     this.taskData.category = '';
+    this.taskData.assigned = [];
   }
 
   onSubmit(ngForm: NgForm) {
