@@ -1,1 +1,56 @@
-<p>add-task works!</p>
+<section>
+  <div class="headline">
+    <div class="title">Add Tasks</div>
+  </div>
+
+  <form
+    (ngSubmit)="onSubmit(taskForm)"
+    #taskForm="ngForm"
+    onsubmit="return false"
+    class="content"
+  >
+    <div class="left-side">
+      <div class="title">
+        <p>Title<span class="red-dot">*</span></p>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          #title="ngModel"
+          placeholder="{{ taskData.title }}"
+          [(ngModel)]="taskData.title"
+          placeholder="Enter a title"
+          autocomplete="off"
+          required
+        />
+        <div class="error-msg">
+          @if (!title.valid && title.touched) {
+          <p>You must enter a title.</p>
+          }
+        </div>
+      </div>
+      <div class="description">
+        <p>Description<span class="red-dot">*</span></p>
+        <textarea
+          id="description"
+          rows="6"
+          name="description"
+          #description="ngModel"
+          minlength="10"
+          placeholder="{{ taskData.description }}"
+          [(ngModel)]="taskData.description"
+          placeholder="Enter a title"
+          autocomplete="off"
+          required
+        ></textarea>
+        <div class="error-msg">
+          @if (!description.valid && description.touched) {
+          <p>You must enter a description. (min. 10 letters)</p>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="middle-spacer"><div class="line"></div></div>
+    <div class="right-side"></div>
+  </form>
+</section>
