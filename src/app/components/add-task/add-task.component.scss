@@ -111,3 +111,56 @@ p {
 .btn:hover {
   box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
+
+/*------------- SUBMIT BUTTON -------------*/
+
+.form-buttons {
+  display: flex;
+  justify-content: end;
+}
+
+.btn-submit {
+  width: 183px;
+  height: 56px;
+  padding: 12px;
+  margin: 12px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--black) !important;
+  background-color: var(--light-gray);
+  font-size: 23px;
+  font-weight: 400;
+  transition: 125ms ease-in-out;
+  &:hover:not(:disabled) {
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+    background-color: var(--light-blue) !important;
+    border: 1px solid var(--light-blue) !important;
+    cursor: pointer;
+  }
+  &:not(:disabled) {
+    background-color: var(--very-dark-blue) !important;
+    color: var(--white);
+  }
+  &:hover {
+    cursor: default;
+  }
+}
+
+.btn-clear {
+  width: 110px;
+  height: 56px;
+  padding: 12px;
+  margin: 12px 12px;
+  border-radius: 10px;
+  color: var(--black);
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  font-size: 23px;
+  font-weight: 400;
+  transition: 125ms ease-in-out;
+  cursor: pointer;
+  &:hover {
+    color: var(--light-blue);
+    border-color: var(--light-bluek);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+}

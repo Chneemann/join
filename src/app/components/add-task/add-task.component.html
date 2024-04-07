@@ -7,125 +7,158 @@
     (ngSubmit)="onSubmit(taskForm)"
     #taskForm="ngForm"
     onsubmit="return false"
-    class="content"
   >
-    <div class="left-side">
-      <div class="title">
-        <p>Title<span class="red-dot">*</span></p>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          #title="ngModel"
-          (input)="saveTaskData()"
-          placeholder="{{ taskData.title }}"
-          [(ngModel)]="taskData.title"
-          autocomplete="off"
-          required
-        />
-        <div class="error-msg">
-          @if (!title.valid && title.touched) {
-          <p>You must enter a title.</p>
-          }
+    <div class="content">
+      <div class="left-side">
+        <div class="title">
+          <p>Title<span class="red-dot">*</span></p>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            #title="ngModel"
+            (input)="saveTaskData()"
+            placeholder="{{
+              taskData.title ? taskData.title : 'Enter a title'
+            }}"
+            [(ngModel)]="taskData.title"
+            autocomplete="off"
+            required
+          />
+          <div class="error-msg">
+            @if (!title.valid && title.touched) {
+            <p>You must enter a title.</p>
+            }
+          </div>
+        </div>
+        <div class="description">
+          <p>Description<span class="red-dot">*</span></p>
+          <textarea
+            id="description"
+            rows="6"
+            name="description"
+            #description="ngModel"
+            minlength="10"
+            (input)="saveTaskData()"
+            placeholder="{{
+              taskData.description
+                ? taskData.description
+                : 'Enter a description'
+            }}"
+            [(ngModel)]="taskData.description"
+            autocomplete="off"
+            required
+          ></textarea>
+          <div class="error-msg">
+            @if (!description.valid && description.touched) {
+            <p>You must enter a description. (min. 10 letters)</p>
+            }
+          </div>
         </div>
       </div>
-      <div class="description">
-        <p>Description<span class="red-dot">*</span></p>
-        <textarea
-          id="description"
-          rows="6"
-          name="description"
-          #description="ngModel"
-          minlength="10"
-          (input)="saveTaskData()"
-          placeholder="{{ taskData.description }}"
-          [(ngModel)]="taskData.description"
-          autocomplete="off"
-          required
-        ></textarea>
-        <div class="error-msg">
-          @if (!description.valid && description.touched) {
-          <p>You must enter a description. (min. 10 letters)</p>
-          }
+      <div class="middle-spacer"><div class="line"></div></div>
+      <div class="right-side">
+        <div class="date">
+          <p>Due date<span class="red-dot">*</span></p>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            #date="ngModel"
+            (input)="checkDateInput()"
+            placeholder="{{ taskData.date }}"
+            [(ngModel)]="taskData.date"
+            autocomplete="off"
+            required
+          />
+          <div class="error-msg">
+            @if (!date.valid && date.touched) {
+            <p>You must enter a date.</p>
+            } @if (dateInPast && date.valid) {
+            <p>The date must be in the future</p>
+            }
+          </div>
+        </div>
+        <div class="priority">
+          <p>Prio<span class="red-dot">*</span></p>
+          <div class="btns">
+            <button
+              type="button"
+              class="btn"
+              [ngClass]="{
+                'btn-active': taskData.priority == 'urgent'
+              }"
+              [ngStyle]="{
+                'background-color':
+                  taskData.priority == 'urgent' ? 'red' : 'white'
+              }"
+              (click)="tooglePriority('urgent')"
+            >
+              <div class="btn-text">
+                <span>Urgent</span>
+                <img src="./../../../assets/img/urgent.svg" alt="" />
+              </div>
+            </button>
+            <button
+              type="button"
+              class="btn"
+              [ngClass]="{
+                'btn-active': taskData.priority == 'medium'
+              }"
+              [ngStyle]="{
+                'background-color':
+                  taskData.priority == 'medium' ? 'orange' : 'white'
+              }"
+              (click)="tooglePriority('medium')"
+            >
+              <div class="btn-text">
+                <span>Medium</span>
+                <img src="./../../../assets/img/medium.svg" alt="" />
+              </div>
+            </button>
+            <button
+              type="button"
+              class="btn"
+              [ngClass]="{
+                'btn-active': taskData.priority == 'low'
+              }"
+              [ngStyle]="{
+                'background-color':
+                  taskData.priority == 'low' ? 'green' : 'white'
+              }"
+              (click)="tooglePriority('low')"
+            >
+              <div class="btn-text">
+                <span>Low</span>
+                <img src="./../../../assets/img/low.svg" alt="" />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="middle-spacer"><div class="line"></div></div>
-    <div class="right-side">
-      <div class="date">
-        <p>Due date<span class="red-dot">*</span></p>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          #date="ngModel"
-          (input)="saveTaskData()"
-          placeholder="{{ taskData.date }}"
-          [(ngModel)]="taskData.date"
-          autocomplete="off"
-          required
-        />
-        <div class="error-msg">
-          @if (!date.valid && date.touched) {
-          <p>You must enter a date.</p>
-          }
-        </div>
-      </div>
-      <div class="priority">
-        <p>Prio<span class="red-dot">*</span></p>
-        <div class="btns">
-          <button
-            type="button"
-            class="btn"
-            [ngClass]="{
-              'btn-active': taskData.priority == 'urgent'
-            }"
-            [ngStyle]="{
-              'background-color':
-                taskData.priority == 'urgent' ? 'red' : 'white'
-            }"
-            (click)="tooglePriority('urgent')"
-          >
-            <div class="btn-text">
-              <span>Urgent</span>
-              <img src="./../../../assets/img/urgent.svg" alt="" />
-            </div>
-          </button>
-          <button
-            type="button"
-            class="btn"
-            [ngClass]="{
-              'btn-active': taskData.priority == 'medium'
-            }"
-            [ngStyle]="{
-              'background-color':
-                taskData.priority == 'medium' ? 'orange' : 'white'
-            }"
-            (click)="tooglePriority('medium')"
-          >
-            <div class="btn-text">
-              <span>Medium</span>
-              <img src="./../../../assets/img/medium.svg" alt="" />
-            </div>
-          </button>
-          <button
-            type="button"
-            class="btn"
-            [ngClass]="{
-              'btn-active': taskData.priority == 'low'
-            }"
-            [ngStyle]="{
-              'background-color': taskData.priority == 'low' ? 'green' : 'white'
-            }"
-            (click)="tooglePriority('low')"
-          >
-            <div class="btn-text">
-              <span>Low</span>
-              <img src="./../../../assets/img/low.svg" alt="" />
-            </div>
-          </button>
-        </div>
-      </div>
+    <div class="form-buttons">
+      <input
+        class="btn-clear"
+        type="button"
+        value="Clear"
+        (click)="removeTaskData()"
+      />
+      <input
+        class="btn-submit"
+        type="submit"
+        value="Create Task"
+        [disabled]="
+          title.invalid ||
+          !taskData.title ||
+          description.invalid ||
+          !taskData.description ||
+          date.invalid ||
+          !taskData.date ||
+          !taskData.priority ||
+          dateInPast
+        "
+      />
     </div>
   </form>
 </section>
