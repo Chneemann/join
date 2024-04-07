@@ -6,24 +6,19 @@ section {
 
 .content {
   display: flex;
+  margin-top: 48px;
+  width: 100%;
 }
 
-input {
-  color: var(--light-gray);
-  font-size: 20px;
-  font-weight: 400;
-  border-radius: 10px;
-  border: 1px solid var(--light-gray);
-  padding: 12px 21px;
-}
-
+input,
 textarea {
   color: var(--light-gray);
   font-size: 20px;
   font-weight: 400;
   border-radius: 10px;
   border: 1px solid var(--light-gray);
-  padding: 18px 16px;
+  padding: 12px 21px;
+  width: 80%;
   resize: none;
 }
 
@@ -54,18 +49,30 @@ p {
     font-size: 61px;
     font-weight: 700;
   }
-  margin-bottom: 48px;
 }
 
 /*------------- LEFT SIDE -------------*/
 
+.left-side {
+  width: 45%;
+}
+
 /*------------- MIDDLE -------------*/
 
-.line {
-  width: 1px;
-  height: 520px;
-  background-color: var(--light-gray);
-  margin: 0 48px;
+.middle-spacer {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+  height: auto;
+  .line {
+    width: 1px;
+    background-color: var(--light-gray);
+    margin: 0 6px;
+  }
 }
 
 /*------------- RIGHT SIDE -------------*/
+
+.right-side {
+  width: 45%;
+}

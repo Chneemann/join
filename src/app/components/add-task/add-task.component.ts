@@ -12,6 +12,7 @@ export class AddTaskComponent {
   taskData = {
     title: '',
     description: '',
+    date: '',
   };
 
   onSubmit(ngForm: NgForm) {
