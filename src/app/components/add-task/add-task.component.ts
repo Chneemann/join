@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
@@ -21,10 +21,10 @@ export class AddTaskComponent {
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
   isAssignedOpen: boolean = false;
+  subtaskValue: string = '';
   searchValue: string = '';
   searchInput: boolean = false;
   filteredUsers: User[] = [];
-  parentAssigned: string[] = [];
 
   constructor(public firebaseService: FirebaseService) {}
 
@@ -35,10 +35,16 @@ export class AddTaskComponent {
     priority: 'medium',
     category: '',
     assigned: [],
+    subtasks: [],
   };
 
   receiveAssigned(assigned: string[]) {
     this.taskData.assigned = assigned;
+  }
+
+  addSubtask(subtaskName: string) {
+    this.taskData.subtasks.push(subtaskName);
+    this.saveTaskData();
   }
 
   ngOnInit() {

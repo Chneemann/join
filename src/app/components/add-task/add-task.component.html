@@ -201,6 +201,35 @@
             }
           </div>
         </div>
+        <div class="subtask">
+          <p>Subtasks</p>
+          <input
+            type="text"
+            id="subtask"
+            name="subtask"
+            #subtask="ngModel"
+            placeholder="Add new subtask"
+            [(ngModel)]="subtaskValue"
+            autocomplete="off"
+          />
+          @if (subtaskValue) {
+          <div class="subtask-btns">
+            <img
+              src="./../../../assets/img/close.svg"
+              alt=""
+              (click)="subtask.reset()"
+            />
+            <span class="line"></span>
+            <img
+              src="./../../../assets/img/add-task/check.svg"
+              alt=""
+              (click)="addSubtask(subtask.value); subtask.reset()"
+            />
+          </div>
+          } @else {
+          <img class="add" src="./../../../assets/img/add.svg" alt="" />
+          }
+        </div>
       </div>
     </div>
     <div class="form-buttons">

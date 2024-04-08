@@ -45,7 +45,7 @@
       >
         <div class="headline">
           <span>To do</span
-          ><img src="./../../../assets/img/board/add.svg" alt="add" />
+          ><img src="./../../../assets/img/add.svg" alt="add" />
         </div>
         <div id="todo" class="details">
           @for(task of getTaskStatus("todo"); track task) {
@@ -62,7 +62,7 @@
       >
         <div class="headline">
           <span>In progress</span
-          ><img src="./../../../assets/img/board/add.svg" alt="add" />
+          ><img src="./../../../assets/img/add.svg" alt="add" />
         </div>
         <div id="inprogress" class="details">
           @for(task of getTaskStatus("inprogress"); track task) {
@@ -79,7 +79,7 @@
       >
         <div class="headline">
           <span>Await feedback</span
-          ><img src="./../../../assets/img/board/add.svg" alt="add" />
+          ><img src="./../../../assets/img/add.svg" alt="add" />
         </div>
         <div id="awaitfeedback" class="details">
           @for(task of getTaskStatus("awaitfeedback"); track task) {
@@ -95,8 +95,7 @@
         (drop)="dragDropService.drop($event, 'done')"
       >
         <div class="headline">
-          <span>Done</span
-          ><img src="./../../../assets/img/board/add.svg" alt="add" />
+          <span>Done</span><img src="./../../../assets/img/add.svg" alt="add" />
         </div>
         <div id="done" class="details">
           @for(task of getTaskStatus("done"); track task) {
