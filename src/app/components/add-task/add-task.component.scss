@@ -59,6 +59,20 @@ p {
 
 .assigned {
   position: relative;
+  .open {
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    width: 14px;
+    height: 7px;
+  }
+  .close {
+    position: absolute;
+    top: 45px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .assigned-badget {
