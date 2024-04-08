@@ -47,6 +47,14 @@ export class AddTaskComponent {
     this.saveTaskData();
   }
 
+  deleteSubtask(subtaskName: string) {
+    this.taskData.subtasks.splice(
+      this.taskData.subtasks.indexOf(subtaskName),
+      1
+    );
+    this.saveTaskData();
+  }
+
   ngOnInit() {
     const storedTaskData = localStorage.getItem('taskData');
     if (storedTaskData) {

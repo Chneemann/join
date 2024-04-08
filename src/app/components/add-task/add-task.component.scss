@@ -119,6 +119,30 @@ p {
   }
 }
 
+.subtasks {
+  padding: 12px 6px;
+  .single-subtask {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 6px;
+    width: 100%;
+    cursor: pointer;
+    &:hover {
+      border-radius: 12px;
+      background-color: var(--light-gray);
+    }
+    img {
+      width: 25px;
+      height: 25px;
+      &:hover {
+        filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
+          brightness(92%) contrast(92%);
+      }
+    }
+  }
+}
+
 .assigned-badget {
   display: flex;
   margin-top: 6px;
@@ -210,6 +234,7 @@ p {
 .form-buttons {
   display: flex;
   justify-content: end;
+  margin-top: 12px;
 }
 
 .btn-submit {
