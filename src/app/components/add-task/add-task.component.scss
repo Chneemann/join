@@ -61,6 +61,29 @@ p {
   position: relative;
 }
 
+.assigned-badget {
+  display: flex;
+  margin-top: 6px;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 2px solid var(--white);
+  margin-right: 6px;
+  .initials {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--white);
+    text-shadow: 1px 1px 2px var(--black);
+  }
+}
+
 /*------------- MIDDLE -------------*/
 
 .middle-spacer {
