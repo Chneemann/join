@@ -121,6 +121,7 @@ export class AddTaskComponent {
     this.taskData.date = this.currentDate;
     this.taskData.category = '';
     this.taskData.assigned = [];
+    this.taskData.subtasks = [];
   }
 
   onSubmit(ngForm: NgForm) {

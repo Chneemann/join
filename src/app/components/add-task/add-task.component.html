@@ -228,7 +228,10 @@
           </div>
           } @else {
           <img class="add" src="./../../../assets/img/add.svg" alt="" />
-          }
+          } @if (taskData.subtasks) { @for (task of taskData.subtasks; track
+          task) {
+          <p>{{ task }}</p>
+          } }
         </div>
       </div>
     </div>
