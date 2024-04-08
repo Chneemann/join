@@ -4,6 +4,7 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
 import { FirebaseService } from '../../services/firebase.service';
+import { TaskData } from '../../interfaces/task-data.interface';
 
 @Component({
   selector: 'app-add-task',
@@ -23,10 +24,11 @@ export class AddTaskComponent {
   searchValue: string = '';
   searchInput: boolean = false;
   filteredUsers: User[] = [];
+  parentAssigned: string[] = [];
 
   constructor(public firebaseService: FirebaseService) {}
 
-  taskData = {
+  taskData: TaskData = {
     title: '',
     description: '',
     date: this.currentDate,
@@ -34,6 +36,10 @@ export class AddTaskComponent {
     category: '',
     assigned: [],
   };
+
+  receiveAssigned(assigned: string[]) {
+    this.taskData.assigned = assigned;
+  }
 
   ngOnInit() {
     const storedTaskData = localStorage.getItem('taskData');

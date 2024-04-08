@@ -72,7 +72,24 @@
           <app-assigned
             [filteredUsers]="filteredUsers"
             [searchInput]="searchInput"
-          ></app-assigned>
+            (assignedChange)="receiveAssigned($event)"
+          >
+            ></app-assigned
+          >
+          }
+        </div>
+        <div class="assigned-badget">
+          @for (user of taskData.assigned; track user ) {
+          <div
+            class="circle"
+            [ngStyle]="{
+              'background-color': firebaseService.getUserDetails(user, 'color')
+            }"
+          >
+            <div class="initials">
+              {{ firebaseService.getUserDetails(user, "initials") }}
+            </div>
+          </div>
           }
         </div>
       </div>

@@ -1,22 +1,29 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FirebaseService } from '../../../services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../interfaces/user.interface';
+import { AddTaskComponent } from '../add-task.component';
 
 @Component({
   selector: 'app-assigned',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AddTaskComponent],
   templateUrl: './assigned.component.html',
   styleUrl: './assigned.component.scss',
 })
 export class AssignedComponent {
   @Input() filteredUsers: User[] = [];
   @Input() searchInput: boolean = false;
+  @Output() assignedChange = new EventEmitter<string[]>();
+
   assigned: string[] = [];
 
   constructor(public firebaseService: FirebaseService) {
     this.loadTaskAssigedData();
+  }
+
+  updateAssigned() {
+    this.assignedChange.emit(this.assigned);
   }
 
   addAssignedToTask(userId: string) {
@@ -26,6 +33,7 @@ export class AssignedComponent {
       this.assigned.splice(this.assigned.indexOf(userId), 1);
     }
     this.saveTaskData();
+    this.updateAssigned();
   }
 
   saveTaskData() {
