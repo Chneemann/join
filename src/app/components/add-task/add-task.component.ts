@@ -25,7 +25,6 @@ export class AddTaskComponent {
   searchValue: string = '';
   searchInput: boolean = false;
   filteredUsers: User[] = [];
-
   constructor(public firebaseService: FirebaseService) {}
 
   taskData: TaskData = {
@@ -43,7 +42,7 @@ export class AddTaskComponent {
   }
 
   addSubtask(subtaskName: string) {
-    this.taskData.subtasks.push(subtaskName);
+    this.taskData.subtasks.unshift(subtaskName);
     this.saveTaskData();
   }
 

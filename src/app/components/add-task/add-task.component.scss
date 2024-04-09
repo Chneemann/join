@@ -120,14 +120,18 @@ p {
 }
 
 .subtasks {
-  padding: 12px 6px;
+  padding: 12px 0;
+  margin-right: 14px;
   .single-subtask {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3px 6px;
+    padding: 6px 9px;
     width: 100%;
     cursor: pointer;
+    p {
+      padding: 0;
+    }
     &:hover {
       border-radius: 12px;
       background-color: var(--light-gray);
