@@ -10,7 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
-import { TaskData } from '../interfaces/task-data.interface';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -58,7 +58,7 @@ export class FirebaseService implements OnDestroy {
     });
   }
 
-  async addNewTask(task: TaskData) {
+  async addNewTask(task: Task) {
     await addDoc(collection(this.firestore, 'tasks'), task)
       .catch((err) => {
         console.error(err);

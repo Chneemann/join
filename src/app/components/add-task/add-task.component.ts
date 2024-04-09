@@ -47,6 +47,7 @@ export class AddTaskComponent {
 
   addSubtask(subtaskName: string) {
     this.taskData.subtasksTitle.unshift(subtaskName);
+    this.taskData.subtasksDone.push(false);
     this.saveTaskData();
   }
 
@@ -55,6 +56,7 @@ export class AddTaskComponent {
       this.taskData.subtasksTitle.indexOf(subtaskName),
       1
     );
+    this.taskData.subtasksDone.splice(1);
     this.saveTaskData();
   }
 
