@@ -5,5 +5,5 @@ export interface TaskData {
   priority: string;
   category: string;
   assigned: string[];
-  subtasks: string[];
+  subtasksTitle: string[];
 }

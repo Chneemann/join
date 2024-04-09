@@ -11,6 +11,8 @@ import { FirebaseService } from '../../services/firebase.service';
   styleUrl: './summary.component.scss',
 })
 export class SummaryComponent {
+  nextUrgendTask: number[] = [];
+
   constructor(
     public firebaseService: FirebaseService,
     private translateService: TranslateService
@@ -33,19 +35,21 @@ export class SummaryComponent {
       .filter((task) => task.priority === 'urgent');
   }
 
-  nextUrgentTasks() {
+  nextUrgentTask() {
     const urgentTasks = this.displayNumberOfTaskStatusUrgent();
-    if (urgentTasks.length >= 2) {
-      const timestamps = urgentTasks.map((task) => task.timestamp);
-      return this.timeConverter(Math.min(...timestamps));
-    } else if (urgentTasks.length > 0) {
-      return this.timeConverter(urgentTasks[0].timestamp);
+    if (urgentTasks.length > 0) {
+      const nextTask = urgentTasks.reduce((earliest, current) => {
+        const currentDate = Date.parse(current.date);
+        const earliestDate = Date.parse(earliest.date);
+        return currentDate < earliestDate ? current : earliest;
+      });
+      return this.timeConverter(nextTask.date);
     }
-    return;
+    return null;
   }
 
-  timeConverter(timestamp: number) {
-    var a = new Date(timestamp * 1000);
+  timeConverter(dateString: string) {
+    var a = new Date(dateString);
     var months = [
       'Jan.',
       'Feb.',

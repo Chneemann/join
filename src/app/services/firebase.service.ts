@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
   Firestore,
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -9,6 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
+import { TaskData } from '../interfaces/task-data.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -54,6 +56,16 @@ export class FirebaseService implements OnDestroy {
     }).catch((err) => {
       console.error(err);
     });
+  }
+
+  async addNewTask(task: TaskData) {
+    await addDoc(collection(this.firestore, 'tasks'), task)
+      .catch((err) => {
+        console.error(err);
+      })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef?.id);
+      });
   }
 
   // ------------- USERS ------------- //

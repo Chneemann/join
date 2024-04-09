@@ -228,9 +228,9 @@
           </div>
           } @else {
           <img class="add" src="./../../../assets/img/add.svg" alt="" />
-          } @if (taskData.subtasks) {
+          } @if (taskData.subtasksTitle) {
           <div class="subtasks">
-            @for (task of taskData.subtasks.reverse(); track task) {
+            @for (task of taskData.subtasksTitle.reverse(); track task) {
             <div class="single-subtask">
               <p>- {{ task }}</p>
               <img

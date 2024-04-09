@@ -42,7 +42,7 @@ export class TaskComponent {
 
   // Assigned
 
-  userBadged(id: number) {
+  userBadged(id: string) {
     const userId = String(id);
     const user = this.firebaseService
       .getAllUsers()
@@ -60,7 +60,7 @@ export class TaskComponent {
     }
   }
 
-  userBadgedColor(id: number) {
+  userBadgedColor(id: string) {
     const userId = String(id);
     const user = this.firebaseService
       .getAllUsers()

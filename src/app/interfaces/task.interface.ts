@@ -7,6 +7,6 @@ export interface Task {
   priority: string;
   subtasksTitle: string[];
   subtasksDone: boolean[];
-  assigned: number[];
-  timestamp: number;
+  assigned: string[];
+  date: string;
 }

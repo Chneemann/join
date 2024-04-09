@@ -4,7 +4,7 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
 import { FirebaseService } from '../../services/firebase.service';
-import { TaskData } from '../../interfaces/task-data.interface';
+import { Task } from '../../interfaces/task.interface';
 
 @Component({
   selector: 'app-add-task',
@@ -25,16 +25,20 @@ export class AddTaskComponent {
   searchValue: string = '';
   searchInput: boolean = false;
   filteredUsers: User[] = [];
+
   constructor(public firebaseService: FirebaseService) {}
 
-  taskData: TaskData = {
+  taskData: Task = {
+    id: '',
     title: '',
     description: '',
-    date: this.currentDate,
-    priority: 'medium',
     category: '',
+    status: '',
+    priority: 'medium',
+    subtasksTitle: [],
+    subtasksDone: [],
     assigned: [],
-    subtasks: [],
+    date: '',
   };
 
   receiveAssigned(assigned: string[]) {
@@ -42,13 +46,13 @@ export class AddTaskComponent {
   }
 
   addSubtask(subtaskName: string) {
-    this.taskData.subtasks.unshift(subtaskName);
+    this.taskData.subtasksTitle.unshift(subtaskName);
     this.saveTaskData();
   }
 
   deleteSubtask(subtaskName: string) {
-    this.taskData.subtasks.splice(
-      this.taskData.subtasks.indexOf(subtaskName),
+    this.taskData.subtasksTitle.splice(
+      this.taskData.subtasksTitle.indexOf(subtaskName),
       1
     );
     this.saveTaskData();
@@ -128,12 +132,12 @@ export class AddTaskComponent {
     this.taskData.date = this.currentDate;
     this.taskData.category = '';
     this.taskData.assigned = [];
-    this.taskData.subtasks = [];
+    this.taskData.subtasksTitle = [];
   }
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      console.log('Send completed');
+      this.firebaseService.addNewTask(this.taskData);
       this.removeTaskData();
     }
   }
