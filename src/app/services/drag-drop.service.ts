@@ -8,8 +8,10 @@ export class DragDropService {
 
   constructor() {}
 
-  startDragging(event: DragEvent, id: string) {
-    event.dataTransfer?.setData('text/plain', id);
+  startDragging(event: DragEvent, id: string | undefined) {
+    if (id !== undefined) {
+      event.dataTransfer?.setData('text/plain', id);
+    }
   }
 
   allowDrop(event: DragEvent) {

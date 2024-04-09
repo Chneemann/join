@@ -29,16 +29,15 @@ export class AddTaskComponent {
   constructor(public firebaseService: FirebaseService) {}
 
   taskData: Task = {
-    id: '',
     title: '',
     description: '',
     category: '',
-    status: '',
+    status: 'todo',
     priority: 'medium',
     subtasksTitle: [],
     subtasksDone: [],
     assigned: [],
-    date: '',
+    date: this.currentDate,
   };
 
   receiveAssigned(assigned: string[]) {
@@ -135,11 +134,13 @@ export class AddTaskComponent {
     this.taskData.category = '';
     this.taskData.assigned = [];
     this.taskData.subtasksTitle = [];
+    this.taskData.subtasksDone = [];
   }
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      this.firebaseService.addNewTask(this.taskData);
+      const { id, ...taskWithoutId } = this.taskData;
+      this.firebaseService.addNewTask(taskWithoutId);
       this.removeTaskData();
     }
   }
