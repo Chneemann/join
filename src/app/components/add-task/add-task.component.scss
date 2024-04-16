@@ -207,7 +207,7 @@ p {
   background-color: var(--white);
   font-size: 20px;
   font-weight: 400;
-  min-width: 125px;
+  width: 125px;
   border-radius: 10px;
   border: 1px solid var(--light-gray);
   padding: 10px 16px;
@@ -284,5 +284,15 @@ p {
     color: var(--light-blue);
     border-color: var(--light-bluek);
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 1250px) {
+  .btn-text {
+    span {
+      display: none;
+    }
   }
 }
