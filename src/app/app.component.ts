@@ -8,6 +8,7 @@ import { ContactEditComponent } from './components/contacts/contact-edit/contact
 import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
 import { ContactDeleteComponent } from './components/contacts/contact-delete/contact-delete.component';
+import { OverlayComponent } from './shared/components/overlay/overlay.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import { ContactDeleteComponent } from './components/contacts/contact-delete/con
     ContactEditComponent,
     ContactDeleteComponent,
     CommonModule,
+    OverlayComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
 import { Task } from '../../../interfaces/task.interface';
 import { FirebaseService } from '../../../services/firebase.service';
+import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
   selector: 'app-task',
@@ -21,8 +22,13 @@ export class TaskComponent {
 
   constructor(
     public dragDropService: DragDropService,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    public overlayService: OverlayService
   ) {}
+
+  showTaskDetails(taskId: string | undefined) {
+    this.overlayService.setOverlayData(taskId);
+  }
 
   // Subtasks
 
