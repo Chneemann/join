@@ -17,13 +17,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './overlay.component.scss',
 })
 export class OverlayComponent implements OnInit {
+  overlayType: any;
   overlayData: any;
 
   constructor(private overlayService: OverlayService) {}
 
   ngOnInit(): void {
     this.overlayService.overlayData$.subscribe((data) => {
-      this.overlayData = data;
+      if (data) {
+        this.overlayType = data.overlay;
+        this.overlayData = data.data;
+      }
     });
   }
 
@@ -34,7 +38,7 @@ export class OverlayComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   checkOpenContactEdit(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-    if (targetElement.closest('.overlay-content')) {
+    if (targetElement.closest('.overlay')) {
       this.onCloseOverlay();
     }
   }

@@ -26,8 +26,8 @@ export class TaskComponent {
     public overlayService: OverlayService
   ) {}
 
-  showTaskDetails(taskId: string | undefined) {
-    this.overlayService.setOverlayData(taskId);
+  openTaskDetailsOverlay(taskId: string | undefined) {
+    this.overlayService.setOverlayData('taskOverlay', taskId);
   }
 
   // Subtasks

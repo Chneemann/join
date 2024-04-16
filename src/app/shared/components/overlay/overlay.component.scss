@@ -5,17 +5,23 @@
   width: 100vw;
   height: 100vh;
   backdrop-filter: blur(5px);
+  background-color: rgba($color: #000000, $alpha: 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
 }
 
-.overlayContent {
+.overlay-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: aqua;
-  height: auto;
-  width: auto;
+}
+
+.task-overlay {
+  width: 525px;
+  height: 700px;
+  padding: 48px 40px 48px 40px;
+  border-radius: 30px;
+  background-color: var(--white);
 }

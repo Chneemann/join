@@ -1,3 +1,7 @@
 <div *ngIf="overlayData" class="overlay">
-  <div class="overlay-content">{{ overlayData }}</div>
+  <div class="overlay-content">
+    @if (overlayType === "taskOverlay") {
+    <div class="task-overlay">{{ overlayData }}</div>
+    }
+  </div>
 </div>
