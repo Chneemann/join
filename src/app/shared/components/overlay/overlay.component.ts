@@ -38,7 +38,10 @@ export class OverlayComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   checkOpenContactEdit(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-    if (targetElement.closest('.overlay')) {
+    if (
+      targetElement.closest('.overlay') &&
+      !targetElement.closest('.overlay-content')
+    ) {
       this.onCloseOverlay();
     }
   }
