@@ -1,2 +1,14 @@
-<p>task-overlay works!</p>
-<p>{{ overlayData }}</p>
+<section>
+  <div
+    class="category"
+    [style.background-color]="
+      categoryColors.get(getTask(overlayData)[0].category)
+    "
+  >
+    {{ getTask(overlayData)[0].category }}
+  </div>
+  <div class="headline">{{ getTask(overlayData)[0].title }}</div>
+  <div class="description">
+    {{ getTask(overlayData)[0].description }}
+  </div>
+</section>

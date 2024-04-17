@@ -1,0 +1,31 @@
+section {
+  width: 525px;
+  height: 700px;
+  padding: 48px 40px 48px 40px;
+  border-radius: 30px;
+  background-color: var(--white);
+}
+
+.category {
+  font-size: 16px;
+  padding: 4px 16px;
+  border-radius: 8px;
+  color: var(--white);
+  text-shadow: 1px 1px 2px var(--black);
+}
+
+.headline {
+  color: var(--dark-blue);
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 40px;
+}
+
+.description {
+  color: var(--gray);
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 8px;
+  max-height: 100px;
+  overflow: auto;
+}
