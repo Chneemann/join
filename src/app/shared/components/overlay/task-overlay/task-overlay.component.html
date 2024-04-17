@@ -14,4 +14,8 @@
   <div class="description">
     {{ getTask(overlayData)[0].description }}
   </div>
+  <div class="date">
+    <p>Due Date:</p>
+    {{ timeConverter(getTask(overlayData)[0].date) }}
+  </div>
 </section>

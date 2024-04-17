@@ -29,4 +29,27 @@ export class TaskOverlayComponent {
       .getAllTasks()
       .filter((task) => task.id === taskId);
   }
+
+  timeConverter(dateString: string) {
+    var a = new Date(dateString);
+    var months = [
+      'Jan.',
+      'Feb.',
+      'Mar.',
+      'Apr.',
+      'May.',
+      'Jun.',
+      'Jul.',
+      'Aug.',
+      'Sep.',
+      'Oct.',
+      'Nov.',
+      'Dec.',
+    ];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var time = month + ' ' + date + ', ' + year;
+    return time;
+  }
 }
