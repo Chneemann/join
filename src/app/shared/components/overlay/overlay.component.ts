@@ -1,18 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
+import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 
 @Component({
   selector: 'app-overlay',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaskOverlayComponent],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
 })
