@@ -18,4 +18,9 @@
     <p>Due Date:</p>
     {{ timeConverter(getTask(overlayData)[0].date) }}
   </div>
+  <div class="priority">
+    <p>Priority:</p>
+    {{ capitalizeFirstLetter(getTask(overlayData)[0].priority) }}
+    <div class="priority-bg prio-{{ getTask(overlayData)[0].priority }}"></div>
+  </div>
 </section>

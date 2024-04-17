@@ -30,6 +30,10 @@ export class TaskOverlayComponent {
       .filter((task) => task.id === taskId);
   }
 
+  capitalizeFirstLetter(data: string) {
+    return data.charAt(0).toUpperCase() + data.slice(1);
+  }
+
   timeConverter(dateString: string) {
     var a = new Date(dateString);
     var months = [
