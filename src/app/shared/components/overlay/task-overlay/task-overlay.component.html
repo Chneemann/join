@@ -1,11 +1,14 @@
 <section>
-  <div
-    class="category"
-    [style.background-color]="
-      categoryColors.get(getTask(overlayData)[0].category)
-    "
-  >
-    {{ getTask(overlayData)[0].category }}
+  <div class="header">
+    <div
+      class="category"
+      [style.background-color]="
+        categoryColors.get(getTask(overlayData)[0].category)
+      "
+    >
+      {{ getTask(overlayData)[0].category }}
+    </div>
+    <app-btn-close (click)="sendMessage()"></app-btn-close>
   </div>
   <div class="headline">{{ getTask(overlayData)[0].title }}</div>
   <div class="description">

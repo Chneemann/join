@@ -2,7 +2,10 @@
   <div class="overlay-content">
     @if (overlayType === "taskOverlay") {
     <div class="task-overlay">
-      <app-task-overlay [overlayData]="overlayData"></app-task-overlay>
+      <app-task-overlay
+        [overlayData]="overlayData"
+        (closeDialogEmitter)="onCloseOverlay($event)"
+      ></app-task-overlay>
     </div>
     }
   </div>

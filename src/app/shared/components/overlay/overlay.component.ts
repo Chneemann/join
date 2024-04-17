@@ -1,4 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
@@ -25,8 +31,8 @@ export class OverlayComponent implements OnInit {
     });
   }
 
-  onCloseOverlay() {
-    this.overlayData = '';
+  onCloseOverlay(emitter: string) {
+    this.overlayData = emitter;
   }
 
   @HostListener('document:click', ['$event'])
@@ -36,7 +42,7 @@ export class OverlayComponent implements OnInit {
       targetElement.closest('.overlay') &&
       !targetElement.closest('.overlay-content')
     ) {
-      this.onCloseOverlay();
+      this.onCloseOverlay('');
     }
   }
 }
