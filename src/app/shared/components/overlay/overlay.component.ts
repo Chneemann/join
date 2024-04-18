@@ -9,11 +9,12 @@ import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { FirebaseService } from '../../../services/firebase.service';
+import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
 
 @Component({
   selector: 'app-overlay',
   standalone: true,
-  imports: [CommonModule, TaskOverlayComponent],
+  imports: [CommonModule, TaskOverlayComponent, TaskEditOverlayComponent],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
 })

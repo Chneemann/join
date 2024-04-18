@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FirebaseService } from '../../../../services/firebase.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { CommonModule } from '@angular/common';
+import { OverlayService } from '../../../../services/overlay.service';
 
 @Component({
   selector: 'app-task-overlay',
@@ -14,7 +15,10 @@ export class TaskOverlayComponent {
   @Input() overlayData: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
-  constructor(public firebaseService: FirebaseService) {}
+  constructor(
+    public firebaseService: FirebaseService,
+    private overlayService: OverlayService
+  ) {}
 
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],
@@ -23,6 +27,10 @@ export class TaskOverlayComponent {
 
   closeDialog() {
     this.closeDialogEmitter.emit('');
+  }
+
+  editTask(overlayData: string) {
+    this.overlayService.setOverlayData('taskOverlayEdit', overlayData);
   }
 
   getTaskData(taskId: string) {

@@ -1,12 +1,15 @@
 <div *ngIf="overlayData" class="overlay">
   <div class="overlay-content">
     @if (overlayType === "taskOverlay") {
-    <div class="task-overlay">
-      <app-task-overlay
-        [overlayData]="overlayData"
-        (closeDialogEmitter)="onCloseOverlay($event)"
-      ></app-task-overlay>
-    </div>
+    <app-task-overlay
+      [overlayData]="overlayData"
+      (closeDialogEmitter)="onCloseOverlay($event)"
+    ></app-task-overlay>
+    } @if (overlayType === "taskOverlayEdit") {
+    <app-task-edit-overlay
+      [overlayData]="overlayData"
+      (closeDialogEmitter)="onCloseOverlay($event)"
+    ></app-task-edit-overlay>
     }
   </div>
 </div>

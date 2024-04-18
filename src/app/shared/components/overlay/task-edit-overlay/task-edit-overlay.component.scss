@@ -1,0 +1,13 @@
+section {
+  width: 525px;
+  height: 700px;
+  padding: 48px 40px 48px 40px;
+  border-radius: 30px;
+  background-color: var(--white);
+}
+
+.header {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 32px;
+}
