@@ -21,11 +21,11 @@ export class TaskOverlayComponent {
     ['Technical Task', '#20d7c2'],
   ]);
 
-  sendMessage() {
+  closeDialog() {
     this.closeDialogEmitter.emit('');
   }
 
-  getTask(taskId: string) {
+  getTaskData(taskId: string) {
     return this.firebaseService
       .getAllTasks()
       .filter((task) => task.id === taskId);

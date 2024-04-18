@@ -3,32 +3,32 @@
     <div
       class="category"
       [style.background-color]="
-        categoryColors.get(getTask(overlayData)[0].category)
+        categoryColors.get(getTaskData(overlayData)[0].category)
       "
     >
-      {{ getTask(overlayData)[0].category }}
+      {{ getTaskData(overlayData)[0].category }}
     </div>
-    <app-btn-close (click)="sendMessage()"></app-btn-close>
+    <app-btn-close (click)="closeDialog()"></app-btn-close>
   </div>
   <div class="content">
-    <div class="headline">{{ getTask(overlayData)[0].title }}</div>
+    <div class="headline">{{ getTaskData(overlayData)[0].title }}</div>
     <div class="description">
-      {{ getTask(overlayData)[0].description }}
+      {{ getTaskData(overlayData)[0].description }}
     </div>
     <div class="date">
       <p>Due date:</p>
-      {{ timeConverter(getTask(overlayData)[0].date) }}
+      {{ timeConverter(getTaskData(overlayData)[0].date) }}
     </div>
     <div class="priority">
       <p>Priority:</p>
-      {{ capitalizeFirstLetter(getTask(overlayData)[0].priority) }}
+      {{ capitalizeFirstLetter(getTaskData(overlayData)[0].priority) }}
       <div
-        class="priority-bg prio-{{ getTask(overlayData)[0].priority }}"
+        class="priority-bg prio-{{ getTaskData(overlayData)[0].priority }}"
       ></div>
     </div>
     <div class="assigned">
       <p>Assigned to:</p>
-      @for (user of getTask(overlayData)[0].assigned; track user) {
+      @for (user of getTaskData(overlayData)[0].assigned; track user) {
       <div class="users">
         <div
           class="circle"
@@ -56,15 +56,15 @@
     </div>
     <div class="subtasks">
       <p>Subtasks:</p>
-      @for (subtask of getTask(overlayData)[0].subtasksTitle; track subtask; let
-      i = $index) {
+      @for (subtask of getTaskData(overlayData)[0].subtasksTitle; track subtask;
+      let i = $index) {
       <div
         class="single-subtask"
         (click)="
           toggleSubtaskStatus(
             overlayData,
             i,
-            getTask(overlayData)[0].subtasksDone,
+            getTaskData(overlayData)[0].subtasksDone,
             getSubTaskStatus(overlayData, i)
           )
         "
