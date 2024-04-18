@@ -10,46 +10,76 @@
     </div>
     <app-btn-close (click)="sendMessage()"></app-btn-close>
   </div>
-  <div class="headline">{{ getTask(overlayData)[0].title }}</div>
-  <div class="description">
-    {{ getTask(overlayData)[0].description }}
-  </div>
-  <div class="date">
-    <p>Due date:</p>
-    {{ timeConverter(getTask(overlayData)[0].date) }}
-  </div>
-  <div class="priority">
-    <p>Priority:</p>
-    {{ capitalizeFirstLetter(getTask(overlayData)[0].priority) }}
-    <div class="priority-bg prio-{{ getTask(overlayData)[0].priority }}"></div>
-  </div>
-  <div class="assigned">
-    <p>Assigned to:</p>
-    @for (user of getTask(overlayData)[0].assigned; track user; let index =
-    $index) {
-    <div class="content">
-      <div
-        class="circle"
-        [ngStyle]="{
-          'background-color': firebaseService.getUserDetails(user, 'color')
-        }"
-      >
-        <div class="initials">
-          {{ firebaseService.getUserDetails(user, "initials") }}
-        </div>
-      </div>
-      <div class="details">
-        <div class="name">
-          <p>
-            {{ firebaseService.getUserDetails(user, "firstName") }}
-          </p>
-          <span>,&nbsp;</span>
-          <p class="last-name">
-            {{ firebaseService.getUserDetails(user, "lastName") }}
-          </p>
-        </div>
-      </div>
+  <div class="content">
+    <div class="headline">{{ getTask(overlayData)[0].title }}</div>
+    <div class="description">
+      {{ getTask(overlayData)[0].description }}
     </div>
-    }
+    <div class="date">
+      <p>Due date:</p>
+      {{ timeConverter(getTask(overlayData)[0].date) }}
+    </div>
+    <div class="priority">
+      <p>Priority:</p>
+      {{ capitalizeFirstLetter(getTask(overlayData)[0].priority) }}
+      <div
+        class="priority-bg prio-{{ getTask(overlayData)[0].priority }}"
+      ></div>
+    </div>
+    <div class="assigned">
+      <p>Assigned to:</p>
+      @for (user of getTask(overlayData)[0].assigned; track user) {
+      <div class="users">
+        <div
+          class="circle"
+          [ngStyle]="{
+            'background-color': firebaseService.getUserDetails(user, 'color')
+          }"
+        >
+          <div class="initials">
+            {{ firebaseService.getUserDetails(user, "initials") }}
+          </div>
+        </div>
+        <div class="details">
+          <div class="name">
+            <p>
+              {{ firebaseService.getUserDetails(user, "firstName") }}
+            </p>
+            <span>,&nbsp;</span>
+            <p class="last-name">
+              {{ firebaseService.getUserDetails(user, "lastName") }}
+            </p>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="subtasks">
+      <p>Subtasks:</p>
+      @for (subtask of getTask(overlayData)[0].subtasksTitle; track subtask; let
+      i = $index) {
+      <div
+        class="single-subtask"
+        (click)="
+          toggleSubtaskStatus(
+            overlayData,
+            i,
+            getTask(overlayData)[0].subtasksDone,
+            getSubTaskStatus(overlayData, i)
+          )
+        "
+      >
+        <img
+          [src]="
+            getSubTaskStatus(overlayData, i)
+              ? './../../../../../assets/img/board/check-btn-checked.svg'
+              : './../../../../../assets/img/board/check-btn-unchecked.svg'
+          "
+          alt=""
+        />
+        <p>{{ subtask }}</p>
+      </div>
+      }
+    </div>
   </div>
 </section>

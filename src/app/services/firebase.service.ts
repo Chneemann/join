@@ -2,6 +2,7 @@ import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
   Firestore,
   addDoc,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -53,6 +54,14 @@ export class FirebaseService implements OnDestroy {
   async updateTask(taskId: any, index: number) {
     await updateDoc(doc(collection(this.firestore, 'tasks'), taskId), {
       status: this.allTasks[index].status,
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  async updateSubTask(taskId: any, array: boolean[]) {
+    await updateDoc(doc(collection(this.firestore, 'tasks'), taskId), {
+      subtasksDone: array,
     }).catch((err) => {
       console.error(err);
     });

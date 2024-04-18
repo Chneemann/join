@@ -31,6 +31,24 @@ export class TaskOverlayComponent {
       .filter((task) => task.id === taskId);
   }
 
+  getSubTaskStatus(taskId: string, index: number) {
+    const subtask = this.firebaseService
+      .getAllTasks()
+      .filter((task) => task.id === taskId);
+
+    return subtask[0].subtasksDone[index];
+  }
+
+  toggleSubtaskStatus(
+    taskId: string,
+    index: number,
+    array: boolean[],
+    status: boolean
+  ) {
+    status ? (array[index] = false) : (array[index] = true);
+    this.firebaseService.updateSubTask(taskId, array);
+  }
+
   capitalizeFirstLetter(data: string) {
     return data.charAt(0).toUpperCase() + data.slice(1);
   }

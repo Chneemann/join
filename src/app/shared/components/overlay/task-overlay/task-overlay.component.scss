@@ -9,6 +9,7 @@ section {
 .header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 32px;
 }
 
 .category {
@@ -23,10 +24,14 @@ section {
   text-shadow: 1px 1px 2px var(--black);
 }
 
+.content {
+  height: calc(700px - 72px);
+  overflow-y: auto;
+}
+
 .headline {
   font-size: 61px;
   font-weight: 700;
-  margin-top: 32px;
 }
 
 .description {
@@ -34,6 +39,8 @@ section {
   font-weight: 400;
   margin-top: 32px;
 }
+
+// DATE
 
 .date {
   display: flex;
@@ -48,6 +55,8 @@ section {
     width: 25%;
   }
 }
+
+// PRIORITY
 
 .priority {
   display: flex;
@@ -98,7 +107,7 @@ section {
   }
 }
 
-.content {
+.users {
   display: flex;
   align-items: center;
   padding: 12px;
@@ -108,9 +117,9 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35px;
-  min-width: 35px;
-  height: 35px;
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
   border-radius: 100%;
   border: 2px solid var(--white);
   .initials {
@@ -134,11 +143,54 @@ section {
   align-items: center;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 18px;
-  font-weight: 400;
+  p {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+  }
 }
 
 .last-name {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+// SUBTASKS
+
+.subtasks {
+  margin-top: 32px;
+  overflow-y: auto;
+  p {
+    color: var(--very-dark-gray);
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+}
+
+.single-subtask {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-left: 14px;
+  padding: 6px 12px;
+  cursor: pointer;
+  p {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 0 18px;
+    padding-right: 12px;
+  }
+  &:hover {
+    border-radius: 12px;
+    background-color: var(--light-gray);
+    img {
+      filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
+        brightness(92%) contrast(92%);
+    }
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
 }
