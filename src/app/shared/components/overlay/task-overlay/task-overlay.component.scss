@@ -25,7 +25,7 @@ section {
 }
 
 .content {
-  height: calc(700px - 72px);
+  height: calc(700px - 104px);
   overflow-y: auto;
 }
 
@@ -144,6 +144,7 @@ section {
   overflow: hidden;
   white-space: nowrap;
   p {
+    color: var(--black);
     font-size: 20px;
     font-weight: 400;
     margin: 0;
@@ -176,6 +177,7 @@ section {
   padding: 6px 12px;
   cursor: pointer;
   p {
+    color: var(--black);
     font-size: 20px;
     font-weight: 400;
     margin: 0 0 0 18px;
@@ -192,5 +194,38 @@ section {
   img {
     width: 24px;
     height: 24px;
+  }
+}
+
+// BTNS
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
+  margin-top: 12px;
+  img {
+    width: 20px;
+    height: 20px;
+    padding-right: 12px;
+  }
+  p {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  span {
+    padding: 0 12px;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg);
+    }
+    &:last-child {
+      padding-right: 24px;
+    }
   }
 }
