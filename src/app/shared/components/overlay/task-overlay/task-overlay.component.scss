@@ -84,3 +84,61 @@ section {
 .prio-low {
   background-image: url(./../../../../../assets/img/low.svg);
 }
+
+// ASSIGNED
+
+.assigned {
+  margin-top: 32px;
+  overflow-y: auto;
+  p {
+    color: var(--very-dark-gray);
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  border: 2px solid var(--white);
+  .initials {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--white);
+    text-shadow: 1px 1px 2px var(--black);
+  }
+}
+
+.details {
+  margin-left: 24px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.last-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

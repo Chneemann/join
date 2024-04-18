@@ -8,6 +8,7 @@ import {
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
+import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({
   selector: 'app-overlay',

@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FirebaseService } from '../../../../services/firebase.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-overlay',
   standalone: true,
-  imports: [BtnCloseComponent],
+  imports: [BtnCloseComponent, CommonModule],
   templateUrl: './task-overlay.component.html',
   styleUrl: './task-overlay.component.scss',
 })
@@ -13,7 +14,7 @@ export class TaskOverlayComponent {
   @Input() overlayData: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(public firebaseService: FirebaseService) {}
 
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],

@@ -15,12 +15,41 @@
     {{ getTask(overlayData)[0].description }}
   </div>
   <div class="date">
-    <p>Due Date:</p>
+    <p>Due date:</p>
     {{ timeConverter(getTask(overlayData)[0].date) }}
   </div>
   <div class="priority">
     <p>Priority:</p>
     {{ capitalizeFirstLetter(getTask(overlayData)[0].priority) }}
     <div class="priority-bg prio-{{ getTask(overlayData)[0].priority }}"></div>
+  </div>
+  <div class="assigned">
+    <p>Assigned to:</p>
+    @for (user of getTask(overlayData)[0].assigned; track user; let index =
+    $index) {
+    <div class="content">
+      <div
+        class="circle"
+        [ngStyle]="{
+          'background-color': firebaseService.getUserDetails(user, 'color')
+        }"
+      >
+        <div class="initials">
+          {{ firebaseService.getUserDetails(user, "initials") }}
+        </div>
+      </div>
+      <div class="details">
+        <div class="name">
+          <p>
+            {{ firebaseService.getUserDetails(user, "firstName") }}
+          </p>
+          <span>,&nbsp;</span>
+          <p class="last-name">
+            {{ firebaseService.getUserDetails(user, "lastName") }}
+          </p>
+        </div>
+      </div>
+    </div>
+    }
   </div>
 </section>
