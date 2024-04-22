@@ -75,6 +75,62 @@
           }
         </div>
       </div>
+      <div class="priority">
+        <p>Prio</p>
+        <div class="btns">
+          <button
+            type="button"
+            class="btn"
+            [ngClass]="{
+              'btn-active': taskDataEdit.priority == 'urgent'
+            }"
+            [ngStyle]="{
+              'background-color':
+                taskDataEdit.priority == 'urgent' ? 'red' : 'white'
+            }"
+            (click)="tooglePriority('urgent')"
+          >
+            <div class="btn-text">
+              <span>Urgent</span>
+              <img src="./../../../assets/img/urgent.svg" alt="" />
+            </div>
+          </button>
+          <button
+            type="button"
+            class="btn"
+            [ngClass]="{
+              'btn-active': taskDataEdit.priority == 'medium'
+            }"
+            [ngStyle]="{
+              'background-color':
+                taskDataEdit.priority == 'medium' ? 'orange' : 'white'
+            }"
+            (click)="tooglePriority('medium')"
+          >
+            <div class="btn-text">
+              <span>Medium</span>
+              <img src="./../../../assets/img/medium.svg" alt="" />
+            </div>
+          </button>
+          <button
+            type="button"
+            class="btn"
+            [ngClass]="{
+              'btn-active': taskDataEdit.priority == 'low'
+            }"
+            [ngStyle]="{
+              'background-color':
+                taskDataEdit.priority == 'low' ? 'green' : 'white'
+            }"
+            (click)="tooglePriority('low')"
+          >
+            <div class="btn-text">
+              <span>Low</span>
+              <img src="./../../../assets/img/low.svg" alt="" />
+            </div>
+          </button>
+        </div>
+      </div>
     </div>
   </form>
 </section>

@@ -4,11 +4,12 @@ import { OverlayService } from '../../../../services/overlay.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Task } from '../../../../interfaces/task.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-edit-overlay',
   standalone: true,
-  imports: [BtnCloseComponent, FormsModule],
+  imports: [BtnCloseComponent, FormsModule, CommonModule],
   templateUrl: './task-edit-overlay.component.html',
   styleUrl: './task-edit-overlay.component.scss',
 })
@@ -87,6 +88,13 @@ export class TaskEditOverlayComponent implements OnInit {
     currentDateForm < currentDate
       ? (this.dateInPast = true)
       : (this.dateInPast = false);
+  }
+
+  tooglePriority(prio: string) {
+    this.taskDataEdit.priority !== prio
+      ? (this.taskDataEdit.priority = prio)
+      : this.taskDataEdit.priority;
+    this.saveTaskData();
   }
 
   onSubmit(ngForm: NgForm) {
