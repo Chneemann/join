@@ -9,7 +9,7 @@
     onsubmit="return false"
   >
     <div class="content">
-      <div class="title">
+      <div class="title headline">
         <p>Title<span class="red-dot">*</span></p>
         <input
           type="text"
@@ -17,6 +17,9 @@
           name="title"
           #title="ngModel"
           (input)="saveTaskData()"
+          placeholder="{{
+            taskDataEdit.title ? taskDataEdit.title : 'Enter a description'
+          }}"
           [(ngModel)]="taskDataEdit.title"
           autocomplete="off"
           required
@@ -24,6 +27,30 @@
         <div class="error-msg">
           @if (!title.valid && title.touched) {
           <p>You must enter a title.</p>
+          }
+        </div>
+      </div>
+      <div class="description headline">
+        <p>Description<span class="red-dot">*</span></p>
+        <textarea
+          id="description"
+          rows="5"
+          name="description"
+          #description="ngModel"
+          minlength="10"
+          (input)="saveTaskData()"
+          placeholder="{{
+            taskDataEdit.description
+              ? taskDataEdit.description
+              : 'Enter a description'
+          }}"
+          [(ngModel)]="taskDataEdit.description"
+          autocomplete="off"
+          required
+        ></textarea>
+        <div class="error-msg">
+          @if (!description.valid && description.touched) {
+          <p>You must enter a description. (min. 10 letters)</p>
           }
         </div>
       </div>
