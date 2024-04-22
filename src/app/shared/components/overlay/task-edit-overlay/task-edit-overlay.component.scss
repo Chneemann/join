@@ -11,3 +11,52 @@ section {
   justify-content: right;
   margin-bottom: 32px;
 }
+
+.content {
+  height: calc(700px - 104px);
+  overflow-y: auto;
+}
+
+input,
+textarea,
+select {
+  font-size: 20px;
+  font-weight: 400;
+  border-radius: 10px;
+  border: 1px solid var(--light-gray);
+  padding: 12px 21px;
+  width: calc(100% - 48px);
+  resize: none;
+}
+
+input:invalid,
+textarea:invalid,
+select:invalid {
+  border: 1px dashed red;
+}
+
+input:valid,
+textarea:valid,
+select:valid {
+  border: 1px solid black;
+}
+
+p {
+  font-size: 20px;
+  font-weight: 400;
+  padding-bottom: 6px;
+}
+
+.red-dot {
+  color: var(--light-red);
+}
+
+.error-msg {
+  height: 24px;
+  padding: 6px;
+  p {
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

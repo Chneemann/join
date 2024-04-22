@@ -2,4 +2,31 @@
   <div class="header">
     <app-btn-close (click)="closeDialog()"></app-btn-close>
   </div>
+
+  <form
+    (ngSubmit)="onSubmit(taskForm)"
+    #taskForm="ngForm"
+    onsubmit="return false"
+  >
+    <div class="content">
+      <div class="title">
+        <p>Title<span class="red-dot">*</span></p>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          #title="ngModel"
+          (input)="saveTaskData()"
+          [(ngModel)]="taskDataEdit.title"
+          autocomplete="off"
+          required
+        />
+        <div class="error-msg">
+          @if (!title.valid && title.touched) {
+          <p>You must enter a title.</p>
+          }
+        </div>
+      </div>
+    </div>
+  </form>
 </section>
