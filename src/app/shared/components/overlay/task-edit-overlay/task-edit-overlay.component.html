@@ -54,6 +54,27 @@
           }
         </div>
       </div>
+      <div class="date headline">
+        <p>Due date<span class="red-dot">*</span></p>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          #date="ngModel"
+          (input)="checkDateInput()"
+          placeholder="{{ taskDataEdit.date }}"
+          [(ngModel)]="taskDataEdit.date"
+          autocomplete="off"
+          required
+        />
+        <div class="error-msg">
+          @if (!date.valid && date.touched) {
+          <p>You must enter a date.</p>
+          } @if (dateInPast && date.valid) {
+          <p>The date must be in the future</p>
+          }
+        </div>
+      </div>
     </div>
   </form>
 </section>

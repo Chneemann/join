@@ -16,6 +16,8 @@ export class TaskEditOverlayComponent implements OnInit {
   @Input() overlayData: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
+  dateInPast: boolean = false;
+
   taskDataEdit: Task = {
     title: '',
     description: '',
@@ -74,6 +76,17 @@ export class TaskEditOverlayComponent implements OnInit {
     this.taskDataEdit.assigned = [];
     this.taskDataEdit.subtasksTitle = [];
     this.taskDataEdit.subtasksDone = [];
+  }
+
+  checkDateInput() {
+    const currentDateForm = this.taskDataEdit.date.replaceAll('-', '');
+    const currentDate = new Date()
+      .toISOString()
+      .split('T')[0]
+      .replaceAll('-', '');
+    currentDateForm < currentDate
+      ? (this.dateInPast = true)
+      : (this.dateInPast = false);
   }
 
   onSubmit(ngForm: NgForm) {
