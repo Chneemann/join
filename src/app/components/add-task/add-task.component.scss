@@ -8,6 +8,21 @@ section {
   width: 100%;
 }
 
+.dialog {
+  position: fixed;
+  width: min-content;
+  height: fit-content;
+  padding: 10px 15px;
+  border-radius: 0px 20px 20px 20px;
+  border: 1px solid var(--black);
+  z-index: 2;
+  background-color: var(--white);
+  p {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
 .edit-task-overlay-content {
   height: calc(700px - 128px);
   padding: 0 6px;
@@ -112,6 +127,7 @@ p {
   border-radius: 100%;
   border: 2px solid var(--white);
   margin-right: 6px;
+  cursor: default;
   .initials {
     font-size: 12px;
     font-weight: 400;

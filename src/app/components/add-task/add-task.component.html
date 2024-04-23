@@ -98,6 +98,8 @@
           @for (user of taskData.assigned; track user ) {
           <div
             class="circle"
+            (mousemove)="openDialog(user, $event)"
+            (mouseleave)="closeDialog()"
             [ngStyle]="{
               'background-color': firebaseService.getUserDetails(user, 'color')
             }"
@@ -108,6 +110,14 @@
           </div>
           }
         </div>
+        @if (AssignedDialogId != '') {
+        <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
+          <p>
+            {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }},
+            {{ firebaseService.getUserDetails(AssignedDialogId, "lastName") }}
+          </p>
+        </div>
+        }
       </div>
       <div class="middle-spacer"><div class="line"></div></div>
       <div class="right-side">

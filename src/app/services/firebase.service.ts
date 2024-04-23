@@ -86,13 +86,9 @@ export class FirebaseService implements OnDestroy {
   }
 
   async addNewTask(task: Task) {
-    await addDoc(collection(this.firestore, 'tasks'), task)
-      .catch((err) => {
-        console.error(err);
-      })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef?.id);
-      });
+    await addDoc(collection(this.firestore, 'tasks'), task).catch((err) => {
+      console.error(err);
+    });
   }
 
   // ------------- USERS ------------- //

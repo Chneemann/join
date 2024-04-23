@@ -28,6 +28,9 @@ export class AddTaskComponent {
   searchValue: string = '';
   searchInput: boolean = false;
   filteredUsers: User[] = [];
+  AssignedDialogId: string = '';
+  dialogX: number = 0;
+  dialogY: number = 0;
 
   constructor(
     public firebaseService: FirebaseService,
@@ -49,6 +52,20 @@ export class AddTaskComponent {
   ngOnInit() {
     this.loadEditTaskData();
     this.loadLocalStorageData();
+  }
+
+  openDialog(userId: any, event: MouseEvent) {
+    this.AssignedDialogId = userId;
+    this.updateDialogPosition(event);
+  }
+
+  updateDialogPosition(event: MouseEvent) {
+    this.dialogX = event.clientX + 25;
+    this.dialogY = event.clientY + 10;
+  }
+
+  closeDialog() {
+    this.AssignedDialogId = '';
   }
 
   loadEditTaskData() {
