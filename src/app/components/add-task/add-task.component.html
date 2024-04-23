@@ -1,5 +1,10 @@
-<section>
-  <div class="headline">
+<section
+  [ngStyle]="{ 'background-color': overlayData !== '' ? 'var(--white)' : '' }"
+>
+  <div
+    class="headline"
+    [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
+  >
     <div class="title">Add Tasks</div>
   </div>
 

@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
@@ -17,6 +23,8 @@ export class AddTaskComponent {
   @ViewChild('title', { static: true }) titleField!: NgModel;
   @ViewChild('description', { static: true }) descriptionField!: NgModel;
   @ViewChild('category', { static: true }) categoryField!: NgModel;
+  @Input() task: string = '';
+  @Input() overlayData: string = '';
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
@@ -40,6 +48,37 @@ export class AddTaskComponent {
     date: this.currentDate,
   };
 
+  ngOnInit() {
+    if (this.overlayData !== '') {
+      this.loadEditTaskData();
+    }
+    const storedTaskData = localStorage.getItem('taskData');
+    if (storedTaskData) {
+      this.taskData = JSON.parse(storedTaskData);
+    } else {
+      this.saveTaskData();
+    }
+  }
+
+  loadEditTaskData() {
+    const taskData = this.getTaskData(this.overlayData)[0];
+    this.taskData.title = taskData.title;
+    this.taskData.description = taskData.description;
+    this.taskData.category = taskData.category;
+    this.taskData.status = taskData.status;
+    this.taskData.priority = taskData.priority;
+    this.taskData.subtasksTitle = taskData.subtasksTitle;
+    this.taskData.subtasksDone = taskData.subtasksDone;
+    this.taskData.assigned = taskData.assigned;
+    this.taskData.date = taskData.date;
+  }
+
+  getTaskData(taskId: string) {
+    return this.firebaseService
+      .getAllTasks()
+      .filter((task) => task.id === taskId);
+  }
+
   receiveAssigned(assigned: string[]) {
     this.taskData.assigned = assigned;
   }
@@ -57,15 +96,6 @@ export class AddTaskComponent {
     );
     this.taskData.subtasksDone.splice(1);
     this.saveTaskData();
-  }
-
-  ngOnInit() {
-    const storedTaskData = localStorage.getItem('taskData');
-    if (storedTaskData) {
-      this.taskData = JSON.parse(storedTaskData);
-    } else {
-      this.saveTaskData();
-    }
   }
 
   updateSearchInput() {
