@@ -33,6 +33,11 @@ export class TaskOverlayComponent {
     this.overlayService.setOverlayData('taskOverlayEdit', overlayData);
   }
 
+  deleteTask(overlayData: string) {
+    this.firebaseService.deleteTask(overlayData);
+    this.closeDialog();
+  }
+
   getTaskData(taskId: string) {
     return this.firebaseService
       .getAllTasks()

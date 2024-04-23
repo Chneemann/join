@@ -6,6 +6,7 @@ import { User } from '../../interfaces/user.interface';
 import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-add-task',
@@ -179,12 +180,19 @@ export class AddTaskComponent {
         this.firebaseService.addNewTask(taskWithoutId);
         this.removeTaskData();
       } else {
-        this.closeOverlay();
+        if (this.getTaskData(overlayData).length > 0) {
+          const { id, ...taskWithoutId } = this.taskData;
+          this.firebaseService.replaceTaskData(overlayData, taskWithoutId);
+          this.closeOverlay();
+        }
       }
     }
   }
 
-  deleteTaskData(overlayData: string) {}
+  deleteTaskData(overlayData: string) {
+    this.firebaseService.deleteTask(overlayData);
+    this.closeOverlay();
+  }
 
   @HostListener('document:click', ['$event'])
   checkOpenNavbar(event: MouseEvent) {

@@ -7,6 +7,7 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
 import { Task } from '../interfaces/task.interface';
@@ -51,7 +52,7 @@ export class FirebaseService implements OnDestroy {
     return this.filteredTasks;
   }
 
-  async updateTask(taskId: any, index: number) {
+  async updateTask(taskId: string, index: number) {
     await updateDoc(doc(collection(this.firestore, 'tasks'), taskId), {
       status: this.allTasks[index].status,
     }).catch((err) => {
@@ -59,12 +60,29 @@ export class FirebaseService implements OnDestroy {
     });
   }
 
-  async updateSubTask(taskId: any, array: boolean[]) {
+  async updateSubTask(taskId: string, array: boolean[]) {
     await updateDoc(doc(collection(this.firestore, 'tasks'), taskId), {
       subtasksDone: array,
     }).catch((err) => {
       console.error(err);
     });
+  }
+
+  async replaceTaskData(taskId: string, newData: Task) {
+    await setDoc(
+      doc(collection(this.firestore, 'tasks'), taskId),
+      newData
+    ).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  async deleteTask(taskId: string) {
+    await deleteDoc(doc(collection(this.firestore, 'tasks'), taskId)).catch(
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 
   async addNewTask(task: Task) {
