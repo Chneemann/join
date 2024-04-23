@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, HostListener, Input, ViewChild } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
@@ -49,9 +43,26 @@ export class AddTaskComponent {
   };
 
   ngOnInit() {
+    this.loadEditTaskData();
+    this.loadLocalStorageData();
+  }
+
+  loadEditTaskData() {
     if (this.overlayData !== '') {
-      this.loadEditTaskData();
+      const taskData = this.getTaskData(this.overlayData)[0];
+      this.taskData.title = taskData.title;
+      this.taskData.description = taskData.description;
+      this.taskData.category = taskData.category;
+      this.taskData.status = taskData.status;
+      this.taskData.priority = taskData.priority;
+      this.taskData.subtasksTitle = taskData.subtasksTitle;
+      this.taskData.subtasksDone = taskData.subtasksDone;
+      this.taskData.assigned = taskData.assigned;
+      this.taskData.date = taskData.date;
     }
+  }
+
+  loadLocalStorageData() {
     const storedTaskData = localStorage.getItem('taskData');
     if (storedTaskData) {
       this.taskData = JSON.parse(storedTaskData);
@@ -60,27 +71,10 @@ export class AddTaskComponent {
     }
   }
 
-  loadEditTaskData() {
-    const taskData = this.getTaskData(this.overlayData)[0];
-    this.taskData.title = taskData.title;
-    this.taskData.description = taskData.description;
-    this.taskData.category = taskData.category;
-    this.taskData.status = taskData.status;
-    this.taskData.priority = taskData.priority;
-    this.taskData.subtasksTitle = taskData.subtasksTitle;
-    this.taskData.subtasksDone = taskData.subtasksDone;
-    this.taskData.assigned = taskData.assigned;
-    this.taskData.date = taskData.date;
-  }
-
   getTaskData(taskId: string) {
     return this.firebaseService
       .getAllTasks()
       .filter((task) => task.id === taskId);
-  }
-
-  receiveAssigned(assigned: string[]) {
-    this.taskData.assigned = assigned;
   }
 
   addSubtask(subtaskName: string) {
@@ -98,15 +92,6 @@ export class AddTaskComponent {
     this.saveTaskData();
   }
 
-  updateSearchInput() {
-    if (this.searchValue) {
-      this.searchInput = this.searchValue.toLowerCase().length > 0;
-    } else {
-      this.searchInput = false;
-    }
-    return this.searchInput;
-  }
-
   searchTask(): void {
     this.updateSearchInput();
     this.filteredUsers = this.firebaseService
@@ -117,6 +102,19 @@ export class AddTaskComponent {
           user.lastName.toLowerCase().includes(this.searchValue) ||
           user.initials.toLowerCase().includes(this.searchValue)
       );
+  }
+
+  updateSearchInput() {
+    if (this.searchValue) {
+      this.searchInput = this.searchValue.toLowerCase().length > 0;
+    } else {
+      this.searchInput = false;
+    }
+    return this.searchInput;
+  }
+
+  receiveAssigned(assigned: string[]) {
+    this.taskData.assigned = assigned;
   }
 
   toggleAssignedMenu() {
