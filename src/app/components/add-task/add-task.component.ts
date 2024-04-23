@@ -51,7 +51,6 @@ export class AddTaskComponent {
   }
 
   loadEditTaskData() {
-    console.log(this.overlayData);
     if (this.overlayData !== '') {
       const taskData = this.getTaskData(this.overlayData)[0];
       this.taskData.title = taskData.title;
@@ -63,7 +62,6 @@ export class AddTaskComponent {
       this.taskData.subtasksDone = taskData.subtasksDone;
       this.taskData.assigned = taskData.assigned;
       this.taskData.date = taskData.date;
-      console.log(this.overlayData);
     }
   }
 
@@ -197,5 +195,9 @@ export class AddTaskComponent {
     ) {
       this.isAssignedOpen = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.removeTaskData();
   }
 }
