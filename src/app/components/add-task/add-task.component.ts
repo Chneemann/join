@@ -5,6 +5,7 @@ import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
 import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
+import { OverlayService } from '../../services/overlay.service';
 
 @Component({
   selector: 'app-add-task',
@@ -17,7 +18,6 @@ export class AddTaskComponent {
   @ViewChild('title', { static: true }) titleField!: NgModel;
   @ViewChild('description', { static: true }) descriptionField!: NgModel;
   @ViewChild('category', { static: true }) categoryField!: NgModel;
-  @Input() task: string = '';
   @Input() overlayData: string = '';
 
   currentDate: string = new Date().toISOString().split('T')[0];
@@ -28,7 +28,10 @@ export class AddTaskComponent {
   searchInput: boolean = false;
   filteredUsers: User[] = [];
 
-  constructor(public firebaseService: FirebaseService) {}
+  constructor(
+    public firebaseService: FirebaseService,
+    private overlayService: OverlayService
+  ) {}
 
   taskData: Task = {
     title: '',
@@ -48,6 +51,7 @@ export class AddTaskComponent {
   }
 
   loadEditTaskData() {
+    console.log(this.overlayData);
     if (this.overlayData !== '') {
       const taskData = this.getTaskData(this.overlayData)[0];
       this.taskData.title = taskData.title;
@@ -59,6 +63,7 @@ export class AddTaskComponent {
       this.taskData.subtasksDone = taskData.subtasksDone;
       this.taskData.assigned = taskData.assigned;
       this.taskData.date = taskData.date;
+      console.log(this.overlayData);
     }
   }
 
@@ -149,6 +154,10 @@ export class AddTaskComponent {
     this.clearFormData();
   }
 
+  closeOverlay() {
+    this.overlayService.setOverlayData('', '');
+  }
+
   untouchedFormFields() {
     this.titleField.control.markAsUntouched();
     this.descriptionField.control.markAsUntouched();
@@ -165,13 +174,19 @@ export class AddTaskComponent {
     this.taskData.subtasksDone = [];
   }
 
-  onSubmit(ngForm: NgForm) {
+  onSubmit(ngForm: NgForm, overlayData: string) {
     if (ngForm.submitted && ngForm.form.valid) {
-      const { id, ...taskWithoutId } = this.taskData;
-      this.firebaseService.addNewTask(taskWithoutId);
-      this.removeTaskData();
+      if (overlayData === '') {
+        const { id, ...taskWithoutId } = this.taskData;
+        this.firebaseService.addNewTask(taskWithoutId);
+        this.removeTaskData();
+      } else {
+        this.closeOverlay();
+      }
     }
   }
+
+  deleteTaskData(overlayData: string) {}
 
   @HostListener('document:click', ['$event'])
   checkOpenNavbar(event: MouseEvent) {

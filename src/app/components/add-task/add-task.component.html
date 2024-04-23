@@ -9,11 +9,14 @@
   </div>
 
   <form
-    (ngSubmit)="onSubmit(taskForm)"
+    (ngSubmit)="onSubmit(taskForm, overlayData)"
     #taskForm="ngForm"
     onsubmit="return false"
   >
-    <div class="content">
+    <div
+      class="content"
+      [ngClass]="{ 'edit-task-overlay-content': overlayData !== '' }"
+    >
       <div class="left-side">
         <div class="title">
           <p>Title<span class="red-dot">*</span></p>
@@ -257,11 +260,19 @@
         type="button"
         value="Clear"
         (click)="removeTaskData()"
+        [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
+      />
+      <input
+        class="btn-delete"
+        type="button"
+        value="Delete"
+        (click)="deleteTaskData(overlayData)"
+        [ngStyle]="{ display: overlayData !== '' ? 'block' : 'none' }"
       />
       <input
         class="btn-submit"
         type="submit"
-        value="Create Task"
+        value="{{ overlayData !== '' ? 'Update Task' : 'Create Task' }}"
         [disabled]="
           title.invalid ||
           !taskData.title ||

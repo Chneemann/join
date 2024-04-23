@@ -2,7 +2,5 @@
   <div class="header">
     <app-btn-close (click)="closeDialog()"></app-btn-close>
   </div>
-  <div class="content">
-    <app-add-task [task]="'Edit'" [overlayData]="overlayData"></app-add-task>
-  </div>
+  <app-add-task [overlayData]="overlayData"></app-add-task>
 </section>
