@@ -44,6 +44,8 @@ span {
   align-items: center;
 }
 
+/*------------- RESPONSIVE -------------*/
+
 @media screen and (max-width: 800px) {
   .name {
     flex-direction: column;

@@ -1,8 +1,7 @@
 .btn-submit {
   width: fit-content;
-  height: 56px;
   padding: 12px;
-  margin: 12px 12px;
+  margin: 12px;
   border-radius: 10px;
   border: 1px solid var(--black) !important;
   background-color: var(--light-gray);
@@ -27,7 +26,6 @@
 
 .btn-clear {
   width: fit-content;
-  height: 56px;
   padding: 12px;
   margin: 12px;
   border-radius: 10px;
@@ -47,7 +45,6 @@
 
 .btn-delete {
   width: fit-content;
-  height: 56px;
   padding: 12px;
   margin: 12px;
   border-radius: 10px;
@@ -86,4 +83,17 @@
 
 .input-container:hover .background-image {
   filter: var(--filter);
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 400px) {
+  .btn-submit,
+  .btn-clear,
+  .btn-delete {
+    padding: 8px;
+    margin: 6px;
+    font-size: 18px;
+    font-weight: 400;
+  }
 }
