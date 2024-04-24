@@ -269,8 +269,9 @@
         [class]="'btn-clear'"
         [type]="'button'"
         [value]="'Clear'"
-        (click)="removeTaskData()"
+        [img]="'close'"
         [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
+        (click)="removeTaskData()"
       ></app-form-btn>
       <app-form-btn
         [class]="'btn-delete'"
@@ -281,6 +282,8 @@
       <app-form-btn
         [class]="'btn-submit'"
         [type]="'submit'"
+        [img]="'check'"
+        [imgFilter]="'none'"
         [value]="overlayData.toString() !== '' ? 'Update Task' : 'Create Task'"
         [disabled]="
           title.invalid ||

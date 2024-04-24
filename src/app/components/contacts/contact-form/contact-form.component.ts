@@ -3,11 +3,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedService } from '../../../services/shared.service';
 import { FirebaseService } from '../../../services/firebase.service';
+import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/form-btn.component';
 
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [TranslateModule, FormsModule],
+  imports: [TranslateModule, FormsModule, FormBtnComponent],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
 })

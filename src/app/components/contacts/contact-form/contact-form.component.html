@@ -64,31 +64,29 @@
     <span>{{ "contact-dialog-form.invalid-phone" | translate }}</span>
     }
     <div class="btns">
-      <div class="btn">
-        <input
-          (click)="deleteContact()"
-          class="btn-delete"
-          type="button"
-          value="{{ 'contact-dialog-form.btn-delete' | translate }}"
-        />
-      </div>
-      <div class="btn">
-        <input
-          class="btn-save"
-          type="submit"
-          value="{{ 'contact-dialog-form.btn-save' | translate }}"
-          [disabled]="
-            firstName.invalid ||
-            !contactData.firstName ||
-            lastName.invalid ||
-            !contactData.lastName ||
-            email.invalid ||
-            !contactData.email ||
-            phone.invalid ||
-            !contactData.phone
-          "
-        />
-      </div>
+      <app-form-btn
+        class="btn-delete"
+        type="button"
+        value="{{ 'contact-dialog-form.btn-delete' | translate }}"
+        (click)="deleteContact()"
+      ></app-form-btn>
+      <app-form-btn
+        [class]="'btn-submit'"
+        [type]="'submit'"
+        [img]="'check'"
+        [imgFilter]="'none'"
+        value="{{ 'contact-dialog-form.btn-save' | translate }}"
+        [disabled]="
+          firstName.invalid ||
+          !contactData.firstName ||
+          lastName.invalid ||
+          !contactData.lastName ||
+          email.invalid ||
+          !contactData.email ||
+          phone.invalid ||
+          !contactData.phone
+        "
+      ></app-form-btn>
     </div>
   </form>
 </section>

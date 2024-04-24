@@ -1,5 +1,5 @@
 .btn-submit {
-  width: 183px;
+  width: fit-content;
   height: 56px;
   padding: 12px;
   margin: 12px 12px;
@@ -9,6 +9,7 @@
   font-size: 23px;
   font-weight: 400;
   transition: 125ms ease-in-out;
+  cursor: pointer;
   &:hover:not(:disabled) {
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
     background-color: var(--light-blue) !important;
@@ -25,10 +26,10 @@
 }
 
 .btn-clear {
-  width: 110px;
+  width: fit-content;
   height: 56px;
   padding: 12px;
-  margin: 12px 12px;
+  margin: 12px;
   border-radius: 10px;
   color: var(--black);
   background-color: var(--white);
@@ -45,10 +46,10 @@
 }
 
 .btn-delete {
-  width: 110px;
+  width: fit-content;
   height: 56px;
   padding: 12px;
-  margin: 12px 12px;
+  margin: 12px;
   border-radius: 10px;
   color: var(--red);
   background-color: var(--white);
@@ -63,4 +64,26 @@
     border-color: var(--black);
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
   }
+}
+
+.input-container {
+  position: relative;
+  display: inline-block;
+}
+
+.input-container .background-image {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background-size: auto 20%;
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: filter 125ms ease-in-out;
+}
+
+.input-container:hover .background-image {
+  filter: var(--filter);
 }

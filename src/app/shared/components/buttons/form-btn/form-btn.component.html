@@ -1,6 +1,20 @@
-<input
-  class="{{ class }}"
-  type="{{ type }}"
-  value="{{ value }}"
-  [disabled]="disabled"
-/>
+<div class="input-container">
+  <input
+    class="{{ class }}"
+    type="{{ type }}"
+    value="{{ value }}"
+    [disabled]="disabled"
+    [style.padding-right.px]="
+      img == 'check' && !disabled ? '44' : img !== '' && !disabled ? '36' : ''
+    "
+  />
+  <div
+    class="background-image"
+    [ngStyle]="{
+      '--filter': imgFilter,
+      'background-image': disabled
+        ? 'none'
+        : 'url(./../../../../../assets/img/' + img + '.svg)',
+    }"
+  ></div>
+</div>

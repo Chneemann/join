@@ -19,47 +19,6 @@ span {
   display: flex;
   flex-direction: column;
   min-width: 480px;
-  .btn-delete {
-    padding: 12px;
-    margin: 12px 12px;
-    border-radius: 10px;
-    color: var(--red);
-    background-color: var(--white);
-    border: 1px solid var(--red);
-    font-size: 23px;
-    font-weight: 400;
-    transition: 125ms ease-in-out;
-    cursor: pointer;
-    &:hover {
-      color: var(--white);
-      background-color: var(--red);
-      border-color: var(--black);
-      box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
-    }
-  }
-  .btn-save {
-    padding: 12px;
-    margin: 12px 12px;
-    border-radius: 10px;
-    border: 1px solid var(--black) !important;
-    background-color: var(--light-gray);
-    font-size: 23px;
-    font-weight: 400;
-    transition: 125ms ease-in-out;
-    &:hover:not(:disabled) {
-      box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
-      background-color: var(--light-blue) !important;
-      border: 1px solid var(--light-blue) !important;
-      cursor: pointer;
-    }
-    &:not(:disabled) {
-      background-color: var(--very-dark-blue) !important;
-      color: var(--white);
-    }
-    &:hover {
-      cursor: default;
-    }
-  }
   input {
     background-color: var(--white);
     border: 1px solid var(--gray);
@@ -83,16 +42,6 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 111px;
-  height: 57px;
-  margin: 0 24px;
-  padding-bottom: 12px;
 }
 
 @media screen and (max-width: 800px) {
