@@ -265,24 +265,23 @@
       </div>
     </div>
     <div class="form-buttons">
-      <input
-        class="btn-clear"
-        type="button"
-        value="Clear"
+      <app-form-btn
+        [class]="'btn-clear'"
+        [type]="'button'"
+        [value]="'Clear'"
         (click)="removeTaskData()"
         [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
-      />
-      <input
-        class="btn-delete"
-        type="button"
-        value="Delete"
-        (click)="deleteTaskData(overlayData)"
+      ></app-form-btn>
+      <app-form-btn
+        [class]="'btn-delete'"
+        [type]="'button'"
+        [value]="'Delete'"
         [ngStyle]="{ display: overlayData !== '' ? 'block' : 'none' }"
-      />
-      <input
-        class="btn-submit"
-        type="submit"
-        value="{{ overlayData !== '' ? 'Update Task' : 'Create Task' }}"
+      ></app-form-btn>
+      <app-form-btn
+        [class]="'btn-submit'"
+        [type]="'submit'"
+        [value]="overlayData.toString() !== '' ? 'Update Task' : 'Create Task'"
         [disabled]="
           title.invalid ||
           !taskData.title ||
@@ -295,7 +294,7 @@
           category.invalid ||
           !taskData.category
         "
-      />
+      ></app-form-btn>
     </div>
   </form>
 </section>

@@ -7,11 +7,12 @@ import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { empty } from 'rxjs';
+import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [FormsModule, CommonModule, AssignedComponent],
+  imports: [FormsModule, CommonModule, AssignedComponent, FormBtnComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
