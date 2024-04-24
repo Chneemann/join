@@ -1,7 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
+  HostBinding,
   HostListener,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -10,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-overlay',
@@ -18,19 +22,42 @@ import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
 })
-export class OverlayComponent implements OnInit {
+export class OverlayComponent implements OnInit, OnDestroy {
+  @HostBinding('class.overlay') isOverlay = window.innerWidth >= 650;
+  @HostBinding('class.overlay-mobile') isOverlayMobile =
+    window.innerWidth < 650;
+  private resizeListener!: () => void;
+
   overlayType: any;
   overlayData: any;
+  overlayMobile: boolean = false;
 
-  constructor(private overlayService: OverlayService) {}
+  constructor(
+    private overlayService: OverlayService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.checkOverlayData();
+    this.checkWindowWidth();
+  }
+
+  checkOverlayData() {
     this.overlayService.overlayData$.subscribe((data) => {
       if (data) {
         this.overlayType = data.overlay;
         this.overlayData = data.data;
+        this.overlayMobile = data.mobile;
       }
     });
+  }
+
+  checkWindowWidth() {
+    this.resizeListener = () => {
+      this.isOverlay = window.innerWidth >= 650;
+      this.isOverlayMobile = window.innerWidth < 650;
+    };
+    window.addEventListener('resize', this.resizeListener);
   }
 
   onCloseOverlay(emitter: string) {
@@ -46,5 +73,9 @@ export class OverlayComponent implements OnInit {
     ) {
       this.onCloseOverlay('');
     }
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.resizeListener);
   }
 }

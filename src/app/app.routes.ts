@@ -6,12 +6,14 @@ import { PrivacyPolicyComponent } from './shared/components/privacy-policy/priva
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { BoardComponent } from './components/board/board.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { OverlayComponent } from './shared/components/overlay/overlay.component';
 
 export const routes: Routes = [
   { path: '', component: SummaryComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'board', component: BoardComponent },
+  { path: 'board/:id', component: BoardComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'contacts/:id', component: ContactsComponent },
   { path: 'help', component: HelpComponent },

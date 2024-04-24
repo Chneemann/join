@@ -13,6 +13,7 @@ import { OverlayService } from '../../../../services/overlay.service';
 })
 export class TaskOverlayComponent {
   @Input() overlayData: string = '';
+  @Input() overlayMobile: boolean = false;
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
   constructor(
@@ -30,7 +31,7 @@ export class TaskOverlayComponent {
   }
 
   editTask(overlayData: string) {
-    this.overlayService.setOverlayData('taskOverlayEdit', overlayData);
+    this.overlayService.setOverlayData('taskOverlayEdit', overlayData, false);
   }
 
   deleteTask(overlayData: string) {

@@ -172,7 +172,7 @@ export class AddTaskComponent {
   }
 
   closeOverlay() {
-    this.overlayService.setOverlayData('', '');
+    this.overlayService.setOverlayData('', '', false);
   }
 
   untouchedFormFields() {

@@ -11,6 +11,16 @@
   align-items: center;
   z-index: 999;
 }
+.overlay-mobile {
+  position: fixed;
+  top: 96px;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+}
 
 .overlay-content {
   display: flex;

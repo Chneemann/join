@@ -1,9 +1,16 @@
-section {
+.overlay {
   width: 525px;
   height: 700px;
   padding: 48px 40px 48px 40px;
   border-radius: 30px;
   background-color: var(--white);
+}
+
+.overlay-mobile {
+  background-color: var(--white);
+  width: calc(100vw - 24px);
+  height: calc(100vh - 200px);
+  padding: 12px;
 }
 
 .header {
@@ -25,7 +32,12 @@ section {
 }
 
 .content {
-  height: calc(700px - 104px);
+  height: calc(700px - 114px);
+  overflow-y: auto;
+}
+
+.content-mobile {
+  height: calc(700px - 159px);
   overflow-y: auto;
 }
 
@@ -204,7 +216,7 @@ section {
   align-items: center;
   justify-content: right;
   width: 100%;
-  margin-top: 12px;
+  margin: 12px 0;
   img {
     width: 20px;
     height: 20px;

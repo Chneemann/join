@@ -1,8 +1,12 @@
-<div *ngIf="overlayData" class="overlay">
+<div
+  *ngIf="overlayData"
+  [ngClass]="{ overlay: isOverlay, 'overlay-mobile': isOverlayMobile }"
+>
   <div class="overlay-content">
     @if (overlayType === "taskOverlay") {
     <app-task-overlay
       [overlayData]="overlayData"
+      [overlayMobile]="overlayMobile"
       (closeDialogEmitter)="onCloseOverlay($event)"
     ></app-task-overlay>
     } @if (overlayType === "taskOverlayEdit") {

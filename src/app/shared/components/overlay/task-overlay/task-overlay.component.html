@@ -1,4 +1,9 @@
-<section>
+<section
+  [ngClass]="{
+  overlay: !overlayMobile,
+  'overlay-mobile': overlayMobile,
+}"
+>
   <div class="header">
     <div
       class="category"
@@ -10,7 +15,12 @@
     </div>
     <app-btn-close (click)="closeDialog()"></app-btn-close>
   </div>
-  <div class="content">
+  <div
+    [ngClass]="{
+    content: !overlayMobile,
+    'content-mobile': overlayMobile,
+  }"
+  >
     <div class="headline">{{ getTaskData(overlayData)[0].title }}</div>
     <div class="description">
       {{ getTaskData(overlayData)[0].description }}

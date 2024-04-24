@@ -4,6 +4,7 @@ import { DragDropService } from '../../../services/drag-drop.service';
 import { Task } from '../../../interfaces/task.interface';
 import { FirebaseService } from '../../../services/firebase.service';
 import { OverlayService } from '../../../services/overlay.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -23,11 +24,16 @@ export class TaskComponent {
   constructor(
     public dragDropService: DragDropService,
     private firebaseService: FirebaseService,
-    public overlayService: OverlayService
+    public overlayService: OverlayService,
+    private router: Router
   ) {}
 
   openTaskDetailsOverlay(taskId: string | undefined) {
-    this.overlayService.setOverlayData('taskOverlay', taskId);
+    if (window.innerWidth >= 650) {
+      this.overlayService.setOverlayData('taskOverlay', taskId, false);
+    } else {
+      this.overlayService.setOverlayData('taskOverlay', taskId, true);
+    }
   }
 
   // Subtasks
