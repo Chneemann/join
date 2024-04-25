@@ -42,12 +42,16 @@
 .headline {
   font-size: 61px;
   font-weight: 700;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .description {
   font-size: 20px;
   font-weight: 400;
   margin-top: 32px;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 // DATE
@@ -236,6 +240,31 @@
     }
     &:last-child {
       padding-right: 24px;
+    }
+  }
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 650px) {
+  .headline {
+    font-size: 36px;
+  }
+
+  .description,
+  .date,
+  .priority,
+  .assigned,
+  .subtasks {
+    font-size: 16px;
+  }
+
+  .subtasks,
+  .assigned,
+  .date,
+  .priority {
+    p {
+      font-size: 16px;
     }
   }
 }
