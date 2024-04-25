@@ -5,7 +5,7 @@ section {
 
 .content {
   display: flex;
-  width: 100%;
+  width: calc(100% - 12px);
 }
 
 .dialog {
@@ -303,7 +303,7 @@ p {
 
   .right-side,
   .left-side {
-    width: 100%;
+    width: calc(100%);
   }
 }
 
