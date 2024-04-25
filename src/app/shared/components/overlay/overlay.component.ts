@@ -22,15 +22,9 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
 })
-export class OverlayComponent implements OnInit, OnDestroy {
-  @HostBinding('class.overlay') isOverlay = window.innerWidth >= 650;
-  @HostBinding('class.overlay-mobile') isOverlayMobile =
-    window.innerWidth < 650;
-  private resizeListener!: () => void;
-
+export class OverlayComponent implements OnInit {
   overlayType: any;
   overlayData: any;
-  overlayMobile: boolean = false;
 
   constructor(
     private overlayService: OverlayService,
@@ -39,7 +33,6 @@ export class OverlayComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.checkOverlayData();
-    this.checkWindowWidth();
   }
 
   checkOverlayData() {
@@ -47,17 +40,8 @@ export class OverlayComponent implements OnInit, OnDestroy {
       if (data) {
         this.overlayType = data.overlay;
         this.overlayData = data.data;
-        this.overlayMobile = data.mobile;
       }
     });
-  }
-
-  checkWindowWidth() {
-    this.resizeListener = () => {
-      this.isOverlay = window.innerWidth >= 650;
-      this.isOverlayMobile = window.innerWidth < 650;
-    };
-    window.addEventListener('resize', this.resizeListener);
   }
 
   onCloseOverlay(emitter: string) {
@@ -73,9 +57,5 @@ export class OverlayComponent implements OnInit, OnDestroy {
     ) {
       this.onCloseOverlay('');
     }
-  }
-
-  ngOnDestroy(): void {
-    window.removeEventListener('resize', this.resizeListener);
   }
 }

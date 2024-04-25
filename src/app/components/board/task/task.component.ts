@@ -30,9 +30,9 @@ export class TaskComponent {
 
   openTaskDetailsOverlay(taskId: string | undefined) {
     if (window.innerWidth >= 650) {
-      this.overlayService.setOverlayData('taskOverlay', taskId, false);
+      this.overlayService.setOverlayData('taskOverlay', taskId);
     } else {
-      this.overlayService.setOverlayData('taskOverlay', taskId, true);
+      this.router.navigate(['/task', taskId]);
     }
   }
 

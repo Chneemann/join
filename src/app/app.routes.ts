@@ -14,6 +14,7 @@ export const routes: Routes = [
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'board', component: BoardComponent },
+  { path: 'task/:id', component: TaskOverlayComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'contacts/:id', component: ContactsComponent },
   { path: 'help', component: HelpComponent },

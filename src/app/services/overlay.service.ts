@@ -10,7 +10,7 @@ export class OverlayService {
 
   constructor() {}
 
-  setOverlayData(overlay: string, data: any, mobile: boolean) {
-    this.overlayDataSubject.next({ overlay, data, mobile });
+  setOverlayData(overlay: string, data: any) {
+    this.overlayDataSubject.next({ overlay, data });
   }
 }

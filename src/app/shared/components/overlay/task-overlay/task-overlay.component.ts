@@ -1,24 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FirebaseService } from '../../../../services/firebase.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { CommonModule } from '@angular/common';
 import { OverlayService } from '../../../../services/overlay.service';
+import { ActivatedRoute } from '@angular/router';
+import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 
 @Component({
   selector: 'app-task-overlay',
   standalone: true,
-  imports: [BtnCloseComponent, CommonModule],
+  imports: [BtnCloseComponent, CommonModule, BtnBackComponent],
   templateUrl: './task-overlay.component.html',
   styleUrl: './task-overlay.component.scss',
 })
-export class TaskOverlayComponent {
+export class TaskOverlayComponent implements OnInit {
   @Input() overlayData: string = '';
-  @Input() overlayMobile: boolean = false;
   @Output() closeDialogEmitter = new EventEmitter<string>();
+
+  overlayMobile: boolean = false;
 
   constructor(
     public firebaseService: FirebaseService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private route: ActivatedRoute
   ) {}
 
   categoryColors = new Map<string, string>([
@@ -30,8 +34,19 @@ export class TaskOverlayComponent {
     this.closeDialogEmitter.emit('');
   }
 
+  ngOnInit() {
+    if (this.overlayData == '') {
+      if (this.route.params.subscribe()) {
+        this.route.params.subscribe((params) => {
+          this.overlayData = params['id'];
+          this.overlayMobile = true;
+        });
+      }
+    }
+  }
+
   editTask(overlayData: string) {
-    this.overlayService.setOverlayData('taskOverlayEdit', overlayData, false);
+    this.overlayService.setOverlayData('taskOverlayEdit', overlayData);
   }
 
   deleteTask(overlayData: string) {

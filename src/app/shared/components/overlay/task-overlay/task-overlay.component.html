@@ -3,6 +3,7 @@
   overlay: !overlayMobile,
   'overlay-mobile': overlayMobile,
 }"
+  *ngIf="overlayData !== '' && getTaskData(overlayData).length > 0"
 >
   <div class="header">
     <div
@@ -13,7 +14,11 @@
     >
       {{ getTaskData(overlayData)[0].category }}
     </div>
+    @if (overlayMobile) {
+    <app-btn-back></app-btn-back>
+    } @else {
     <app-btn-close (click)="closeDialog()"></app-btn-close>
+    }
   </div>
   <div
     [ngClass]="{

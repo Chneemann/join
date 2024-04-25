@@ -40,6 +40,10 @@ app-sidebar-mobile {
   filter: blur(5px);
 }
 
+.d-none {
+  display: none;
+}
+
 @media screen and (max-width: 910px) {
   .main-content {
     padding: 32px;
