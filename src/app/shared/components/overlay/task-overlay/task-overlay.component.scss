@@ -9,7 +9,7 @@
 .overlay-mobile {
   background-color: var(--white);
   width: calc(100vw - 24px);
-  height: calc(100vh - 200px);
+  height: calc(100vh - 24px);
   padding: 12px;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .content-mobile {
-  height: calc(700px - 159px);
+  height: calc(100vh - 214px);
   overflow-y: auto;
 }
 

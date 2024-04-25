@@ -1,7 +1,9 @@
 .overlay {
   position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
+  right: 0;
   width: 100vw;
   height: 100vh;
   backdrop-filter: blur(5px);
@@ -11,19 +13,14 @@
   align-items: center;
   z-index: 999;
 }
+
 .overlay-mobile {
   position: fixed;
-  top: 96px;
-  bottom: 80px;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   width: 100vw;
   height: 100vh;
   z-index: 999;
-}
-
-.overlay-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
