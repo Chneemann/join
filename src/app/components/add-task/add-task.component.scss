@@ -153,10 +153,10 @@ p {
   position: relative;
   .add {
     position: absolute;
-    top: 45px;
+    top: 48px;
     right: 15px;
-    width: 25px;
-    height: 25px;
+    width: 16px;
+    height: 16px;
   }
   .subtask-btns {
     display: flex;
@@ -165,9 +165,15 @@ p {
     top: 45px;
     right: 15px;
     img {
-      width: 25px;
-      height: 25px;
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7500%)
+        hue-rotate(327deg) brightness(96%) contrast(104%);
       cursor: pointer;
+      &:last-child {
+        width: 19px;
+        height: 19px;
+      }
       &:hover {
         filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
           brightness(92%) contrast(92%);
@@ -176,7 +182,7 @@ p {
     .line {
       height: 18px;
       padding: 1px;
-      margin: 0 6px;
+      margin: 0 9px;
       background-color: var(--light-gray);
     }
   }
