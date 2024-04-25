@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { User } from '../../../../interfaces/user.interface';
 import { AssignedComponent } from '../../../../components/add-task/assigned/assigned.component';
 import { AddTaskComponent } from '../../../../components/add-task/add-task.component';
+import { ActivatedRoute } from '@angular/router';
+import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 
 @Component({
   selector: 'app-task-edit-overlay',
@@ -18,6 +20,7 @@ import { AddTaskComponent } from '../../../../components/add-task/add-task.compo
     CommonModule,
     AssignedComponent,
     AddTaskComponent,
+    BtnBackComponent,
   ],
   templateUrl: './task-edit-overlay.component.html',
   styleUrl: './task-edit-overlay.component.scss',
@@ -26,10 +29,30 @@ export class TaskEditOverlayComponent {
   @Input() overlayData: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
+  overlayMobile: boolean = false;
+
   constructor(
     public firebaseService: FirebaseService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit() {
+    if (this.overlayData == '') {
+      if (this.route.params.subscribe()) {
+        this.route.params.subscribe((params) => {
+          this.overlayData = params['id'];
+          this.overlayMobile = true;
+        });
+      }
+    }
+  }
+
+  getTaskData(taskId: string) {
+    return this.firebaseService
+      .getAllTasks()
+      .filter((task) => task.id === taskId);
+  }
 
   closeDialog() {
     this.closeDialogEmitter.emit('');

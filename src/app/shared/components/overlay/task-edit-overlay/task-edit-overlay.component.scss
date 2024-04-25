@@ -1,9 +1,14 @@
-section {
+.overlay {
   width: 925px;
   height: 700px;
   padding: 48px 40px 48px 40px;
   border-radius: 30px;
   background-color: var(--white);
+}
+
+.overlay-mobile {
+  height: calc(100% - 24px);
+  width: 100%;
 }
 
 .header {

@@ -29,6 +29,13 @@ section {
   overflow-y: auto;
 }
 
+.edit-task-overlay-content-mobile {
+  height: calc(100% - 24px);
+  padding: 0 6px;
+  overflow-y: auto;
+  background-color: var(--very-light-gray);
+}
+
 input,
 textarea,
 select {
@@ -269,7 +276,7 @@ p {
 .form-buttons {
   display: flex;
   justify-content: end;
-  margin-top: 12px;
+  padding-top: 12px;
 }
 
 /*------------- RESPONSIVE -------------*/
@@ -282,7 +289,7 @@ p {
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 750px) {
   .btn-text {
     span {
       display: block;

@@ -15,7 +15,10 @@
   >
     <div
       class="content"
-      [ngClass]="{ 'edit-task-overlay-content': overlayData !== '' }"
+      [ngClass]="{
+        'edit-task-overlay-content': !overlayMobile && overlayData !== '',
+        'edit-task-overlay-content-mobile': overlayMobile && overlayData !== '',
+      }"
     >
       <div class="left-side">
         <div class="title">
@@ -264,7 +267,12 @@
         </div>
       </div>
     </div>
-    <div class="form-buttons">
+    <div
+      class="form-buttons"
+      [ngStyle]="{
+        'background-color': overlayMobile ? 'var(--very-light-gray)' : ''
+      }"
+    >
       <app-form-btn
         [class]="'btn-clear'"
         [type]="'button'"

@@ -21,6 +21,7 @@ export class AddTaskComponent {
   @ViewChild('description', { static: true }) descriptionField!: NgModel;
   @ViewChild('category', { static: true }) categoryField!: NgModel;
   @Input() overlayData: string = '';
+  @Input() overlayMobile: boolean = false;
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;

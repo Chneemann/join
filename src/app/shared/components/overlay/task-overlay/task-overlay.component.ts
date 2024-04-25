@@ -3,7 +3,7 @@ import { FirebaseService } from '../../../../services/firebase.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { CommonModule } from '@angular/common';
 import { OverlayService } from '../../../../services/overlay.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 
 @Component({
@@ -22,6 +22,7 @@ export class TaskOverlayComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -46,7 +47,14 @@ export class TaskOverlayComponent implements OnInit {
   }
 
   editTask(overlayData: string) {
-    this.overlayService.setOverlayData('taskOverlayEdit', overlayData);
+    this.closeDialog();
+    setTimeout(() => {
+      if (window.innerWidth >= 650) {
+        this.overlayService.setOverlayData('taskOverlayEdit', overlayData);
+      } else {
+        this.router.navigate(['/task-edit', overlayData]);
+      }
+    }, 10);
   }
 
   deleteTask(overlayData: string) {
