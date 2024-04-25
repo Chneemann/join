@@ -30,7 +30,7 @@ section {
 }
 
 .edit-task-overlay-content-mobile {
-  height: calc(100% - 24px);
+  height: 100%;
   padding: 0 6px;
   overflow-y: auto;
   background-color: var(--very-light-gray);
@@ -125,7 +125,8 @@ p {
 
 .assigned-badget {
   display: flex;
-  margin-top: 6px;
+  align-items: center;
+  margin: 6px;
   height: 40px;
 }
 
@@ -276,7 +277,7 @@ p {
 .form-buttons {
   display: flex;
   justify-content: end;
-  padding-top: 12px;
+  padding: 12px 0;
 }
 
 /*------------- RESPONSIVE -------------*/
@@ -289,7 +290,7 @@ p {
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1050px) {
   .btn-text {
     span {
       display: block;

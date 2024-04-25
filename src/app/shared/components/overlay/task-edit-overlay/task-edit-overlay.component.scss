@@ -7,11 +7,19 @@
 }
 
 .overlay-mobile {
-  height: calc(100% - 24px);
+  height: 100%;
   width: 100%;
 }
 
 .header {
   display: flex;
   justify-content: right;
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 1050px) {
+  .overlay {
+    width: calc(100vw - 124px);
+  }
 }

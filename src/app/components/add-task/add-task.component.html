@@ -124,7 +124,12 @@
       </div>
       <div class="middle-spacer"><div class="line"></div></div>
       <div class="right-side">
-        <div class="date">
+        <div
+          class="date"
+          [ngStyle]="{
+            'margin-top': overlayMobile ? '28px' : ''
+          }"
+        >
           <p>Due date<span class="red-dot">*</span></p>
           <input
             type="date"
