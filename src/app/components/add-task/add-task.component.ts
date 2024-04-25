@@ -192,6 +192,20 @@ export class AddTaskComponent {
     this.taskData.subtasksDone = [];
   }
 
+  handleEnterKey(event: Event) {
+    event.preventDefault();
+    if (event instanceof KeyboardEvent) {
+      if (event.target instanceof HTMLInputElement) {
+        const inputField = event.target as HTMLInputElement;
+        if (inputField.name === 'subtask') {
+          this.addSubtask(inputField.value);
+          inputField.value = '';
+          this.subtaskValue = '';
+        }
+      }
+    }
+  }
+
   onSubmit(ngForm: NgForm, overlayData: string) {
     if (ngForm.submitted && ngForm.form.valid) {
       if (overlayData === '') {
