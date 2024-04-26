@@ -28,7 +28,7 @@
         >
         <span class="line"></span>
       </div>
-      <button class="btn" type="submit" (click)="addNewTaskOverlay()">
+      <button class="btn" type="submit" (click)="addNewTaskOverlay('none')">
         <div class="btn-inside">
           <span>Add Task</span>
           <img src="./../../../assets/img/board/add_white.svg" alt="check" />
@@ -45,7 +45,11 @@
       >
         <div class="headline">
           <span>To do</span
-          ><img src="./../../../assets/img/board/plus.svg" alt="add" />
+          ><img
+            src="./../../../assets/img/board/plus.svg"
+            alt="add"
+            (click)="addNewTaskOverlay('todo')"
+          />
         </div>
         <div id="todo" class="details">
           @for(task of getTaskStatus("todo"); track task) {
@@ -62,7 +66,11 @@
       >
         <div class="headline">
           <span>In progress</span
-          ><img src="./../../../assets/img/board/plus.svg" alt="add" />
+          ><img
+            src="./../../../assets/img/board/plus.svg"
+            alt="add"
+            (click)="addNewTaskOverlay('inprogress')"
+          />
         </div>
         <div id="inprogress" class="details">
           @for(task of getTaskStatus("inprogress"); track task) {
@@ -79,7 +87,11 @@
       >
         <div class="headline">
           <span>Await feedback</span
-          ><img src="./../../../assets/img/board/plus.svg" alt="add" />
+          ><img
+            src="./../../../assets/img/board/plus.svg"
+            alt="add"
+            (click)="addNewTaskOverlay('awaitfeedback')"
+          />
         </div>
         <div id="awaitfeedback" class="details">
           @for(task of getTaskStatus("awaitfeedback"); track task) {
@@ -96,7 +108,11 @@
       >
         <div class="headline">
           <span>Done</span
-          ><img src="./../../../assets/img/board/plus.svg" alt="add" />
+          ><img
+            src="./../../../assets/img/board/plus.svg"
+            alt="add"
+            (click)="addNewTaskOverlay('done')"
+          />
         </div>
         <div id="done" class="details">
           @for(task of getTaskStatus("done"); track task) {

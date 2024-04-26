@@ -31,11 +31,11 @@ export class BoardComponent {
     });
   }
 
-  addNewTaskOverlay() {
+  addNewTaskOverlay(status: string) {
     if (window.innerWidth >= 650) {
-      this.overlayService.setOverlayData('newTaskOverlay', 'none');
+      this.overlayService.setOverlayData('newTaskOverlay', status);
     } else {
-      this.router.navigate(['/add-task']);
+      this.router.navigate(['/add-task', status]);
     }
   }
 

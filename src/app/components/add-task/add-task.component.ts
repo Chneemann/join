@@ -83,6 +83,11 @@ export class AddTaskComponent {
       this.taskData.subtasksDone = taskData.subtasksDone;
       this.taskData.assigned = taskData.assigned;
       this.taskData.date = taskData.date;
+    } else if (
+      this.overlayData !== 'none' &&
+      this.overlayType === 'newTaskOverlay'
+    ) {
+      this.taskData.status = this.overlayData;
     }
   }
 
