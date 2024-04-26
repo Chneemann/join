@@ -14,11 +14,17 @@ import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
 import { ActivatedRoute } from '@angular/router';
+import { AddTaskComponent } from '../../../components/add-task/add-task.component';
 
 @Component({
   selector: 'app-overlay',
   standalone: true,
-  imports: [CommonModule, TaskOverlayComponent, TaskEditOverlayComponent],
+  imports: [
+    CommonModule,
+    TaskOverlayComponent,
+    TaskEditOverlayComponent,
+    AddTaskComponent,
+  ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
 })

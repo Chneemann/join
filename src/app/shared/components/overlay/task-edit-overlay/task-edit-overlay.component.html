@@ -3,8 +3,9 @@
   overlay: !overlayMobile,
   'overlay-mobile': overlayMobile,
 }"
-  *ngIf="overlayData !== '' && getTaskData(overlayData).length > 0"
 >
+  @if (overlayType === 'newTaskOverlay' || (overlayData !== '' &&
+  getTaskData(overlayData).length > 0)) {
   <div class="header">
     @if (overlayMobile) {
     <app-btn-back></app-btn-back>
@@ -14,6 +15,8 @@
   </div>
   <app-add-task
     [overlayData]="overlayData"
+    [overlayType]="overlayType"
     [overlayMobile]="overlayMobile"
   ></app-add-task>
+  }
 </section>

@@ -18,7 +18,7 @@
       class="content"
       [ngClass]="{
         'edit-task-overlay-content': !overlayMobile && overlayData !== '',
-        'edit-task-overlay-content-mobile': overlayMobile && overlayData !== '',
+        'edit-task-overlay-content-mobile': overlayMobile && overlayData !== '' && overlayType === 'addTaskOverlay',
       }"
     >
       <div class="left-side">
@@ -284,14 +284,24 @@
         [type]="'button'"
         [value]="'Clear'"
         [img]="'close'"
-        [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
+        [ngStyle]="{
+          display:
+            overlayData !== '' || overlayType === 'addTaskOverlay'
+              ? 'none'
+              : 'block'
+        }"
         (click)="removeTaskData()"
       ></app-form-btn>
       <app-form-btn
         [class]="'btn-delete'"
         [type]="'button'"
         [value]="'Delete'"
-        [ngStyle]="{ display: overlayData !== '' ? 'block' : 'none' }"
+        [ngStyle]="{
+          display:
+            overlayData !== '' && overlayType !== 'addTaskOverlay'
+              ? 'block'
+              : 'none'
+        }"
       ></app-form-btn>
       <app-form-btn
         [class]="'btn-submit'"

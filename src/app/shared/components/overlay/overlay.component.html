@@ -9,6 +9,13 @@
     } @if (overlayType === "taskOverlayEdit") {
     <app-task-edit-overlay
       [overlayData]="overlayData"
+      [overlayType]="overlayType"
+      (closeDialogEmitter)="onCloseOverlay($event)"
+    ></app-task-edit-overlay>
+    } @if (overlayType === "newTaskOverlay") {
+    <app-task-edit-overlay
+      [overlayData]="overlayData"
+      [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay($event)"
     ></app-task-edit-overlay>
     }

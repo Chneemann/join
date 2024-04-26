@@ -5,6 +5,8 @@ import { TaskComponent } from './task/task.component';
 import { TaskEmptyComponent } from './task/task-empty/task-empty.component';
 import { FormsModule } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
+import { OverlayService } from '../../services/overlay.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -16,7 +18,9 @@ import { FirebaseService } from '../../services/firebase.service';
 export class BoardComponent {
   constructor(
     public dragDropService: DragDropService,
-    private firebaseService: FirebaseService
+    public overlayService: OverlayService,
+    private firebaseService: FirebaseService,
+    private router: Router
   ) {}
   searchValue: string = '';
   searchInput: boolean = false;
@@ -25,6 +29,14 @@ export class BoardComponent {
     this.dragDropService.itemDropped.subscribe(({ id, status }) => {
       this.handleItemDropped(id, status);
     });
+  }
+
+  addNewTaskOverlay() {
+    if (window.innerWidth >= 650) {
+      this.overlayService.setOverlayData('newTaskOverlay', 'none');
+    } else {
+      this.router.navigate(['/add-task']);
+    }
   }
 
   getTaskStatus(status: string) {

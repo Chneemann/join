@@ -21,6 +21,7 @@ export class AddTaskComponent {
   @ViewChild('description', { static: true }) descriptionField!: NgModel;
   @ViewChild('category', { static: true }) categoryField!: NgModel;
   @Input() overlayData: string = '';
+  @Input() overlayType: string = '';
   @Input() overlayMobile: boolean = false;
 
   currentDate: string = new Date().toISOString().split('T')[0];
@@ -71,7 +72,7 @@ export class AddTaskComponent {
   }
 
   loadEditTaskData() {
-    if (this.overlayData !== '') {
+    if (this.overlayData !== '' && this.overlayType !== 'newTaskOverlay') {
       const taskData = this.getTaskData(this.overlayData)[0];
       this.taskData.title = taskData.title;
       this.taskData.description = taskData.description;

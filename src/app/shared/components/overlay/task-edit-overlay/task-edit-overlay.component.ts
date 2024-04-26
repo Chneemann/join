@@ -27,6 +27,7 @@ import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 })
 export class TaskEditOverlayComponent {
   @Input() overlayData: string = '';
+  @Input() overlayType: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
   overlayMobile: boolean = false;
@@ -42,6 +43,7 @@ export class TaskEditOverlayComponent {
       if (this.route.params.subscribe()) {
         this.route.params.subscribe((params) => {
           this.overlayData = params['id'];
+          this.overlayType = this.overlayType;
           this.overlayMobile = true;
         });
       }
