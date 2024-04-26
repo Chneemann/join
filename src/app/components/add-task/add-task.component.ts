@@ -8,6 +8,7 @@ import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { empty } from 'rxjs';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-task',
@@ -37,7 +38,8 @@ export class AddTaskComponent {
 
   constructor(
     public firebaseService: FirebaseService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private route: ActivatedRoute
   ) {}
 
   taskData: Task = {
@@ -54,6 +56,7 @@ export class AddTaskComponent {
 
   ngOnInit() {
     this.loadEditTaskData();
+    this.routeParams();
     this.loadLocalStorageData();
   }
 
@@ -65,6 +68,14 @@ export class AddTaskComponent {
   updateDialogPosition(event: MouseEvent) {
     this.dialogX = event.clientX + 25;
     this.dialogY = event.clientY + 10;
+  }
+
+  routeParams() {
+    if (this.route.params.subscribe()) {
+      this.route.params.subscribe((params) => {
+        this.taskData.status = params['id'];
+      });
+    }
   }
 
   closeDialog() {
