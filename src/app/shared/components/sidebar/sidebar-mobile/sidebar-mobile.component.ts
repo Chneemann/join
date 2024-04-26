@@ -18,6 +18,17 @@ export class SidebarMobileComponent {
     this.getCurrentPath();
   }
 
+  isAddTask(): boolean {
+    return (
+      this.currentPath === 'add-task' ||
+      this.currentPath === 'add-task/none' ||
+      this.currentPath === 'add-task/todo' ||
+      this.currentPath === 'add-task/inprogress' ||
+      this.currentPath === 'add-task/awaitfeedback' ||
+      this.currentPath === 'add-task/done'
+    );
+  }
+
   getCurrentPath() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
