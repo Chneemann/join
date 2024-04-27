@@ -64,13 +64,18 @@
           {{ firebaseService.getUserDetails(currentUserId, "email") }}
         </a>
         <p>Phone:</p>
+        @if(firebaseService.getUserDetails(currentUserId, 'phone')[0] === '') {
+        <span>no phone</span> } @else {
         <a
           [href]="
             'tel:' + firebaseService.getUserDetails(currentUserId, 'phone')
           "
         >
-          {{ firebaseService.getUserDetails(currentUserId, "phone") }}
+          <span>{{
+            firebaseService.getUserDetails(currentUserId, "phone")
+          }}</span>
         </a>
+        }
       </div>
     </div>
   </div>
