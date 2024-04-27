@@ -46,6 +46,9 @@ select {
   padding: 12px 21px;
   width: calc(100% - 42px);
   resize: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 input.ng-invalid.ng-touched,
@@ -273,8 +276,16 @@ p {
 }
 
 .category {
+  position: relative;
   select {
     width: 100%;
+  }
+  img {
+    position: absolute;
+    top: 53px;
+    right: 20px;
+    width: 14px;
+    height: 7px;
   }
 }
 
