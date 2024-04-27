@@ -324,12 +324,6 @@
 }
 
 @media screen and (max-width: 400px) {
-  .details {
-    p {
-      font-size: 10px;
-    }
-  }
-
   .todo-done,
   .urgent,
   .tasks {
@@ -337,10 +331,10 @@
   }
 
   .details {
-    width: 70px;
+    width: 85px;
     p {
       padding: 0 12px;
-      font-size: 14px;
+      font-size: 13px;
     }
     span {
       font-size: 32px;
@@ -363,5 +357,33 @@
         padding: 8px 0;
       }
     }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .todo-done,
+  .urgent,
+  .tasks {
+    height: 80px;
+  }
+
+  .details {
+    width: 75px;
+    p {
+      font-size: 10px;
+    }
+  }
+
+  .date {
+    p {
+      font-size: 11px;
+    }
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .tasks {
+    height: 100px;
   }
 }
