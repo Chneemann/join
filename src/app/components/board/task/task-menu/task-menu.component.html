@@ -1,12 +1,11 @@
 <section>
-  <p>Move to:</p>
   @if (boardTaskStatus !== 'todo') {
-  <p (click)="moveTask('todo')">To do</p>
+  <div class="link" (click)="moveTask('todo')">To do</div>
   } @if (boardTaskStatus !== 'inprogress') {
-  <p (click)="moveTask('inprogress')">In progress</p>
+  <div class="link" (click)="moveTask('inprogress')">In progress</div>
   } @if (boardTaskStatus !== 'awaitfeedback') {
-  <p (click)="moveTask('awaitfeedback')">Await feedback</p>
+  <div class="link" (click)="moveTask('awaitfeedback')">Await feedback</div>
   } @if (boardTaskStatus !== 'done') {
-  <p (click)="moveTask('done')">Done</p>
+  <div class="link" (click)="moveTask('done')">Done</div>
   }
 </section>
