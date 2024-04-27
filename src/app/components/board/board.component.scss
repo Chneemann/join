@@ -16,7 +16,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1080px;
+  max-width: 1185px;
 }
 
 .search {
@@ -82,7 +82,7 @@ d-none {
   justify-content: space-around;
   align-items: center;
   height: 32px;
-  width: 165px;
+  width: 175px;
   padding: 8px 8px 8px 16px;
   border-radius: 10px;
   border: 0;
@@ -101,7 +101,7 @@ d-none {
 /*------------- HEADLINE -------------*/
 
 .content {
-  max-width: calc(1080px + 32px);
+  max-width: 1185px;
 }
 
 .status {
@@ -138,6 +138,7 @@ d-none {
   display: flex;
   flex-direction: column;
   padding-right: 32px;
+  padding-top: 6px;
   &:first-child {
     padding-left: 0;
   }

@@ -8,11 +8,18 @@ import { FirebaseService } from '../../services/firebase.service';
 import { OverlayService } from '../../services/overlay.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskComponent, TaskEmptyComponent, FormsModule],
+  imports: [
+    CommonModule,
+    TaskComponent,
+    TaskEmptyComponent,
+    FormsModule,
+    TranslateModule,
+  ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })

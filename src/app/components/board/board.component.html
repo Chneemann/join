@@ -1,13 +1,13 @@
 <section>
   <div class="header">
-    <div class="title">Board</div>
+    <div class="title">{{ "board.headline" | translate }}</div>
     <div class="search">
       <div>
         <input
           #searchField
           id="search-task"
           type="text"
-          placeholder="Find Task"
+          placeholder="{{ 'board.findTask' | translate }}"
           [(ngModel)]="searchValue"
           (input)="searchTask()"
         />
@@ -30,7 +30,7 @@
       </div>
       <button class="btn" type="submit" (click)="addNewTaskOverlay('none')">
         <div class="btn-inside">
-          <span>Add Task</span>
+          <span>{{ "board.addTask" | translate }}</span>
           <img src="./../../../assets/img/board/add_white.svg" alt="check" />
         </div>
       </button>
@@ -44,7 +44,7 @@
         (drop)="dragDropService.drop($event, 'todo')"
       >
         <div class="headline">
-          <span>To do</span
+          <span>{{ "board.todo" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
@@ -55,7 +55,7 @@
           @for(task of getTaskStatus("todo"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
-          <app-task-empty>No tasks</app-task-empty>
+          <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
           }
         </div>
       </div>
@@ -65,7 +65,7 @@
         (drop)="dragDropService.drop($event, 'inprogress')"
       >
         <div class="headline">
-          <span>In progress</span
+          <span>{{ "board.inProgress" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
@@ -76,7 +76,7 @@
           @for(task of getTaskStatus("inprogress"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
-          <app-task-empty>No tasks</app-task-empty>
+          <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
           }
         </div>
       </div>
@@ -86,7 +86,7 @@
         (drop)="dragDropService.drop($event, 'awaitfeedback')"
       >
         <div class="headline">
-          <span>Await feedback</span
+          <span>{{ "board.awaitFeedback" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
@@ -97,7 +97,7 @@
           @for(task of getTaskStatus("awaitfeedback"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
-          <app-task-empty>No tasks</app-task-empty>
+          <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
           }
         </div>
       </div>
@@ -107,7 +107,7 @@
         (drop)="dragDropService.drop($event, 'done')"
       >
         <div class="headline">
-          <span>Done</span
+          <span>{{ "board.done" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
@@ -118,7 +118,7 @@
           @for(task of getTaskStatus("done"); track task) {
           <app-task [task]="task"></app-task>
           } @empty {
-          <app-task-empty>No tasks</app-task-empty>
+          <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
           }
         </div>
       </div>

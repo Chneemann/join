@@ -145,11 +145,11 @@
   display: flex;
   justify-content: center;
   p {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
   }
   span {
-    font-size: 21px;
+    font-size: 24px;
     font-weight: 700;
   }
   .spacer {
@@ -244,8 +244,13 @@
 }
 
 @media screen and (max-width: 520px) {
+  .left-container {
+    height: fit-content;
+  }
+
   .todo-done,
   .tasks {
+    height: 120px;
     .circle {
       width: 40px;
       height: 40px;
@@ -257,6 +262,7 @@
   }
 
   .urgent {
+    height: 120px;
     img {
       width: 40px;
       height: 40px;
@@ -280,6 +286,15 @@
       }
     }
   }
+
+  .date {
+    p {
+      font-size: 16px;
+    }
+    span {
+      font-size: 21px;
+    }
+  }
 }
 
 @media screen and (max-width: 450px) {
@@ -290,10 +305,6 @@
     .metrics-txt {
       font-size: 20px;
     }
-  }
-
-  .left-container {
-    height: fit-content;
   }
 
   .todo-done,
