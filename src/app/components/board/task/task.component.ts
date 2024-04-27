@@ -46,7 +46,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.isPageViewMedia = window.innerWidth <= 650;
   }
 
-  handleMenuButtonClick(event: MouseEvent, taskId: string | undefined) {
+  handleMenuButtonClick(event: MouseEvent, taskId: string) {
     event.stopPropagation();
     const targetElement = event.target as HTMLElement;
     targetElement.classList.contains('menu-btn') ||
@@ -59,7 +59,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  openTaskDetailsOverlay(taskId: string | undefined) {
+  openTaskDetailsOverlay(taskId: string) {
     if (this.isMenuOpen) {
       this.toggleTaskMenu();
     }
