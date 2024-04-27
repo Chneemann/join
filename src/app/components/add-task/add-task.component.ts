@@ -73,7 +73,9 @@ export class AddTaskComponent {
   routeParams() {
     if (this.route.params.subscribe()) {
       this.route.params.subscribe((params) => {
-        this.taskData.status = params['id'];
+        if (params['id']) {
+          this.taskData.status = params['id'];
+        }
       });
     }
   }
@@ -124,12 +126,12 @@ export class AddTaskComponent {
   }
 
   deleteSubtask(subtaskName: string) {
-    this.taskData.subtasksTitle.splice(
-      this.taskData.subtasksTitle.indexOf(subtaskName),
-      1
-    );
-    this.taskData.subtasksDone.splice(1);
-    this.saveTaskData();
+    const index = this.taskData.subtasksTitle.indexOf(subtaskName);
+    if (index !== -1) {
+      this.taskData.subtasksTitle.splice(index, 1);
+      this.taskData.subtasksDone.splice(index, 1);
+      this.saveTaskData();
+    }
   }
 
   searchTask(): void {

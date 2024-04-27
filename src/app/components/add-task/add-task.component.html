@@ -1,5 +1,8 @@
 <section
-  [ngStyle]="{ 'background-color': overlayData !== '' ? 'var(--white)' : '' }"
+  [ngStyle]="{
+    'background-color':
+      !overlayMobile && overlayData !== '' ? 'var(--white)' : ''
+  }"
 >
   <div
     class="headline"
