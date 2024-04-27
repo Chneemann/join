@@ -6,6 +6,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-task',
@@ -14,11 +15,8 @@ import { TaskMenuComponent } from './task-menu/task-menu.component';
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
-export class TaskComponent implements OnInit, OnDestroy {
+export class TaskComponent {
   @Input() task: Task = {} as Task;
-  private resizeListener!: () => void;
-
-  isPageViewMedia: boolean = window.innerWidth <= 650;
   isMenuOpen: boolean = false;
 
   categoryColors = new Map<string, string>([
@@ -30,21 +28,9 @@ export class TaskComponent implements OnInit, OnDestroy {
     public dragDropService: DragDropService,
     private firebaseService: FirebaseService,
     public overlayService: OverlayService,
+    public sharedService: SharedService,
     private router: Router
   ) {}
-
-  ngOnInit() {
-    this.resizeListener = this.onResize.bind(this);
-    window.addEventListener('resize', this.resizeListener);
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.resizeListener);
-  }
-
-  onResize() {
-    this.isPageViewMedia = window.innerWidth <= 650;
-  }
 
   handleMenuButtonClick(event: MouseEvent, taskId: string) {
     event.stopPropagation();
@@ -63,7 +49,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     if (this.isMenuOpen) {
       this.toggleTaskMenu();
     }
-    this.isPageViewMedia
+    this.sharedService.isPageViewMedia
       ? this.router.navigate(['/task', taskId])
       : this.overlayService.setOverlayData('taskOverlay', taskId);
   }

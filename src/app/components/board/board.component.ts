@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 import { OverlayService } from '../../services/overlay.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-board',
@@ -20,6 +21,7 @@ export class BoardComponent {
     public dragDropService: DragDropService,
     public overlayService: OverlayService,
     private firebaseService: FirebaseService,
+    private sharedService: SharedService,
     private router: Router
   ) {}
   searchValue: string = '';
@@ -32,11 +34,9 @@ export class BoardComponent {
   }
 
   addNewTaskOverlay(status: string) {
-    if (window.innerWidth >= 650) {
-      this.overlayService.setOverlayData('newTaskOverlay', status);
-    } else {
-      this.router.navigate(['/add-task', status]);
-    }
+    this.sharedService.isPageViewMedia
+      ? this.router.navigate(['/add-task', status])
+      : this.overlayService.setOverlayData('newTaskOverlay', status);
   }
 
   getTaskStatus(status: string) {

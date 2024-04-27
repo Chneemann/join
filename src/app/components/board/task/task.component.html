@@ -13,6 +13,7 @@
         >
           {{ task.category }}
         </div>
+        @if (sharedService.isPageViewMedia) {
         <div class="menu-btn" (click)="handleMenuButtonClick($event, task.id)">
           <img
             class="menu-img"
@@ -20,6 +21,7 @@
             alt="menu"
           />
         </div>
+        }
       </div>
       <div class="headline">{{ task.title }}</div>
       <div class="description">
