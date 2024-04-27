@@ -1,55 +1,54 @@
-<section (click)="handleMenuButtonClick($event, task.id)">
-  <div
-    class="content"
-    draggable="true"
-    (dragstart)="dragDropService.startDragging($event, task.id)"
-  >
-    <div class="header">
-      <div
-        class="category"
-        [style.background-color]="categoryColors.get(task.category)"
-      >
-        {{ task.category }}
-      </div>
-      <div
-        class="menu-btn"
-        (click)="handleMenuButtonClick($event, task.status)"
-      >
-        <img
-          class="menu-img"
-          src="./../../../../assets/img/board/menu.svg"
-          alt="menu"
-        />
-      </div>
-    </div>
-    <div class="headline">{{ task.title }}</div>
-    <div class="description">
-      {{ task.description }}
-    </div>
-    @if(task.subtasksTitle.length > 0) {
-    <div class="subtask">
-      <div class="subtask-line">
-        <span
-          class="filler-full"
-          [style.width.%]="completedSubtasksPercent()"
-        ></span>
-      </div>
-      <div class="subtask-text">
-        {{ completedSubtasks() }} / {{ task.subtasksTitle.length }} Subtasks
-      </div>
-    </div>
-    }
-    <div class="footer">
-      <div class="footer-badge">
-        @for (assigned of task.assigned; track assigned) {
-        <span
-          class="footer-badged"
-          [style.background-color]="userBadgedColor(assigned)"
-          >{{ userBadged(assigned) }}</span
+<section>
+  <div (click)="handleMenuButtonClick($event, task.id)">
+    <div
+      class="content"
+      draggable="true"
+      (dragstart)="dragDropService.startDragging($event, task.id)"
+    >
+      <div class="header">
+        <div
+          class="category"
+          [style.background-color]="categoryColors.get(task.category)"
         >
-        }
+          {{ task.category }}
+        </div>
+        <div class="menu-btn" (click)="handleMenuButtonClick($event, task.id)">
+          <img
+            class="menu-img"
+            src="./../../../../assets/img/board/menu.svg"
+            alt="menu"
+          />
+        </div>
       </div>
-      <div class="footer-priority prio-{{ task.priority }}"></div>
+      <div class="headline">{{ task.title }}</div>
+      <div class="description">
+        {{ task.description }}
+      </div>
+      @if(task.subtasksTitle.length > 0) {
+      <div class="subtask">
+        <div class="subtask-line">
+          <span
+            class="filler-full"
+            [style.width.%]="completedSubtasksPercent()"
+          ></span>
+        </div>
+        <div class="subtask-text">
+          {{ completedSubtasks() }} / {{ task.subtasksTitle.length }} Subtasks
+        </div>
+      </div>
+      }
+      <div class="footer">
+        <div class="footer-badge">
+          @for (assigned of task.assigned; track assigned) {
+          <span
+            class="footer-badged"
+            [style.background-color]="userBadgedColor(assigned)"
+            >{{ userBadged(assigned) }}</span
+          >
+          }
+        </div>
+        <div class="footer-priority prio-{{ task.priority }}"></div>
+      </div>
     </div>
   </div>
   @if (isMenuOpen){

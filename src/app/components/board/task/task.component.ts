@@ -46,20 +46,23 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.isPageViewMedia = window.innerWidth <= 650;
   }
 
-  handleMenuButtonClick(event: MouseEvent, taskIdOrStatus: string | undefined) {
+  handleMenuButtonClick(event: MouseEvent, taskId: string | undefined) {
     event.stopPropagation();
     const targetElement = event.target as HTMLElement;
     targetElement.classList.contains('menu-btn') ||
     targetElement.classList.contains('menu-img')
-      ? this.openTaskMenu(taskIdOrStatus)
-      : this.openTaskDetailsOverlay(taskIdOrStatus);
+      ? this.toggleTaskMenu()
+      : this.openTaskDetailsOverlay(taskId);
   }
 
-  openTaskMenu(taskStatus: string | undefined) {
+  toggleTaskMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
   openTaskDetailsOverlay(taskId: string | undefined) {
+    if (this.isMenuOpen) {
+      this.toggleTaskMenu();
+    }
     this.isPageViewMedia
       ? this.router.navigate(['/task', taskId])
       : this.overlayService.setOverlayData('taskOverlay', taskId);
