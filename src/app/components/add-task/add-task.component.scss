@@ -48,9 +48,9 @@ select {
   resize: none;
 }
 
-input:invalid,
-textarea:invalid,
-select:invalid {
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
   border: 1px dashed red;
 }
 

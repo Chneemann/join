@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
@@ -17,10 +24,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
-export class AddTaskComponent {
-  @ViewChild('title', { static: true }) titleField!: NgModel;
-  @ViewChild('description', { static: true }) descriptionField!: NgModel;
-  @ViewChild('category', { static: true }) categoryField!: NgModel;
+export class AddTaskComponent implements OnInit {
   @Input() overlayData: string = '';
   @Input() overlayType: string = '';
   @Input() overlayMobile: boolean = false;
@@ -60,14 +64,13 @@ export class AddTaskComponent {
     this.loadLocalStorageData();
   }
 
-  openDialog(userId: any, event: MouseEvent) {
-    this.AssignedDialogId = userId;
-    this.updateDialogPosition(event);
-  }
-
-  updateDialogPosition(event: MouseEvent) {
-    this.dialogX = event.clientX + 25;
-    this.dialogY = event.clientY + 10;
+  loadEditTaskData() {
+    if (this.overlayData !== '') {
+      const taskData = this.getTaskData(this.overlayData)[0];
+      Object.assign(this.taskData, taskData);
+    } else if (this.overlayType === 'newTaskOverlay') {
+      this.taskData.status = this.overlayData;
+    }
   }
 
   routeParams() {
@@ -80,30 +83,6 @@ export class AddTaskComponent {
     }
   }
 
-  closeDialog() {
-    this.AssignedDialogId = '';
-  }
-
-  loadEditTaskData() {
-    if (this.overlayData !== '' && this.overlayType !== 'newTaskOverlay') {
-      const taskData = this.getTaskData(this.overlayData)[0];
-      this.taskData.title = taskData.title;
-      this.taskData.description = taskData.description;
-      this.taskData.category = taskData.category;
-      this.taskData.status = taskData.status;
-      this.taskData.priority = taskData.priority;
-      this.taskData.subtasksTitle = taskData.subtasksTitle;
-      this.taskData.subtasksDone = taskData.subtasksDone;
-      this.taskData.assigned = taskData.assigned;
-      this.taskData.date = taskData.date;
-    } else if (
-      this.overlayData !== 'none' &&
-      this.overlayType === 'newTaskOverlay'
-    ) {
-      this.taskData.status = this.overlayData;
-    }
-  }
-
   loadLocalStorageData() {
     const storedTaskData = localStorage.getItem('taskData');
     if (storedTaskData) {
@@ -111,6 +90,20 @@ export class AddTaskComponent {
     } else {
       this.saveTaskData();
     }
+  }
+
+  openDialog(userId: any, event: MouseEvent) {
+    this.AssignedDialogId = userId;
+    this.updateDialogPosition(event);
+  }
+
+  updateDialogPosition(event: MouseEvent) {
+    this.dialogX = event.clientX + 25;
+    this.dialogY = event.clientY + 10;
+  }
+
+  closeDialog() {
+    this.AssignedDialogId = '';
   }
 
   getTaskData(taskId: string) {
@@ -187,18 +180,11 @@ export class AddTaskComponent {
 
   removeTaskData() {
     localStorage.removeItem('taskData');
-    this.untouchedFormFields();
     this.clearFormData();
   }
 
   closeOverlay() {
     this.overlayService.setOverlayData('', '');
-  }
-
-  untouchedFormFields() {
-    this.titleField.control.markAsUntouched();
-    this.descriptionField.control.markAsUntouched();
-    this.categoryField.control.markAsUntouched();
   }
 
   clearFormData() {
