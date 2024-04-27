@@ -1,20 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
 import { Task } from '../../../interfaces/task.interface';
 import { FirebaseService } from '../../../services/firebase.service';
 import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
+import { TaskMenuComponent } from './task-menu/task-menu.component';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaskMenuComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
-export class TaskComponent {
-  @Input() task!: Task;
+export class TaskComponent implements OnInit, OnDestroy {
+  @Input() task: Task = {} as Task;
+  private resizeListener!: () => void;
+
+  isPageViewMedia: boolean = window.innerWidth <= 650;
+  isMenuOpen: boolean = false;
 
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],
@@ -28,12 +33,36 @@ export class TaskComponent {
     private router: Router
   ) {}
 
+  ngOnInit() {
+    this.resizeListener = this.onResize.bind(this);
+    window.addEventListener('resize', this.resizeListener);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeListener);
+  }
+
+  onResize() {
+    this.isPageViewMedia = window.innerWidth <= 650;
+  }
+
+  handleMenuButtonClick(event: MouseEvent, taskIdOrStatus: string | undefined) {
+    event.stopPropagation();
+    const targetElement = event.target as HTMLElement;
+    targetElement.classList.contains('menu-btn') ||
+    targetElement.classList.contains('menu-img')
+      ? this.openTaskMenu(taskIdOrStatus)
+      : this.openTaskDetailsOverlay(taskIdOrStatus);
+  }
+
+  openTaskMenu(taskStatus: string | undefined) {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
   openTaskDetailsOverlay(taskId: string | undefined) {
-    if (window.innerWidth >= 650) {
-      this.overlayService.setOverlayData('taskOverlay', taskId);
-    } else {
-      this.router.navigate(['/task', taskId]);
-    }
+    this.isPageViewMedia
+      ? this.router.navigate(['/task', taskId])
+      : this.overlayService.setOverlayData('taskOverlay', taskId);
   }
 
   // Subtasks

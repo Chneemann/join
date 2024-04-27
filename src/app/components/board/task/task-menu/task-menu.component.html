@@ -1,0 +1,12 @@
+<section>
+  <p>Move to:</p>
+  @if (boardTaskStatus !== 'todo') {
+  <p (click)="moveTask('todo')">To do</p>
+  } @if (boardTaskStatus !== 'inprogress') {
+  <p (click)="moveTask('inprogress')">In progress</p>
+  } @if (boardTaskStatus !== 'awaitfeedback') {
+  <p (click)="moveTask('awaitfeedback')">Await feedback</p>
+  } @if (boardTaskStatus !== 'done') {
+  <p (click)="moveTask('done')">Done</p>
+  }
+</section>

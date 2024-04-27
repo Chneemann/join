@@ -1,0 +1,32 @@
+section {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  text-align: center;
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--white);
+  border-radius: 20px 0 20px 20px;
+  border: 1px solid rgba($color: #000000, $alpha: 0.2);
+  padding: 12px;
+  p {
+    font-size: 18px;
+    font-weight: 400;
+    padding-bottom: 3px;
+    color: var(--light-blue);
+    cursor: pointer;
+    &:first-child {
+      font-size: 18px;
+      font-weight: 600;
+      padding-bottom: 6px;
+      cursor: auto;
+      color: var(--black);
+    }
+    &:hover {
+      text-decoration: underline;
+      &:first-child {
+        text-decoration: none;
+      }
+    }
+  }
+}
