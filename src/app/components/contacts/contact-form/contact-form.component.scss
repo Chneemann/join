@@ -4,11 +4,15 @@ section {
   align-items: center;
 }
 
-span {
-  font-size: 14px;
-  font-weight: 400;
-  color: red;
-  padding: 0 0 10px 20px;
+.error-msg {
+  min-height: 18px;
+  padding: 6px;
+  margin-left: 12px;
+  p {
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 400;
+  }
 }
 
 .name {
@@ -26,7 +30,7 @@ span {
     font-size: 20px;
     font-weight: 400;
     padding: 12px;
-    margin: 12px 12px;
+    margin: 0 12px;
     width: 90%;
     &:hover {
       border-color: var(--light-blue);

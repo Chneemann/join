@@ -29,14 +29,16 @@
         required
       />
     </div>
-    @if ((!firstName.valid && firstName.touched) && (!lastName.valid &&
-    lastName.touched)) {
-    <span>{{ "contact-dialog-form.invalid-name" | translate }}</span>
-    } @else { @if (!firstName.valid && firstName.touched) {
-    <span>{{ "contact-dialog-form.invalid-firstName" | translate }}</span>
-    } @else { @if (!lastName.valid && lastName.touched) {
-    <span>{{ "contact-dialog-form.invalid-lastName" | translate }}</span>
-    } } }
+    <div class="error-msg">
+      @if ((!firstName.valid && firstName.touched) && (!lastName.valid &&
+      lastName.touched)) {
+      <p>{{ "contact-dialog-form.invalid-name" | translate }}</p>
+      } @else { @if (!firstName.valid && firstName.touched) {
+      <p>{{ "contact-dialog-form.invalid-firstName" | translate }}</p>
+      } @else { @if (!lastName.valid && lastName.touched) {
+      <p>{{ "contact-dialog-form.invalid-lastName" | translate }}</p>
+      } } }
+    </div>
     <input
       id="email"
       type="email"
@@ -47,9 +49,11 @@
       autocomplete="off"
       required
     />
-    @if (!email.valid && email.touched) {
-    <span>{{ "contact-dialog-form.invalid-email" | translate }}</span>
-    }
+    <div class="error-msg">
+      @if (!email.valid && email.touched) {
+      <p>{{ "contact-dialog-form.invalid-email" | translate }}</p>
+      }
+    </div>
     <input
       id="phone"
       type="phone"
@@ -60,9 +64,11 @@
       autocomplete="off"
       required
     />
-    @if (!phone.valid && phone.touched) {
-    <span>{{ "contact-dialog-form.invalid-phone" | translate }}</span>
-    }
+    <div class="error-msg">
+      @if (!phone.valid && phone.touched) {
+      <p>{{ "contact-dialog-form.invalid-phone" | translate }}</p>
+      }
+    </div>
     <div class="btns">
       <app-form-btn
         class="btn-delete"

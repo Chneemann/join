@@ -9,12 +9,12 @@ import { SharedService } from '../../../../services/shared.service';
   styleUrl: './btn-close.component.scss',
 })
 export class BtnCloseComponent {
-  @Input() dialogClose!: string | boolean;
+  @Input() isEditContactDialogOpen: boolean = false;
 
   constructor(private sharedService: SharedService) {}
 
   closeClicked() {
     this.sharedService.isAnyDialogOpen = false;
-    this.dialogClose = false;
+    this.sharedService.isEditContactDialogOpen = this.isEditContactDialogOpen;
   }
 }
