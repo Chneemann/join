@@ -24,7 +24,7 @@ section {
 }
 
 .edit-task-overlay-content {
-  height: calc(700px - 128px);
+  max-height: calc(700px - 128px);
   padding: 0 6px;
   overflow-y: auto;
 }
@@ -192,14 +192,14 @@ p {
 }
 
 .subtasks {
-  padding: 12px 0;
-  margin-right: 14px;
+  max-height: 130px;
+  overflow-x: auto;
+  margin-top: 12px;
   .single-subtask {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 6px 9px;
-    width: 100%;
     cursor: pointer;
     p {
       padding: 0;
