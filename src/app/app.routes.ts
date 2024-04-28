@@ -14,6 +14,8 @@ import { LoginComponent } from './components/login/login.component';
 export const routes: Routes = [
   { path: '', component: SummaryComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'login/imprint', component: ImprintComponent },
+  { path: 'login/privacy-policy', component: PrivacyPolicyComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'add-task/:id', component: AddTaskComponent },
