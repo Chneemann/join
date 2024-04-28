@@ -5,9 +5,18 @@
   "navbar": {
     "privacyPolicy": "Privacy policy",
     "legalNotice": "Legal notice",
-    "logout": "Abmelden",
+    "logout": "Log out",
     "english": "English",
     "german": "German"
+  },
+  "sidebar": {
+    "summary": "Summary",
+    "addTask": "Add Task",
+    "board": "Board",
+    "contacts": "Contacts",
+    "privacyPolicy": "Privacy policy",
+    "legalNotice": "Legal notice",
+    "logout": "Log out"
   },
   "contact-dialog-form": {
     "btn-delete": "Delete",

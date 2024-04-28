@@ -7,52 +7,60 @@
       class="nav-links-inner"
       routerLink="summary"
       [ngClass]="{
-        active: currentPath == 'summary'
+        active: currentPath == 'summary',
+        'switch-language': languageService.currentLang == 'de'
       }"
     >
-      <img src="./assets/img/sidebar/summary.svg" alt="sumary" /><span
-        >Summary</span
-      >
+      <img src="./assets/img/sidebar/summary.svg" alt="sumary" /><span>{{
+        "sidebar.summary" | translate
+      }}</span>
     </div>
     <div
       id="navLinkAddTask"
       class="nav-links-inner"
       routerLink="add-task"
       [ngClass]="{
-        active: currentPath == 'add-task'
+        active: currentPath == 'add-task',
+        'switch-language': languageService.currentLang == 'de'
       }"
     >
-      <img src="./assets/img/sidebar/add-task.svg" alt="addtask" /><span
-        >Add Task</span
-      >
+      <img src="./assets/img/sidebar/add-task.svg" alt="addtask" /><span>{{
+        "sidebar.addTask" | translate
+      }}</span>
     </div>
     <div
       id="navLinkBoard"
       class="nav-links-inner"
       routerLink="board"
       [ngClass]="{
-        active: currentPath == 'board'
+        active: currentPath == 'board',
+        'switch-language': languageService.currentLang == 'de'
       }"
     >
-      <img src="./assets/img/sidebar/board.svg" alt="board" /><span>Board</span>
+      <img src="./assets/img/sidebar/board.svg" alt="board" /><span>{{
+        "sidebar.board" | translate
+      }}</span>
     </div>
     <div
       id="navLinkContacts"
       class="nav-links-inner"
       routerLink="contacts"
       [ngClass]="{
-        active: currentPath == 'contacts'
+        active: currentPath == 'contacts',
+        'switch-language': languageService.currentLang == 'de'
       }"
     >
-      <img src="./assets/img/sidebar/contacts.svg" alt="contacts" /><span
-        >Contacts</span
-      >
+      <img src="./assets/img/sidebar/contacts.svg" alt="contacts" /><span>{{
+        "sidebar.contacts" | translate
+      }}</span>
     </div>
   </nav>
 
   <div class="reference">
-    <div routerLink="privacy-policy">Privacy Policy</div>
-    <div routerLink="imprint">Legal Notice</div>
-    <div onclick="logout()">Log out</div>
+    <div routerLink="privacy-policy">
+      {{ "sidebar.privacyPolicy" | translate }}
+    </div>
+    <div routerLink="imprint">{{ "sidebar.legalNotice" | translate }}</div>
+    <div onclick="logout()">{{ "sidebar.logout" | translate }}</div>
   </div>
 </section>

@@ -16,15 +16,16 @@ section {
 nav {
   display: flex;
   flex-direction: column;
+  width: 232px;
 }
 
 .nav-links-inner {
   display: flex;
   justify-content: left;
   align-items: center;
-  padding: 4px 56px;
+  padding: 4px 0;
+  padding-left: 56px;
   height: 46px;
-  width: 120px;
   cursor: pointer;
   img {
     width: 30px;
@@ -32,10 +33,8 @@ nav {
     padding-right: 8px;
   }
   span {
-    display: flex;
-    align-items: center;
+    text-align: center;
     font-size: 16px;
-    width: 100%;
     color: var(--light-gray);
   }
   &:hover {
@@ -50,13 +49,17 @@ nav {
   background-color: var(--very-dark-blue);
 }
 
+.switch-language {
+  padding-left: 43px;
+}
+
 .reference {
   display: flex;
   align-items: center;
   flex-direction: column;
   margin-bottom: 30px;
   div {
-    width: 105px;
+    width: 216px;
     padding: 8px;
     display: flex;
     text-align: center;

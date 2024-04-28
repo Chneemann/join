@@ -9,6 +9,15 @@
     "english": "Englisch",
     "german": "Deutsch"
   },
+  "sidebar": {
+    "summary": "Übersicht",
+    "addTask": "Neue Aufgabe",
+    "board": "Brett",
+    "contacts": "Kontakte",
+    "privacyPolicy": "Datenschutzerklärung",
+    "legalNotice": "Rechtlicher Hinweis",
+    "logout": "Abmelden"
+  },
   "contact-dialog-form": {
     "btn-delete": "Löschen",
     "btn-save": "Sichern",
@@ -45,7 +54,7 @@
     "inProgress": "In Bearbeitung",
     "awaitFeedback": "Warte auf Rückmeldung",
     "done": "Erledigt",
-    "addTask": "Hinzufügen",
+    "addTask": "Neue Aufgabe",
     "findTask": "Aufgabe suchen",
     "noTasks": "Keine Aufgaben"
   },
