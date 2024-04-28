@@ -32,6 +32,8 @@
         <div class="error-msg">
           @if (!mail.valid && mail.touched) {
           <p>You must enter a mail.</p>
+          } @if (loginSerivce.errorCode == 'auth/invalid-email') {
+          <p>This email address does not exist.</p>
           }
         </div>
         <input
@@ -52,6 +54,8 @@
         <div class="error-msg">
           @if (!password.valid && password.touched) {
           <p>You must enter a password.</p>
+          } @if (loginSerivce.errorCode == 'auth/invalid-credential') {
+          <p>The password does not match the email address</p>
           }
         </div>
       </div>

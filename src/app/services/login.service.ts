@@ -1,13 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseService } from './firebase.service';
-import { Firestore, collection, query, where } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { SharedService } from './shared.service';
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   firestore: Firestore = inject(Firestore);
+  errorCode: string = '';
 
   constructor(
     private firebaseService: FirebaseService,
@@ -15,9 +16,7 @@ export class LoginService {
   ) {}
 
   login(loginData: { mail: string; password: string }) {
-    const auth = getAuth();
-
-    signInWithEmailAndPassword(auth, loginData.mail, loginData.password)
+    signInWithEmailAndPassword(getAuth(), loginData.mail, loginData.password)
       .then((userCredential) => {
         const user = userCredential.user;
         if (this.firebaseService.checkUserUID(user.uid).length > 0) {
@@ -32,7 +31,7 @@ export class LoginService {
       })
       .catch((error) => {
         console.error(error);
-        alert('Invalid email or password! Please try again.');
+        this.errorCode = error.code;
         this.sharedService.isBtnDisabled = false;
       });
   }

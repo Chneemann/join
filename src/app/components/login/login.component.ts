@@ -22,7 +22,7 @@ export class LoginComponent {
 
   constructor(
     private firebaseService: FirebaseService,
-    private loginSerivce: LoginService,
+    public loginSerivce: LoginService,
     public sharedService: SharedService,
     private router: Router
   ) {}
