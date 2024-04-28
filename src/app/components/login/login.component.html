@@ -1,1 +1,78 @@
-<p>login works!</p>
+<section>
+  <img class="logo" src="./../../../assets/img/login/logo.svg" alt="" />
+  <div class="register">
+    <p>Not a Join user?</p>
+    <button onclick="loadSignupPage()">Sign up</button>
+  </div>
+  <form
+    id="form"
+    #taskForm="ngForm"
+    (ngSubmit)="onSubmit(taskForm)"
+    onsubmit="return false"
+  >
+    <div class="content">
+      <p>Log in</p>
+      <img src="./../../../assets/img/login/blue-line.svg" alt="" />
+      <div class="input-fields">
+        <input
+          type="text"
+          id="mail"
+          name="mail"
+          #mail="ngModel"
+          placeholder="Email"
+          class="custom-input"
+          [(ngModel)]="loginData.mail"
+          required
+        />
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/mail.svg"
+          alt=""
+        />
+        <div class="error-msg">
+          @if (!mail.valid && mail.touched) {
+          <p>You must enter a mail.</p>
+          }
+        </div>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          #password="ngModel"
+          placeholder="Password"
+          class="custom-input"
+          [(ngModel)]="loginData.password"
+          required
+        />
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/lock.svg"
+          alt=""
+        />
+        <div class="error-msg">
+          @if (!password.valid && password.touched) {
+          <p>You must enter a password.</p>
+          }
+        </div>
+      </div>
+      <div class="form-buttons">
+        <app-form-btn
+          [class]="'btn-login'"
+          [type]="'submit'"
+          [value]="'Log in'"
+          [disabled]="
+            mail.invalid ||
+            !loginData.mail ||
+            password.invalid ||
+            !loginData.password
+          "
+        ></app-form-btn>
+        <app-form-btn
+          [class]="'btn-guest-login'"
+          [type]="'button'"
+          [value]="'Guest Log in'"
+        ></app-form-btn>
+      </div>
+    </div>
+  </form>
+</section>
