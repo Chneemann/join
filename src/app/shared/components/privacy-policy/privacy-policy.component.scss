@@ -4,6 +4,10 @@ section {
   white-space: normal;
 }
 
+.router-padding {
+  padding: 48px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -78,5 +82,9 @@ a {
 
   h2 {
     font-size: 27px;
+  }
+
+  .router-padding {
+    padding: 24px;
   }
 }

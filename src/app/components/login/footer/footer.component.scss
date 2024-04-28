@@ -5,7 +5,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
   a {
     text-align: center;
     font-size: 16px;
@@ -16,9 +16,10 @@
     width: 110px;
     height: 19px;
     text-decoration: none;
-  }
-  &:hover {
-    color: var(--light-blue);
-    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      color: var(--light-blue);
+      font-weight: 600;
+    }
   }
 }
