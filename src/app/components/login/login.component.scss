@@ -105,10 +105,12 @@ section {
 }
 
 .error-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 24px;
   padding: 6px;
   width: 120%;
-  text-align: center;
   p {
     color: var(--red);
     font-size: 12px !important;
@@ -133,6 +135,23 @@ section {
       font-size: 47px;
     }
   }
+
+  .register {
+    top: unset;
+    right: unset;
+    left: 0;
+    bottom: 99px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo {
+    left: 38px;
+    top: 37px;
+    height: 64px;
+    width: 78px;
+  }
 }
 
 @media screen and (max-width: 450px) {
@@ -150,8 +169,24 @@ section {
   }
 
   .error-msg {
+    height: 18px;
     p {
       font-size: 10px !important;
     }
+  }
+}
+
+@media (max-height: 820px) {
+  .content {
+    top: 40%;
+  }
+  .logo {
+    display: none;
+  }
+}
+
+@media (max-height: 550px) {
+  .content {
+    top: 45%;
   }
 }
