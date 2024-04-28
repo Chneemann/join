@@ -8,6 +8,7 @@ export class SharedService {
   isEditContactDialogOpen: boolean = false;
   isDeleteContactDialogOpen: boolean = false;
   isPageViewMedia: boolean = window.innerWidth <= 650;
+  isContactViewMedia: boolean = window.innerWidth <= 800;
   currentUserId: string = '';
 
   private resizeListener!: () => void;
@@ -29,6 +30,7 @@ export class SharedService {
 
   private onResize() {
     this.isPageViewMedia = window.innerWidth <= 650;
+    this.isContactViewMedia = window.innerWidth <= 800;
   }
 
   cleanup() {

@@ -45,6 +45,8 @@ select {
   border: 1px solid var(--light-gray);
   padding: 12px 21px;
   width: calc(100% - 42px);
+  color: var(--black);
+  background-color: var(--white);
   resize: none;
   -webkit-appearance: none;
   -moz-appearance: none;

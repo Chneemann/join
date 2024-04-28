@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { User } from '../../../../interfaces/user.interface';
 import { AssignedComponent } from '../../../../components/add-task/assigned/assigned.component';
 import { AddTaskComponent } from '../../../../components/add-task/add-task.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 
 @Component({
@@ -35,7 +35,8 @@ export class TaskEditOverlayComponent {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -57,7 +58,9 @@ export class TaskEditOverlayComponent {
   }
 
   closeDialog() {
-    this.closeDialogEmitter.emit('');
+    this.overlayMobile
+      ? this.router.navigate(['/board'])
+      : this.closeDialogEmitter.emit('');
     this.removeTaskData();
   }
 

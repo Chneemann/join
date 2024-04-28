@@ -17,7 +17,7 @@ export class ContactFormComponent implements OnChanges {
 
   constructor(
     private firebaseService: FirebaseService,
-    private sharedService: SharedService
+    public sharedService: SharedService
   ) {
     this.updateContactData();
   }

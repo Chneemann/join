@@ -17,6 +17,13 @@
         autocomplete="off"
         required
       />
+      @if (sharedService.isContactViewMedia) {
+      <div class="error-msg">
+        @if (!firstName.valid && firstName.touched) {
+        <p>{{ "contact-dialog-form.invalid-firstName" | translate }}</p>
+        }
+      </div>
+      }
       <input
         id="lastName"
         type="text"
@@ -29,6 +36,13 @@
         required
       />
     </div>
+    @if (sharedService.isContactViewMedia) {
+    <div class="error-msg">
+      @if (!lastName.valid && lastName.touched) {
+      <p>{{ "contact-dialog-form.invalid-lastName" | translate }}</p>
+      }
+    </div>
+    } @if (!sharedService.isContactViewMedia) {
     <div class="error-msg">
       @if ((!firstName.valid && firstName.touched) && (!lastName.valid &&
       lastName.touched)) {
@@ -39,6 +53,7 @@
       <p>{{ "contact-dialog-form.invalid-lastName" | translate }}</p>
       } } }
     </div>
+    }
     <input
       id="email"
       type="email"

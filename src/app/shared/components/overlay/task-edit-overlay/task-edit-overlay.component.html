@@ -7,11 +7,7 @@
   @if (overlayType === 'newTaskOverlay' || (overlayData !== '' &&
   getTaskData(overlayData).length > 0)) {
   <div class="header">
-    @if (overlayMobile) {
-    <app-btn-back></app-btn-back>
-    } @else {
     <app-btn-close (click)="closeDialog()"></app-btn-close>
-    }
   </div>
   <app-add-task
     [overlayData]="overlayData"
