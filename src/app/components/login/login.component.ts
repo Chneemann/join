@@ -4,6 +4,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { FirebaseService } from '../../services/firebase.service';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -20,20 +22,22 @@ export class LoginComponent {
 
   constructor(
     private firebaseService: FirebaseService,
+    private loginSerivce: LoginService,
+    public sharedService: SharedService,
     private router: Router
   ) {}
 
   onSubmit(ngForm: NgForm) {
+    this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
+      this.loginSerivce.login(this.loginData);
     }
   }
 
   guestLogin() {
-    this.getUserIdInLocalStorage();
-    window.location.reload();
-  }
-
-  getUserIdInLocalStorage() {
-    localStorage.setItem('currentUser', JSON.stringify('5EX7gnwPPGEDbN186Rdw'));
+    this.sharedService.isBtnDisabled = true;
+    this.loginData.mail = 'guest@guestaccount.com';
+    this.loginData.password = 'guest@guestaccount.com';
+    this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);
   }
 }

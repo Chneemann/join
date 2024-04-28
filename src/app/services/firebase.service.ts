@@ -110,6 +110,10 @@ export class FirebaseService implements OnDestroy {
     return this.getAllUsers().filter((user) => user.initials !== 'G');
   }
 
+  checkUserUID(userUid: string): User[] {
+    return this.getAllUsers().filter((user) => user.uId === userUid);
+  }
+
   getCurrentUserId() {
     let currentUser = localStorage.getItem('currentUser');
     if (currentUser !== null) {

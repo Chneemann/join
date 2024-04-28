@@ -38,7 +38,7 @@
   cursor: pointer;
   &:hover {
     color: var(--light-blue);
-    border-color: var(--light-bluek);
+    border-color: var(--light-blue);
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
   }
 }
@@ -94,17 +94,24 @@
   padding: 12px 18px;
   margin: 12px;
   border-radius: 10px;
-  color: var(--black);
-  background-color: var(--white);
+  background-color: var(--light-gray);
   border: 1px solid var(--black);
   font-size: 23px;
   font-weight: 700;
   transition: 125ms ease-in-out;
   cursor: pointer;
-  &:hover {
+  &:hover:not(:disabled) {
     color: var(--light-blue);
-    border-color: var(--light-bluek);
+    border-color: var(--light-blue);
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  &:not(:disabled) {
+    background-color: var(--white) !important;
+    color: var(--black);
+  }
+  &:hover {
+    cursor: default;
   }
 }
 

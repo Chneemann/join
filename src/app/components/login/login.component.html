@@ -64,13 +64,15 @@
             mail.invalid ||
             !loginData.mail ||
             password.invalid ||
-            !loginData.password
+            !loginData.password ||
+            sharedService.isBtnDisabled
           "
         ></app-form-btn>
         <app-form-btn
           [class]="'btn-guest-login'"
           [type]="'button'"
           [value]="'Guest Log in'"
+          [disabled]="sharedService.isBtnDisabled"
           (click)="guestLogin()"
         ></app-form-btn>
       </div>

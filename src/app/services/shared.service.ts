@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SharedService {
+  isBtnDisabled: boolean = false;
   isAnyDialogOpen: boolean = false;
   isEditContactDialogOpen: boolean = false;
   isDeleteContactDialogOpen: boolean = false;
