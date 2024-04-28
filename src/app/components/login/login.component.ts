@@ -6,11 +6,12 @@ import { FirebaseService } from '../../services/firebase.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { SharedService } from '../../services/shared.service';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, FormBtnComponent],
+  imports: [FormsModule, CommonModule, FormBtnComponent, FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -39,5 +40,9 @@ export class LoginComponent {
     this.loginData.mail = 'guest@guestaccount.com';
     this.loginData.password = 'guest@guestaccount.com';
     this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);
+  }
+
+  googleLogin() {
+    this.loginSerivce.googleLogin();
   }
 }

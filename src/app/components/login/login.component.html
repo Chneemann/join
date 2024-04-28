@@ -59,6 +59,15 @@
           }
         </div>
       </div>
+      <div class="google-button">
+        <app-form-btn
+          [class]="'btn-google'"
+          [type]="'button'"
+          [value]="'Sign in with Google'"
+          [disabled]="sharedService.isBtnDisabled"
+          (click)="googleLogin()"
+        ></app-form-btn>
+      </div>
       <div class="form-buttons">
         <app-form-btn
           [class]="'btn-login'"
@@ -82,4 +91,5 @@
       </div>
     </div>
   </form>
+  <app-footer></app-footer>
 </section>
