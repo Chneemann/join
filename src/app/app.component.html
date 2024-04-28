@@ -1,3 +1,6 @@
+@if (this.isLoggedIn === undefined) {
+<router-outlet></router-outlet>
+} @else {
 <div [ngClass]="{ 'blur-background': sharedService.isAnyDialogOpen }">
   <div class="container">
     <app-sidebar></app-sidebar>
@@ -22,3 +25,4 @@
 ></app-contact-delete>
 }
 <app-overlay></app-overlay>
+}

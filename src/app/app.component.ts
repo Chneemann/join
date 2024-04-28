@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
 import { ContactDeleteComponent } from './components/contacts/contact-delete/contact-delete.component';
 import { OverlayComponent } from './shared/components/overlay/overlay.component';
+import { FirebaseService } from './services/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -28,16 +29,26 @@ import { OverlayComponent } from './shared/components/overlay/overlay.component'
 })
 export class AppComponent {
   title = 'join';
+  isLoggedIn: string = '';
+
   constructor(
     public langService: LanguageService,
-    private router: Router,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private firebaseService: FirebaseService,
+    private router: Router
   ) {
-    this.router.events.subscribe((event) => {});
+    this.isLoggedIn = this.firebaseService.getCurrentUserId();
   }
 
   ngOnInit() {
-    this.getUserIdInLocalStorage();
+    console.log(this.isLoggedIn);
+
+    if (this.isLoggedIn === undefined) {
+      this.router.navigate(['/login']);
+    } else {
+      this.getUserIdInLocalStorage();
+      this.router.navigate(['/summary']);
+    }
   }
 
   getUserIdInLocalStorage() {

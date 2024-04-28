@@ -9,9 +9,11 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { OverlayComponent } from './shared/components/overlay/overlay.component';
 import { TaskOverlayComponent } from './shared/components/overlay/task-overlay/task-overlay.component';
 import { TaskEditOverlayComponent } from './shared/components/overlay/task-edit-overlay/task-edit-overlay.component';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
   { path: '', component: SummaryComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'add-task/:id', component: AddTaskComponent },

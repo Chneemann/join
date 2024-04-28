@@ -22,7 +22,7 @@ export class FirebaseService implements OnDestroy {
   allTasks: Task[] = [];
   filteredTasks: Task[] = [];
   allUsers: User[] = [];
-  isUserLogin: boolean = true;
+  isUserLogin: boolean = false;
 
   unsubTask;
   unsubUser;
