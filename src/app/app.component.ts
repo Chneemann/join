@@ -41,17 +41,10 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log(this.isLoggedIn);
-
     if (this.isLoggedIn === undefined) {
       this.router.navigate(['/login']);
     } else {
-      this.getUserIdInLocalStorage();
       this.router.navigate(['/summary']);
     }
-  }
-
-  getUserIdInLocalStorage() {
-    localStorage.setItem('currentUser', JSON.stringify('5EX7gnwPPGEDbN186Rdw'));
   }
 }

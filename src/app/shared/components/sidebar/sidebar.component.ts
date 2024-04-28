@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,11 +17,16 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public languageService: LanguageService
+    public languageService: LanguageService,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
     this.getCurrentPath();
+  }
+
+  logout() {
+    this.sharedService.logout();
   }
 
   getCurrentPath() {

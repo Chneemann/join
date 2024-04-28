@@ -36,4 +36,15 @@ export class SharedService {
   cleanup() {
     this.removeResizeListener();
   }
+
+  // LOGOUT
+
+  logout() {
+    this.deleteUserIdInLocalStorage();
+    window.location.reload();
+  }
+
+  deleteUserIdInLocalStorage() {
+    localStorage.removeItem('currentUser');
+  }
 }

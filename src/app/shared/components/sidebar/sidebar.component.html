@@ -61,6 +61,6 @@
       {{ "sidebar.privacyPolicy" | translate }}
     </div>
     <div routerLink="imprint">{{ "sidebar.legalNotice" | translate }}</div>
-    <div onclick="logout()">{{ "sidebar.logout" | translate }}</div>
+    <div (click)="logout()">{{ "sidebar.logout" | translate }}</div>
   </div>
 </section>
