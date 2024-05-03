@@ -4,7 +4,7 @@ Task Manager inspired by the Kanban System. Create and organize tasks using drag
 
 ## Technolgies Used 
 
-- HTML /SCSS
+- HTML / SCSS
 - Angular
 - TypeScript
 
