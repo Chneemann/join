@@ -11,7 +11,8 @@
       src="./../../../../assets/img/arrow-left.svg"
     />
   </div>
-  @if (currentUserId) {
+  @if (currentUserId) { @for (user of checkUserData(currentUserId); track user)
+  {
   <div
     class="contact-details"
     [ngClass]="{
@@ -22,20 +23,22 @@
       <div
         class="circle"
         [ngStyle]="{
-          'background-color': firebaseService.getUserDetails(
-            currentUserId,
-            'color'
-          )
+          'background-color': user.color
         }"
       >
+        @if(user.status) {
+        <img src="./../../../assets/img/online.svg" alt="" />
+        } @else {
+        <img src="./../../../assets/img/offline.svg" alt="" />
+        }
         <div class="initials">
-          {{ firebaseService.getUserDetails(currentUserId, "initials") }}
+          {{ user.initials }}
         </div>
       </div>
       <div class="word-wrap">
         <div class="name">
-          {{ firebaseService.getUserDetails(currentUserId, "firstName") }}
-          {{ firebaseService.getUserDetails(currentUserId, "lastName") }}
+          {{ user.firstName }}
+          {{ user.lastName }}
         </div>
         <div class="btns">
           <div class="btn btn-edit">
@@ -56,25 +59,21 @@
       <div class="headline">Contact Information</div>
       <div class="info">
         <p>Email:</p>
-        <a
-          [href]="
-            'mail:' + firebaseService.getUserDetails(currentUserId, 'email')
-          "
-        >
-          {{ firebaseService.getUserDetails(currentUserId, "email") }}
+        <a [href]="'mail:' + user.email">
+          {{ user.email }}
         </a>
         <p>Phone:</p>
-        @if(firebaseService.getUserDetails(currentUserId, 'phone')[0] === '') {
+        @if(user.phone === '') {
         <span>no phone</span> } @else {
-        <a
-          [href]="
-            'tel:' + firebaseService.getUserDetails(currentUserId, 'phone')
-          "
-        >
-          <span>{{
-            firebaseService.getUserDetails(currentUserId, "phone")
-          }}</span>
+        <a [href]="'tel:' + user.phone">
+          <span>{{ user.phone }}</span>
         </a>
+        }
+        <p>Last seen online:</p>
+        @if(user.status) {
+        <span>Currently online</span>
+        } @else {
+        <span>{{ convertTimestamp(user.lastLogin) }}</span>
         }
       </div>
     </div>
@@ -84,5 +83,5 @@
     [deleteContact]="deleteContact"
     [openEditDialog]="openEditDialog"
   ></app-contact-nav>
-  }
+  }}
 </section>

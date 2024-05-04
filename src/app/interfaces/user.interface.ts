@@ -7,4 +7,6 @@ export interface User {
   phone: string;
   initials: string;
   color: string;
+  status: boolean;
+  lastLogin: number;
 }

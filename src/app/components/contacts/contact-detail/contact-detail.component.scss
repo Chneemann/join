@@ -48,6 +48,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   width: 120px;
   min-width: 120px;
   height: 120px;
@@ -58,6 +59,13 @@
     font-weight: 500;
     color: var(--white);
     text-shadow: 1px 1px 2px var(--black);
+  }
+  img {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    bottom: 0;
+    right: 0;
   }
 }
 

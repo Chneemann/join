@@ -6,7 +6,7 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth';
 import { FirebaseService } from './firebase.service';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, collection, doc, updateDoc } from '@angular/fire/firestore';
 import { SharedService } from './shared.service';
 @Injectable({
   providedIn: 'root',
@@ -28,7 +28,9 @@ export class LoginService {
           this.getUserIdInLocalStorage(
             this.firebaseService.checkUserUID(user.uid)[0].id
           );
-          window.location.reload();
+          this.updateUserOnlineStatus(
+            this.firebaseService.checkUserUID(user.uid)[0].id
+          );
         } else {
           console.error('No user with this UID was found!');
         }
@@ -58,6 +60,16 @@ export class LoginService {
       .catch((error) => {
         console.error('Google login error:', error);
       });
+  }
+
+  async updateUserOnlineStatus(userId: string) {
+    await updateDoc(doc(collection(this.firestore, 'users'), userId), {
+      status: true,
+      lastLogin: new Date().getTime(),
+    }).catch((err) => {
+      console.error(err);
+    });
+    window.location.reload();
   }
 
   getUserIdInLocalStorage(userId: string) {
