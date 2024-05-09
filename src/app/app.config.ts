@@ -34,12 +34,12 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       provideFirebaseApp(() =>
         initializeApp({
-          projectId: 'join-c681c',
-          appId: '1:400675412426:web:cb85b11123b40713ad5733',
-          storageBucket: 'join-c681c.appspot.com',
-          apiKey: 'AIzaSyCflbtIlrAaEW9GUrkeEnSBJdqVwtPYquQ',
-          authDomain: 'join-c681c.firebaseapp.com',
-          messagingSenderId: '400675412426',
+          apiKey: 'AIzaSyD2b7I0ZeveC_EgNW58-axDI4lk5ZVlCLQ',
+          authDomain: 'join-a5f8f.firebaseapp.com',
+          projectId: 'join-a5f8f',
+          storageBucket: 'join-a5f8f.appspot.com',
+          messagingSenderId: '3386291568',
+          appId: '1:3386291568:web:6e54dc4138824f24648bb5',
         })
       )
     ),

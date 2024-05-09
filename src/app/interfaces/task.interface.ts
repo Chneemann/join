@@ -8,5 +8,6 @@ export interface Task {
   subtasksTitle: string[];
   subtasksDone: boolean[];
   assigned: string[];
+  creator: string;
   date: string;
 }

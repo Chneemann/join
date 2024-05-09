@@ -16,6 +16,7 @@ import { OverlayService } from '../../services/overlay.service';
 import { empty } from 'rxjs';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute } from '@angular/router';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-add-task',
@@ -43,7 +44,8 @@ export class AddTaskComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sharedService: SharedService
   ) {}
 
   taskData: Task = {
@@ -55,6 +57,7 @@ export class AddTaskComponent implements OnInit {
     subtasksTitle: [],
     subtasksDone: [],
     assigned: [],
+    creator: this.sharedService.currentUserId,
     date: this.currentDate,
   };
 

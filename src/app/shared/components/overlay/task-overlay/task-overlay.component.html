@@ -41,6 +41,51 @@
         class="priority-bg prio-{{ getTaskData(overlayData)[0].priority }}"
       ></div>
     </div>
+    <div class="creator">
+      <p>Creator:</p>
+      <div class="users">
+        <div
+          class="circle"
+          [ngStyle]="{
+            'background-color': firebaseService.getUserDetails(
+              getTaskData(overlayData)[0].creator,
+              'color'
+            )
+          }"
+        >
+          <div class="initials">
+            {{
+              firebaseService.getUserDetails(
+                getTaskData(overlayData)[0].creator,
+                "initials"
+              )
+            }}
+          </div>
+        </div>
+        <div class="details">
+          <div class="name">
+            <p>
+              {{
+                firebaseService.getUserDetails(
+                  getTaskData(overlayData)[0].creator,
+                  "firstName"
+                )
+              }}
+            </p>
+            <span>&nbsp;</span>
+            <p class="last-name">
+              {{
+                firebaseService.getUserDetails(
+                  getTaskData(overlayData)[0].creator,
+                  "lastName"
+                )
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    @if (getTaskData(overlayData)[0].assigned.length > 0) {
     <div class="assigned">
       <p>Assigned to:</p>
       @for (user of getTaskData(overlayData)[0].assigned; track user) {
@@ -60,7 +105,7 @@
             <p>
               {{ firebaseService.getUserDetails(user, "firstName") }}
             </p>
-            <span>,&nbsp;</span>
+            <span>&nbsp;</span>
             <p class="last-name">
               {{ firebaseService.getUserDetails(user, "lastName") }}
             </p>
@@ -69,6 +114,7 @@
       </div>
       }
     </div>
+    } @if (getTaskData(overlayData)[0].subtasksTitle.length > 0) {
     <div class="subtasks">
       <p>Subtasks:</p>
       @for (subtask of getTaskData(overlayData)[0].subtasksTitle; track subtask;
@@ -96,6 +142,7 @@
       </div>
       }
     </div>
+    }
   </div>
   <div class="btns">
     <div class="btn btn-delete" (click)="deleteTask(overlayData)">

@@ -42,6 +42,11 @@
       }
       <div class="footer">
         <div class="footer-badge">
+          <span
+            class="footer-badged"
+            [style.background-color]="userBadgedColor(task.creator)"
+            >{{ userBadged(task.creator) }}</span
+          >
           @for (assigned of task.assigned; track assigned) {
           <span
             class="footer-badged"

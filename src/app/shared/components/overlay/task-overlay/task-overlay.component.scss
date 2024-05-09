@@ -40,7 +40,7 @@
 }
 
 .headline {
-  font-size: 61px;
+  font-size: 46px;
   font-weight: 700;
   width: 100%;
   word-wrap: break-word;
@@ -108,9 +108,10 @@
   background-image: url(./../../../../../assets/img/low.svg);
 }
 
-// ASSIGNED
+// ASSIGNED, CREATOR
 
-.assigned {
+.assigned,
+.creator {
   margin-top: 32px;
   overflow-y: auto;
   p {
