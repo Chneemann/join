@@ -13,10 +13,8 @@ import { User } from '../../interfaces/user.interface';
 import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
-import { empty } from 'rxjs';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute } from '@angular/router';
-import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-add-task',
@@ -44,8 +42,7 @@ export class AddTaskComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
-    private route: ActivatedRoute,
-    private sharedService: SharedService
+    private route: ActivatedRoute
   ) {}
 
   taskData: Task = {
@@ -57,7 +54,7 @@ export class AddTaskComponent implements OnInit {
     subtasksTitle: [],
     subtasksDone: [],
     assigned: [],
-    creator: this.sharedService.currentUserId,
+    creator: this.firebaseService.getCurrentUserId(),
     date: this.currentDate,
   };
 

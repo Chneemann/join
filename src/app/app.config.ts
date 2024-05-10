@@ -11,6 +11,7 @@ import {
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IMAGE_CONFIG } from '@angular/common';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { firebaseConfig } from './environments/config';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,16 +33,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideRouter(routes, withViewTransitions()),
     importProvidersFrom(
-      provideFirebaseApp(() =>
-        initializeApp({
-          apiKey: 'AIzaSyD2b7I0ZeveC_EgNW58-axDI4lk5ZVlCLQ',
-          authDomain: 'join-a5f8f.firebaseapp.com',
-          projectId: 'join-a5f8f',
-          storageBucket: 'join-a5f8f.appspot.com',
-          messagingSenderId: '3386291568',
-          appId: '1:3386291568:web:6e54dc4138824f24648bb5',
-        })
-      )
+      provideFirebaseApp(() => initializeApp(firebaseConfig))
     ),
     importProvidersFrom(provideFirestore(() => getFirestore())),
     {
