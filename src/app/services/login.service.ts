@@ -126,6 +126,6 @@ export class LoginService {
   }
 
   getUserIdInLocalStorage(userId: string) {
-    localStorage.setItem('currentUser', JSON.stringify(userId));
+    localStorage.setItem('currentUserJOIN', JSON.stringify(userId));
   }
 }

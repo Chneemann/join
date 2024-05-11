@@ -46,7 +46,7 @@ export class SharedService {
   }
 
   deleteUserIdInLocalStorage() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserJOIN');
   }
 
   // RANDOM COLOR

@@ -115,7 +115,7 @@ export class FirebaseService implements OnDestroy {
   }
 
   getCurrentUserId() {
-    let currentUser = localStorage.getItem('currentUser');
+    let currentUser = localStorage.getItem('currentUserJOIN');
     if (currentUser !== null) {
       return JSON.parse(currentUser);
     }

@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
-import { LanguageService } from '../../../services/language.service';
+import { HeaderComponent } from '../header.component';
+import { LanguageService } from '../../../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedService } from '../../../services/shared.service';
+import { SharedService } from '../../../../services/shared.service';
 
 @Component({
   selector: 'app-navbar',

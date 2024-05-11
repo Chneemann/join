@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { BtnBackComponent } from '../buttons/btn-back/btn-back.component';
+import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 import { Router } from '@angular/router';
 
 @Component({

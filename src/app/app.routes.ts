@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { SummaryComponent } from './components/summary/summary.component';
-import { HelpComponent } from './shared/components/help/help.component';
-import { ImprintComponent } from './shared/components/imprint/imprint.component';
-import { PrivacyPolicyComponent } from './shared/components/privacy-policy/privacy-policy.component';
+import { HelpComponent } from './shared/components/legal-informations/help/help.component';
+import { ImprintComponent } from './shared/components/legal-informations/imprint/imprint.component';
+import { PrivacyPolicyComponent } from './shared/components/legal-informations/privacy-policy/privacy-policy.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { BoardComponent } from './components/board/board.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
