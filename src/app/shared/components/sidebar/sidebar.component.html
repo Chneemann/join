@@ -57,10 +57,10 @@
   </nav>
 
   <div class="reference">
-    <div routerLink="privacy-policy">
+    <p routerLink="privacy-policy">
       {{ "sidebar.privacyPolicy" | translate }}
-    </div>
-    <div routerLink="imprint">{{ "sidebar.legalNotice" | translate }}</div>
-    <div (click)="logout()">{{ "sidebar.logout" | translate }}</div>
+    </p>
+    <p routerLink="imprint">{{ "sidebar.legalNotice" | translate }}</p>
+    <p (click)="logout()">{{ "sidebar.logout" | translate }}</p>
   </div>
 </section>

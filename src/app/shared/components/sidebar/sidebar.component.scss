@@ -58,15 +58,14 @@ nav {
   align-items: center;
   flex-direction: column;
   margin-bottom: 30px;
-  div {
-    width: 216px;
+  p {
+    width: fit-content;
     padding: 8px;
+    margin: 12px 0;
     display: flex;
     text-align: center;
     justify-content: center;
     color: var(--light-gray);
-    padding-top: 2vh;
-    padding-bottom: 2vh;
     cursor: pointer;
     &:hover {
       color: var(--light-blue);
