@@ -4,6 +4,7 @@
     class="content"
     (click)="addAssignedToTask(user.id)"
     [ngClass]="{ selected: assigned.includes(user.id) }"
+    *ngIf="user.id"
   >
     <div
       class="circle"
