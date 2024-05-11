@@ -45,4 +45,14 @@ export class LoginComponent {
   googleLogin() {
     this.loginSerivce.googleLogin();
   }
+
+  checkIfUserEmailIsValid(emailValue: string) {
+    const channelNameLenght = emailValue.length;
+    const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+    if (emailRegex.test(emailValue)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

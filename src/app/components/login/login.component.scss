@@ -126,6 +126,15 @@ section {
 
 /*------------- RESPONSIVE -------------*/
 
+@media (max-height: 820px) {
+  .content {
+    top: 40%;
+  }
+  .logo {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 650px) {
   .content {
     width: 322px;
@@ -154,6 +163,12 @@ section {
   }
 }
 
+@media (max-height: 550px) {
+  .content {
+    top: 45%;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .content {
     width: 252px;
@@ -161,6 +176,20 @@ section {
     padding: 12px 24px;
     p {
       font-size: 36px;
+    }
+  }
+
+  .input-fields {
+    .custom-input {
+      font-size: 16px;
+    }
+    .custom-img {
+      &:nth-child(2) {
+        top: 2px;
+      }
+      &:nth-child(5) {
+        top: 73px;
+      }
     }
   }
 
@@ -173,20 +202,5 @@ section {
     p {
       font-size: 10px !important;
     }
-  }
-}
-
-@media (max-height: 820px) {
-  .content {
-    top: 40%;
-  }
-  .logo {
-    display: none;
-  }
-}
-
-@media (max-height: 550px) {
-  .content {
-    top: 45%;
   }
 }

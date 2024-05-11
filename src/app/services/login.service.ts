@@ -28,9 +28,7 @@ export class LoginService {
   constructor(
     private firebaseService: FirebaseService,
     public sharedService: SharedService
-  ) {
-    console.log(this.sharedService.generateRandomColor());
-  }
+  ) {}
 
   login(loginData: { mail: string; password: string }) {
     signInWithEmailAndPassword(getAuth(), loginData.mail, loginData.password)

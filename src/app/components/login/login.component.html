@@ -15,7 +15,7 @@
       <img src="./../../../assets/img/login/blue-line.svg" alt="" />
       <div class="input-fields">
         <input
-          type="text"
+          type="mail"
           id="mail"
           name="mail"
           #mail="ngModel"
@@ -24,11 +24,15 @@
           [(ngModel)]="loginData.mail"
           required
         />
+        @if(!loginData.mail) {
         <img
           class="custom-img"
           src="./../../../assets/img/login/mail.svg"
           alt=""
         />
+        } @else {
+        <img class="custom-img" alt="" />
+        }
         <div class="error-msg">
           @if (!mail.valid && mail.touched) {
           <p>You must enter a mail.</p>
@@ -46,11 +50,15 @@
           [(ngModel)]="loginData.password"
           required
         />
+        @if(!loginData.password) {
         <img
           class="custom-img"
           src="./../../../assets/img/login/lock.svg"
           alt=""
         />
+        } @else {
+        <img class="custom-img" alt="" />
+        }
         <div class="error-msg">
           @if (!password.valid && password.touched) {
           <p>You must enter a password.</p>
@@ -78,7 +86,8 @@
             !loginData.mail ||
             password.invalid ||
             !loginData.password ||
-            sharedService.isBtnDisabled
+            sharedService.isBtnDisabled ||
+            !checkIfUserEmailIsValid(loginData.mail)
           "
         ></app-form-btn>
         <app-form-btn
