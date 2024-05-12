@@ -1,13 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  HostListener,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { User } from '../../interfaces/user.interface';
 import { FirebaseService } from '../../services/firebase.service';

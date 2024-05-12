@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { DragDropService } from '../../services/drag-drop.service';
 import { CommonModule } from '@angular/common';
 import { TaskComponent } from './task/task.component';
