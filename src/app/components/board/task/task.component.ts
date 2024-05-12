@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
 import { Task } from '../../../interfaces/task.interface';
 import { FirebaseService } from '../../../services/firebase.service';
@@ -52,6 +52,18 @@ export class TaskComponent {
     this.sharedService.isPageViewMedia
       ? this.router.navigate(['/task', taskId])
       : this.overlayService.setOverlayData('taskOverlay', taskId);
+  }
+
+  @HostListener('document:click', ['$event'])
+  checkToggleTaskMenu(event: MouseEvent) {
+    const targetElement = event.target as HTMLElement;
+    if (
+      !targetElement.closest('.menu-btn') &&
+      !targetElement.closest('.menu-img') &&
+      !targetElement.closest('app-task-menu')
+    ) {
+      this.isMenuOpen = false;
+    }
   }
 
   // Subtasks
