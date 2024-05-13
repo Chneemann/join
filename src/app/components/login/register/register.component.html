@@ -1,4 +1,131 @@
 <section>
   <app-header [signUpBtn]="false"></app-header>
+  <form
+    id="form"
+    #taskForm="ngForm"
+    (ngSubmit)="onSubmit(taskForm)"
+    onsubmit="return false"
+  >
+    <div class="content">
+      <div class="headline">
+        <app-btn-back></app-btn-back>
+        <p>Sign up</p>
+        <img src="./../../../assets/img/login/blue-line.svg" alt="" />
+      </div>
+      <div class="input-fields">
+        <input
+          type="name"
+          id="name"
+          name="name"
+          #name="ngModel"
+          placeholder="Name"
+          class="custom-input"
+          [(ngModel)]="registerData.name"
+          required
+        />
+        @if(!registerData.name) {
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/user.svg"
+          alt=""
+        />
+        } @else {
+        <img class="custom-img" alt="" />
+        }
+        <div class="error-msg">
+          @if (!name.valid && name.touched) {
+          <p>You must enter a name.</p>
+          }
+        </div>
+        <input
+          type="mail"
+          id="mail"
+          name="mail"
+          #mail="ngModel"
+          placeholder="Email"
+          class="custom-input"
+          [(ngModel)]="registerData.mail"
+          required
+        />
+        @if(!registerData.mail) {
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/mail.svg"
+          alt=""
+        />
+        } @else {
+        <img class="custom-img" alt="" />
+        }
+        <div class="error-msg">
+          @if (!mail.valid && mail.touched) {
+          <p>You must enter a mail.</p>
+          }
+        </div>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          #password="ngModel"
+          placeholder="Password"
+          class="custom-input"
+          [(ngModel)]="registerData.password"
+          required
+        />
+        @if(!registerData.password) {
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/lock.svg"
+          alt=""
+        />
+        } @else {
+        <img class="custom-img" alt="" />
+        }
+        <div class="error-msg">
+          @if (!password.valid && password.touched) {
+          <p>You must enter a password.</p>
+          }
+        </div>
+        <input
+          type="passwordConfirm"
+          id="passwordConfirm"
+          name="passwordConfirm"
+          #passwordConfirm="ngModel"
+          placeholder="Password"
+          class="custom-input"
+          [(ngModel)]="registerData.passwordConfirm"
+          required
+        />
+        @if(!registerData.passwordConfirm) {
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/lock.svg"
+          alt=""
+        />
+        } @else {
+        <img class="custom-img" alt="" />
+        }
+        <div class="error-msg">
+          @if (!passwordConfirm.valid && passwordConfirm.touched) {
+          <p>You must enter a password.</p>
+          }
+        </div>
+      </div>
+      <div class="form-buttons">
+        <app-form-btn
+          [class]="'btn-login'"
+          [type]="'submit'"
+          [value]="'Sign up'"
+          [disabled]="
+            mail.invalid ||
+            !registerData.mail ||
+            password.invalid ||
+            !registerData.password ||
+            sharedService.isBtnDisabled ||
+            !checkIfUserEmailIsValid(registerData.mail)
+          "
+        ></app-form-btn>
+      </div>
+    </div>
+  </form>
   <app-footer></app-footer>
 </section>
