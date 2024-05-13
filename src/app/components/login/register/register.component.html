@@ -83,14 +83,16 @@
         <div class="error-msg">
           @if (!password.valid && password.touched) {
           <p>You must enter a password.</p>
-          }
+          } @else { @if (registerData.password.length < 6 && password.touched) {
+          <p>The password must consist of at least 6 characters</p>
+          } }
         </div>
         <input
           type="passwordConfirm"
           id="passwordConfirm"
           name="passwordConfirm"
           #passwordConfirm="ngModel"
-          placeholder="Password"
+          placeholder="Confirm Password"
           class="custom-input"
           [(ngModel)]="registerData.passwordConfirm"
           required
@@ -107,6 +109,9 @@
         <div class="error-msg">
           @if (!passwordConfirm.valid && passwordConfirm.touched) {
           <p>You must enter a password.</p>
+          } @if (registerData.password !== registerData.passwordConfirm &&
+          registerData.password !== "" && registerData.passwordConfirm !== "") {
+          <p>The passwords don't match!</p>
           }
         </div>
       </div>
@@ -121,6 +126,8 @@
             password.invalid ||
             !registerData.password ||
             sharedService.isBtnDisabled ||
+            registerData.password.length < 6 ||
+            registerData.password !== registerData.passwordConfirm ||
             !checkIfUserEmailIsValid(registerData.mail)
           "
         ></app-form-btn>

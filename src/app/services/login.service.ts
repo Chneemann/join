@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  Auth,
 } from 'firebase/auth';
 import { FirebaseService } from './firebase.service';
 import {
@@ -45,6 +46,39 @@ export class LoginService {
         console.error(error);
         this.errorCode = error.code;
         this.sharedService.isBtnDisabled = false;
+      });
+  }
+
+  register(registerData: {
+    name: string;
+    mail: string;
+    password: string;
+    initials: string;
+    color: string;
+  }) {
+    signInWithEmailAndPassword(
+      getAuth(),
+      registerData.mail,
+      registerData.password
+    )
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        const userDataToSave: User = {
+          uId: user.uid,
+          email: user.email || '',
+          firstName: registerData.name || '',
+          lastName: registerData.name || '',
+          status: true,
+          phone: '',
+          initials: registerData.initials,
+          color: registerData.color,
+          lastLogin: new Date().getTime(),
+        };
+        this.createUserInFirestore(userDataToSave);
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 
@@ -128,4 +162,7 @@ export class LoginService {
   getUserIdInLocalStorage(userId: string) {
     localStorage.setItem('currentUserJOIN', JSON.stringify(userId));
   }
+}
+function createUserWithEmailAndPassword(auth: Auth, email: any, password: any) {
+  throw new Error('Function not implemented.');
 }

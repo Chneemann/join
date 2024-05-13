@@ -28,6 +28,8 @@ export class RegisterComponent {
     name: '',
     mail: '',
     password: '',
+    color: '',
+    initials: '',
     passwordConfirm: '',
   };
 
@@ -41,6 +43,7 @@ export class RegisterComponent {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
       //this.loginSerivce.register(this.registerData);
+      console.log(this.registerData);
     }
   }
 
