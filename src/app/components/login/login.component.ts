@@ -7,11 +7,18 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { SharedService } from '../../services/shared.service';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, FormBtnComponent, FooterComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    FormBtnComponent,
+    FooterComponent,
+    HeaderComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

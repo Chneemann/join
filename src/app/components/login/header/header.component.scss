@@ -1,0 +1,68 @@
+.logo {
+  position: absolute;
+  left: 57px;
+  top: 60px;
+  height: 100px;
+  width: 122px;
+}
+
+.register {
+  position: absolute;
+  top: 67px;
+  right: 100px;
+  display: inline-flex;
+  align-items: center;
+  p {
+    display: flex;
+    align-items: center;
+    padding-right: 32px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-blue);
+    color: var(--white);
+    width: 91px;
+    height: 49px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    border: 0px;
+    transition: 125ms ease-in-out;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+      background-color: var(--light-blue);
+    }
+  }
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media (max-height: 820px) {
+  .logo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .register {
+    top: unset;
+    right: unset;
+    left: 0;
+    bottom: 99px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo {
+    left: 38px;
+    top: 37px;
+    height: 64px;
+    width: 78px;
+  }
+}
