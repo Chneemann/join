@@ -26,10 +26,10 @@ import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/bt
 export class RegisterComponent {
   registerData = {
     name: '',
+    firstName: '',
+    lastName: '',
     mail: '',
     password: '',
-    color: '',
-    initials: '',
     passwordConfirm: '',
   };
 
@@ -42,9 +42,21 @@ export class RegisterComponent {
   onSubmit(ngForm: NgForm) {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
-      //this.loginSerivce.register(this.registerData);
-      console.log(this.registerData);
+      this.splitName();
+      this.loginSerivce.register(this.registerData);
     }
+  }
+
+  splitName() {
+    const names = this.registerData.name.split(' ');
+    this.registerData.firstName = names[0];
+    this.registerData.lastName = names.slice(1).join(' ');
+  }
+
+  existEmailonServer(mail: string) {
+    return this.firebaseService
+      .getAllUsers()
+      .filter((user) => user.email === mail);
   }
 
   checkIfUserEmailIsValid(emailValue: string) {

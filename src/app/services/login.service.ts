@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  Auth,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { FirebaseService } from './firebase.service';
 import {
@@ -51,12 +51,12 @@ export class LoginService {
 
   register(registerData: {
     name: string;
+    firstName: string;
+    lastName: string;
     mail: string;
     password: string;
-    initials: string;
-    color: string;
   }) {
-    signInWithEmailAndPassword(
+    createUserWithEmailAndPassword(
       getAuth(),
       registerData.mail,
       registerData.password
@@ -67,12 +67,21 @@ export class LoginService {
         const userDataToSave: User = {
           uId: user.uid,
           email: user.email || '',
-          firstName: registerData.name || '',
-          lastName: registerData.name || '',
+          firstName: registerData.firstName
+            ? registerData.firstName.charAt(0).toUpperCase() +
+              registerData.firstName.slice(1)
+            : '',
+          lastName: registerData.lastName
+            ? registerData.lastName.charAt(0).toUpperCase() +
+              registerData.lastName.slice(1)
+            : '',
           status: true,
           phone: '',
-          initials: registerData.initials,
-          color: registerData.color,
+          initials: registerData.name
+            ? registerData.firstName.slice(0, 1).toUpperCase() +
+              registerData.lastName.slice(0, 1).toUpperCase()
+            : '',
+          color: this.sharedService.generateRandomColor(),
           lastLogin: new Date().getTime(),
         };
         this.createUserInFirestore(userDataToSave);
@@ -99,8 +108,14 @@ export class LoginService {
             this.createUserInFirestore({
               uId: user.uid,
               email: user.email || 'no mail',
-              firstName: user.displayName ? user.displayName.split(' ')[0] : '',
-              lastName: user.displayName ? user.displayName.split(' ')[1] : '',
+              firstName: user.displayName
+                ? user.displayName.split(' ')[0].charAt(0).toUpperCase() +
+                  user.displayName.split(' ')[0].slice(1)
+                : '',
+              lastName: user.displayName
+                ? user.displayName.split(' ')[1].charAt(0).toUpperCase() +
+                  user.displayName.split(' ')[1].slice(1)
+                : '',
               status: true,
               phone: '',
               initials: user.displayName
@@ -121,6 +136,8 @@ export class LoginService {
   }
 
   async createUserInFirestore(user: User) {
+    console.log(user);
+
     const userDataToSave: User = {
       uId: user.uId,
       email: user.email,
@@ -162,7 +179,4 @@ export class LoginService {
   getUserIdInLocalStorage(userId: string) {
     localStorage.setItem('currentUserJOIN', JSON.stringify(userId));
   }
-}
-function createUserWithEmailAndPassword(auth: Auth, email: any, password: any) {
-  throw new Error('Function not implemented.');
 }

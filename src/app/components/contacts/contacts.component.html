@@ -49,6 +49,9 @@
             <p class="last-name">
               {{ user.lastName }}
             </p>
+            @if (user.id === firebaseService.getCurrentUserId()) {
+            <p>&nbsp;(du)</p>
+            }
           </div>
           <div class="email">
             {{ user.email }}

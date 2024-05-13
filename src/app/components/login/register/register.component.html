@@ -59,7 +59,9 @@
         <div class="error-msg">
           @if (!mail.valid && mail.touched) {
           <p>You must enter a mail.</p>
-          }
+          } @else { @if (existEmailonServer(registerData.mail).length > 0) {
+          <p>This email already exists.</p>
+          } }
         </div>
         <input
           type="password"

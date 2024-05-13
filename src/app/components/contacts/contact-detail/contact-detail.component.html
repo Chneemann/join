@@ -39,6 +39,9 @@
         <div class="name">
           {{ user.firstName }}
           {{ user.lastName }}
+          @if (user.id === firebaseService.getCurrentUserId()) {
+          <p>&nbsp;(du)</p>
+          }
         </div>
         <div class="btns">
           <div class="btn btn-edit">
