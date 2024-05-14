@@ -68,6 +68,7 @@
           id="password"
           name="password"
           #password="ngModel"
+          [type]="loginSerivce.passwordFieldType"
           placeholder="Password"
           class="custom-input"
           [(ngModel)]="registerData.password"
@@ -80,7 +81,11 @@
           alt=""
         />
         } @else {
-        <img class="custom-img" alt="" />
+        <img
+          class="passwordEye"
+          (click)="loginSerivce.togglePasswordVisibility()"
+          [src]="loginSerivce.passwordIcon"
+        />
         }
         <div class="error-msg">
           @if (!password.valid && password.touched) {
@@ -94,6 +99,7 @@
           id="passwordConfirm"
           name="passwordConfirm"
           #passwordConfirm="ngModel"
+          [type]="loginSerivce.passwordFieldType"
           placeholder="Confirm Password"
           class="custom-input"
           [(ngModel)]="registerData.passwordConfirm"
@@ -106,7 +112,11 @@
           alt=""
         />
         } @else {
-        <img class="custom-img" alt="" />
+        <img
+          class="passwordEyeConfirm"
+          (click)="loginSerivce.togglePasswordVisibility()"
+          [src]="loginSerivce.passwordIcon"
+        />
         }
         <div class="error-msg">
           @if (!passwordConfirm.valid && passwordConfirm.touched) {

@@ -24,6 +24,8 @@ import { User } from '../interfaces/user.interface';
 })
 export class LoginService {
   firestore: Firestore = inject(Firestore);
+  passwordFieldType: string = 'password';
+  passwordIcon: string = './assets/img/login/close-eye.svg';
   errorCode: string = '';
 
   constructor(
@@ -174,6 +176,19 @@ export class LoginService {
       console.error(err);
     });
     window.location.reload();
+  }
+
+  togglePasswordVisibility() {
+    this.passwordFieldType =
+      this.passwordFieldType === 'password' ? 'text' : 'password';
+    this.toggleIcon();
+  }
+
+  toggleIcon() {
+    this.passwordIcon =
+      this.passwordIcon === './../../../assets/img/login/close-eye.svg'
+        ? './../../../assets/img/login/open-eye.svg'
+        : './../../../assets/img/login/close-eye.svg';
   }
 
   getUserIdInLocalStorage(userId: string) {

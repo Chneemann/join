@@ -57,6 +57,11 @@ section {
       top: 88px;
     }
   }
+  .passwordEye {
+    position: absolute;
+    right: -5px;
+    top: 88px;
+  }
   .custom-input:focus + .custom-img {
     display: none;
   }

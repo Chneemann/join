@@ -75,9 +75,19 @@ section {
     }
     &:nth-child(11) {
       position: absolute;
-      right: 0;
+      right: 0px;
       top: 262px;
     }
+  }
+  .passwordEye {
+    position: absolute;
+    right: -5px;
+    top: 176px;
+  }
+  .passwordEyeConfirm {
+    position: absolute;
+    right: -5px;
+    top: 262px;
   }
   .custom-input:focus + .custom-img {
     display: none;

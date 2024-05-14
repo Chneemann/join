@@ -41,6 +41,7 @@
           id="password"
           name="password"
           #password="ngModel"
+          [type]="loginSerivce.passwordFieldType"
           placeholder="Password"
           class="custom-input"
           [(ngModel)]="loginData.password"
@@ -53,7 +54,11 @@
           alt=""
         />
         } @else {
-        <img class="custom-img" alt="" />
+        <img
+          class="passwordEye"
+          (click)="loginSerivce.togglePasswordVisibility()"
+          [src]="loginSerivce.passwordIcon"
+        />
         }
         <div class="error-msg">
           @if (!password.valid && password.touched) {
