@@ -22,6 +22,7 @@
           #name="ngModel"
           placeholder="Name"
           class="custom-input"
+          autocomplete="name"
           [(ngModel)]="registerData.name"
           required
         />
@@ -46,6 +47,7 @@
           #mail="ngModel"
           placeholder="Email"
           class="custom-input"
+          autocomplete="email"
           [(ngModel)]="registerData.mail"
           required
         />
@@ -73,6 +75,7 @@
           [type]="loginSerivce.passwordFieldType"
           placeholder="Password"
           class="custom-input"
+          autocomplete="new-password"
           [(ngModel)]="registerData.password"
           required
         />
@@ -104,6 +107,7 @@
           [type]="loginSerivce.passwordFieldType"
           placeholder="Confirm Password"
           class="custom-input"
+          autocomplete="new-password"
           [(ngModel)]="registerData.passwordConfirm"
           required
         />

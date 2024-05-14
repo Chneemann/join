@@ -17,6 +17,7 @@
           #mail="ngModel"
           placeholder="Email"
           class="custom-input"
+          autocomplete="email"
           [(ngModel)]="loginData.mail"
           required
         />
@@ -44,6 +45,7 @@
           [type]="loginSerivce.passwordFieldType"
           placeholder="Password"
           class="custom-input"
+          autocomplete="current-password"
           [(ngModel)]="loginData.password"
           required
         />
