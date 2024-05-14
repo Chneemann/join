@@ -25,7 +25,7 @@ import { User } from '../interfaces/user.interface';
 export class LoginService {
   firestore: Firestore = inject(Firestore);
   passwordFieldType: string = 'password';
-  passwordIcon: string = './assets/img/login/close-eye.svg';
+  passwordIcon: string = './../../../assets/img/login/close-eye.svg';
   errorCode: string = '';
 
   constructor(
