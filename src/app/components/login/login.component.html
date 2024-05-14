@@ -56,6 +56,7 @@
         } @else {
         <img
           class="passwordEye"
+          *ngIf="isPasswordIconVisible"
           (click)="loginSerivce.togglePasswordVisibility()"
           [src]="loginSerivce.passwordIcon"
         />

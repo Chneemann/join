@@ -57,7 +57,7 @@ section {
     width: 100%;
     border-radius: 10px;
     border: 1px solid var(--light-gray);
-    padding: 12px 21px;
+    padding: 12px 16px;
   }
   .custom-img {
     &:nth-child(2) {
@@ -182,7 +182,7 @@ section {
   }
 }
 
-@media (max-height: 550px) {
+@media (max-height: 800px) {
   .content {
     top: 45%;
   }
@@ -214,6 +214,7 @@ section {
   .input-fields {
     .custom-input {
       font-size: 16px;
+      padding: 12px;
     }
     .custom-img {
       &:nth-child(2) {

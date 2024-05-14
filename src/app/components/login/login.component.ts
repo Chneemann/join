@@ -23,6 +23,8 @@ import { HeaderComponent } from './header/header.component';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  isPasswordIconVisible: boolean = true;
+
   loginData = {
     mail: '',
     password: '',
@@ -46,6 +48,7 @@ export class LoginComponent {
     this.sharedService.isBtnDisabled = true;
     this.loginData.mail = 'guest@guestaccount.com';
     this.loginData.password = 'guest@guestaccount.com';
+    this.isPasswordIconVisible = !this.isPasswordIconVisible;
     this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);
   }
 
