@@ -26,7 +26,7 @@ export class ImprintComponent {
 
   checkCurrentRoute(): void {
     const currentUrl = this.router.url;
-    if (currentUrl === '/login/imprint') {
+    if (currentUrl === '/imprint') {
       this.isRouteLogin = true;
     }
   }

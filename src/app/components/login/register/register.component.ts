@@ -8,6 +8,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 import { LoginService } from '../../../services/login.service';
 import { SharedService } from '../../../services/shared.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/bt
     BtnBackComponent,
     FormsModule,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -31,6 +33,7 @@ export class RegisterComponent {
     mail: '',
     password: '',
     passwordConfirm: '',
+    checkboxState: '',
   };
 
   constructor(

@@ -26,7 +26,7 @@ export class PrivacyPolicyComponent implements OnInit {
 
   checkCurrentRoute(): void {
     const currentUrl = this.router.url;
-    if (currentUrl === '/login/privacy-policy') {
+    if (currentUrl === '/privacy-policy') {
       this.isRouteLogin = true;
     }
   }

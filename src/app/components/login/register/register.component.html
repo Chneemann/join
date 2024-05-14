@@ -126,6 +126,27 @@
           <p>The passwords don't match!</p>
           }
         </div>
+        <div class="privacy-policy">
+          <input
+            type="checkbox"
+            id="checkbox"
+            name="checkbox"
+            #checkbox="ngModel"
+            [(ngModel)]="registerData.checkboxState"
+            required
+          />
+          <div class="label">
+            <p>
+              I accept the
+              <a routerLink="/privacy-policy">Privacy policy</a>
+            </p>
+          </div>
+        </div>
+        <div class="error-msg">
+          @if (!checkbox.valid && checkbox.touched) {
+          <p>You must accept the privacy policy!</p>
+          }
+        </div>
       </div>
       <div class="form-buttons">
         <app-form-btn

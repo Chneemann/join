@@ -111,5 +111,45 @@ section {
 .form-buttons {
   display: flex;
   justify-content: end;
-  padding: 12px 0;
+}
+
+.privacy-policy {
+  display: flex;
+  align-items: center;
+  input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px 0 15px;
+    appearance: none;
+    border: 0;
+    border-radius: 0;
+    background-image: url("./../../../../assets/img/login/checkbox.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    &:checked {
+      background-image: url("./../../../../assets/img/login/checkbox-checked.svg");
+      &:hover {
+        background-image: url("./../../../../assets/img/login/checkbox-checked-hover.svg");
+      }
+    }
+    &:hover {
+      background-image: url("./../../../../assets/img/login/checkbox-hover.svg");
+    }
+  }
+  .label {
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      padding-right: 20px;
+    }
+    a {
+      text-decoration: none;
+      color: var(--light-blue);
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
