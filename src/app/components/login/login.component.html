@@ -7,7 +7,7 @@
     onsubmit="return false"
   >
     <div class="content">
-      <p>Log in</p>
+      <p>{{ "login.login" | translate }}</p>
       <img src="./../../../assets/img/login/blue-line.svg" alt="" />
       <div class="input-fields">
         <input
@@ -15,7 +15,7 @@
           id="mail"
           name="mail"
           #mail="ngModel"
-          placeholder="Email"
+          placeholder="{{ 'login.email' | translate }}"
           class="custom-input"
           autocomplete="email"
           [(ngModel)]="loginData.mail"
@@ -43,7 +43,7 @@
           name="password"
           #password="ngModel"
           [type]="loginSerivce.passwordFieldType"
-          placeholder="Password"
+          placeholder="{{ 'login.password' | translate }}"
           class="custom-input"
           autocomplete="current-password"
           [(ngModel)]="loginData.password"
@@ -75,7 +75,7 @@
         <app-form-btn
           [class]="'btn-google'"
           [type]="'button'"
-          [value]="'Sign in with Google'"
+          [value]="'login.google' | translate"
           [disabled]="sharedService.isBtnDisabled"
           (click)="googleLogin()"
         ></app-form-btn>
@@ -84,7 +84,7 @@
         <app-form-btn
           [class]="'btn-login'"
           [type]="'submit'"
-          [value]="'Log in'"
+          [value]="'login.login' | translate"
           [disabled]="
             mail.invalid ||
             !loginData.mail ||
@@ -97,7 +97,7 @@
         <app-form-btn
           [class]="'btn-guest-login'"
           [type]="'button'"
-          [value]="'Guest Log in'"
+          [value]="'login.guest' | translate"
           [disabled]="sharedService.isBtnDisabled"
           (click)="guestLogin()"
         ></app-form-btn>

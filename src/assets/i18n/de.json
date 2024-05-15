@@ -1,4 +1,15 @@
 {
+  "login": {
+    "login": "Einloggen",
+    "email": "Email",
+    "password": "Passwort",
+    "google": "Einloggen mit Google",
+    "guest": "Gastzugang"
+  },
+  "loginHeader": {
+    "notAUser": "Kein Join Nutzer?",
+    "signup": "Registrieren"
+  },
   "header": {
     "headline": "Kanban Projektmanagement Werkzeug"
   },

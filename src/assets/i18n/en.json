@@ -1,4 +1,15 @@
 {
+  "login": {
+    "login": "Log in",
+    "email": "Email",
+    "password": "Password",
+    "google": "Sign in with Google",
+    "guest": "Guest Log in"
+  },
+  "loginHeader": {
+    "notAUser": "Not a Join user?",
+    "signup": "Sign up"
+  },
   "header": {
     "headline": "Kanban Project Management Tool"
   },
