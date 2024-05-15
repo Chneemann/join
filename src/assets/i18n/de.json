@@ -12,6 +12,7 @@
   "sidebar": {
     "summary": "Übersicht",
     "addTask": "Neue Aufgabe",
+    "addTaskMobile": "Aufgabe",
     "board": "Brett",
     "contacts": "Kontakte",
     "privacyPolicy": "Datenschutzerklärung",

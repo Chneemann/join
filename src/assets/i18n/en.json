@@ -12,6 +12,7 @@
   "sidebar": {
     "summary": "Summary",
     "addTask": "Add Task",
+    "addTaskMobile": "Add Task",
     "board": "Board",
     "contacts": "Contacts",
     "privacyPolicy": "Privacy policy",

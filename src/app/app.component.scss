@@ -60,6 +60,16 @@ app-sidebar-mobile {
   }
 }
 
+@media screen and (max-width: 700px) {
+  .main-content {
+    top: 80px;
+  }
+
+  app-header {
+    height: 80px;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .main-content {
     padding: 16px;
