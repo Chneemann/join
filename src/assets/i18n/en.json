@@ -10,9 +10,30 @@
     "errorPassword0": "You must enter a password!",
     "errorPassword1": "The password does not match the email address!"
   },
+  "register": {
+    "signup": "Sign up",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "privacyPolicy0": "I accept the",
+    "privacyPolicy1": "Privacy policy",
+    "privacyPolicyError": "You must accept the privacy policy!",
+    "errorName": "You must enter a name!",
+    "errorMail0": "You must enter a mail!",
+    "errorMail1": "This is not a valid email format!",
+    "errorMail2": "This email already exists!",
+    "errorPassword0": "You must enter a password!",
+    "errorPassword1": "The password must consist of at least 6 characters!",
+    "errorPassword2": "The passwords don't match!"
+  },
   "loginHeader": {
     "notAUser": "Not a Join user?",
     "signup": "Sign up"
+  },
+  "loginFooter": {
+    "privacyPolicy": "Privacy policy",
+    "legalNotice": "Legal notice"
   },
   "header": {
     "headline": "Kanban Project Management Tool"

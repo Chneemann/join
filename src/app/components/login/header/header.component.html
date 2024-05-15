@@ -5,3 +5,14 @@
   <button routerLink="/register">{{ "loginHeader.signup" | translate }}</button>
 </div>
 }
+<div class="language">
+  <img
+    src="./../../../../assets/img/header/language.svg"
+    alt=""
+    (click)="
+      languageService.switchLanguage(
+        languageService.currentLang == 'en' ? 'de' : 'en'
+      )
+    "
+  />
+</div>

@@ -10,9 +10,30 @@
     "errorPassword0": "Sie müssen ein Passwort eingeben!",
     "errorPassword1": "Das Passwort stimmt nicht mit der E-Mail Adresse überein!"
   },
+  "register": {
+    "signup": "Registrieren",
+    "name": "Name",
+    "email": "Email",
+    "password": "Passwort",
+    "passwordConfirm": "Passwort bestätigen",
+    "privacyPolicy0": "Ich akzeptiere die",
+    "privacyPolicy1": "Datenschutzerklärung",
+    "privacyPolicyError": "Sie müssen die Datenschutzbestimmungen akzeptieren!",
+    "errorName": "Sie müssen einen Namen eingeben!",
+    "errorMail0": "Sie müssen eine E-Mail Adresse eingeben!",
+    "errorMail1": "Dies ist kein gültiges E-Mail-Format!",
+    "errorMail2": "Diese E-Mail existiert bereits!",
+    "errorPassword0": "Sie müssen ein Passwort eingeben!",
+    "errorPassword1": "Das Passwort muss aus mindestens 6 Zeichen bestehen!",
+    "errorPassword2": "Die Passwörter stimmen nicht überein!"
+  },
   "loginHeader": {
     "notAUser": "Kein Join Nutzer?",
     "signup": "Registrieren"
+  },
+  "loginFooter": {
+    "privacyPolicy": "Datenschutzerklärung",
+    "legalNotice": "Rechtliche Hinweise"
   },
   "header": {
     "headline": "Kanban Projektmanagement Werkzeug"

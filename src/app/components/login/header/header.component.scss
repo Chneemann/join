@@ -25,8 +25,8 @@
     align-items: center;
     background-color: var(--dark-blue);
     color: var(--white);
-    width: 91px;
-    height: 49px;
+    width: fit-content;
+    padding: 14px 18px;
     border-radius: 8px;
     font-size: 16px;
     font-weight: 700;
@@ -37,6 +37,17 @@
       box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
       background-color: var(--light-blue);
     }
+  }
+}
+
+.language {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(64%) saturate(570%)
+      hue-rotate(154deg) brightness(92%) contrast(92%);
   }
 }
 

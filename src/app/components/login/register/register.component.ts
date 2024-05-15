@@ -9,6 +9,7 @@ import { LoginService } from '../../../services/login.service';
 import { SharedService } from '../../../services/shared.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +22,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     CommonModule,
     RouterModule,
+    TranslateModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -39,7 +41,8 @@ export class RegisterComponent {
   constructor(
     private firebaseService: FirebaseService,
     public loginSerivce: LoginService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    public translateService: TranslateService
   ) {}
 
   onSubmit(ngForm: NgForm) {

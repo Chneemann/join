@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -11,4 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class HeaderComponent {
   @Input() signUpBtn: boolean = false;
+
+  constructor(public languageService: LanguageService) {}
 }
