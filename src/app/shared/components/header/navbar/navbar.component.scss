@@ -52,3 +52,11 @@ span {
   font-size: 16px;
   font-weight: 400;
 }
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 700px) {
+  .navbar {
+    top: 83px;
+  }
+}
