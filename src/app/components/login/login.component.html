@@ -32,9 +32,9 @@
         }
         <div class="error-msg">
           @if (!mail.valid && mail.touched) {
-          <p>You must enter a mail.</p>
+          <p>{{ "login.errorMail0" | translate }}</p>
           } @if (loginSerivce.errorCode == 'auth/invalid-email') {
-          <p>This email address does not exist.</p>
+          <p>{{ "login.errorMail1" | translate }}</p>
           }
         </div>
         <input
@@ -65,9 +65,9 @@
         }
         <div class="error-msg">
           @if (!password.valid && password.touched) {
-          <p>You must enter a password.</p>
+          <p>{{ "login.errorPassword0" | translate }}</p>
           } @if (loginSerivce.errorCode == 'auth/invalid-credential') {
-          <p>The password does not match the email address</p>
+          <p>{{ "login.errorPassword1" | translate }}</p>
           }
         </div>
       </div>

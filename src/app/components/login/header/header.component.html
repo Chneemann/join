@@ -1,7 +1,7 @@
 <img class="logo" src="./../../../assets/img/login/logo.svg" alt="" />
 @if (signUpBtn) {
 <div class="register">
-  <p>Not a Join user?</p>
-  <button routerLink="/register">Sign up</button>
+  <p>{{ "loginHeader.notAUser" | translate }}</p>
+  <button routerLink="/register">{{ "loginHeader.signup" | translate }}</button>
 </div>
 }

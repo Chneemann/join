@@ -4,7 +4,11 @@
     "email": "Email",
     "password": "Password",
     "google": "Sign in with Google",
-    "guest": "Guest Log in"
+    "guest": "Guest Log in",
+    "errorMail0": "You must enter a mail!",
+    "errorMail1": "This email address does not exist!",
+    "errorPassword0": "You must enter a password!",
+    "errorPassword1": "The password does not match the email address!"
   },
   "loginHeader": {
     "notAUser": "Not a Join user?",

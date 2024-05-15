@@ -4,7 +4,11 @@
     "email": "Email",
     "password": "Passwort",
     "google": "Einloggen mit Google",
-    "guest": "Gastzugang"
+    "guest": "Gastzugang",
+    "errorMail0": "Sie müssen eine E-Mail Adresse eingeben!",
+    "errorMail1": "Diese E-Mail Adresse existiert nicht!",
+    "errorPassword0": "Sie müssen ein Passwort eingeben!",
+    "errorPassword1": "Das Passwort stimmt nicht mit der E-Mail Adresse überein!"
   },
   "loginHeader": {
     "notAUser": "Kein Join Nutzer?",
