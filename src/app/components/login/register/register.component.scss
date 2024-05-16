@@ -117,6 +117,8 @@ section {
 .privacy-policy {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   input[type="checkbox"] {
     width: 24px;
     height: 24px;
@@ -188,7 +190,7 @@ section {
 
 @media screen and (max-width: 450px) {
   .content {
-    width: calc(100vw - 84px);
+    width: calc(100vw - 96px);
     padding: 24px 36px;
     p {
       font-size: 36px;
@@ -210,7 +212,7 @@ section {
 
 @media screen and (max-width: 380px) {
   .content {
-    width: calc(100vw - 60px);
+    width: calc(100vw - 72px);
     padding: 12px 24px;
     p {
       font-size: 32px;
