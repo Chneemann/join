@@ -37,3 +37,11 @@
     margin-bottom: 12px;
   }
 }
+
+@media screen and (max-width: 380px) {
+  .footer {
+    a {
+      font-size: 14px;
+    }
+  }
+}

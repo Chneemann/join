@@ -14,12 +14,12 @@ section {
   top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
-  width: 422px;
+  width: 482px;
   height: fit-content;
   background: var(--white);
   box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.05);
   border-radius: 30px;
-  padding: 48px 96px;
+  padding: 48px 64px;
   p {
     font-size: 61px;
     font-weight: 700;
@@ -46,7 +46,7 @@ section {
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 100%;
+  width: 90%;
   .custom-input::-webkit-contacts-auto-fill-button {
     visibility: hidden;
   }
@@ -157,11 +157,17 @@ section {
 
 /*------------- RESPONSIVE -------------*/
 
+@media (max-height: 800px) {
+  .content {
+    top: 45%;
+  }
+}
+
 @media screen and (max-width: 650px) {
   .content {
-    width: 322px;
+    width: 352px;
     height: fit-content;
-    padding: 24px 48px;
+    padding: 24px 36px;
     p {
       font-size: 47px;
     }
@@ -180,19 +186,34 @@ section {
   }
 }
 
-@media (max-height: 800px) {
+@media screen and (max-width: 450px) {
   .content {
-    top: 45%;
+    width: calc(100vw - 84px);
+    padding: 24px 36px;
+    p {
+      font-size: 36px;
+    }
+    .line {
+      img {
+        width: 112px;
+      }
+    }
+  }
+
+  .headline {
+    app-btn-back {
+      top: 30px;
+      left: 25px;
+    }
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 380px) {
   .content {
-    width: 252px;
-    height: fit-content;
+    width: calc(100vw - 60px);
     padding: 12px 24px;
     p {
-      font-size: 36px;
+      font-size: 32px;
     }
     .line {
       img {
@@ -203,8 +224,8 @@ section {
 
   .headline {
     app-btn-back {
-      top: 15px;
-      left: 20px;
+      left: 15px;
+      top: 12.5px;
     }
   }
 
@@ -233,10 +254,6 @@ section {
     .passwordEyeConfirm {
       top: 237px;
     }
-  }
-
-  .input-fields {
-    width: 80%;
   }
 
   .error-msg {
