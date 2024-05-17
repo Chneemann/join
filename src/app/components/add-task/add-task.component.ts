@@ -8,11 +8,18 @@ import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [FormsModule, CommonModule, AssignedComponent, FormBtnComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    AssignedComponent,
+    FormBtnComponent,
+    TranslateModule,
+  ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })

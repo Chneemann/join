@@ -8,7 +8,7 @@
     class="headline"
     [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
   >
-    <div class="title">Add Task</div>
+    <div class="title">{{ "addTask.headline" | translate }}</div>
   </div>
 
   <form
@@ -26,7 +26,7 @@
     >
       <div class="left-side">
         <div class="title">
-          <p>Title<span class="red-dot">*</span></p>
+          <p>{{ "addTask.title" | translate }}<span class="red-dot">*</span></p>
           <input
             type="text"
             id="title"
@@ -34,7 +34,9 @@
             #title="ngModel"
             (input)="saveTaskData()"
             placeholder="{{
-              taskData.title ? taskData.title : 'Enter a title'
+              taskData.title
+                ? taskData.title
+                : ('addTask.titleFormField' | translate)
             }}"
             [(ngModel)]="taskData.title"
             autocomplete="off"
@@ -42,12 +44,15 @@
           />
           <div class="error-msg">
             @if (!title.valid && title.touched) {
-            <p>You must enter a title.</p>
+            <p>{{ "addTask.titleError" | translate }}</p>
             }
           </div>
         </div>
         <div class="description">
-          <p>Description<span class="red-dot">*</span></p>
+          <p>
+            {{ "addTask.description" | translate
+            }}<span class="red-dot">*</span>
+          </p>
           <textarea
             id="description"
             rows="5"
@@ -58,7 +63,7 @@
             placeholder="{{
               taskData.description
                 ? taskData.description
-                : 'Enter a description'
+                : ('addTask.descriptionFormField' | translate)
             }}"
             [(ngModel)]="taskData.description"
             autocomplete="off"
@@ -66,18 +71,18 @@
           ></textarea>
           <div class="error-msg">
             @if (!description.valid && description.touched) {
-            <p>You must enter a description. (min. 10 letters)</p>
+            <p>{{ "addTask.descriptionError" | translate }}</p>
             }
           </div>
         </div>
         <div class="assigned">
-          <p>Assigned to</p>
+          <p>{{ "addTask.assigned" | translate }}</p>
           <input
             #searchField
             id="search-assigned"
             class="search-assigned"
             name="search"
-            placeholder="Search..."
+            placeholder="{{ 'addTask.assignedFormField' | translate }}"
             type="text"
             [(ngModel)]="searchValue"
             (input)="searchTask()"
@@ -134,7 +139,7 @@
             'margin-top': overlayMobile ? '28px' : ''
           }"
         >
-          <p>Due date<span class="red-dot">*</span></p>
+          <p>{{ "addTask.date" | translate }}<span class="red-dot">*</span></p>
           <input
             type="date"
             id="date"
@@ -148,14 +153,14 @@
           />
           <div class="error-msg">
             @if (!date.valid && date.touched) {
-            <p>You must enter a date.</p>
+            <p>{{ "addTask.dateError0" | translate }}</p>
             } @if (dateInPast && date.valid) {
-            <p>The date must be in the future</p>
+            <p>{{ "addTask.dateError1" | translate }}</p>
             }
           </div>
         </div>
         <div class="priority">
-          <p>Prio</p>
+          <p>{{ "addTask.priority" | translate }}</p>
           <div class="btns">
             <button
               type="button"
@@ -170,7 +175,7 @@
               (click)="tooglePriority('urgent')"
             >
               <div class="btn-text">
-                <span>Urgent</span>
+                <span>{{ "addTask.urgent" | translate }}</span>
                 <img src="./../../../assets/img/urgent.svg" alt="" />
               </div>
             </button>
@@ -187,7 +192,7 @@
               (click)="tooglePriority('medium')"
             >
               <div class="btn-text">
-                <span>Medium</span>
+                <span>{{ "addTask.medium" | translate }}</span>
                 <img src="./../../../assets/img/medium.svg" alt="" />
               </div>
             </button>
@@ -204,14 +209,16 @@
               (click)="tooglePriority('low')"
             >
               <div class="btn-text">
-                <span>Low</span>
+                <span>{{ "addTask.low" | translate }}</span>
                 <img src="./../../../assets/img/low.svg" alt="" />
               </div>
             </button>
           </div>
         </div>
         <div class="category">
-          <p>Category<span class="red-dot">*</span></p>
+          <p>
+            {{ "addTask.category" | translate }}<span class="red-dot">*</span>
+          </p>
           <select
             id="category"
             name="category"
@@ -221,7 +228,7 @@
             required
           >
             <option value="" disabled [selected]="!taskData.category">
-              Select task category
+              {{ "addTask.categorySelection" | translate }}
             </option>
             <option value="User Story">User Story</option>
             <option value="Technical Task">Technical Task</option>
@@ -233,18 +240,18 @@
           />
           <div class="error-msg">
             @if (!category.valid && category.touched) {
-            <p>You must select a category</p>
+            <p>{{ "addTask.categoryError" | translate }}</p>
             }
           </div>
         </div>
         <div class="subtask">
-          <p>Subtasks</p>
+          <p>{{ "addTask.subtask" | translate }}</p>
           <input
             type="text"
             id="subtask"
             name="subtask"
             #subtask="ngModel"
-            placeholder="Add new subtask"
+            placeholder="{{ 'addTask.subtaskFormField' | translate }}"
             [(ngModel)]="subtaskValue"
             autocomplete="off"
           />
@@ -290,7 +297,7 @@
       <app-form-btn
         [class]="'btn-clear'"
         [type]="'button'"
-        [value]="'Clear'"
+        [value]="'addTask.clear' | translate"
         [img]="'close'"
         [ngStyle]="{
           display:
@@ -303,7 +310,7 @@
       <app-form-btn
         [class]="'btn-delete'"
         [type]="'button'"
-        [value]="'Delete'"
+        [value]="'addTask.delete' | translate"
         [ngStyle]="{
           display:
             overlayData !== '' && overlayType !== 'addTaskOverlay'
@@ -316,7 +323,10 @@
         [type]="'submit'"
         [img]="'check'"
         [imgFilter]="'none'"
-        [value]="overlayData.toString() !== '' ? 'Update Task' : 'Create Task'"
+        [value]="
+          (overlayData.toString() !== '' ? 'addTask.update' : 'addTask.create')
+            | translate
+        "
         [disabled]="
           title.invalid ||
           !taskData.title ||
