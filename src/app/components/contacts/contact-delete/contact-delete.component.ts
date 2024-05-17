@@ -18,9 +18,7 @@ export class ContactDeleteComponent {
     private sharedService: SharedService,
     private firebaseService: FirebaseService,
     private router: Router
-  ) {
-    console.log(this.sharedService.isEditContactDialogOpen);
-  }
+  ) {}
 
   deleteContact() {
     this.firebaseService.deleteUser(this.currentUserId);
