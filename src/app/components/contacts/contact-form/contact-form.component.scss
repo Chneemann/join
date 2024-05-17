@@ -63,19 +63,19 @@ section {
   }
 
   .contact-formular {
-    min-width: 0;
+    min-width: 120%;
     input {
-      width: 85%;
+      width: 100%;
       font-size: 18px;
+      width: unset;
     }
   }
 }
 
 @media screen and (max-width: 400px) {
   .contact-formular {
-    width: 270px;
+    width: fit-content;
     input {
-      width: 80%;
       font-size: 16px;
     }
     .btn-delete {
