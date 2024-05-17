@@ -62,7 +62,11 @@
     "invalid-lastName": "A last name is required!",
     "invalid-name": "A first name & last name is required!",
     "invalid-email": "A email is required!",
-    "invalid-phone": "A phone number is required!"
+    "invalid-phone": "A phone number is required!",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone"
   },
   "contact-delete-dialog": {
     "btn-cancle": "Cancle",
@@ -121,6 +125,27 @@
     "dateError0": "You must enter a date!",
     "dateError1": "The date must be in the future!",
     "categoryError": "You must select a category!"
+  },
+  "contacts": {
+    "headline": "Contacts",
+    "headlineDescription": "Better with a team",
+    "btnNew": "Add new contact",
+    "btnEdit0": "edit",
+    "btnEdit1": "Edit",
+    "btnDelete0": "delete",
+    "btnDelete1": "Delete",
+    "contactInfo": "Contact Information",
+    "contactEmail": "Email",
+    "contactPhone": "Phone",
+    "contactPhoneTxT": "No phone number",
+    "contactLastOnline": "Last seen online",
+    "contactLastOnlineTxt": "Currently online",
+    "editContact": "Edit contact",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "you": "you"
   },
   "help": {
     "header": "Help",

@@ -3,11 +3,17 @@ import { ContactFormComponent } from '../contact-form/contact-form.component';
 import { CommonModule } from '@angular/common';
 import { BtnCloseComponent } from '../../../shared/components/buttons/btn-close/btn-close.component';
 import { FirebaseService } from '../../../services/firebase.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact-edit',
   standalone: true,
-  imports: [CommonModule, ContactFormComponent, BtnCloseComponent],
+  imports: [
+    CommonModule,
+    ContactFormComponent,
+    BtnCloseComponent,
+    TranslateModule,
+  ],
   templateUrl: './contact-edit.component.html',
   styleUrl: './contact-edit.component.scss',
 })

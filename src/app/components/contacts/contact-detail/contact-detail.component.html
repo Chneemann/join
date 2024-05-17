@@ -1,9 +1,11 @@
 <section>
   <div class="header">
     <div class="headerline">
-      <div class="title">Contacts</div>
+      <div class="title">{{ "contacts.headline" | translate }}</div>
       <div class="blue-bar"></div>
-      <div class="metrics-txt">Better with a team</div>
+      <div class="metrics-txt">
+        {{ "contacts.headlineDescription" | translate }}
+      </div>
     </div>
     <img
       [ngClass]="{ 'd-none': !currentUserId }"
@@ -46,11 +48,15 @@
         <div class="btns">
           <div class="btn btn-edit">
             <img src="./../../../../assets/img/contact/edit.svg" alt="" />
-            <p (click)="openEditDialog()">edit</p>
+            <p (click)="openEditDialog()">
+              {{ "contacts.btnEdit0" | translate }}
+            </p>
           </div>
           <div class="btn btn-delete">
             <img src="./../../../../assets/img/contact/delete.svg" alt="" />
-            <p (click)="deleteContact()">delete</p>
+            <p (click)="deleteContact()">
+              {{ "contacts.btnDelete0" | translate }}
+            </p>
           </div>
         </div>
         <div class="btn-mobile" (click)="toggleNav()">
@@ -59,22 +65,22 @@
       </div>
     </div>
     <div class="contact word-wrap">
-      <div class="headline">Contact Information</div>
+      <div class="headline">{{ "contacts.contactInfo" | translate }}</div>
       <div class="info">
-        <p>Email:</p>
+        <p>{{ "contacts.contactEmail" | translate }}</p>
         <a [href]="'mail:' + user.email">
           {{ user.email }}
         </a>
-        <p>Phone:</p>
+        <p>{{ "contacts.contactPhone" | translate }}</p>
         @if(user.phone === '') {
-        <span>no phone</span> } @else {
+        <span>{{ "contacts.contactPhoneTxT" | translate }}</span> } @else {
         <a [href]="'tel:' + user.phone">
           <span>{{ user.phone }}</span>
         </a>
         }
-        <p>Last seen online:</p>
+        <p>{{ "contacts.contactLastOnline" | translate }}</p>
         @if(user.status) {
-        <span>Currently online</span>
+        <span>{{ "contacts.contactLastOnlineTxt" | translate }}</span>
         } @else {
         <span>{{ convertTimestamp(user.lastLogin) }}</span>
         }

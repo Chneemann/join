@@ -12,7 +12,11 @@
         class="firstName"
         name="firstName"
         #firstName="ngModel"
-        placeholder="{{ contactData.firstName }}"
+        placeholder="{{
+          contactData.firstName !== ''
+            ? contactData.firstName
+            : ('contact-dialog-form.firstName' | translate)
+        }}"
         [(ngModel)]="contactData.firstName"
         autocomplete="off"
         required
@@ -30,7 +34,11 @@
         class="lastName"
         name="lastName"
         #lastName="ngModel"
-        placeholder="{{ contactData.lastName }}"
+        placeholder="{{
+          contactData.lastName !== ''
+            ? contactData.lastName
+            : ('contact-dialog-form.lastName' | translate)
+        }}"
         [(ngModel)]="contactData.lastName"
         autocomplete="off"
         required
@@ -59,7 +67,11 @@
       type="email"
       name="email"
       #email="ngModel"
-      placeholder="{{ contactData.email }}"
+      placeholder="{{
+        contactData.email !== ''
+          ? contactData.email
+          : ('contact-dialog-form.email' | translate)
+      }}"
       [(ngModel)]="contactData.email"
       autocomplete="off"
       required
@@ -74,7 +86,11 @@
       type="phone"
       name="phone"
       #phone="ngModel"
-      placeholder="{{ contactData.phone }}"
+      placeholder="{{
+        contactData.phone !== ''
+          ? contactData.phone
+          : ('contact-dialog-form.phone' | translate)
+      }}"
       [(ngModel)]="contactData.phone"
       autocomplete="off"
       required

@@ -5,7 +5,7 @@
   >
     <button class="btn" type="submit">
       <div class="btn-inside">
-        <span>Add new contact</span>
+        <span>{{ "contacts.btnNew" | translate }}</span>
         <img src="./../../../assets/img/contact/add.svg" alt="check" />
       </div>
       <div class="btn-inside-mobile">
@@ -50,7 +50,7 @@
               {{ user.lastName }}
             </p>
             @if (user.id === firebaseService.getCurrentUserId()) {
-            <p>&nbsp;(du)</p>
+            <p>&nbsp;{{ "contacts.you" | translate }}</p>
             }
           </div>
           <div class="email">

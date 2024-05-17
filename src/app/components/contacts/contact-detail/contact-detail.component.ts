@@ -7,6 +7,7 @@ import { SharedService } from '../../../services/shared.service';
 import { ContactNavComponent } from '../contact-nav/contact-nav.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { LanguageService } from '../../../services/language.service';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-contact-detail',
   standalone: true,
@@ -15,6 +16,7 @@ import { LanguageService } from '../../../services/language.service';
     ContactsComponent,
     ContactEditComponent,
     ContactNavComponent,
+    TranslateModule,
   ],
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.scss',

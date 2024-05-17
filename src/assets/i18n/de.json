@@ -1,7 +1,7 @@
 {
   "login": {
     "login": "Einloggen",
-    "email": "Email",
+    "email": "E-Mail",
     "password": "Passwort",
     "google": "Einloggen mit Google",
     "guest": "Gastzugang",
@@ -13,7 +13,7 @@
   "register": {
     "signup": "Registrieren",
     "name": "Name",
-    "email": "Email",
+    "email": "E-Mail",
     "password": "Passwort",
     "passwordConfirm": "Passwort bestätigen",
     "privacyPolicy0": "Ich akzeptiere die",
@@ -62,7 +62,11 @@
     "invalid-lastName": "Ein Nachname ist erforderlich!",
     "invalid-name": "Ein Vorname & Nachname ist erforderlich!",
     "invalid-email": "Eine E-Mail Adresse ist erforderlich!",
-    "invalid-phone": "Eine Telefonnummer ist erforderlich!"
+    "invalid-phone": "Eine Telefonnummer ist erforderlich!",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon"
   },
   "contact-delete-dialog": {
     "btn-cancle": "Abbrechen",
@@ -121,6 +125,27 @@
     "dateError0": "Sie müssen ein Datum eingeben!",
     "dateError1": "Das Datum muss in der Zukunft liegen!",
     "categoryError": "Sie müssen eine Kategorie auswählen!"
+  },
+  "contacts": {
+    "headline": "Kontakte",
+    "headlineDescription": "Besser mit einem Team",
+    "btnNew": "Neuer Kontakt",
+    "btnEdit0": "bearbeiten",
+    "btnEdit1": "Bearbeiten",
+    "btnDelete0": "löschen",
+    "btnDelete1": "Löschen",
+    "contactInfo": "Kontaktinformationen",
+    "contactEmail": "E-Mail",
+    "contactPhone": "Telefon",
+    "contactPhoneTxT": "Keine Telefonnummer",
+    "contactLastOnline": "Zuletzt online gesehen",
+    "contactLastOnlineTxt": "Derzeit online",
+    "editContact": "Kontakt bearbeiten",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "you": "du"
   },
   "help": {
     "header": "Hilfe",

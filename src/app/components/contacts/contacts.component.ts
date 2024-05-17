@@ -5,11 +5,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { SharedService } from '../../services/shared.service';
 import { FirebaseService } from '../../services/firebase.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, RouterLink, ContactDetailComponent],
+  imports: [CommonModule, RouterLink, ContactDetailComponent, TranslateModule],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
