@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class SharedService {
   isBtnDisabled: boolean = false;
   isAnyDialogOpen: boolean = false;
+  isMobileNavbarOpen: boolean = false;
   isEditContactDialogOpen: boolean = false;
   isDeleteContactDialogOpen: boolean = false;
   isPageViewMedia: boolean = window.innerWidth <= 650;

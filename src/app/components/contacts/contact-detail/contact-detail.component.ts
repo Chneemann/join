@@ -24,8 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ContactDetailComponent {
   @Input() currentUserId!: string | undefined;
 
-  isMobileNavbarOpen: boolean = false;
-
   constructor(
     private router: Router,
     public sharedService: SharedService,
@@ -44,17 +42,20 @@ export class ContactDetailComponent {
   }
 
   toggleNav() {
-    this.isMobileNavbarOpen = !this.isMobileNavbarOpen;
+    this.sharedService.isMobileNavbarOpen =
+      !this.sharedService.isMobileNavbarOpen;
   }
 
   openEditDialog() {
     this.sharedService.isAnyDialogOpen = true;
     this.sharedService.isEditContactDialogOpen = true;
+    this.sharedService.isMobileNavbarOpen = false;
   }
 
   deleteContact() {
     this.sharedService.isAnyDialogOpen = true;
     this.sharedService.isDeleteContactDialogOpen = true;
+    this.sharedService.isMobileNavbarOpen = false;
   }
 
   convertTimestamp(timestamp: number) {
