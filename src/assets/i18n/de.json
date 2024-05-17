@@ -55,22 +55,23 @@
     "legalNotice": "Rechtlicher Hinweis",
     "logout": "Abmelden"
   },
-  "contact-dialog-form": {
-    "btn-delete": "Löschen",
-    "btn-save": "Sichern",
-    "invalid-firstName": "Ein Vorname ist erforderlich!",
-    "invalid-lastName": "Ein Nachname ist erforderlich!",
-    "invalid-name": "Ein Vorname & Nachname ist erforderlich!",
-    "invalid-email": "Eine E-Mail Adresse ist erforderlich!",
-    "invalid-phone": "Eine Telefonnummer ist erforderlich!",
+  "contactDalogForm": {
+    "btnDelete": "Löschen",
+    "btnSave": "Sichern",
+    "invalidFirstName": "Ein Vorname ist erforderlich!",
+    "invalidLastName": "Ein Nachname ist erforderlich!",
+    "invalidName": "Ein Vorname & Nachname ist erforderlich!",
+    "invalidEmail": "Eine E-Mail Adresse ist erforderlich!",
+    "invalidPhone": "Eine Telefonnummer ist erforderlich!",
     "firstName": "Vorname",
     "lastName": "Nachname",
     "email": "E-Mail",
     "phone": "Telefon"
   },
-  "contact-delete-dialog": {
-    "btn-cancle": "Abbrechen",
-    "btn-delete": "Löschen"
+  "contactDeleteDialog": {
+    "deleteContact": "Möchten Sie den Kontakt wirklich löschen?",
+    "btnCancle": "Abbrechen",
+    "btnDelete": "Löschen"
   },
   "summary": {
     "headlineDescription": "Schlüsselmetriken auf einen Blick",

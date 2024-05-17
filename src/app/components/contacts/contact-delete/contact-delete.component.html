@@ -1,15 +1,17 @@
 <section>
   <div class="dialog">
-    <p>Do you really want to delete the contact?</p>
+    <p>
+      {{ "contactDeleteDialog.deleteContact" | translate }}
+    </p>
     <div class="btns">
       <div class="btn">
         <div class="btn-cancle" (click)="deleteCancle()">
-          {{ "contact-delete-dialog.btn-cancle" | translate }}
+          {{ "contactDeleteDialog.btnCancle" | translate }}
         </div>
       </div>
       <div class="btn">
         <div class="btn-delete-contact" (click)="deleteContact()">
-          {{ "contact-delete-dialog.btn-delete" | translate }}
+          {{ "contactDeleteDialog.btnDelete" | translate }}
         </div>
       </div>
     </div>

@@ -55,22 +55,23 @@
     "legalNotice": "Legal notice",
     "logout": "Log out"
   },
-  "contact-dialog-form": {
-    "btn-delete": "Delete",
-    "btn-save": "Save",
-    "invalid-firstName": "A first name is required!",
-    "invalid-lastName": "A last name is required!",
-    "invalid-name": "A first name & last name is required!",
-    "invalid-email": "A email is required!",
-    "invalid-phone": "A phone number is required!",
+  "contactDalogForm": {
+    "btnDelete": "Delete",
+    "btnSave": "Save",
+    "invalidFirstName": "A first name is required!",
+    "invalidLastName": "A last name is required!",
+    "invalidName": "A first name & last name is required!",
+    "invalidEmail": "A email is required!",
+    "invalidPhone": "A phone number is required!",
     "firstName": "First name",
     "lastName": "Last name",
     "email": "Email",
     "phone": "Phone"
   },
-  "contact-delete-dialog": {
-    "btn-cancle": "Cancle",
-    "btn-delete": "Delete"
+  "contactDeleteDialog": {
+    "deleteContact": "Do you really want to delete the contact?",
+    "btnCancle": "Cancle",
+    "btnDelete": "Delete"
   },
   "summary": {
     "headlineDescription": "Key Metrics at a Glance",
