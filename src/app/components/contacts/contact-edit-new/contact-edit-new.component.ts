@@ -20,21 +20,9 @@ import { User } from '../../../interfaces/user.interface';
   styleUrl: './contact-edit-new.component.scss',
 })
 export class ContactEditNewComponent implements OnInit {
-  @Input() currentUserId: string | undefined;
+  @Input() currentUserId: string = '';
   randomColor: string = '';
   userInitials: string = '';
-
-  userData: User = {
-    uId: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    initials: '',
-    color: this.randomColor,
-    status: false,
-    lastLogin: 0,
-  };
 
   constructor(
     public firebaseService: FirebaseService,

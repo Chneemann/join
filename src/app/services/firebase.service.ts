@@ -144,6 +144,12 @@ export class FirebaseService implements OnDestroy {
     });
   }
 
+  async addNewUser(userData: User) {
+    await addDoc(collection(this.firestore, 'users'), userData).catch((err) => {
+      console.error(err);
+    });
+  }
+
   ngOnDestroy() {
     this.unsubTask();
     this.unsubUser();

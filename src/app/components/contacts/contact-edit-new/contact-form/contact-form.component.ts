@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -11,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedService } from '../../../../services/shared.service';
 import { FirebaseService } from '../../../../services/firebase.service';
 import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn/form-btn.component';
+import { User } from '../../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-contact-form',
@@ -19,8 +21,9 @@ import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
 })
-export class ContactFormComponent implements OnChanges {
-  @Input() currentUserId: string | undefined;
+export class ContactFormComponent implements OnInit, OnChanges {
+  @Input() currentUserId: string = '';
+  @Input() randomColor: string = '';
   @Output() inititalsEmitter = new EventEmitter<string>();
 
   constructor(
@@ -37,45 +40,78 @@ export class ContactFormComponent implements OnChanges {
     phone: '',
   };
 
+  userData: User = {
+    uId: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    initials: '',
+    color: '',
+    status: false,
+    lastLogin: 0,
+  };
+
+  ngOnInit() {
+    this.userData = {
+      ...this.userData,
+      color: this.randomColor,
+      lastLogin: new Date().getTime(),
+    };
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['currentUserId']) {
       this.updateContactData();
     }
   }
 
-  addInitials() {
-    const initials = this.contactData
-      ? this.contactData.firstName.slice(0, 1) +
-        this.contactData.lastName.slice(0, 1)
-      : '';
-    this.inititalsEmitter.emit(initials);
+  updateFormData() {
+    if (!this.currentUserId) {
+      this.updateInitials();
+      this.updateUserData();
+    }
   }
 
-  updateFormData() {
-    console.log(this.contactData);
-    this.addInitials();
+  updateInitials() {
     const initials = this.contactData
       ? this.contactData.firstName.slice(0, 1).toUpperCase() +
         this.contactData.lastName.slice(0, 1).toUpperCase()
       : '';
-    console.log(initials);
+    this.userData = {
+      ...this.userData,
+      initials: initials,
+    };
+    this.inititalsEmitter.emit(initials);
+  }
+
+  updateUserData() {
+    this.userData = {
+      ...this.userData,
+      firstName:
+        this.contactData.firstName.charAt(0).toUpperCase() +
+        this.contactData.firstName.slice(1).toLowerCase(),
+      lastName:
+        this.contactData.lastName.charAt(0).toUpperCase() +
+        this.contactData.lastName.slice(1).toLowerCase(),
+      email: this.contactData.email,
+      phone: this.contactData.phone,
+    };
   }
 
   private updateContactData() {
-    if (this.currentUserId) {
-      this.contactData.firstName = this.firebaseService
-        .getUserDetails(this.currentUserId, 'firstName')
-        .join(', ');
-      this.contactData.lastName = this.firebaseService
-        .getUserDetails(this.currentUserId, 'lastName')
-        .join(', ');
-      this.contactData.email = this.firebaseService
-        .getUserDetails(this.currentUserId, 'email')
-        .join(', ');
-      this.contactData.phone = this.firebaseService
-        .getUserDetails(this.currentUserId, 'phone')
-        .join(', ');
-    }
+    this.contactData.firstName = this.firebaseService
+      .getUserDetails(this.currentUserId, 'firstName')
+      .join(', ');
+    this.contactData.lastName = this.firebaseService
+      .getUserDetails(this.currentUserId, 'lastName')
+      .join(', ');
+    this.contactData.email = this.firebaseService
+      .getUserDetails(this.currentUserId, 'email')
+      .join(', ');
+    this.contactData.phone = this.firebaseService
+      .getUserDetails(this.currentUserId, 'phone')
+      .join(', ');
   }
 
   onSubmit(ngForm: NgForm) {
@@ -86,7 +122,9 @@ export class ContactFormComponent implements OnChanges {
           this.contactData
         );
       } else {
-        console.log('new contact');
+        const { id, ...taskWithoutIds } = this.userData;
+        this.firebaseService.addNewUser(taskWithoutIds);
+        console.log('add new contact');
       }
       this.closeEditDialog();
     }

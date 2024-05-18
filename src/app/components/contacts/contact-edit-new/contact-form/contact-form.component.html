@@ -1,6 +1,7 @@
 <section>
   <form
     (ngSubmit)="onSubmit(contactForm)"
+    (keyup)="updateFormData()"
     #contactForm="ngForm"
     onsubmit="return false"
     class="contact-formular"
@@ -19,7 +20,6 @@
         }}"
         [(ngModel)]="contactData.firstName"
         autocomplete="off"
-        (keyup)="updateFormData()"
         required
       />
       @if (sharedService.isContactViewMedia) {
@@ -42,7 +42,6 @@
         }}"
         [(ngModel)]="contactData.lastName"
         autocomplete="off"
-        (keyup)="updateFormData()"
         required
       />
     </div>
