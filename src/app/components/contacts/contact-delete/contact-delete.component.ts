@@ -43,7 +43,7 @@ export class ContactDeleteComponent {
     });
   }
 
-  deleteCancle() {
+  cancelDeleteContact() {
     this.sharedService.isDeleteContactDialogOpen = false;
     if (!this.sharedService.isEditContactDialogOpen) {
       this.sharedService.isAnyDialogOpen = false;

@@ -18,12 +18,19 @@
           }"
         >
           <div class="initials">
-            {{ firebaseService.getUserDetails(currentUserId, "initials") }}
+            @if (!userInitials) {
+            {{ firebaseService.getUserDetails(currentUserId, "initials") }} }
+            @else {
+            {{ userInitials }}
+            }
           </div>
         </div>
       </div>
       <div class="form">
-        <app-contact-form [currentUserId]="currentUserId"></app-contact-form>
+        <app-contact-form
+          (inititalsEmitter)="inititalsEmitter($event)"
+          [currentUserId]="currentUserId"
+        ></app-contact-form>
       </div>
     </div>
   </div>

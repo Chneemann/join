@@ -38,6 +38,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
     lastName: '',
     email: '',
     phone: '',
+    initials: '',
   };
 
   userData: User = {
@@ -69,10 +70,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
   }
 
   updateFormData() {
-    if (!this.currentUserId) {
-      this.updateInitials();
-      this.updateUserData();
-    }
+    this.updateInitials();
+    this.updateUserData();
   }
 
   updateInitials() {
@@ -80,21 +79,36 @@ export class ContactFormComponent implements OnInit, OnChanges {
       ? this.contactData.firstName.slice(0, 1).toUpperCase() +
         this.contactData.lastName.slice(0, 1).toUpperCase()
       : '';
-    this.userData = {
-      ...this.userData,
-      initials: initials,
-    };
+    if (!this.currentUserId) {
+      this.userData = {
+        ...this.userData,
+        initials: initials,
+      };
+    } else {
+      this.contactData = {
+        ...this.contactData,
+        initials: initials,
+      };
+    }
     this.inititalsEmitter.emit(initials);
   }
 
   updateUserData() {
-    this.userData = {
-      ...this.userData,
-      firstName: this.capitalizeFirstLetter(this.contactData.firstName),
-      lastName: this.capitalizeFirstLetter(this.contactData.lastName),
-      email: this.contactData.email,
-      phone: this.contactData.phone,
-    };
+    if (!this.currentUserId) {
+      this.userData = {
+        ...this.userData,
+        firstName: this.capitalizeFirstLetter(this.contactData.firstName),
+        lastName: this.capitalizeFirstLetter(this.contactData.lastName),
+        email: this.contactData.email,
+        phone: this.contactData.phone,
+      };
+    } else {
+      this.contactData = {
+        ...this.contactData,
+        firstName: this.capitalizeFirstLetter(this.contactData.firstName),
+        lastName: this.capitalizeFirstLetter(this.contactData.lastName),
+      };
+    }
   }
 
   capitalizeFirstLetter(name: string) {
@@ -129,6 +143,9 @@ export class ContactFormComponent implements OnInit, OnChanges {
       .join(', ');
     this.contactData.phone = this.firebaseService
       .getUserDetails(this.currentUserId, 'phone')
+      .join(', ');
+    this.contactData.initials = this.firebaseService
+      .getUserDetails(this.currentUserId, 'initials')
       .join(', ');
   }
 
