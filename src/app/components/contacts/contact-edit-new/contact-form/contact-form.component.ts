@@ -1,4 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedService } from '../../../../services/shared.service';
@@ -13,7 +20,8 @@ import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn
   styleUrl: './contact-form.component.scss',
 })
 export class ContactFormComponent implements OnChanges {
-  @Input() currentUserId!: string;
+  @Input() currentUserId: string | undefined;
+  @Output() inititalsEmitter = new EventEmitter<string>();
 
   constructor(
     private firebaseService: FirebaseService,
@@ -35,24 +43,51 @@ export class ContactFormComponent implements OnChanges {
     }
   }
 
+  addInitials() {
+    const initials = this.contactData
+      ? this.contactData.firstName.slice(0, 1) +
+        this.contactData.lastName.slice(0, 1)
+      : '';
+    this.inititalsEmitter.emit(initials);
+  }
+
+  updateFormData() {
+    console.log(this.contactData);
+    this.addInitials();
+    const initials = this.contactData
+      ? this.contactData.firstName.slice(0, 1).toUpperCase() +
+        this.contactData.lastName.slice(0, 1).toUpperCase()
+      : '';
+    console.log(initials);
+  }
+
   private updateContactData() {
-    this.contactData.firstName = this.firebaseService
-      .getUserDetails(this.currentUserId, 'firstName')
-      .join(', ');
-    this.contactData.lastName = this.firebaseService
-      .getUserDetails(this.currentUserId, 'lastName')
-      .join(', ');
-    this.contactData.email = this.firebaseService
-      .getUserDetails(this.currentUserId, 'email')
-      .join(', ');
-    this.contactData.phone = this.firebaseService
-      .getUserDetails(this.currentUserId, 'phone')
-      .join(', ');
+    if (this.currentUserId) {
+      this.contactData.firstName = this.firebaseService
+        .getUserDetails(this.currentUserId, 'firstName')
+        .join(', ');
+      this.contactData.lastName = this.firebaseService
+        .getUserDetails(this.currentUserId, 'lastName')
+        .join(', ');
+      this.contactData.email = this.firebaseService
+        .getUserDetails(this.currentUserId, 'email')
+        .join(', ');
+      this.contactData.phone = this.firebaseService
+        .getUserDetails(this.currentUserId, 'phone')
+        .join(', ');
+    }
   }
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      this.firebaseService.updateUserData(this.currentUserId, this.contactData);
+      if (this.currentUserId) {
+        this.firebaseService.updateUserData(
+          this.currentUserId,
+          this.contactData
+        );
+      } else {
+        console.log('new contact');
+      }
       this.closeEditDialog();
     }
   }

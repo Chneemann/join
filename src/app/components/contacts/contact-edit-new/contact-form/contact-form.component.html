@@ -19,6 +19,7 @@
         }}"
         [(ngModel)]="contactData.firstName"
         autocomplete="off"
+        (keyup)="updateFormData()"
         required
       />
       @if (sharedService.isContactViewMedia) {
@@ -41,6 +42,7 @@
         }}"
         [(ngModel)]="contactData.lastName"
         autocomplete="off"
+        (keyup)="updateFormData()"
         required
       />
     </div>

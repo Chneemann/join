@@ -28,4 +28,31 @@
     </div>
   </div>
 </section>
+} @else {
+<section>
+  <div class="dialog">
+    <div class="header">
+      <img src="./../../../../assets/img/logo.svg" alt="" />
+      <p>{{ "contacts.addContact" | translate }}</p>
+      <app-btn-close [isEditContactDialogOpen]="false"></app-btn-close>
+    </div>
+    <div class="content">
+      <div class="badge">
+        <div
+          class="circle"
+          [ngStyle]="{
+            'background-color': randomColor
+          }"
+        >
+          <div class="initials">{{ userInitials }}</div>
+        </div>
+      </div>
+      <div class="form">
+        <app-contact-form
+          (inititalsEmitter)="inititalsEmitter($event)"
+        ></app-contact-form>
+      </div>
+    </div>
+  </div>
+</section>
 }
