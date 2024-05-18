@@ -132,6 +132,7 @@
   "contacts": {
     "headline": "Contacts",
     "headlineDescription": "Better with a team",
+    "notice": "Notice: Click in the circle to change the colour.",
     "btnNew": "Add new contact",
     "btnEdit0": "edit",
     "btnEdit1": "Edit",

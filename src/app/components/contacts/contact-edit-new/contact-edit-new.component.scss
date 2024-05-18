@@ -55,6 +55,7 @@ section {
   align-items: center;
   position: relative;
   width: 30%;
+  margin-bottom: 115px;
 }
 
 .picker {
@@ -84,6 +85,13 @@ section {
   z-index: 2;
 }
 
+.notice {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  padding: 0 12px 12px 12px;
+}
+
 .form {
   display: flex;
   justify-content: center;
@@ -99,8 +107,9 @@ section {
 
   .badge {
     position: absolute;
-    top: 105px;
+    top: 115px;
     right: 40px;
+    padding-bottom: 0;
   }
 
   .content {
