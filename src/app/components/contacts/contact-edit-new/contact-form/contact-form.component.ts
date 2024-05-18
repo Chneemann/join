@@ -24,6 +24,7 @@ import { User } from '../../../../interfaces/user.interface';
 export class ContactFormComponent implements OnInit, OnChanges {
   @Input() currentUserId: string = '';
   @Input() randomColor: string = '';
+  @Input() newColor: string = '';
   @Output() inititalsEmitter = new EventEmitter<string>();
 
   constructor(
@@ -39,6 +40,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
     email: '',
     phone: '',
     initials: '',
+    color: '',
   };
 
   userData: User = {
@@ -152,15 +154,17 @@ export class ContactFormComponent implements OnInit, OnChanges {
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
       if (this.currentUserId) {
+        this.contactData.color = this.newColor;
         this.firebaseService.updateUserData(
           this.currentUserId,
           this.contactData
         );
       } else {
+        this.userData.color = this.newColor;
         const { id, ...taskWithoutIds } = this.userData;
         this.firebaseService.addNewUser(taskWithoutIds);
       }
-      this.closeEditDialog();
+      this.closeDialog();
     }
   }
 
@@ -169,8 +173,9 @@ export class ContactFormComponent implements OnInit, OnChanges {
     this.sharedService.isAnyDialogOpen = false;
   }
 
-  closeEditDialog() {
-    this.sharedService.isEditContactDialogOpen = false;
+  closeDialog() {
     this.sharedService.isAnyDialogOpen = false;
+    this.sharedService.isEditContactDialogOpen = false;
+    this.sharedService.isNewContactDialogOpen = false;
   }
 }

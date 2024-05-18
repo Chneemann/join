@@ -37,7 +37,7 @@ export class LoginService {
     signInWithEmailAndPassword(getAuth(), loginData.mail, loginData.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        const userData = this.firebaseService.checkUserUID(user.uid);
+        const userData = this.firebaseService.getUserDataFromUid(user.uid);
         if (userData.length > 0 && userData[0].id) {
           this.getUserIdInLocalStorage(userData[0].id);
           this.updateUserOnlineStatus(userData[0].id);
@@ -161,7 +161,7 @@ export class LoginService {
   }
 
   ifExistUser(user: string) {
-    const userData = this.firebaseService.checkUserUID(user);
+    const userData = this.firebaseService.getUserDataFromUid(user);
     if (userData.length > 0 && userData[0].id) {
       this.getUserIdInLocalStorage(userData[0].id);
       this.updateUserOnlineStatus(userData[0].id);

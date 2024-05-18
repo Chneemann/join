@@ -5,7 +5,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SharedService } from '../../../services/shared.service';
-import { User } from '../../../interfaces/user.interface';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @Component({
   selector: 'app-contact-edit',
@@ -15,14 +15,18 @@ import { User } from '../../../interfaces/user.interface';
     ContactFormComponent,
     BtnCloseComponent,
     TranslateModule,
+    ColorPickerModule,
   ],
   templateUrl: './contact-edit-new.component.html',
   styleUrl: './contact-edit-new.component.scss',
 })
 export class ContactEditNewComponent implements OnInit {
   @Input() currentUserId: string = '';
+  @Input() currentColor: string = '';
+
   randomColor: string = '';
   userInitials: string = '';
+  newColor: string = '';
 
   constructor(
     public firebaseService: FirebaseService,
@@ -31,6 +35,10 @@ export class ContactEditNewComponent implements OnInit {
 
   inititalsEmitter(emitter: string) {
     this.userInitials = emitter;
+  }
+
+  updateColor(newColor: string) {
+    this.newColor = newColor;
   }
 
   ngOnInit() {

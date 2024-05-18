@@ -110,7 +110,11 @@ export class FirebaseService implements OnDestroy {
     return this.getAllUsers().filter((user) => user.initials !== 'G');
   }
 
-  checkUserUID(userUid: string): User[] {
+  getUserDataFromId(userId: string): User[] {
+    return this.getAllUsers().filter((user) => user.id === userId);
+  }
+
+  getUserDataFromUid(userUid: string): User[] {
     return this.getAllUsers().filter((user) => user.uId === userUid);
   }
 

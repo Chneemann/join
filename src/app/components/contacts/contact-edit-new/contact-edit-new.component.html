@@ -1,26 +1,23 @@
-@if (currentUserId) {
+@if (currentUserId) { @for (user of
+firebaseService.getUserDataFromId(currentUserId); track user) {
 <section>
   <div class="dialog">
     <div class="header">
       <img src="./../../../../assets/img/logo.svg" alt="" />
       <p>{{ "contacts.editContact" | translate }}</p>
-      <app-btn-close [isEditContactDialogOpen]="false"></app-btn-close>
+      <app-btn-close [isContactDialogOpen]="false"></app-btn-close>
     </div>
     <div class="content">
       <div class="badge">
-        <div
-          class="circle"
-          [ngStyle]="{
-            'background-color': firebaseService.getUserDetails(
-              currentUserId,
-              'color'
-            )
-          }"
-        >
+        <div class="picker">
+          <input
+            [(colorPicker)]="currentColor"
+            [style.background]="newColor === '' ? user.color : newColor"
+            (colorPickerChange)="updateColor($event)"
+          />
           <div class="initials">
             @if (!userInitials) {
-            {{ firebaseService.getUserDetails(currentUserId, "initials") }} }
-            @else {
+            {{ user.initials }} } @else {
             {{ userInitials }}
             }
           </div>
@@ -30,27 +27,28 @@
         <app-contact-form
           (inititalsEmitter)="inititalsEmitter($event)"
           [currentUserId]="currentUserId"
+          [newColor]="newColor"
         ></app-contact-form>
       </div>
     </div>
   </div>
 </section>
-} @else {
+} } @else {
 <section>
   <div class="dialog">
     <div class="header">
       <img src="./../../../../assets/img/logo.svg" alt="" />
       <p>{{ "contacts.addContact" | translate }}</p>
-      <app-btn-close [isEditContactDialogOpen]="false"></app-btn-close>
+      <app-btn-close [isContactDialogOpen]="false"></app-btn-close>
     </div>
     <div class="content">
       <div class="badge">
-        <div
-          class="circle"
-          [ngStyle]="{
-            'background-color': randomColor
-          }"
-        >
+        <div class="picker">
+          <input
+            [(colorPicker)]="randomColor"
+            [style.background]="randomColor"
+            (colorPickerSelect)="updateColor($event)"
+          />
           <div class="initials">{{ userInitials }}</div>
         </div>
       </div>
@@ -58,6 +56,7 @@
         <app-contact-form
           (inititalsEmitter)="inititalsEmitter($event)"
           [randomColor]="randomColor"
+          [newColor]="newColor"
         ></app-contact-form>
       </div>
     </div>
