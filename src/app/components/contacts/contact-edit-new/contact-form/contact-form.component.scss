@@ -46,6 +46,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 /*------------- RESPONSIVE -------------*/
@@ -66,7 +67,7 @@ section {
     min-width: 120%;
     input {
       font-size: 18px;
-      margin: 0 12px 0 0;
+      margin: 0 0 0 4px;
     }
   }
 }
@@ -82,6 +83,12 @@ section {
     }
     .btn-save {
       font-size: 18px;
+    }
+  }
+
+  .contact-formular {
+    input {
+      margin: 0 0 0 1px;
     }
   }
 
