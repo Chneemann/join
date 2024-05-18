@@ -139,7 +139,7 @@ section {
   }
 
   .badge {
-    top: 65px;
+    top: 85px;
     right: 120px;
   }
 
@@ -166,13 +166,16 @@ section {
   }
 
   .header {
-    height: 60px;
-    align-items: normal;
+    height: 80px;
     p {
       font-size: 28px;
+      padding-bottom: 24px;
     }
     img {
       display: none;
+    }
+    app-btn-close {
+      padding-bottom: 24px;
     }
   }
 }
@@ -183,7 +186,6 @@ section {
   }
 
   .badge {
-    top: 65px;
     right: 95px;
   }
 

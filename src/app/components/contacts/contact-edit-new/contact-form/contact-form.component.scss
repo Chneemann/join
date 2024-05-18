@@ -64,7 +64,8 @@ section {
   }
 
   .contact-formular {
-    min-width: 120%;
+    width: 340px;
+    min-width: 340px;
     input {
       font-size: 18px;
       margin: 0 0 0 4px;
@@ -74,7 +75,8 @@ section {
 
 @media screen and (max-width: 400px) {
   .contact-formular {
-    width: fit-content;
+    width: 250px;
+    min-width: 250px;
     input {
       font-size: 16px;
     }
