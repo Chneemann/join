@@ -2,12 +2,12 @@ import { Component, HostListener, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from '../contacts.component';
 import { Router } from '@angular/router';
-import { ContactEditNewComponent } from '../contact-edit-new/contact-edit.component';
 import { SharedService } from '../../../services/shared.service';
 import { ContactNavComponent } from '../contact-nav/contact-nav.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { LanguageService } from '../../../services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContactEditNewComponent } from '../contact-edit-new/contact-edit-new.component';
 @Component({
   selector: 'app-contact-detail',
   standalone: true,

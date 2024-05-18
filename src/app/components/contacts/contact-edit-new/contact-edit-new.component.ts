@@ -14,8 +14,8 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     BtnCloseComponent,
     TranslateModule,
   ],
-  templateUrl: './contact-edit.component.html',
-  styleUrl: './contact-edit.component.scss',
+  templateUrl: './contact-edit-new.component.html',
+  styleUrl: './contact-edit-new.component.scss',
 })
 export class ContactEditNewComponent {
   @Input() currentUserId: string | undefined;

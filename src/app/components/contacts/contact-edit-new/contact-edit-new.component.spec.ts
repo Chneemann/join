@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ContactEditNewComponent } from './contact-edit.component';
+import { ContactEditNewComponent } from './contact-edit-new.component';
 
 describe('ContactEditComponent', () => {
   let component: ContactEditNewComponent;
