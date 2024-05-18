@@ -12,7 +12,7 @@ import { FirebaseService } from '../../../services/firebase.service';
   styleUrl: './contact-delete.component.scss',
 })
 export class ContactDeleteComponent {
-  @Input() currentUserId!: string;
+  @Input() currentUserId: string = '';
 
   constructor(
     private sharedService: SharedService,
@@ -25,6 +25,22 @@ export class ContactDeleteComponent {
     this.router.navigate(['contacts']);
     this.sharedService.isDeleteContactDialogOpen = false;
     this.sharedService.isAnyDialogOpen = false;
+    this.checkIfContactAnAssigned();
+  }
+
+  checkIfContactAnAssigned() {
+    const tasks = this.firebaseService.getAllTasks();
+
+    tasks.forEach((task) => {
+      const index = task.assigned.indexOf(this.currentUserId);
+      if (index !== -1) {
+        task.assigned.splice(index, 1);
+        const { id, ...taskWithoutIds } = task;
+        if (task.id) {
+          this.firebaseService.replaceTaskData(task.id, taskWithoutIds);
+        }
+      }
+    });
   }
 
   deleteCancle() {

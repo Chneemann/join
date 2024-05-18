@@ -45,6 +45,7 @@
           <p>&nbsp;(du)</p>
           }
         </div>
+        @if(user.uId === "") {
         <div class="btns">
           <div class="btn btn-edit">
             <img src="./../../../../assets/img/contact/edit.svg" alt="" />
@@ -62,6 +63,7 @@
         <div class="btn-mobile" (click)="toggleNav()">
           <img src="./../../../assets/img/contact/points.svg" alt="check" />
         </div>
+        }
       </div>
     </div>
     <div class="contact word-wrap">
@@ -77,13 +79,13 @@
         <a [href]="'tel:' + user.phone">
           <span>{{ user.phone }}</span>
         </a>
-        }
+        } @if(user.uId !== "") {
         <p>{{ "contacts.contactLastOnline" | translate }}</p>
         @if(user.status) {
         <span>{{ "contacts.contactLastOnlineTxt" | translate }}</span>
         } @else {
         <span>{{ convertTimestamp(user.lastLogin) }}</span>
-        }
+        } }
       </div>
     </div>
   </div>
