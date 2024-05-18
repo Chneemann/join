@@ -4,7 +4,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { LanguageService } from './services/language.service';
 import { SidebarMobileComponent } from './shared/components/sidebar/sidebar-mobile/sidebar-mobile.component';
-import { ContactEditComponent } from './components/contacts/contact-edit/contact-edit.component';
+import { ContactEditNewComponent } from './components/contacts/contact-edit-new/contact-edit.component';
 import { CommonModule } from '@angular/common';
 import { SharedService } from './services/shared.service';
 import { ContactDeleteComponent } from './components/contacts/contact-delete/contact-delete.component';
@@ -19,7 +19,7 @@ import { FirebaseService } from './services/firebase.service';
     HeaderComponent,
     SidebarComponent,
     SidebarMobileComponent,
-    ContactEditComponent,
+    ContactEditNewComponent,
     ContactDeleteComponent,
     CommonModule,
     OverlayComponent,

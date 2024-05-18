@@ -2,7 +2,7 @@ import { Component, HostListener, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from '../contacts.component';
 import { Router } from '@angular/router';
-import { ContactEditComponent } from '../contact-edit/contact-edit.component';
+import { ContactEditNewComponent } from '../contact-edit-new/contact-edit.component';
 import { SharedService } from '../../../services/shared.service';
 import { ContactNavComponent } from '../contact-nav/contact-nav.component';
 import { FirebaseService } from '../../../services/firebase.service';
@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     ContactsComponent,
-    ContactEditComponent,
+    ContactEditNewComponent,
     ContactNavComponent,
     TranslateModule,
   ],
@@ -22,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './contact-detail.component.scss',
 })
 export class ContactDetailComponent {
-  @Input() currentUserId!: string | undefined;
+  @Input() currentUserId: string | undefined;
 
   constructor(
     private router: Router,
@@ -131,6 +131,9 @@ export class ContactDetailComponent {
     if (targetElement.closest('.btn-edit')) {
       this.sharedService.isAnyDialogOpen = true;
       this.sharedService.isEditContactDialogOpen = true;
+    } else if (targetElement.closest('.btn-new')) {
+      this.sharedService.isAnyDialogOpen = true;
+      this.sharedService.isNewContactDialogOpen = true;
     } else if (targetElement.closest('.btn-delete')) {
       this.sharedService.isAnyDialogOpen = true;
       this.sharedService.isDeleteContactDialogOpen = true;
@@ -138,6 +141,7 @@ export class ContactDetailComponent {
       this.sharedService.isAnyDialogOpen = false;
       this.sharedService.isEditContactDialogOpen = false;
       this.sharedService.isDeleteContactDialogOpen = false;
+      this.sharedService.isNewContactDialogOpen = false;
     }
   }
 }

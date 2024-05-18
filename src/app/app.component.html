@@ -11,7 +11,14 @@
   </div>
   <app-sidebar-mobile></app-sidebar-mobile>
 </div>
-@if (sharedService.isEditContactDialogOpen) {
+@if (sharedService.isNewContactDialogOpen) {
+<app-contact-edit
+  [ngClass]="{
+    'blur-background': sharedService.isDeleteContactDialogOpen,
+    'd-none': sharedService.isDeleteContactDialogOpen
+  }"
+></app-contact-edit>
+} @if (sharedService.isEditContactDialogOpen) {
 <app-contact-edit
   [currentUserId]="sharedService.currentUserId"
   [ngClass]="{

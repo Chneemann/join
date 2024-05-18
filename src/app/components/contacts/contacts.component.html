@@ -3,7 +3,7 @@
     class="left-frame"
     [ngClass]="{ 'd-none': !showAllUsers && currentUserId != undefined }"
   >
-    <button class="btn" type="submit">
+    <button class="btn-new" type="submit" (click)="openNewContactDialog()">
       <div class="btn-inside">
         <span>{{ "contacts.btnNew" | translate }}</span>
         <img src="./../../../assets/img/contact/add.svg" alt="check" />

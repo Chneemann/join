@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ContactFormComponent } from '../contact-form/contact-form.component';
 import { CommonModule } from '@angular/common';
 import { BtnCloseComponent } from '../../../shared/components/buttons/btn-close/btn-close.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ContactFormComponent } from './contact-form/contact-form.component';
 
 @Component({
   selector: 'app-contact-edit',
@@ -17,8 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './contact-edit.component.html',
   styleUrl: './contact-edit.component.scss',
 })
-export class ContactEditComponent {
-  @Input() currentUserId!: string;
+export class ContactEditNewComponent {
+  @Input() currentUserId: string | undefined;
 
   constructor(public firebaseService: FirebaseService) {}
 }

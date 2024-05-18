@@ -71,4 +71,9 @@ export class ContactsComponent {
     );
     return usersFirstLetter;
   }
+
+  openNewContactDialog() {
+    this.sharedService.isAnyDialogOpen = true;
+    this.sharedService.isNewContactDialogOpen = true;
+  }
 }
