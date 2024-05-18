@@ -55,13 +55,15 @@
     "legalNotice": "Legal notice",
     "logout": "Log out"
   },
-  "contactDalogForm": {
+  "contactDialogForm": {
     "btnDelete": "Delete",
     "btnSave": "Save",
     "invalidFirstName": "A first name is required!",
     "invalidLastName": "A last name is required!",
     "invalidName": "A first name & last name is required!",
-    "invalidEmail": "A email is required!",
+    "invalidMail0": "You must enter a mail!",
+    "invalidMail1": "This is not a valid email format!",
+    "invalidMail2": "This email already exists!",
     "invalidPhone": "A phone number is required!",
     "firstName": "First name",
     "lastName": "Last name",

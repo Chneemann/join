@@ -53,11 +53,13 @@ export class ContactFormComponent implements OnInit, OnChanges {
   };
 
   ngOnInit() {
-    this.userData = {
-      ...this.userData,
-      color: this.randomColor,
-      lastLogin: new Date().getTime(),
-    };
+    if (!this.currentUserId) {
+      this.userData = {
+        ...this.userData,
+        color: this.randomColor,
+        lastLogin: new Date().getTime(),
+      };
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -88,15 +90,31 @@ export class ContactFormComponent implements OnInit, OnChanges {
   updateUserData() {
     this.userData = {
       ...this.userData,
-      firstName:
-        this.contactData.firstName.charAt(0).toUpperCase() +
-        this.contactData.firstName.slice(1).toLowerCase(),
-      lastName:
-        this.contactData.lastName.charAt(0).toUpperCase() +
-        this.contactData.lastName.slice(1).toLowerCase(),
+      firstName: this.capitalizeFirstLetter(this.contactData.firstName),
+      lastName: this.capitalizeFirstLetter(this.contactData.lastName),
       email: this.contactData.email,
       phone: this.contactData.phone,
     };
+  }
+
+  capitalizeFirstLetter(name: string) {
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  }
+
+  checkIfUserEmailIsValid(emailValue: string) {
+    const channelNameLenght = emailValue.length;
+    const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+    if (emailRegex.test(emailValue)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  existEmailonServer(mail: string) {
+    return this.firebaseService
+      .getAllUsers()
+      .filter((user) => user.email === mail);
   }
 
   private updateContactData() {
@@ -124,7 +142,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
       } else {
         const { id, ...taskWithoutIds } = this.userData;
         this.firebaseService.addNewUser(taskWithoutIds);
-        console.log('add new contact');
       }
       this.closeEditDialog();
     }

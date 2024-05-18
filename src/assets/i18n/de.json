@@ -55,13 +55,15 @@
     "legalNotice": "Rechtlicher Hinweis",
     "logout": "Abmelden"
   },
-  "contactDalogForm": {
+  "contactDialogForm": {
     "btnDelete": "Löschen",
     "btnSave": "Sichern",
     "invalidFirstName": "Ein Vorname ist erforderlich!",
     "invalidLastName": "Ein Nachname ist erforderlich!",
     "invalidName": "Ein Vorname & Nachname ist erforderlich!",
-    "invalidEmail": "Eine E-Mail Adresse ist erforderlich!",
+    "invalidMail0": "Sie müssen eine E-Mail Adresse eingeben!",
+    "invalidMail1": "Dies ist kein gültiges E-Mail-Format!",
+    "invalidMail2": "Diese E-Mail existiert bereits!",
     "invalidPhone": "Eine Telefonnummer ist erforderlich!",
     "firstName": "Vorname",
     "lastName": "Nachname",
