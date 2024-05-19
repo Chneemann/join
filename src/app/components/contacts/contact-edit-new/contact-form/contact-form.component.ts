@@ -13,6 +13,7 @@ import { SharedService } from '../../../../services/shared.service';
 import { FirebaseService } from '../../../../services/firebase.service';
 import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn/form-btn.component';
 import { User } from '../../../../interfaces/user.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-form',
@@ -29,6 +30,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Output() inititalsEmitter = new EventEmitter<string>();
 
   constructor(
+    private router: Router,
     private firebaseService: FirebaseService,
     public sharedService: SharedService
   ) {
@@ -169,7 +171,9 @@ export class ContactFormComponent implements OnInit, OnChanges {
           ? (this.userData.color = this.newColor)
           : (this.userData.color = this.randomColor);
         const { id, ...taskWithoutIds } = this.userData;
-        this.firebaseService.addNewUser(taskWithoutIds);
+        this.firebaseService.addNewUser(taskWithoutIds).then((docRef) => {
+          this.router.navigate([`/contacts/${docRef.id}`]);
+        });
       }
       this.closeDialog();
     }

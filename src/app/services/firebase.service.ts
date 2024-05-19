@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
+  DocumentReference,
   Firestore,
   addDoc,
   arrayUnion,
@@ -149,9 +150,12 @@ export class FirebaseService implements OnDestroy {
   }
 
   async addNewUser(userData: User) {
-    await addDoc(collection(this.firestore, 'users'), userData).catch((err) => {
+    try {
+      return await addDoc(collection(this.firestore, 'users'), userData);
+    } catch (err) {
       console.error(err);
-    });
+      throw err;
+    }
   }
 
   ngOnDestroy() {
