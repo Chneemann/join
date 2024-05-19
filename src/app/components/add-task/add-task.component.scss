@@ -5,7 +5,7 @@ section {
 
 .content {
   display: flex;
-  width: calc(100% - 12px);
+  width: 100%;
 }
 
 .dialog {
@@ -24,7 +24,8 @@ section {
 }
 
 .edit-task-overlay-content {
-  height: calc(700px - 128px);
+  max-height: calc(700px - 148px);
+  height: fit-content;
   padding: 0 6px;
   overflow-y: auto;
 }
@@ -194,7 +195,7 @@ p {
 }
 
 .subtasks {
-  max-height: 130px;
+  max-height: 110px;
   overflow-x: auto;
   margin-top: 12px;
   .single-subtask {
@@ -325,14 +326,15 @@ p {
     width: calc(100%);
   }
 }
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 560px) {
   .btn-text {
     span {
       display: none;
     }
   }
+}
 
+@media screen and (max-width: 480px) {
   .headline {
     margin-bottom: 24px;
     .title {

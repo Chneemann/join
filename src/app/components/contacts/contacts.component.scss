@@ -178,13 +178,14 @@
 
 @media screen and (max-width: 910px) {
   .left-frame {
+    top: 80px;
     left: 0;
     bottom: 80px;
     padding: 0;
   }
 
   .right-frame {
-    top: 96px;
+    top: 80px;
     left: 0;
     bottom: 80px;
   }
