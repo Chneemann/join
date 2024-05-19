@@ -49,7 +49,7 @@
     "summary": "Übersicht",
     "addTask": "Neue Aufgabe",
     "addTaskMobile": "Aufgabe",
-    "board": "Brett",
+    "board": "Tafel",
     "contacts": "Kontakte",
     "privacyPolicy": "Datenschutzerklärung",
     "legalNotice": "Rechtlicher Hinweis",
@@ -93,7 +93,7 @@
     "taskAwaitingFeedback1": "Rückmeldung"
   },
   "board": {
-    "headline": "Brett",
+    "headline": "Tafel",
     "todo": "Zu Erledigen",
     "inProgress": "In Bearbeitung",
     "awaitFeedback": "Warte auf Rückmeldung",
@@ -173,7 +173,7 @@
     "question1header3": "Karten verschieben",
     "question1header3description": "Wenn sich die Aufgabe von einer Bühne zur anderen bewegt, können Sie dies auf der Tafel widerspiegeln, indem Sie die Karte von einer Liste auf eine andere ziehen und dort ablegen.",
     "question1header4": "Karten löschen",
-    "question1header4description0": "Sobald eine Aufgabe erledigt ist, können Sie sie entweder in die Liste 'Erledigt' verschieben oder löschen. Wenn Sie eine Karte löschen, wird sie dauerhaft vom Spielbrett entfernt. Bitte seien Sie beim Löschen von Karten vorsichtig, da dieser Vorgang nicht rückgängig zu machen ist.",
+    "question1header4description0": "Sobald eine Aufgabe erledigt ist, können Sie sie entweder in die Liste 'Erledigt' verschieben oder löschen. Wenn Sie eine Karte löschen, wird sie dauerhaft von der Spieltafel entfernt. Bitte seien Sie beim Löschen von Karten vorsichtig, da dieser Vorgang nicht rückgängig zu machen ist.",
     "question1header4description1": "Denken Sie daran, dass die effektive Nutzung von Join eine ständige Aktualisierung durch Sie und Ihr Team erfordert, um sicherzustellen, dass das Board den aktuellen Stand Ihres Projekts widerspiegelt.",
     "question1header4description2": "Haben Sie weitere Fragen zu Join? Kontaktieren Sie uns! Wir sind für Sie da!",
     "footer": "Viel Spaß bei der Nutzung von Join!"
