@@ -25,6 +25,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Input() currentUserId: string = '';
   @Input() randomColor: string = '';
   @Input() newColor: string = '';
+  @Input() currentColor: string = '';
   @Output() inititalsEmitter = new EventEmitter<string>();
 
   constructor(
@@ -154,13 +155,19 @@ export class ContactFormComponent implements OnInit, OnChanges {
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
       if (this.currentUserId) {
-        this.contactData.color = this.newColor;
+        console.log(this.newColor, this.currentColor);
+
+        this.newColor !== ''
+          ? (this.contactData.color = this.newColor)
+          : (this.contactData.color = this.currentColor);
         this.firebaseService.updateUserData(
           this.currentUserId,
           this.contactData
         );
       } else {
-        this.userData.color = this.newColor;
+        this.newColor !== ''
+          ? (this.userData.color = this.newColor)
+          : (this.userData.color = this.randomColor);
         const { id, ...taskWithoutIds } = this.userData;
         this.firebaseService.addNewUser(taskWithoutIds);
       }

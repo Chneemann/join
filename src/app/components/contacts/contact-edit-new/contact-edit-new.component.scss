@@ -53,12 +53,12 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
   width: 30%;
   margin-bottom: 115px;
 }
 
 .picker {
+  position: relative;
   input {
     display: flex;
     justify-content: center;
@@ -75,12 +75,15 @@ section {
 .initials {
   position: absolute;
   top: 30%;
-  left: 35%;
-  width: fit-content;
+  left: 0;
+  right: 0;
+  width: 120px;
   height: fit-content;
+  text-align: center;
   font-size: 47px;
   font-weight: 500;
   color: var(--white);
+  padding-left: 4px;
   text-shadow: 1px 1px 2px var(--black);
   z-index: 2;
 }
@@ -118,7 +121,6 @@ section {
 
   .initials {
     font-size: 42px;
-    left: 33%;
   }
 
   .header {
@@ -162,7 +164,7 @@ section {
 
   .initials {
     font-size: 32px;
-    left: 28%;
+    width: 80px;
   }
 
   .header {
