@@ -66,13 +66,8 @@ export class AddTaskComponent implements OnInit {
   }
 
   loadEditTaskData() {
-    if (
-      this.overlayData !== '' &&
-      this.overlayData !== 'todo' &&
-      this.overlayData !== 'inprogress' &&
-      this.overlayData !== 'awaitfeedback' &&
-      this.overlayData !== 'done'
-    ) {
+    const excludedValues = ['', 'todo', 'inprogress', 'awaitfeedback', 'done'];
+    if (!excludedValues.includes(this.overlayData)) {
       const taskData = this.getTaskData(this.overlayData)[0];
       Object.assign(this.taskData, taskData);
     } else if (this.overlayType === 'newTaskOverlay') {
@@ -219,15 +214,16 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit(ngForm: NgForm, overlayData: string) {
+    const allowedValues = [
+      '',
+      'none',
+      'todo',
+      'inprogress',
+      'awaitfeedback',
+      'done',
+    ];
     if (ngForm.submitted && ngForm.form.valid) {
-      if (
-        overlayData === '' ||
-        overlayData === 'none' ||
-        overlayData === 'todo' ||
-        overlayData === 'inprogress' ||
-        overlayData === 'awaitfeedback' ||
-        overlayData === 'done'
-      ) {
+      if (allowedValues.includes(overlayData)) {
         const { id, ...taskWithoutId } = this.taskData;
         this.firebaseService.addNewTask(taskWithoutId);
         this.removeTaskData();
