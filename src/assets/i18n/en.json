@@ -56,6 +56,7 @@
     "logout": "Log out"
   },
   "contactDialogForm": {
+    "btnCancel": "Cancel",
     "btnDelete": "Delete",
     "btnSave": "Save",
     "invalidFirstName": "A first name is required!",

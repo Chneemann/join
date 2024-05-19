@@ -45,7 +45,7 @@
           <p>&nbsp;(du)</p>
           }
         </div>
-        @if(user.uId === "") {
+        @if(user.uId === "" || user.id === firebaseService.getCurrentUserId()) {
         <div class="btns">
           <div class="btn btn-edit">
             <img src="./../../../../assets/img/contact/edit.svg" alt="" />
@@ -53,12 +53,14 @@
               {{ "contacts.btnEdit0" | translate }}
             </p>
           </div>
+          @if (user.id !== firebaseService.getCurrentUserId()) {
           <div class="btn btn-delete">
             <img src="./../../../../assets/img/contact/delete.svg" alt="" />
             <p (click)="deleteContact()">
               {{ "contacts.btnDelete0" | translate }}
             </p>
           </div>
+          }
         </div>
         <div class="btn-mobile" (click)="toggleNav()">
           <img src="./../../../assets/img/contact/points.svg" alt="check" />

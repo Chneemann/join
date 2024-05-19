@@ -31,7 +31,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   constructor(
     private router: Router,
-    private firebaseService: FirebaseService,
+    public firebaseService: FirebaseService,
     public sharedService: SharedService
   ) {
     this.updateContactData();
