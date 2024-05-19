@@ -111,6 +111,16 @@ export class FirebaseService implements OnDestroy {
     return this.getAllUsers().filter((user) => user.initials !== 'G');
   }
 
+  getAllUserWithoutGuestCurrentUserAndCreator(taskCreator: string): User[] {
+    const currentUser = this.getCurrentUserId();
+    const usersWithoutGuestAndCurrent = this.getAllUsers().filter(
+      (user) => user.initials !== 'G' && user.id !== currentUser
+    );
+    return usersWithoutGuestAndCurrent.filter(
+      (user) => user.id !== taskCreator
+    );
+  }
+
   getUserDataFromId(userId: string): User[] {
     return this.getAllUsers().filter((user) => user.id === userId);
   }

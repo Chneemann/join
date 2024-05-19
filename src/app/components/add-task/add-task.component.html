@@ -85,13 +85,14 @@
             placeholder="{{ 'addTask.assignedFormField' | translate }}"
             type="text"
             [(ngModel)]="searchValue"
-            (input)="searchTask()"
+            (input)="searchTask(taskData.creator)"
             autocomplete="off"
             (click)="toggleAssignedMenu()"
           />
           @if (isAssignedOpen) {
           <app-assigned
             [filteredUsers]="filteredUsers"
+            [taskCreator]="taskData.creator"
             [searchInput]="searchInput"
             (assignedChange)="receiveAssigned($event)"
           >
@@ -301,9 +302,11 @@
         [img]="'close'"
         [ngStyle]="{
           display:
-            overlayData !== '' || overlayType === 'addTaskOverlay'
-              ? 'none'
-              : 'block'
+            overlayType === 'addTaskOverlay' ||
+            overlayType === 'newTaskOverlay' ||
+            overlayType === ''
+              ? 'block'
+              : 'none'
         }"
         (click)="removeTaskData()"
       ></app-form-btn>
@@ -313,7 +316,9 @@
         [value]="'addTask.delete' | translate"
         [ngStyle]="{
           display:
-            overlayData !== '' && overlayType !== 'addTaskOverlay'
+            overlayData !== '' &&
+            overlayType !== 'addTaskOverlay' &&
+            overlayType !== 'newTaskOverlay'
               ? 'block'
               : 'none'
         }"
@@ -324,8 +329,15 @@
         [img]="'check'"
         [imgFilter]="'none'"
         [value]="
-          (overlayData.toString() !== '' ? 'addTask.update' : 'addTask.create')
-            | translate
+          (overlayData.toString() !== '' &&
+          overlayData.toString() !== 'none' &&
+          overlayData.toString() !== 'todo' &&
+          overlayData.toString() !== 'inprogress' &&
+          overlayData.toString() !== 'awaitfeedback' &&
+          overlayData.toString() !== 'done'
+            ? 'addTask.update'
+            : 'addTask.create'
+          ) | translate
         "
         [disabled]="
           title.invalid ||

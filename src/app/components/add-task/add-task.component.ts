@@ -7,7 +7,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -42,7 +42,8 @@ export class AddTaskComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   taskData: Task = {
@@ -65,7 +66,13 @@ export class AddTaskComponent implements OnInit {
   }
 
   loadEditTaskData() {
-    if (this.overlayData !== '') {
+    if (
+      this.overlayData !== '' &&
+      this.overlayData !== 'todo' &&
+      this.overlayData !== 'inprogress' &&
+      this.overlayData !== 'awaitfeedback' &&
+      this.overlayData !== 'done'
+    ) {
       const taskData = this.getTaskData(this.overlayData)[0];
       Object.assign(this.taskData, taskData);
     } else if (this.overlayType === 'newTaskOverlay') {
@@ -127,10 +134,10 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  searchTask(): void {
+  searchTask(taskCreator: string): void {
     this.updateSearchInput();
     this.filteredUsers = this.firebaseService
-      .getAllUserWithoutGuest()
+      .getAllUserWithoutGuestCurrentUserAndCreator(taskCreator)
       .filter(
         (user) =>
           user.firstName.toLowerCase().includes(this.searchValue) ||
@@ -213,10 +220,18 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit(ngForm: NgForm, overlayData: string) {
     if (ngForm.submitted && ngForm.form.valid) {
-      if (overlayData === '') {
+      if (
+        overlayData === '' ||
+        overlayData === 'none' ||
+        overlayData === 'todo' ||
+        overlayData === 'inprogress' ||
+        overlayData === 'awaitfeedback' ||
+        overlayData === 'done'
+      ) {
         const { id, ...taskWithoutId } = this.taskData;
         this.firebaseService.addNewTask(taskWithoutId);
         this.removeTaskData();
+        this.closeOverlay();
       } else {
         if (this.getTaskData(overlayData).length > 0) {
           const { id, ...taskWithoutId } = this.taskData;
@@ -224,6 +239,7 @@ export class AddTaskComponent implements OnInit {
           this.closeOverlay();
         }
       }
+      this.router.navigate(['/board']);
     }
   }
 

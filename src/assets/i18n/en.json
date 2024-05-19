@@ -150,7 +150,7 @@
     "lastName": "Last name",
     "email": "Email",
     "phone": "Phone",
-    "you": "you"
+    "you": "(you)"
   },
   "help": {
     "header": "Help",

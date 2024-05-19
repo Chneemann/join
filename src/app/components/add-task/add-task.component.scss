@@ -24,8 +24,7 @@ section {
 }
 
 .edit-task-overlay-content {
-  max-height: calc(700px - 148px);
-  height: fit-content;
+  height: calc(700px - 148px);
   padding: 0 6px;
   overflow-y: auto;
 }

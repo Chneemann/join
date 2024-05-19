@@ -3,6 +3,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../interfaces/user.interface';
 import { AddTaskComponent } from '../add-task.component';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-assigned',
@@ -14,11 +15,15 @@ import { AddTaskComponent } from '../add-task.component';
 export class AssignedComponent {
   @Input() filteredUsers: User[] = [];
   @Input() searchInput: boolean = false;
+  @Input() taskCreator: string = '';
   @Output() assignedChange = new EventEmitter<string[]>();
 
   assigned: string[] = [];
 
-  constructor(public firebaseService: FirebaseService) {
+  constructor(
+    public firebaseService: FirebaseService,
+    private sharedService: SharedService
+  ) {
     this.loadTaskAssigedData();
   }
 
@@ -59,7 +64,9 @@ export class AssignedComponent {
     if (this.searchInput) {
       return this.filteredUsers;
     } else {
-      return this.firebaseService.getAllUserWithoutGuest();
+      return this.firebaseService.getAllUserWithoutGuestCurrentUserAndCreator(
+        this.taskCreator
+      );
     }
   }
 }
