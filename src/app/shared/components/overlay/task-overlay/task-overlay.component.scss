@@ -212,6 +212,13 @@
   }
 }
 
+.notice {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 12px;
+  text-align: center;
+}
+
 // BTNS
 
 .btns {
@@ -267,5 +274,11 @@
     p {
       font-size: 16px;
     }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .notice {
+    font-size: 14px;
   }
 }

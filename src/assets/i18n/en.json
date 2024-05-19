@@ -112,6 +112,7 @@
     "assignedFormField": "Search...",
     "date": "Due date",
     "priority": "Priority",
+    "creator": "Creator",
     "urgent": "Urgent",
     "medium": "Medium",
     "low": "Low",
@@ -119,6 +120,7 @@
     "categorySelection": "Select task category",
     "subtask": "Subtasks",
     "subtaskFormField": "Add new subtask",
+    "edit": "Edit",
     "clear": "Clear",
     "delete": "Delete",
     "update": "Update Task",
@@ -127,7 +129,8 @@
     "descriptionError": "You must enter a description! (min. 10 letters)",
     "dateError0": "You must enter a date!",
     "dateError1": "The date must be in the future!",
-    "categoryError": "You must select a category!"
+    "categoryError": "You must select a category!",
+    "notice": "Notice: Only the creator can edit or delete the task."
   },
   "contacts": {
     "headline": "Contacts",

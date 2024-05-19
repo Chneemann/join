@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { OverlayService } from '../../../../services/overlay.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-overlay',
   standalone: true,
-  imports: [BtnCloseComponent, CommonModule, BtnBackComponent],
+  imports: [BtnCloseComponent, CommonModule, BtnBackComponent, TranslateModule],
   templateUrl: './task-overlay.component.html',
   styleUrl: './task-overlay.component.scss',
 })
