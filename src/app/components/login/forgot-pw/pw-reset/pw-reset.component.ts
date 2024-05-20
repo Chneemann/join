@@ -8,8 +8,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LoadingDialogComponent } from '../../loading-dialog/loading-dialog.component';
 import { FirebaseService } from '../../../../services/firebase.service';
 import { LoginService } from '../../../../services/login.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pw-reset',
@@ -27,6 +28,9 @@ import { SharedService } from '../../../../services/shared.service';
   styleUrl: './pw-reset.component.scss',
 })
 export class PwResetComponent {
+  oobCode: string = '';
+  private queryParamsSubscription: Subscription = new Subscription();
+
   pwResetData = {
     password: '',
     passwordConfirm: '',
@@ -34,15 +38,24 @@ export class PwResetComponent {
 
   constructor(
     private firebaseService: FirebaseService,
-    public loginSerivce: LoginService,
+    public loginService: LoginService,
     public sharedService: SharedService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.queryParamsSubscription = this.route.queryParams.subscribe(
+      (params) => {
+        this.oobCode = params['oobCode'];
+      }
+    );
+  }
 
   onSubmit(ngForm: NgForm) {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
-      // this.loginSerivce.login(this.pwResetData);
+      this.loginService.newPassword(this.pwResetData.password, this.oobCode);
     }
   }
 }

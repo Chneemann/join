@@ -84,11 +84,13 @@ section {
     position: absolute;
     right: -5px;
     top: 186px;
+    cursor: pointer;
   }
   .passwordEyeConfirm {
     position: absolute;
     right: -5px;
     top: 272px;
+    cursor: pointer;
   }
   .custom-input:focus + .custom-img {
     display: none;

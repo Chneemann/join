@@ -16,6 +16,7 @@
     "forgot": "Passwort zurücksetzen",
     "email": "Ihre E-Mail",
     "sendMail": "E-Mail senden",
+    "pwChange": "Passwort ändern",
     "notice": "Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern können"
   },
   "register": {

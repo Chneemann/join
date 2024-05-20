@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  confirmPasswordReset,
 } from 'firebase/auth';
 import { FirebaseService } from './firebase.service';
 import {
@@ -208,8 +209,6 @@ export class LoginService {
   // FORGOT PASSWORD
 
   passwordReset(email: string) {
-    console.log(email);
-
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
       .then(() => {
@@ -219,6 +218,19 @@ export class LoginService {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        this.sharedService.isBtnDisabled = false;
+      });
+  }
+
+  newPassword(newPW: string, oobCode: string) {
+    const auth = getAuth();
+    confirmPasswordReset(auth, oobCode, newPW)
+      .then(() => {
+        this.router.navigate(['/login']);
+        this.sharedService.isBtnDisabled = false;
+      })
+      .catch((error) => {
+        console.error('Fehler beim Zurücksetzen des Passworts:', error);
         this.sharedService.isBtnDisabled = false;
       });
   }

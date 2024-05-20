@@ -1,0 +1,212 @@
+section {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 482px;
+  height: fit-content;
+  background: var(--white);
+  box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
+  padding: 48px 64px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  .headline {
+    text-align: center;
+    font-size: 61px;
+    font-weight: 700;
+  }
+}
+
+.line {
+  img {
+    padding: 12px 0 24px 0;
+  }
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 90%;
+  .custom-input::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+  }
+  .custom-input {
+    font-size: 20px;
+    font-weight: 400;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--light-gray);
+    padding: 12px 16px;
+  }
+  .custom-img {
+    &:nth-child(2) {
+      position: absolute;
+      right: 0;
+      top: 15px;
+    }
+    &:nth-child(5) {
+      position: absolute;
+      right: 0;
+      top: 102px;
+    }
+  }
+  .passwordEye {
+    position: absolute;
+    right: -5px;
+    top: 15px;
+    cursor: pointer;
+  }
+  .passwordEyeConfirm {
+    position: absolute;
+    right: -5px;
+    top: 102px;
+    cursor: pointer;
+  }
+  .custom-input:focus + .custom-img {
+    display: none;
+  }
+}
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 6px;
+  width: 120%;
+  p {
+    color: var(--red);
+    font-size: 12px !important;
+    font-weight: 400 !important;
+  }
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: end;
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media (max-height: 800px) {
+  .content {
+    top: 45%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .content {
+    width: 352px;
+    height: fit-content;
+    padding: 24px 36px;
+  }
+
+  .header {
+    .headline {
+      font-size: 47px;
+    }
+  }
+
+  .line {
+    img {
+      width: 125px;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .content {
+    width: calc(100vw - 96px);
+    padding: 24px 36px;
+  }
+
+  .header {
+    .headline {
+      font-size: 36px;
+    }
+  }
+
+  .line {
+    img {
+      width: 112px;
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .content {
+    width: calc(100vw - 72px);
+    padding: 12px 24px;
+  }
+
+  .header {
+    .headline {
+      font-size: 32px;
+    }
+  }
+
+  .line {
+    img {
+      width: 100px;
+    }
+  }
+
+  .input-fields {
+    .custom-input {
+      font-size: 16px;
+      padding: 12px;
+    }
+    .custom-img {
+      &:nth-child(2) {
+        top: 15px;
+      }
+      &:nth-child(5) {
+        top: 90px;
+      }
+      &:nth-child(8) {
+        top: 162px;
+      }
+      &:nth-child(11) {
+        top: 237px;
+      }
+    }
+    .passwordEye {
+      top: 162px;
+    }
+    .passwordEyeConfirm {
+      top: 237px;
+    }
+  }
+
+  .error-msg {
+    height: 18px;
+    p {
+      font-size: 10px !important;
+    }
+  }
+
+  .privacy-policy {
+    .label {
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+}

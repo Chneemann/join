@@ -16,6 +16,7 @@
     "forgot": "Reset Password",
     "email": "Your Email",
     "sendMail": "Send Mail",
+    "pwChange": "Change Password",
     "notice": "We will send you an email to change your password."
   },
   "register": {

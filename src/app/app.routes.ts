@@ -11,6 +11,7 @@ import { TaskEditOverlayComponent } from './shared/components/overlay/task-edit-
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/login/register/register.component';
 import { ForgotPwComponent } from './components/login/forgot-pw/forgot-pw.component';
+import { PwResetComponent } from './components/login/forgot-pw/pw-reset/pw-reset.component';
 
 export const routes: Routes = [
   { path: '', component: SummaryComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'login/privacy-policy', component: PrivacyPolicyComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-pw', component: ForgotPwComponent },
+  { path: 'pw-reset', component: PwResetComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'add-task/:id', component: AddTaskComponent },

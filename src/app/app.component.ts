@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { LanguageService } from './services/language.service';
@@ -10,6 +15,7 @@ import { SharedService } from './services/shared.service';
 import { ContactDeleteComponent } from './components/contacts/contact-delete/contact-delete.component';
 import { OverlayComponent } from './shared/components/overlay/overlay.component';
 import { FirebaseService } from './services/firebase.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +41,7 @@ export class AppComponent {
     public langService: LanguageService,
     public sharedService: SharedService,
     private firebaseService: FirebaseService,
+    private route: ActivatedRoute,
     private router: Router
   ) {
     this.isLoggedIn = this.firebaseService.getCurrentUserId();
@@ -42,9 +49,23 @@ export class AppComponent {
 
   ngOnInit() {
     if (this.isLoggedIn === undefined) {
-      this.router.navigate(['/login']);
+      this.checkPwResetRoute();
     } else {
       this.router.navigate(['/summary']);
     }
+  }
+
+  checkPwResetRoute() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const urlTree = this.router.parseUrl(this.router.url);
+
+        if (
+          urlTree.root.children['primary']?.segments[0]?.path !== 'pw-reset'
+        ) {
+          this.router.navigate(['/login']);
+        }
+      });
   }
 }
