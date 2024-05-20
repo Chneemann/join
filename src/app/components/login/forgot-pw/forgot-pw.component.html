@@ -17,7 +17,7 @@
           id="mail"
           name="mail"
           #mail="ngModel"
-          placeholder="{{ 'login.email' | translate }}"
+          placeholder="{{ 'forgotPW.email' | translate }}"
           class="custom-input"
           autocomplete="email"
           [(ngModel)]="pwResetData.mail"
@@ -33,11 +33,17 @@
         <img class="custom-img" alt="" />
         }
         <div class="error-msg">
-          @if (!mail.valid && mail.touched) {
-          <p>{{ "forgotPW.errorMail0" | translate }}</p>
-          } @if (loginSerivce.errorCode == 'auth/invalid-email') {
-          <p>{{ "forgotPW.errorMail1" | translate }}</p>
-          }
+          @if(!mail.valid && mail.touched &&
+          !checkIfUserEmailIsValid(pwResetData.mail.toLowerCase())) {
+          <p>{{ "register.errorMail0" | translate }}</p>
+          } @else { @if (mail.touched &&
+          !checkIfUserEmailIsValid(pwResetData.mail.toLowerCase())) {
+          <p>{{ "register.errorMail1" | translate }}</p>
+          } @else {
+          @if(existEmailonServer(pwResetData.mail.toLowerCase()).length !== 1 &&
+          mail.touched) {
+          <p>{{ "register.errorMail3" | translate }}</p>
+          } } }
         </div>
       </div>
       <div class="notice">

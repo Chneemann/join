@@ -45,6 +45,12 @@ export class ForgotPwComponent {
     }
   }
 
+  existEmailonServer(mail: string) {
+    return this.firebaseService
+      .getAllUsers()
+      .filter((user) => user.email === mail);
+  }
+
   checkIfUserEmailIsValid(emailValue: string) {
     const channelNameLenght = emailValue.length;
     const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;

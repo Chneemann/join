@@ -62,12 +62,13 @@
         }
         <div class="error-msg">
           @if(!mail.valid && mail.touched &&
-          !checkIfUserEmailIsValid(registerData.mail)) {
+          !checkIfUserEmailIsValid(registerData.mail.toLowerCase())) {
           <p>{{ "register.errorMail0" | translate }}</p>
           } @else { @if (mail.touched &&
-          !checkIfUserEmailIsValid(registerData.mail)) {
+          !checkIfUserEmailIsValid(registerData.mail.toLowerCase())) {
           <p>{{ "register.errorMail1" | translate }}</p>
-          } @else { @if (existEmailonServer(registerData.mail).length > 0) {
+          } @else { @if
+          (existEmailonServer(registerData.mail.toLowerCase()).length > 0) {
           <p>{{ "register.errorMail2" | translate }}</p>
           } } }
         </div>
