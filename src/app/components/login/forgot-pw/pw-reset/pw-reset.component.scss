@@ -175,23 +175,17 @@ section {
     }
     .custom-img {
       &:nth-child(2) {
-        top: 15px;
+        top: 12px;
       }
       &:nth-child(5) {
-        top: 90px;
-      }
-      &:nth-child(8) {
-        top: 162px;
-      }
-      &:nth-child(11) {
-        top: 237px;
+        top: 87px;
       }
     }
     .passwordEye {
-      top: 162px;
+      top: 12px;
     }
     .passwordEyeConfirm {
-      top: 237px;
+      top: 87px;
     }
   }
 
