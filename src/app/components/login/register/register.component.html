@@ -170,6 +170,7 @@
             !registerData.mail ||
             password.invalid ||
             !registerData.password ||
+            !checkbox.valid ||
             sharedService.isBtnDisabled ||
             registerData.password.length < 6 ||
             registerData.password !== registerData.passwordConfirm ||
@@ -181,3 +182,4 @@
   </form>
   <app-footer></app-footer>
 </section>
+<app-loading-dialog></app-loading-dialog>

@@ -9,6 +9,7 @@ import { SharedService } from '../../services/shared.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FooterComponent,
     HeaderComponent,
     TranslateModule,
+    LoadingDialogComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

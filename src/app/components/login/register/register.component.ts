@@ -10,6 +10,7 @@ import { SharedService } from '../../../services/shared.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     CommonModule,
     RouterModule,
     TranslateModule,
+    LoadingDialogComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
