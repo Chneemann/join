@@ -45,7 +45,7 @@ section {
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 90%;
+  width: 60%;
   .custom-input::-webkit-contacts-auto-fill-button {
     visibility: hidden;
   }
@@ -146,6 +146,10 @@ section {
     }
   }
 
+  .input-fields {
+    width: 75%;
+  }
+
   .notice {
     p {
       font-size: 18px;
@@ -169,6 +173,10 @@ section {
     img {
       width: 100px;
     }
+  }
+
+  .input-fields {
+    width: 90%;
   }
 
   .loading-text {

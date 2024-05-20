@@ -43,7 +43,7 @@ export class ForgotPwComponent {
   onSubmit(ngForm: NgForm) {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
-      // this.loginSerivce.login(this.pwResetData);
+      this.loginSerivce.passwordReset(this.pwResetData.mail);
     }
   }
 

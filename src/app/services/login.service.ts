@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { FirebaseService } from './firebase.service';
 import {
@@ -19,6 +20,8 @@ import {
 } from '@angular/fire/firestore';
 import { SharedService } from './shared.service';
 import { User } from '../interfaces/user.interface';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,7 +33,8 @@ export class LoginService {
 
   constructor(
     private firebaseService: FirebaseService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private router: Router
   ) {}
 
   login(loginData: { mail: string; password: string }) {
@@ -199,5 +203,23 @@ export class LoginService {
 
   deleteUserIdInLocalStorage() {
     localStorage.removeItem('currentUserJOIN');
+  }
+
+  // FORGOT PASSWORD
+
+  passwordReset(email: string) {
+    console.log(email);
+
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        this.router.navigate(['/login']);
+        this.sharedService.isBtnDisabled = false;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        this.sharedService.isBtnDisabled = false;
+      });
   }
 }
