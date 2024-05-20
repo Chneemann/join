@@ -44,12 +44,16 @@
         <div class="footer-badge">
           <span
             class="footer-badged"
+            (mousemove)="openDialog(task.creator, $event)"
+            (mouseleave)="closeDialog()"
             [style.background-color]="userBadgedColor(task.creator)"
             >{{ userBadged(task.creator) }}</span
           >
           @for (assigned of task.assigned; track assigned) {
           <span
             class="footer-badged"
+            (mousemove)="openDialog(assigned, $event)"
+            (mouseleave)="closeDialog()"
             [style.background-color]="userBadgedColor(assigned)"
             >{{ userBadged(assigned) }}</span
           >
@@ -64,5 +68,12 @@
     [taskId]="task.id"
     [boardTaskStatus]="task.status"
   ></app-task-menu>
+  } @if (AssignedDialogId != '') {
+  <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
+    <p>
+      {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }},
+      {{ firebaseService.getUserDetails(AssignedDialogId, "lastName") }}
+    </p>
+  </div>
   } }
 </section>

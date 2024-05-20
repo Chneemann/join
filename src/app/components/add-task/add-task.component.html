@@ -331,15 +331,11 @@
         [img]="'check'"
         [imgFilter]="'none'"
         [value]="
-          (overlayData.toString() !== '' &&
-          overlayData.toString() !== 'none' &&
-          overlayData.toString() !== 'todo' &&
-          overlayData.toString() !== 'inprogress' &&
-          overlayData.toString() !== 'awaitfeedback' &&
-          overlayData.toString() !== 'done'
-            ? 'addTask.update'
-            : 'addTask.create'
-          ) | translate
+          ['none', 'todo', 'inprogress', 'awaitfeedback', 'done'].includes(
+            overlayData.toString()
+          )
+            ? ('addTask.create' | translate)
+            : ('addTask.update' | translate)
         "
         [disabled]="
           title.invalid ||

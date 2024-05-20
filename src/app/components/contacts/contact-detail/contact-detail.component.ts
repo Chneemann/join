@@ -128,20 +128,27 @@ export class ContactDetailComponent {
   @HostListener('document:click', ['$event'])
   checkOpenContactEdit(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
+
     if (targetElement.closest('.btn-edit')) {
-      this.sharedService.isAnyDialogOpen = true;
-      this.sharedService.isEditContactDialogOpen = true;
+      this.setDialogStatus(true, true, false, false);
     } else if (targetElement.closest('.btn-new')) {
-      this.sharedService.isAnyDialogOpen = true;
-      this.sharedService.isNewContactDialogOpen = true;
+      this.setDialogStatus(true, false, true, false);
     } else if (targetElement.closest('.btn-delete')) {
-      this.sharedService.isAnyDialogOpen = true;
-      this.sharedService.isDeleteContactDialogOpen = true;
+      this.setDialogStatus(true, false, false, true);
     } else if (!targetElement.closest('.dialog')) {
-      this.sharedService.isAnyDialogOpen = false;
-      this.sharedService.isEditContactDialogOpen = false;
-      this.sharedService.isDeleteContactDialogOpen = false;
-      this.sharedService.isNewContactDialogOpen = false;
+      this.setDialogStatus(false, false, false, false);
     }
+  }
+
+  private setDialogStatus(
+    anyOpen: boolean,
+    editOpen: boolean,
+    newOpen: boolean,
+    deleteOpen: boolean
+  ) {
+    this.sharedService.isAnyDialogOpen = anyOpen;
+    this.sharedService.isEditContactDialogOpen = editOpen;
+    this.sharedService.isNewContactDialogOpen = newOpen;
+    this.sharedService.isDeleteContactDialogOpen = deleteOpen;
   }
 }

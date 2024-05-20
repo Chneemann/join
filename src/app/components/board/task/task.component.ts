@@ -18,6 +18,9 @@ import { SharedService } from '../../../services/shared.service';
 export class TaskComponent {
   @Input() task: Task = {} as Task;
   isMenuOpen: boolean = false;
+  AssignedDialogId: string = '';
+  dialogX: number = 0;
+  dialogY: number = 0;
 
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],
@@ -26,7 +29,7 @@ export class TaskComponent {
 
   constructor(
     public dragDropService: DragDropService,
-    private firebaseService: FirebaseService,
+    public firebaseService: FirebaseService,
     public overlayService: OverlayService,
     public sharedService: SharedService,
     private router: Router
@@ -57,13 +60,30 @@ export class TaskComponent {
   @HostListener('document:click', ['$event'])
   checkToggleTaskMenu(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-    if (
-      !targetElement.closest('.menu-btn') &&
-      !targetElement.closest('.menu-img') &&
-      !targetElement.closest('app-task-menu')
-    ) {
+    const menuSelectors = ['.menu-btn', '.menu-img', 'app-task-menu'];
+    const isMenuClicked = menuSelectors.some((selector) =>
+      targetElement.closest(selector)
+    );
+
+    if (!isMenuClicked) {
       this.isMenuOpen = false;
     }
+  }
+
+  // Dialog
+
+  openDialog(userId: any, event: MouseEvent) {
+    this.AssignedDialogId = userId;
+    this.updateDialogPosition(event);
+  }
+
+  updateDialogPosition(event: MouseEvent) {
+    this.dialogX = event.clientX + 25;
+    this.dialogY = event.clientY + 10;
+  }
+
+  closeDialog() {
+    this.AssignedDialogId = '';
   }
 
   // Subtasks
