@@ -40,7 +40,7 @@ export class LoginService {
         const userData = this.firebaseService.getUserDataFromUid(user.uid);
         if (userData.length > 0 && userData[0].id) {
           this.getUserIdInLocalStorage(userData[0].id);
-          this.updateUserOnlineStatus(userData[0].id);
+          this.updateUserOnlineStatus(userData[0].id, true);
         }
         this.sharedService.isBtnDisabled = false;
       })
@@ -107,31 +107,23 @@ export class LoginService {
         );
         getDocs(querySnapshot).then((snapshot) => {
           if (snapshot.empty) {
+            const displayName = user.displayName || '';
+            const [firstName = '', lastName = ''] = displayName.split(' ');
             this.createUserInFirestore({
               uId: user.uid,
               email: user.email || 'no mail',
-              firstName: user.displayName
-                ? user.displayName.split(' ')[0].charAt(0).toUpperCase() +
-                  user.displayName.split(' ')[0].slice(1)
-                : '',
-              lastName: user.displayName
-                ? user.displayName.split(' ')[1].charAt(0).toUpperCase() +
-                  user.displayName.split(' ')[1].slice(1)
-                : '',
+              firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
+              lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
               status: true,
               phone: '',
-              initials: user.displayName
-                ? user.displayName.split(' ')[0].slice(0, 1) +
-                  user.displayName.split(' ')[1].slice(0, 1)
-                : '',
+              initials: firstName.slice(0, 1) + lastName.slice(0, 1),
               color: this.sharedService.generateRandomColor(),
               lastLogin: 0,
             });
-            this.sharedService.isBtnDisabled = false;
           } else {
             this.ifExistUser(user.uid);
-            this.sharedService.isBtnDisabled = false;
           }
+          this.sharedService.isBtnDisabled = false;
         });
       })
       .catch((error) => {
@@ -167,13 +159,13 @@ export class LoginService {
     const userData = this.firebaseService.getUserDataFromUid(user);
     if (userData.length > 0 && userData[0].id) {
       this.getUserIdInLocalStorage(userData[0].id);
-      this.updateUserOnlineStatus(userData[0].id);
+      this.updateUserOnlineStatus(userData[0].id, true);
     }
   }
 
-  async updateUserOnlineStatus(userId: string) {
+  async updateUserOnlineStatus(userId: string, status: boolean) {
     await updateDoc(doc(collection(this.firestore, 'users'), userId), {
-      status: true,
+      status: status,
       lastLogin: new Date().getTime(),
     }).catch((err) => {
       console.error(err);
@@ -196,5 +188,16 @@ export class LoginService {
 
   getUserIdInLocalStorage(userId: string) {
     localStorage.setItem('currentUserJOIN', JSON.stringify(userId));
+  }
+
+  // LOGOUT
+
+  logout(userId: string) {
+    this.deleteUserIdInLocalStorage();
+    this.updateUserOnlineStatus(userId, false);
+  }
+
+  deleteUserIdInLocalStorage() {
+    localStorage.removeItem('currentUserJOIN');
   }
 }

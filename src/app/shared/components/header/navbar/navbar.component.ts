@@ -4,7 +4,8 @@ import { HeaderComponent } from '../header.component';
 import { LanguageService } from '../../../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedService } from '../../../../services/shared.service';
+import { LoginService } from '../../../../services/login.service';
+import { FirebaseService } from '../../../../services/firebase.service';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +23,8 @@ export class NavbarComponent {
   constructor(
     public langService: LanguageService,
     private router: Router,
-    private sharedService: SharedService
+    private loginService: LoginService,
+    private firebaseService: FirebaseService
   ) {}
 
   ngOnInit() {
@@ -30,6 +32,6 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.sharedService.logout();
+    this.loginService.logout(this.firebaseService.getCurrentUserId());
   }
 }

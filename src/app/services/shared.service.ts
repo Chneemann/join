@@ -40,17 +40,6 @@ export class SharedService {
     this.removeResizeListener();
   }
 
-  // LOGOUT
-
-  logout() {
-    this.deleteUserIdInLocalStorage();
-    window.location.reload();
-  }
-
-  deleteUserIdInLocalStorage() {
-    localStorage.removeItem('currentUserJOIN');
-  }
-
   // RANDOM COLOR
 
   generateRandomColor(): string {

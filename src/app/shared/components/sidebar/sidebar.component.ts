@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
-import { SharedService } from '../../../services/shared.service';
+import { LoginService } from '../../../services/login.service';
+import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +19,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     private router: Router,
     public languageService: LanguageService,
-    private sharedService: SharedService
+    private loginService: LoginService,
+    private firebaseService: FirebaseService
   ) {}
 
   ngOnInit(): void {
@@ -26,7 +28,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout() {
-    this.sharedService.logout();
+    this.loginService.logout(this.firebaseService.getCurrentUserId());
   }
 
   getCurrentPath() {
