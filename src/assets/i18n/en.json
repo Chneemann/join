@@ -8,7 +8,9 @@
     "errorMail0": "You must enter a mail!",
     "errorMail1": "This email address does not exist!",
     "errorPassword0": "You must enter a password!",
-    "errorPassword1": "The password does not match the email address!"
+    "errorPassword1": "The password does not match the email address!",
+    "loginDialog0": "Logging in",
+    "loginDialog1": "Please wait..."
   },
   "register": {
     "signup": "Sign up",

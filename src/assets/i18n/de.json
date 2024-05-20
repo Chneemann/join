@@ -8,7 +8,9 @@
     "errorMail0": "Sie müssen eine E-Mail Adresse eingeben!",
     "errorMail1": "Diese E-Mail Adresse existiert nicht!",
     "errorPassword0": "Sie müssen ein Passwort eingeben!",
-    "errorPassword1": "Das Passwort stimmt nicht mit der E-Mail Adresse überein!"
+    "errorPassword1": "Das Passwort stimmt nicht mit der E-Mail Adresse überein!",
+    "loginDialog0": "Einloggen",
+    "loginDialog1": "Bitte warten..."
   },
   "register": {
     "signup": "Registrieren",

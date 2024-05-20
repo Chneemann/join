@@ -108,3 +108,16 @@
   </form>
   <app-footer></app-footer>
 </section>
+@if (sharedService.isBtnDisabled) {
+<div class="loading-dialog">
+  <div id="loading" class="loader"></div>
+  <div id="loadingText" class="loading-text">
+    <p>
+      {{ "login.loginDialog0" | translate }}
+    </p>
+    <p>
+      {{ "login.loginDialog1" | translate }}
+    </p>
+  </div>
+</div>
+}
