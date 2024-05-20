@@ -302,9 +302,10 @@
         [img]="'close'"
         [ngStyle]="{
           display:
-            overlayType === 'addTaskOverlay' ||
-            overlayType === 'newTaskOverlay' ||
-            overlayType === ''
+            (overlayType === '' ||
+              overlayType === 'addTaskOverlay' ||
+              overlayType === 'newTaskOverlay') &&
+            !overlayMobile
               ? 'block'
               : 'none'
         }"

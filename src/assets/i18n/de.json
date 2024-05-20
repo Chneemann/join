@@ -118,7 +118,7 @@
     "medium": "Mittel",
     "low": "Niedrig",
     "category": "Kategorie",
-    "categorySelection": "Aufgabenkategorie wählen",
+    "categorySelection": "Kategorie wählen",
     "subtask": "Unteraufgaben",
     "subtaskFormField": "Unteraufgabe hinzufügen",
     "edit": "Barbeiten",
@@ -131,7 +131,7 @@
     "dateError0": "Sie müssen ein Datum eingeben!",
     "dateError1": "Das Datum muss in der Zukunft liegen!",
     "categoryError": "Sie müssen eine Kategorie auswählen!",
-    "notice": "Hinweis: Nur der ersteller kann den Task bearbeiten oder löschen."
+    "notice": "Hinweis: Nur der Ersteller kann den Task bearbeiten oder löschen."
   },
   "contacts": {
     "headline": "Kontakte",
