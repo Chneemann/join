@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { FirebaseService } from '../../services/firebase.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { SharedService } from '../../services/shared.service';
 import { FooterComponent } from './footer/footer.component';
@@ -22,6 +22,7 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
     HeaderComponent,
     TranslateModule,
     LoadingDialogComponent,
+    RouterLink,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

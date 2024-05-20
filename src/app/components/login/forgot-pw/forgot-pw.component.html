@@ -1,0 +1,63 @@
+<section>
+  <app-header [signUpBtn]="true"></app-header>
+  <form
+    id="form"
+    #taskForm="ngForm"
+    (ngSubmit)="onSubmit(taskForm)"
+    onsubmit="return false"
+  >
+    <div class="content">
+      <div class="headline">{{ "forgotPW.forgot" | translate }}</div>
+      <div class="line">
+        <img src="./../../../assets/img/login/blue-line.svg" alt="" />
+      </div>
+      <div class="input-fields">
+        <input
+          type="mail"
+          id="mail"
+          name="mail"
+          #mail="ngModel"
+          placeholder="{{ 'login.email' | translate }}"
+          class="custom-input"
+          autocomplete="email"
+          [(ngModel)]="pwResetData.mail"
+          required
+        />
+        @if(!pwResetData.mail) {
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/mail.svg"
+          alt=""
+        />
+        } @else {
+        <img class="custom-img" alt="" />
+        }
+        <div class="error-msg">
+          @if (!mail.valid && mail.touched) {
+          <p>{{ "forgotPW.errorMail0" | translate }}</p>
+          } @if (loginSerivce.errorCode == 'auth/invalid-email') {
+          <p>{{ "forgotPW.errorMail1" | translate }}</p>
+          }
+        </div>
+      </div>
+      <div class="notice">
+        <p>{{ "forgotPW.notice" | translate }}</p>
+      </div>
+      <div class="form-buttons">
+        <app-form-btn
+          [class]="'btn-login'"
+          [type]="'submit'"
+          [value]="'forgotPW.sendMail' | translate"
+          [disabled]="
+            mail.invalid ||
+            !pwResetData.mail ||
+            sharedService.isBtnDisabled ||
+            !checkIfUserEmailIsValid(pwResetData.mail)
+          "
+        ></app-form-btn>
+      </div>
+    </div>
+  </form>
+  <app-footer></app-footer>
+</section>
+<app-loading-dialog></app-loading-dialog>

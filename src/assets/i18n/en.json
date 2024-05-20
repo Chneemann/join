@@ -12,6 +12,14 @@
     "loginDialog0": "Logging in",
     "loginDialog1": "Please wait..."
   },
+  "forgotPW": {
+    "forgot": "Reset Password",
+    "email": "Your Email",
+    "sendMail": "Send Mail",
+    "errorMail0": "You must enter a mail!",
+    "errorMail1": "This email address does not exist!",
+    "notice": "We will send you an email to change your password."
+  },
   "register": {
     "signup": "Sign up",
     "name": "Name",

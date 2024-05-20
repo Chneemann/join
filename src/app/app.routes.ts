@@ -10,6 +10,7 @@ import { TaskOverlayComponent } from './shared/components/overlay/task-overlay/t
 import { TaskEditOverlayComponent } from './shared/components/overlay/task-edit-overlay/task-edit-overlay.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/login/register/register.component';
+import { ForgotPwComponent } from './components/login/forgot-pw/forgot-pw.component';
 
 export const routes: Routes = [
   { path: '', component: SummaryComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'login/imprint', component: ImprintComponent },
   { path: 'login/privacy-policy', component: PrivacyPolicyComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'forgot-pw', component: ForgotPwComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'add-task/:id', component: AddTaskComponent },

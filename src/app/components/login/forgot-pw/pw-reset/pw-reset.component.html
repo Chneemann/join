@@ -1,0 +1,99 @@
+<section>
+  <app-header [signUpBtn]="true"></app-header>
+  <form
+    id="form"
+    #taskForm="ngForm"
+    (ngSubmit)="onSubmit(taskForm)"
+    onsubmit="return false"
+  >
+    <div class="content">
+      <p>{{ "login.login" | translate }}</p>
+      <div class="line">
+        <img src="./../../../assets/img/login/blue-line.svg" alt="" />
+      </div>
+      <div class="input-fields">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          #password="ngModel"
+          [type]="loginSerivce.passwordFieldType"
+          placeholder="{{ 'register.password' | translate }}"
+          class="custom-input"
+          autocomplete="new-password"
+          [(ngModel)]="pwResetData.password"
+          required
+        />
+        @if(!pwResetData.password) {
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/lock.svg"
+          alt=""
+        />
+        } @else {
+        <img
+          class="passwordEye"
+          (click)="loginSerivce.togglePasswordVisibility()"
+          [src]="loginSerivce.passwordIcon"
+        />
+        }
+        <div class="error-msg">
+          @if (!password.valid && password.touched) {
+          <p>{{ "register.errorPassword0" | translate }}</p>
+          } @else { @if (pwResetData.password.length < 6 && password.touched) {
+          <p>{{ "register.errorPassword1" | translate }}</p>
+          } }
+        </div>
+        <input
+          type="passwordConfirm"
+          id="passwordConfirm"
+          name="passwordConfirm"
+          #passwordConfirm="ngModel"
+          [type]="loginSerivce.passwordFieldType"
+          placeholder="{{ 'register.passwordConfirm' | translate }}"
+          class="custom-input"
+          autocomplete="new-password"
+          [(ngModel)]="pwResetData.passwordConfirm"
+          required
+        />
+        @if(!pwResetData.passwordConfirm) {
+        <img
+          class="custom-img"
+          src="./../../../assets/img/login/lock.svg"
+          alt=""
+        />
+        } @else {
+        <img
+          class="passwordEyeConfirm"
+          (click)="loginSerivce.togglePasswordVisibility()"
+          [src]="loginSerivce.passwordIcon"
+        />
+        }
+        <div class="error-msg">
+          @if (!passwordConfirm.valid && passwordConfirm.touched) {
+          <p>{{ "register.errorPassword0" | translate }}</p>
+          } @if (pwResetData.password !== pwResetData.passwordConfirm &&
+          pwResetData.password !== "" && pwResetData.passwordConfirm !== "") {
+          <p>{{ "register.errorPassword2" | translate }}</p>
+          }
+        </div>
+      </div>
+      <div class="form-buttons">
+        <app-form-btn
+          [class]="'btn-login'"
+          [type]="'submit'"
+          [value]="'register.signup' | translate"
+          [disabled]="
+            password.invalid ||
+            !pwResetData.password ||
+            sharedService.isBtnDisabled ||
+            pwResetData.password.length < 6 ||
+            pwResetData.password !== pwResetData.passwordConfirm
+          "
+        ></app-form-btn>
+      </div>
+    </div>
+  </form>
+  <app-footer></app-footer>
+</section>
+<app-loading-dialog></app-loading-dialog>
