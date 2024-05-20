@@ -1,6 +1,6 @@
 # Join
 
-Task Manager inspired by the Kanban System. Create and organize tasks using drag and drop functions, assign users and categories.
+Task manager modeled on the Kanban system. Create and organize tasks using drag-and-drop functions, assign users and categories to ensure efficient management.
 
 ## Technolgies Used 
 
