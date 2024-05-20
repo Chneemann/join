@@ -57,6 +57,7 @@ export class LoginComponent {
   }
 
   googleLogin() {
+    this.sharedService.isBtnDisabled = true;
     this.loginSerivce.googleLogin();
   }
 

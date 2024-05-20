@@ -127,13 +127,16 @@ export class LoginService {
               color: this.sharedService.generateRandomColor(),
               lastLogin: 0,
             });
+            this.sharedService.isBtnDisabled = false;
           } else {
             this.ifExistUser(user.uid);
+            this.sharedService.isBtnDisabled = false;
           }
         });
       })
       .catch((error) => {
         console.error('Google login error:', error);
+        this.sharedService.isBtnDisabled = false;
       });
   }
 
