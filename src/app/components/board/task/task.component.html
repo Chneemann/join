@@ -71,7 +71,11 @@
   } @if (AssignedDialogId != '') {
   <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
     <p>
-      {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }},
+      {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }}
+      @if (AssignedDialogId === firebaseService.getCurrentUserId()) {
+      <span>(du)</span> }
+    </p>
+    <p>
       {{ firebaseService.getUserDetails(AssignedDialogId, "lastName") }}
     </p>
   </div>

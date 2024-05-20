@@ -126,7 +126,7 @@
         @if (AssignedDialogId != '') {
         <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
           <p>
-            {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }},
+            {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }}
             {{ firebaseService.getUserDetails(AssignedDialogId, "lastName") }}
           </p>
         </div>

@@ -23,14 +23,15 @@ section {
 
 .dialog {
   position: fixed;
-  width: min-content;
+  width: fit-content;
   height: fit-content;
   padding: 10px 15px;
   border-radius: 0px 20px 20px 20px;
   border: 1px solid var(--black);
   z-index: 2;
   background-color: var(--white);
-  p {
+  p,
+  span {
     font-size: 18px;
     font-weight: 400;
   }
