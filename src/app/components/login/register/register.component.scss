@@ -4,8 +4,6 @@ section {
   position: relative;
 }
 
-// REGISTER
-
 .content {
   display: flex;
   flex-direction: column;
@@ -20,24 +18,26 @@ section {
   box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.05);
   border-radius: 30px;
   padding: 48px 64px;
-  p {
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  .headline {
+    text-align: center;
     font-size: 61px;
     font-weight: 700;
   }
-  .line {
-    img {
-      width: 150px;
-    }
-    padding: 0 0 24px 0;
+  .spacer {
+    padding-left: 38px;
   }
 }
 
-.headline {
-  text-align: center;
-  app-btn-back {
-    position: absolute;
-    top: 70px;
-    left: 50px;
+.line {
+  img {
+    padding: 12px 0 24px 0;
   }
 }
 
@@ -170,20 +170,17 @@ section {
     width: 352px;
     height: fit-content;
     padding: 24px 36px;
-    p {
+  }
+
+  .header {
+    .headline {
       font-size: 47px;
-    }
-    .line {
-      img {
-        width: 125px;
-      }
     }
   }
 
-  .headline {
-    app-btn-back {
-      top: 35px;
-      left: 30px;
+  .line {
+    img {
+      width: 125px;
     }
   }
 }
@@ -192,20 +189,17 @@ section {
   .content {
     width: calc(100vw - 96px);
     padding: 24px 36px;
-    p {
+  }
+
+  .header {
+    .headline {
       font-size: 36px;
-    }
-    .line {
-      img {
-        width: 112px;
-      }
     }
   }
 
-  .headline {
-    app-btn-back {
-      top: 30px;
-      left: 25px;
+  .line {
+    img {
+      width: 112px;
     }
   }
 }
@@ -214,20 +208,17 @@ section {
   .content {
     width: calc(100vw - 72px);
     padding: 12px 24px;
-    p {
+  }
+
+  .header {
+    .headline {
       font-size: 32px;
-    }
-    .line {
-      img {
-        width: 100px;
-      }
     }
   }
 
-  .headline {
-    app-btn-back {
-      left: 15px;
-      top: 12.5px;
+  .line {
+    img {
+      width: 100px;
     }
   }
 

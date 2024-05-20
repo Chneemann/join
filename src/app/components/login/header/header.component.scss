@@ -53,12 +53,6 @@
 
 /*------------- RESPONSIVE -------------*/
 
-@media (max-height: 700px) {
-  .logo {
-    display: none;
-  }
-}
-
 @media screen and (max-width: 650px) {
   .register {
     top: unset;
@@ -75,5 +69,15 @@
     top: 37px;
     height: 64px;
     width: 78px;
+  }
+}
+
+@media (max-height: 680px) {
+  .logo {
+    display: none;
+  }
+
+  .register {
+    bottom: 79px;
   }
 }

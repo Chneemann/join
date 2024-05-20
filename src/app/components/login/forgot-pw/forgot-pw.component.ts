@@ -10,6 +10,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 import { LoginService } from '../../../services/login.service';
 import { SharedService } from '../../../services/shared.service';
 import { Router } from '@angular/router';
+import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 
 @Component({
   selector: 'app-forgot-pw',
@@ -22,6 +23,7 @@ import { Router } from '@angular/router';
     HeaderComponent,
     TranslateModule,
     LoadingDialogComponent,
+    BtnBackComponent,
   ],
   templateUrl: './forgot-pw.component.html',
   styleUrl: './forgot-pw.component.scss',
