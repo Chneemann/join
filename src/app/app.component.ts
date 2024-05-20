@@ -60,12 +60,16 @@ export class AppComponent {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         const urlTree = this.router.parseUrl(this.router.url);
+        const firstSegment = this.getFirstSegment(urlTree);
+        const allowedRoutes = ['pw-reset', 'register', 'forgot-pw', 'login'];
 
-        if (
-          urlTree.root.children['primary']?.segments[0]?.path !== 'pw-reset'
-        ) {
+        if (!allowedRoutes.includes(firstSegment)) {
           this.router.navigate(['/login']);
         }
       });
+  }
+
+  private getFirstSegment(urlTree: any): string {
+    return urlTree.root.children['primary']?.segments[0]?.path || '';
   }
 }
