@@ -8,6 +8,7 @@
     "guest": "Guest Log in",
     "errorMail0": "You must enter a mail!",
     "errorMail1": "This email address does not exist!",
+    "errorMail2": "This is not a valid email format!",
     "errorPassword0": "You must enter a password!",
     "errorPassword1": "The password does not match the email address!",
     "loginDialog0": "Logging in",

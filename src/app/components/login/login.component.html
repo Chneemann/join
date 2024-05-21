@@ -37,6 +37,9 @@
           <p>{{ "login.errorMail0" | translate }}</p>
           } @if (loginSerivce.errorCode == 'auth/invalid-email') {
           <p>{{ "login.errorMail1" | translate }}</p>
+          } @if (mail.valid && mail.touched &&
+          !checkIfUserEmailIsValid(loginData.mail.toLowerCase())) {
+          <p>{{ "login.errorMail2" | translate }}</p>
           }
         </div>
         <input
