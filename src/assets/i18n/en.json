@@ -20,6 +20,11 @@
     "pwChange": "Change Password",
     "notice": "We will send you an email to change your password."
   },
+  "msgDialog": {
+    "noticeHeadline": "Notice",
+    "pwSend": "An email with instructions on how to reset your password has been sent to you.",
+    "pwChange": "Your password has been successfully changed. You can now log in."
+  },
   "register": {
     "signup": "Sign up",
     "name": "Name",

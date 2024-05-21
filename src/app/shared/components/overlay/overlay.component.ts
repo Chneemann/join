@@ -13,8 +13,10 @@ import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddTaskComponent } from '../../../components/add-task/add-task.component';
+import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.component';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-overlay',
@@ -23,6 +25,7 @@ import { AddTaskComponent } from '../../../components/add-task/add-task.componen
     CommonModule,
     TaskOverlayComponent,
     TaskEditOverlayComponent,
+    DialogOverlayComponent,
     AddTaskComponent,
   ],
   templateUrl: './overlay.component.html',
@@ -34,7 +37,9 @@ export class OverlayComponent implements OnInit {
 
   constructor(
     private overlayService: OverlayService,
-    private route: ActivatedRoute
+    private sharedService: SharedService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +56,7 @@ export class OverlayComponent implements OnInit {
   }
 
   onCloseOverlay(emitter: string) {
+    this.overlayType === 'dialog' && this.router.navigate(['/login']);
     this.overlayData = emitter;
   }
 

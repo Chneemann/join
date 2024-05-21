@@ -16,6 +16,7 @@ import { PwResetComponent } from './components/login/forgot-pw/pw-reset/pw-reset
 export const routes: Routes = [
   { path: '', component: SummaryComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'login/:id', component: LoginComponent },
   { path: 'login/imprint', component: ImprintComponent },
   { path: 'login/privacy-policy', component: PrivacyPolicyComponent },
   { path: 'register', component: RegisterComponent },

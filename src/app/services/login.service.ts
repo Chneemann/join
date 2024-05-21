@@ -212,7 +212,7 @@ export class LoginService {
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login/pw-send']);
         this.sharedService.isBtnDisabled = false;
       })
       .catch((error) => {

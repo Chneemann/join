@@ -1,0 +1,12 @@
+<section>
+  <div class="header">
+    <div class="headline">{{ "msgDialog.noticeHeadline" | translate }}</div>
+    <app-btn-close (click)="closeOverlay()"></app-btn-close>
+  </div>
+  <p>
+    @if (overlayData === "pw-send") { {{ "msgDialog.pwSend" | translate }} }
+  </p>
+  <p>
+    @if (overlayData === "pw-change") { {{ "msgDialog.pwChange" | translate }} }
+  </p>
+</section>
