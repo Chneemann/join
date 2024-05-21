@@ -22,7 +22,6 @@ import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/bt
     FooterComponent,
     HeaderComponent,
     TranslateModule,
-    LoadingDialogComponent,
     BtnBackComponent,
   ],
   templateUrl: './forgot-pw.component.html',
@@ -43,7 +42,7 @@ export class ForgotPwComponent {
   onSubmit(ngForm: NgForm) {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
-      this.loginSerivce.passwordReset(this.pwResetData.mail);
+      this.loginSerivce.passwordReset(this.pwResetData.mail.toLowerCase());
     }
   }
 

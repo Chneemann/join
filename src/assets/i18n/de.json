@@ -3,6 +3,7 @@
     "login": "Einloggen",
     "email": "E-Mail",
     "password": "Passwort",
+    "forgotPassword": "Passwort vergessen?",
     "google": "Einloggen mit Google",
     "guest": "Gastzugang",
     "errorMail0": "Sie müssen eine E-Mail Adresse eingeben!",

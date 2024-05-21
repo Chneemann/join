@@ -22,7 +22,6 @@ import { Subscription } from 'rxjs';
     FooterComponent,
     HeaderComponent,
     TranslateModule,
-    LoadingDialogComponent,
   ],
   templateUrl: './pw-reset.component.html',
   styleUrl: './pw-reset.component.scss',
