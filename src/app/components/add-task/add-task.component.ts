@@ -249,7 +249,8 @@ export class AddTaskComponent implements OnInit {
     const targetElement = event.target as HTMLElement;
     if (
       !targetElement.closest('.search-assigned') &&
-      !targetElement.closest('app-assigned')
+      !targetElement.closest('app-assigned') &&
+      !targetElement.closest('.checkbox-img')
     ) {
       this.isAssignedOpen = false;
     }
