@@ -118,7 +118,9 @@
     "done": "Erledigt",
     "addTask": "Neue Aufgabe",
     "findTask": "Aufgabe suchen",
-    "noTasks": "Keine Aufgaben"
+    "noTasks": "Keine Aufgaben",
+    "dropHere": "Hier ablegen",
+    "emptyTask": "Keine Aufgaben"
   },
   "addTask": {
     "headline": "Aufgabe",

@@ -118,7 +118,9 @@
     "done": "Done",
     "addTask": "Add Task",
     "findTask": "Find Task",
-    "noTasks": "No tasks"
+    "noTasks": "No tasks",
+    "dropHere": "Drop here",
+    "emptyTask": "No tasks"
   },
   "addTask": {
     "headline": "Add Task",

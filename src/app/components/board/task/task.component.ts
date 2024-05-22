@@ -70,7 +70,7 @@ export class TaskComponent {
     }
   }
 
-  // Dialog
+  // User Dialog
 
   openDialog(userId: any, event: MouseEvent) {
     this.AssignedDialogId = userId;
