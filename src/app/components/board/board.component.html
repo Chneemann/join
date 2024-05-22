@@ -40,7 +40,7 @@
     <div class="status">
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event)"
+        (dragover)="dragDropService.allowDrop($event, 'todo')"
         (drop)="dragDropService.drop($event, 'todo')"
       >
         <div class="headline">
@@ -54,14 +54,16 @@
         <div id="todo" class="details">
           @for(task of getTaskStatus("todo"); track task) {
           <app-task [task]="task"></app-task>
-          } @empty {
+          @if(taskMovedTo === "todo") {
+          <app-task-highlighted></app-task-highlighted>
+          } } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
           }
         </div>
       </div>
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event)"
+        (dragover)="dragDropService.allowDrop($event, 'inprogress')"
         (drop)="dragDropService.drop($event, 'inprogress')"
       >
         <div class="headline">
@@ -82,7 +84,7 @@
       </div>
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event)"
+        (dragover)="dragDropService.allowDrop($event, 'awaitfeedback')"
         (drop)="dragDropService.drop($event, 'awaitfeedback')"
       >
         <div class="headline">
@@ -103,7 +105,7 @@
       </div>
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event)"
+        (dragover)="dragDropService.allowDrop($event, 'done')"
         (drop)="dragDropService.drop($event, 'done')"
       >
         <div class="headline">

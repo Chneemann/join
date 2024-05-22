@@ -9,6 +9,7 @@ import { OverlayService } from '../../services/overlay.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { TaskHighlightedComponent } from './task/task-highlighted/task-highlighted.component';
 
 @Component({
   selector: 'app-board',
@@ -19,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TaskEmptyComponent,
     FormsModule,
     TranslateModule,
+    TaskHighlightedComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -33,10 +35,14 @@ export class BoardComponent {
   ) {}
   searchValue: string = '';
   searchInput: boolean = false;
+  taskMovedTo: string = '';
 
   ngOnInit() {
     this.dragDropService.itemDropped.subscribe(({ id, status }) => {
       this.handleItemDropped(id, status);
+    });
+    this.dragDropService.itemMoved.subscribe(({ status }) => {
+      this.handleItemMoved(status);
     });
   }
 
@@ -56,6 +62,10 @@ export class BoardComponent {
         .getAllTasks()
         .filter((task) => task.status === status);
     }
+  }
+
+  handleItemMoved(status: string) {
+    this.taskMovedTo = status;
   }
 
   handleItemDropped(id: string, status: string): void {

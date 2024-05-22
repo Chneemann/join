@@ -5,6 +5,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 })
 export class DragDropService {
   itemDropped = new EventEmitter<{ id: string; status: string }>();
+  itemMoved = new EventEmitter<{ status: string }>();
 
   constructor() {}
 
@@ -14,8 +15,12 @@ export class DragDropService {
     }
   }
 
-  allowDrop(event: DragEvent) {
+  allowDrop(event: DragEvent, status: string) {
     event.preventDefault();
+    const dataTransfer = event.dataTransfer;
+    if (dataTransfer) {
+      this.itemMoved.emit({ status });
+    }
   }
 
   drop(event: DragEvent, status: string) {
