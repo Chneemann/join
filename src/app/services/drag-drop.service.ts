@@ -5,13 +5,15 @@ import { Injectable, EventEmitter } from '@angular/core';
 })
 export class DragDropService {
   itemDropped = new EventEmitter<{ id: string; status: string }>();
-  itemMoved = new EventEmitter<{ status: string }>();
+  itemMovedFrom = new EventEmitter<{ status: string }>();
+  itemMovedTo = new EventEmitter<{ status: string }>();
 
   constructor() {}
 
-  startDragging(event: DragEvent, id: string | undefined) {
+  startDragging(event: DragEvent, id: string | undefined, status: string) {
     if (id !== undefined) {
       event.dataTransfer?.setData('text/plain', id);
+      this.itemMovedFrom.emit({ status });
     }
   }
 
@@ -19,7 +21,7 @@ export class DragDropService {
     event.preventDefault();
     const dataTransfer = event.dataTransfer;
     if (dataTransfer) {
-      this.itemMoved.emit({ status });
+      this.itemMovedTo.emit({ status });
     }
   }
 
@@ -30,6 +32,8 @@ export class DragDropService {
       const id = dataTransfer.getData('text/plain');
       if (id) {
         this.itemDropped.emit({ id, status });
+        status = '';
+        this.itemMovedTo.emit({ status });
       }
     }
   }

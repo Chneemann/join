@@ -36,13 +36,18 @@ export class BoardComponent {
   searchValue: string = '';
   searchInput: boolean = false;
   taskMovedTo: string = '';
+  taskMovedFrom: string = '';
+  taskDropped: boolean = false;
 
   ngOnInit() {
     this.dragDropService.itemDropped.subscribe(({ id, status }) => {
       this.handleItemDropped(id, status);
     });
-    this.dragDropService.itemMoved.subscribe(({ status }) => {
-      this.handleItemMoved(status);
+    this.dragDropService.itemMovedTo.subscribe(({ status }) => {
+      this.taskMovedTo = status;
+    });
+    this.dragDropService.itemMovedFrom.subscribe(({ status }) => {
+      this.taskMovedFrom = status;
     });
   }
 
@@ -62,10 +67,6 @@ export class BoardComponent {
         .getAllTasks()
         .filter((task) => task.status === status);
     }
-  }
-
-  handleItemMoved(status: string) {
-    this.taskMovedTo = status;
   }
 
   handleItemDropped(id: string, status: string): void {

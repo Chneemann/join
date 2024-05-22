@@ -54,10 +54,10 @@
         <div id="todo" class="details">
           @for(task of getTaskStatus("todo"); track task) {
           <app-task [task]="task"></app-task>
-          @if(taskMovedTo === "todo") {
-          <app-task-highlighted></app-task-highlighted>
-          } } @empty {
+          } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
+          } @if(taskMovedTo === "todo" && taskMovedFrom !== "todo") {
+          <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
@@ -79,6 +79,9 @@
           <app-task [task]="task"></app-task>
           } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
+          } @if(taskMovedTo === "inprogress" && taskMovedFrom !== "inprogress")
+          {
+          <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
@@ -97,9 +100,11 @@
         </div>
         <div id="awaitfeedback" class="details">
           @for(task of getTaskStatus("awaitfeedback"); track task) {
-          <app-task [task]="task"></app-task>
-          } @empty {
+          <app-task [task]="task"></app-task> } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
+          } @if(taskMovedTo === "awaitfeedback" && taskMovedFrom !==
+          "awaitfeedback") {
+          <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
@@ -121,6 +126,8 @@
           <app-task [task]="task"></app-task>
           } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
+          } @if(taskMovedTo === "done" && taskMovedFrom !== "done") {
+          <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
