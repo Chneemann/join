@@ -212,7 +212,7 @@ export class LoginService {
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        this.router.navigate(['/login/pw-send']);
+        this.router.navigate(['/login/notice/pw-send']);
         this.sharedService.isBtnDisabled = false;
       })
       .catch((error) => {
@@ -226,7 +226,7 @@ export class LoginService {
     const auth = getAuth();
     confirmPasswordReset(auth, oobCode, newPW)
       .then(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login/notice/pw-change']);
         this.sharedService.isBtnDisabled = false;
       })
       .catch((error) => {
