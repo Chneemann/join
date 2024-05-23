@@ -42,7 +42,7 @@
           {{ user.firstName }}
           {{ user.lastName }}
           @if (user.id === firebaseService.getCurrentUserId()) {
-          <p>&nbsp;{{ "contacts.you" | translate }}</p>
+          {{ "contacts.you" | translate }}
           }
         </div>
         @if(user.uId === "" || user.id === firebaseService.getCurrentUserId()) {

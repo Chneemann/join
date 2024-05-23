@@ -180,8 +180,9 @@ export class AddTaskComponent implements OnInit {
     localStorage.setItem('taskData', JSON.stringify(this.taskData));
   }
 
-  removeTaskData() {
+  removeTaskData(form: NgForm) {
     localStorage.removeItem('taskData');
+    this.clearForm(form);
     this.clearFormData();
   }
 
@@ -189,9 +190,13 @@ export class AddTaskComponent implements OnInit {
     this.overlayService.setOverlayData('', '');
   }
 
+  clearForm(form: NgForm) {
+    form.controls['title'].reset();
+    form.controls['description'].reset();
+    form.controls['category'].reset();
+  }
+
   clearFormData() {
-    this.taskData.title = '';
-    this.taskData.description = '';
     this.taskData.date = this.currentDate;
     this.taskData.category = '';
     this.taskData.assigned = [];
@@ -226,7 +231,7 @@ export class AddTaskComponent implements OnInit {
       if (allowedValues.includes(overlayData)) {
         const { id, ...taskWithoutId } = this.taskData;
         this.firebaseService.addNewTask(taskWithoutId);
-        this.removeTaskData();
+        this.removeTaskData(ngForm);
         this.closeOverlay();
       } else {
         if (this.getTaskData(overlayData).length > 0) {
@@ -254,9 +259,5 @@ export class AddTaskComponent implements OnInit {
     ) {
       this.isAssignedOpen = false;
     }
-  }
-
-  ngOnDestroy() {
-    this.removeTaskData();
   }
 }
