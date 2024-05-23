@@ -43,11 +43,7 @@
           } @else { @if (mail.touched &&
           !checkIfUserEmailIsValid(pwResetData.mail.toLowerCase())) {
           <p>{{ "register.errorMail1" | translate }}</p>
-          } @else {
-          @if(existEmailonServer(pwResetData.mail.toLowerCase()).length !== 1 &&
-          mail.touched) {
-          <p>{{ "register.errorMail3" | translate }}</p>
-          } } }
+          } }
         </div>
       </div>
       <div class="notice">

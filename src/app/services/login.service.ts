@@ -49,7 +49,6 @@ export class LoginService {
         }
       })
       .catch((error) => {
-        console.error(error);
         this.errorCode = error.code;
         this.sharedService.isBtnDisabled = false;
       });
@@ -93,7 +92,7 @@ export class LoginService {
         this.createUserInFirestore(userDataToSave);
       })
       .catch((error) => {
-        console.error(error);
+        this.sharedService.isBtnDisabled = false;
       });
   }
 
@@ -130,14 +129,11 @@ export class LoginService {
         });
       })
       .catch((error) => {
-        console.error('Google login error:', error);
         this.sharedService.isBtnDisabled = false;
       });
   }
 
   async createUserInFirestore(user: User) {
-    console.log(user);
-
     const userDataToSave: User = {
       uId: user.uId,
       email: user.email,
@@ -170,8 +166,6 @@ export class LoginService {
     await updateDoc(doc(collection(this.firestore, 'users'), userId), {
       status: status,
       lastLogin: new Date().getTime(),
-    }).catch((err) => {
-      console.error(err);
     });
     window.location.reload();
   }
@@ -214,8 +208,6 @@ export class LoginService {
         this.sharedService.isBtnDisabled = false;
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         this.sharedService.isBtnDisabled = false;
       });
   }
@@ -228,7 +220,6 @@ export class LoginService {
         this.sharedService.isBtnDisabled = false;
       })
       .catch((error) => {
-        console.error('Fehler beim Zurücksetzen des Passworts:', error);
         this.sharedService.isBtnDisabled = false;
       });
   }
