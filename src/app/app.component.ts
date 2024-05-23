@@ -52,6 +52,7 @@ export class AppComponent {
       this.checkPwResetRoute();
     } else {
       this.router.navigate(['/summary']);
+      this.sharedService.isBtnDisabled = false;
     }
   }
 

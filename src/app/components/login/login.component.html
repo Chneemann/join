@@ -33,12 +33,14 @@
         <img class="custom-img" alt="" />
         }
         <div class="error-msg">
-          @if (!mail.valid && mail.touched) {
+          @if (!mail.valid && mail.touched && !sharedService.isBtnDisabled) {
           <p>{{ "login.errorMail0" | translate }}</p>
-          } @if (loginSerivce.errorCode == 'auth/invalid-email') {
+          } @if (loginSerivce.errorCode == 'auth/invalid-email' &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "login.errorMail1" | translate }}</p>
           } @if (mail.valid && mail.touched &&
-          !checkIfUserEmailIsValid(loginData.mail.toLowerCase())) {
+          !checkIfUserEmailIsValid(loginData.mail.toLowerCase()) &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "login.errorMail2" | translate }}</p>
           }
         </div>
@@ -69,9 +71,11 @@
         />
         }
         <div class="error-msg">
-          @if (!password.valid && password.touched) {
+          @if (!password.valid && password.touched &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "login.errorPassword0" | translate }}</p>
-          } @if (loginSerivce.errorCode == 'auth/invalid-credential') {
+          } @if (loginSerivce.errorCode == 'auth/invalid-credential' &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "login.errorPassword1" | translate }}</p>
           }
         </div>

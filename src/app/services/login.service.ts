@@ -47,7 +47,6 @@ export class LoginService {
           this.getUserIdInLocalStorage(userData[0].id);
           this.updateUserOnlineStatus(userData[0].id, true);
         }
-        this.sharedService.isBtnDisabled = false;
       })
       .catch((error) => {
         console.error(error);
@@ -128,7 +127,6 @@ export class LoginService {
           } else {
             this.ifExistUser(user.uid);
           }
-          this.sharedService.isBtnDisabled = false;
         });
       })
       .catch((error) => {

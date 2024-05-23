@@ -37,7 +37,7 @@
         <img class="custom-img" alt="" />
         }
         <div class="error-msg">
-          @if (!name.valid && name.touched) {
+          @if (!name.valid && name.touched && !sharedService.isBtnDisabled) {
           <p>{{ "register.errorName" | translate }}</p>
           }
         </div>
@@ -63,13 +63,16 @@
         }
         <div class="error-msg">
           @if(!mail.valid && mail.touched &&
-          !checkIfUserEmailIsValid(registerData.mail.toLowerCase())) {
+          !checkIfUserEmailIsValid(registerData.mail.toLowerCase()) &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorMail0" | translate }}</p>
           } @else { @if (mail.touched &&
-          !checkIfUserEmailIsValid(registerData.mail.toLowerCase())) {
+          !checkIfUserEmailIsValid(registerData.mail.toLowerCase()) &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorMail1" | translate }}</p>
           } @else { @if
-          (existEmailonServer(registerData.mail.toLowerCase()).length > 0) {
+          (existEmailonServer(registerData.mail.toLowerCase()).length > 0 &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorMail2" | translate }}</p>
           } } }
         </div>
@@ -99,9 +102,11 @@
         />
         }
         <div class="error-msg">
-          @if (!password.valid && password.touched) {
+          @if (!password.valid && password.touched &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorPassword0" | translate }}</p>
-          } @else { @if (registerData.password.length < 6 && password.touched) {
+          } @else { @if (registerData.password.length < 6 && password.touched &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorPassword1" | translate }}</p>
           } }
         </div>
@@ -131,10 +136,12 @@
         />
         }
         <div class="error-msg">
-          @if (!passwordConfirm.valid && passwordConfirm.touched) {
+          @if (!passwordConfirm.valid && passwordConfirm.touched &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorPassword0" | translate }}</p>
           } @if (registerData.password !== registerData.passwordConfirm &&
-          registerData.password !== "" && registerData.passwordConfirm !== "") {
+          registerData.password !== "" && registerData.passwordConfirm !== "" &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorPassword2" | translate }}</p>
           }
         </div>
