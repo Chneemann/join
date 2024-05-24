@@ -21,7 +21,6 @@ import {
 } from '@angular/fire/firestore';
 import { SharedService } from './shared.service';
 import { User } from '../interfaces/user.interface';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
@@ -88,6 +87,7 @@ export class LoginService {
             : '',
           color: this.sharedService.generateRandomColor(),
           lastLogin: new Date().getTime(),
+          sessionId: this.generateRandomString(30),
         };
         this.createUserInFirestore(userDataToSave);
       })
@@ -122,6 +122,7 @@ export class LoginService {
               initials: firstName.slice(0, 1) + lastName.slice(0, 1),
               color: this.sharedService.generateRandomColor(),
               lastLogin: 0,
+              sessionId: this.generateRandomString(30),
             });
           } else {
             this.ifExistUser(user.uid);
@@ -144,6 +145,7 @@ export class LoginService {
       initials: user.initials,
       color: user.color,
       lastLogin: new Date().getTime(),
+      sessionId: this.generateRandomString(30),
     };
     const usersCollection = collection(this.firestore, 'users');
     try {
@@ -166,6 +168,7 @@ export class LoginService {
     await updateDoc(doc(collection(this.firestore, 'users'), userId), {
       status: status,
       lastLogin: new Date().getTime(),
+      sessionId: this.generateRandomString(30),
     });
     window.location.reload();
   }
@@ -185,6 +188,19 @@ export class LoginService {
 
   getUserIdInLocalStorage(userId: string) {
     localStorage.setItem('currentUserJOIN', JSON.stringify(userId));
+  }
+
+  generateRandomString(length: number): string {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}:"<>?|[];\',./`~';
+    let result = '';
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
   }
 
   // LOGOUT
