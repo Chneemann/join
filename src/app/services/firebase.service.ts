@@ -13,7 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-es';
 import { CryptoJSSecretKey } from './../environments/config';
 
 @Injectable({

@@ -22,7 +22,7 @@ import {
 import { SharedService } from './shared.service';
 import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-es';
 import { CryptoJSSecretKey } from './../environments/config';
 
 @Injectable({
