@@ -21,10 +21,12 @@
           id="name"
           name="name"
           #name="ngModel"
+          maxlength="20"
           placeholder="{{ 'register.name' | translate }}"
           class="custom-input"
           autocomplete="name"
           [(ngModel)]="registerData.name"
+          pattern="[A-Za-z ]+"
           required
         />
         @if(!registerData.name) {
@@ -37,9 +39,13 @@
         <img class="custom-img" alt="" />
         }
         <div class="error-msg">
-          @if (!name.valid && name.touched && !sharedService.isBtnDisabled) {
+          @if (name.hasError('pattern') && name.touched &&
+          !sharedService.isBtnDisabled) {
+          <p>{{ "register.errorPattern" | translate }}</p>
+          } @else { @if (!name.valid && name.touched &&
+          !sharedService.isBtnDisabled) {
           <p>{{ "register.errorName" | translate }}</p>
-          }
+          }}
         </div>
         <input
           type="mail"
@@ -86,6 +92,7 @@
           class="custom-input"
           autocomplete="new-password"
           [(ngModel)]="registerData.password"
+          pattern="[^<>]*"
           required
         />
         @if(!registerData.password) {
@@ -120,6 +127,7 @@
           class="custom-input"
           autocomplete="new-password"
           [(ngModel)]="registerData.passwordConfirm"
+          pattern="[^<>]*"
           required
         />
         @if(!registerData.passwordConfirm) {

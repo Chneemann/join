@@ -35,6 +35,7 @@
     "privacyPolicy0": "I accept the",
     "privacyPolicy1": "Privacy policy",
     "privacyPolicyError": "You must accept the privacy policy!",
+    "errorPattern": "Please use only letters and spaces!",
     "errorName": "You must enter a name!",
     "errorMail0": "You must enter a mail!",
     "errorMail1": "This is not a valid email format!",

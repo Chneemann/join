@@ -53,6 +53,7 @@
           placeholder="{{ 'login.password' | translate }}"
           class="custom-input"
           autocomplete="current-password"
+          pattern="[^<>]*"
           [(ngModel)]="loginData.password"
           required
         />

@@ -24,6 +24,7 @@
           class="custom-input"
           autocomplete="new-password"
           [(ngModel)]="pwResetData.password"
+          pattern="[^<>]*"
           required
         />
         @if(!pwResetData.password) {
@@ -56,6 +57,7 @@
           class="custom-input"
           autocomplete="new-password"
           [(ngModel)]="pwResetData.passwordConfirm"
+          pattern="[^<>]*"
           required
         />
         @if(!pwResetData.passwordConfirm) {

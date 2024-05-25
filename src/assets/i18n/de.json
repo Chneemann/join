@@ -35,6 +35,7 @@
     "privacyPolicy0": "Ich akzeptiere die",
     "privacyPolicy1": "Datenschutzerklärung",
     "privacyPolicyError": "Sie müssen die Datenschutzbestimmungen akzeptieren!",
+    "errorPattern": "Bitte nur Buchstaben und Leerzeichen verwenden!",
     "errorName": "Sie müssen einen Namen eingeben!",
     "errorMail0": "Sie müssen eine E-Mail Adresse eingeben!",
     "errorMail1": "Dies ist kein gültiges E-Mail-Format!",
