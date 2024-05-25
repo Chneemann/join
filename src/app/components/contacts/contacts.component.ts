@@ -19,31 +19,24 @@ export class ContactsComponent {
   usersFirstLetter: string[] = [];
   usersByFirstLetter: { [key: string]: string[] } = {};
   showAllUsers!: boolean;
-  currentUserId: string = '';
 
   constructor(
     public firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private sharedService: SharedService
+    public sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
-    this.routeUserId();
     this.onResize();
   }
 
-  routeUserId() {
-    if (this.route.params.subscribe()) {
-      this.route.params.subscribe((params) => {
-        this.currentUserId = params['id'];
-        this.sharedService.currentUserId = params['id'];
-      });
-    }
+  showUserId(userId: string = '') {
+    this.sharedService.currentUserId = userId;
   }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    if (window.innerWidth <= 1150 && this.currentUserId != '') {
+    if (window.innerWidth <= 1150 && this.sharedService.currentUserId != '') {
       this.showAllUsers = false;
     } else {
       this.showAllUsers = true;

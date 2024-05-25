@@ -1,7 +1,9 @@
 <section>
   <div
     class="left-frame"
-    [ngClass]="{ 'd-none': !showAllUsers && currentUserId != undefined }"
+    [ngClass]="{
+      'd-none': !showAllUsers && sharedService.currentUserId != undefined
+    }"
   >
     <button class="btn-new" type="submit" (click)="openNewContactDialog()">
       <div class="btn-inside">
@@ -20,9 +22,9 @@
       index = $index) {
       <div
         class="contact"
-        routerLink="/contacts/{{ user.id }}"
+        (click)="showUserId(user.id)"
         [ngClass]="{
-          'contact-active': currentUserId === user.id
+          'contact-active': sharedService.currentUserId === user.id
         }"
       >
         <div
@@ -63,8 +65,10 @@
   </div>
   <div class="right-frame">
     <app-contact-detail
-      [ngClass]="{ 'd-none': !showAllUsers && currentUserId == undefined }"
-      [currentUserId]="currentUserId"
+      [ngClass]="{
+        'd-none': !showAllUsers && sharedService.currentUserId == undefined
+      }"
+      [currentUserId]="sharedService.currentUserId"
     ></app-contact-detail>
   </div>
 </section>

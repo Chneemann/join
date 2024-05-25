@@ -32,7 +32,7 @@ export class ContactDetailComponent {
   ) {}
 
   closeUserDetails() {
-    this.router.navigate(['contacts']);
+    this.sharedService.currentUserId = '';
   }
 
   checkUserData(userId: string) {

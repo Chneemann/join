@@ -29,7 +29,6 @@ export const routes: Routes = [
   { path: 'task/:id', component: TaskOverlayComponent },
   { path: 'task-edit/:id', component: TaskEditOverlayComponent },
   { path: 'contacts', component: ContactsComponent },
-  { path: 'contacts/:id', component: ContactsComponent },
   { path: 'help', component: HelpComponent },
   { path: 'imprint', component: ImprintComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
