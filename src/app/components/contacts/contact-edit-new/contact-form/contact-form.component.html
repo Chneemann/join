@@ -121,7 +121,8 @@
       }
     </div>
     <div class="btns">
-      @if (currentUserId){
+      @if (currentUserId && currentUserId !==
+      firebaseService.getCurrentUserId()){
       <app-form-btn
         class="btn-delete"
         type="button"

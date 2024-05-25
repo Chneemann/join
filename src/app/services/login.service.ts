@@ -48,7 +48,7 @@ export class LoginService {
         const user = userCredential.user;
         const userData = this.firebaseService.getUserDataFromUid(user.uid);
         if (userData.length > 0 && userData[0].id) {
-          this.getUserIdInLocalStorage(this.secretKey, userData[0].id);
+          this.getUserIdInLocalStorage(userData[0].id);
           this.updateUserOnlineStatus(userData[0].id, true);
         }
       })
@@ -161,7 +161,7 @@ export class LoginService {
   ifExistUser(user: string) {
     const userData = this.firebaseService.getUserDataFromUid(user);
     if (userData.length > 0 && userData[0].id) {
-      this.getUserIdInLocalStorage(this.secretKey, userData[0].id);
+      this.getUserIdInLocalStorage(userData[0].id);
       this.updateUserOnlineStatus(userData[0].id, true);
     }
   }
@@ -187,12 +187,13 @@ export class LoginService {
         : './../../../assets/img/login/close-eye.svg';
   }
 
-  getUserIdInLocalStorage(key: string, userId: string): void {
+  getUserIdInLocalStorage(userId: string): void {
     const encryptedValue = CryptoJS.AES.encrypt(
       JSON.stringify(userId),
       this.secretKey
     ).toString();
     localStorage.setItem('currentUserJOIN', encryptedValue);
+    localStorage.setItem('sessionTimeJOIN', new Date().getTime().toString());
   }
 
   // LOGOUT

@@ -44,6 +44,7 @@ export class AppComponent {
     private route: ActivatedRoute,
     private router: Router
   ) {
+    this.checkAndClearLocalStorage();
     this.isLoggedIn = this.firebaseService.getCurrentUserId();
   }
 
@@ -53,6 +54,19 @@ export class AppComponent {
     } else {
       this.router.navigate(['/summary']);
       this.sharedService.isBtnDisabled = false;
+    }
+  }
+
+  checkAndClearLocalStorage() {
+    const startTime = localStorage.getItem('sessionTimeJOIN');
+
+    if (startTime) {
+      const startTimeMillis = parseInt(startTime);
+      const currentTime = new Date().getTime();
+      const timeDifference = 12 * 60 * 60 * 1000; // 12h
+      if (currentTime - startTimeMillis > timeDifference) {
+        localStorage.clear();
+      }
     }
   }
 
