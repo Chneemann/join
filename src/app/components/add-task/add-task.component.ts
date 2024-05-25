@@ -9,6 +9,7 @@ import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-add-task',
@@ -42,6 +43,7 @@ export class AddTaskComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
+    private sharedService: SharedService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -142,12 +144,17 @@ export class AddTaskComponent implements OnInit {
   }
 
   updateSearchInput() {
+    this.searchValue = this.sharedService.replaceXSSChars(this.searchValue);
     if (this.searchValue) {
       this.searchInput = this.searchValue.toLowerCase().length > 0;
     } else {
       this.searchInput = false;
     }
     return this.searchInput;
+  }
+
+  updateSubtaskValue() {
+    this.subtaskValue = this.sharedService.replaceXSSChars(this.subtaskValue);
   }
 
   receiveAssigned(assigned: string[]) {
@@ -177,6 +184,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   saveTaskData() {
+    this.checkCrossSiteScripting();
     localStorage.setItem('taskData', JSON.stringify(this.taskData));
   }
 
@@ -242,6 +250,18 @@ export class AddTaskComponent implements OnInit {
       }
       this.router.navigate(['/board']);
     }
+  }
+
+  checkCrossSiteScripting() {
+    this.taskData.title = this.sharedService.replaceXSSChars(
+      this.taskData.title
+    );
+    this.taskData.description = this.sharedService.replaceXSSChars(
+      this.taskData.description
+    );
+    this.taskData.subtasksTitle = this.taskData.subtasksTitle.map((title) =>
+      this.sharedService.replaceXSSChars(title)
+    );
   }
 
   deleteTaskData(overlayData: string) {

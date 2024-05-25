@@ -1,4 +1,10 @@
-import { Component, HostListener, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from '../contacts.component';
 import { Router } from '@angular/router';
@@ -23,6 +29,7 @@ import { ContactEditNewComponent } from '../contact-edit-new/contact-edit-new.co
 })
 export class ContactDetailComponent {
   @Input() currentUserId: string | undefined;
+  @Output() closeContactEmitter = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
@@ -33,6 +40,7 @@ export class ContactDetailComponent {
 
   closeUserDetails() {
     this.sharedService.currentUserId = '';
+    this.closeContactEmitter.emit();
   }
 
   checkUserData(userId: string) {

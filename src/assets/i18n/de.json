@@ -76,6 +76,7 @@
     "btnCancel": "Abbrechen",
     "btnDelete": "Löschen",
     "btnSave": "Sichern",
+    "invalidPattern": "Es sind nur Buchstaben erlaubt!",
     "invalidFirstName": "Ein Vorname ist erforderlich!",
     "invalidLastName": "Ein Nachname ist erforderlich!",
     "invalidName": "Ein Vorname & Nachname ist erforderlich!",

@@ -121,7 +121,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
   }
 
   checkIfUserEmailIsValid(emailValue: string) {
-    const channelNameLenght = emailValue.length;
     const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
     if (emailRegex.test(emailValue)) {
       return true;

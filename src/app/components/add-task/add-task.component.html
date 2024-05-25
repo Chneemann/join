@@ -254,6 +254,7 @@
             #subtask="ngModel"
             placeholder="{{ 'addTask.subtaskFormField' | translate }}"
             [(ngModel)]="subtaskValue"
+            (input)="updateSubtaskValue()"
             autocomplete="off"
           />
           @if (subtaskValue) {

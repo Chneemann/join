@@ -19,14 +19,17 @@
             : ('contactDialogForm.firstName' | translate)
         }}"
         [(ngModel)]="contactData.firstName"
+        pattern="[A-Za-z]+"
         autocomplete="off"
         required
       />
       @if (sharedService.isContactViewMedia) {
       <div class="error-msg">
-        @if (!firstName.valid && firstName.touched) {
+        @if (firstName.hasError('pattern') && firstName.touched) {
+        <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
+        } @else { @if (!firstName.valid && firstName.touched) {
         <p>{{ "contactDialogForm.invalidFirstName" | translate }}</p>
-        }
+        }}
       </div>
       }
       <input
@@ -41,26 +44,34 @@
             : ('contactDialogForm.lastName' | translate)
         }}"
         [(ngModel)]="contactData.lastName"
+        pattern="[A-Za-z]+"
         autocomplete="off"
         required
       />
     </div>
     @if (sharedService.isContactViewMedia) {
     <div class="error-msg">
-      @if (!lastName.valid && lastName.touched) {
+      @if (lastName.hasError('pattern') && lastName.touched) {
+      <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
+      } @else { @if (!lastName.valid && lastName.touched) {
       <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
-      }
+      }}
     </div>
     } @if (!sharedService.isContactViewMedia) {
     <div class="error-msg">
-      @if ((!firstName.valid && firstName.touched) && (!lastName.valid &&
-      lastName.touched)) {
+      @if (firstName.hasError('pattern') || lastName.hasError('pattern') &&
+      firstName.touched) {
+      <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
+      } @else { @if ((!firstName.valid && firstName.touched) && (!lastName.valid
+      && lastName.touched)) {
       <p>{{ "contactDialogForm.invalidName" | translate }}</p>
-      } @else { @if (!firstName.valid && firstName.touched) {
+      } @else { @if (!firstName.valid && firstName.touched &&
+      !firstName.hasError('pattern')) {
       <p>{{ "contactDialogForm.invalidFirstName" | translate }}</p>
-      } @else { @if (!lastName.valid && lastName.touched) {
+      } @else { @if (!lastName.valid && lastName.touched &&
+      !lastName.hasError('pattern')) {
       <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
-      } } }
+      } } } }
     </div>
     }
     <input

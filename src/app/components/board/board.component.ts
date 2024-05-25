@@ -92,6 +92,7 @@ export class BoardComponent {
   }
 
   updateSearchInput() {
+    this.searchValue = this.sharedService.replaceXSSChars(this.searchValue);
     if (this.searchValue) {
       this.searchInput = this.searchValue.toLowerCase().length > 0;
     } else {

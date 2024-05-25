@@ -18,7 +18,7 @@ export class ContactsComponent {
   allUsers: User[] = [];
   usersFirstLetter: string[] = [];
   usersByFirstLetter: { [key: string]: string[] } = {};
-  showAllUsers!: boolean;
+  showAllUsers: boolean = false;
 
   constructor(
     public firebaseService: FirebaseService,
@@ -32,6 +32,7 @@ export class ContactsComponent {
 
   showUserId(userId: string = '') {
     this.sharedService.currentUserId = userId;
+    this.onResize();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -41,6 +42,10 @@ export class ContactsComponent {
     } else {
       this.showAllUsers = true;
     }
+  }
+
+  closeContactEmitter() {
+    this.onResize();
   }
 
   loadAllUserWithoutGuest(): User[] {

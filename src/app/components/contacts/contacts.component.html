@@ -69,6 +69,7 @@
         'd-none': !showAllUsers && sharedService.currentUserId == undefined
       }"
       [currentUserId]="sharedService.currentUserId"
+      (closeContactEmitter)="closeContactEmitter()"
     ></app-contact-detail>
   </div>
 </section>

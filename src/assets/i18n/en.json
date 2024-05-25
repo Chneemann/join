@@ -76,6 +76,7 @@
     "btnCancel": "Cancel",
     "btnDelete": "Delete",
     "btnSave": "Save",
+    "invalidPattern": "Only letters are allowed!",
     "invalidFirstName": "A first name is required!",
     "invalidLastName": "A last name is required!",
     "invalidName": "A first name & last name is required!",

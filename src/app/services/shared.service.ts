@@ -69,4 +69,10 @@ export class SharedService {
     const b = bigint & 255;
     return { r, g, b };
   }
+
+  // SECURITY
+
+  replaceXSSChars(input: string) {
+    return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
 }
