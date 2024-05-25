@@ -56,7 +56,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
     color: '',
     status: false,
     lastLogin: 0,
-    sessionId: '',
   };
 
   ngOnInit() {

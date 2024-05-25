@@ -9,5 +9,4 @@ export interface User {
   color: string;
   status: boolean;
   lastLogin: number;
-  sessionId: string;
 }
