@@ -48,7 +48,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    if (this.isLoggedIn === undefined) {
+    if (this.isLoggedIn === null) {
       this.checkPwResetRoute();
     } else {
       this.router.navigate(['/summary']);

@@ -22,6 +22,9 @@ import {
 import { SharedService } from './shared.service';
 import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
+import { CryptoJSSecretKey } from './../environments/config';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,6 +33,8 @@ export class LoginService {
   passwordFieldType: string = 'password';
   passwordIcon: string = './../../../assets/img/login/close-eye.svg';
   errorCode: string = '';
+
+  private secretKey: string = CryptoJSSecretKey.secretKey;
 
   constructor(
     private firebaseService: FirebaseService,
@@ -43,7 +48,7 @@ export class LoginService {
         const user = userCredential.user;
         const userData = this.firebaseService.getUserDataFromUid(user.uid);
         if (userData.length > 0 && userData[0].id) {
-          this.getUserIdInLocalStorage(userData[0].id);
+          this.getUserIdInLocalStorage(this.secretKey, userData[0].id);
           this.updateUserOnlineStatus(userData[0].id, true);
         }
       })
@@ -156,7 +161,7 @@ export class LoginService {
   ifExistUser(user: string) {
     const userData = this.firebaseService.getUserDataFromUid(user);
     if (userData.length > 0 && userData[0].id) {
-      this.getUserIdInLocalStorage(userData[0].id);
+      this.getUserIdInLocalStorage(this.secretKey, userData[0].id);
       this.updateUserOnlineStatus(userData[0].id, true);
     }
   }
@@ -182,8 +187,12 @@ export class LoginService {
         : './../../../assets/img/login/close-eye.svg';
   }
 
-  getUserIdInLocalStorage(userId: string) {
-    localStorage.setItem('currentUserJOIN', JSON.stringify(userId));
+  getUserIdInLocalStorage(key: string, userId: string): void {
+    const encryptedValue = CryptoJS.AES.encrypt(
+      JSON.stringify(userId),
+      this.secretKey
+    ).toString();
+    localStorage.setItem('currentUserJOIN', encryptedValue);
   }
 
   // LOGOUT
