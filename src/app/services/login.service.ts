@@ -205,6 +205,7 @@ export class LoginService {
 
   deleteUserIdInLocalStorage() {
     localStorage.removeItem('currentUserJOIN');
+    localStorage.removeItem('sessionTimeJOIN');
   }
 
   // FORGOT PASSWORD
