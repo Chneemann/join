@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterOutlet,
-} from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { LanguageService } from './services/language.service';
@@ -41,7 +36,6 @@ export class AppComponent {
     public langService: LanguageService,
     public sharedService: SharedService,
     private firebaseService: FirebaseService,
-    private route: ActivatedRoute,
     private router: Router
   ) {
     this.checkAndClearLocalStorage();

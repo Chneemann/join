@@ -14,7 +14,7 @@ import { ForgotPwComponent } from './components/login/forgot-pw/forgot-pw.compon
 import { PwResetComponent } from './components/login/forgot-pw/pw-reset/pw-reset.component';
 
 export const routes: Routes = [
-  { path: '', component: SummaryComponent },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/notice/:id', component: LoginComponent },
   { path: 'login/imprint', component: ImprintComponent },
