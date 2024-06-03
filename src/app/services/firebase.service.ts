@@ -1,9 +1,7 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
-  DocumentReference,
   Firestore,
   addDoc,
-  arrayUnion,
   collection,
   deleteDoc,
   doc,

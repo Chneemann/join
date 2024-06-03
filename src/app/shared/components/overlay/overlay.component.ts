@@ -1,22 +1,11 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
-import { FirebaseService } from '../../../services/firebase.service';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AddTaskComponent } from '../../../components/add-task/add-task.component';
 import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.component';
-import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-overlay',
@@ -35,12 +24,7 @@ export class OverlayComponent implements OnInit {
   overlayType: any;
   overlayData: any;
 
-  constructor(
-    private overlayService: OverlayService,
-    private sharedService: SharedService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private overlayService: OverlayService, private router: Router) {}
 
   ngOnInit(): void {
     this.checkOverlayData();

@@ -5,7 +5,6 @@ import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/fo
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { LoginService } from '../../../services/login.service';
 import { SharedService } from '../../../services/shared.service';

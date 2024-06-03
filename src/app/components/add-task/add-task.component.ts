@@ -7,7 +7,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedService } from '../../services/shared.service';
 
