@@ -11,15 +11,15 @@ import {
 } from '@angular/fire/firestore';
 import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
-import CryptoJS from 'crypto-es';
-import { CryptoJSSecretKey } from './../environments/config';
+import CryptoES from 'crypto-es';
+import { CryptoESSecretKey } from './../environments/config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
-  private secretKey: string = CryptoJSSecretKey.secretKey;
+  private secretKey: string = CryptoESSecretKey.secretKey;
 
   allTasks: Task[] = [];
   filteredTasks: Task[] = [];
@@ -133,8 +133,8 @@ export class FirebaseService implements OnDestroy {
   getCurrentUserId() {
     const encryptedValue = localStorage.getItem('currentUserJOIN');
     if (encryptedValue) {
-      const bytes = CryptoJS.AES.decrypt(encryptedValue, this.secretKey);
-      const decryptedValue = bytes.toString(CryptoJS.enc.Utf8);
+      const bytes = CryptoES.AES.decrypt(encryptedValue, this.secretKey);
+      const decryptedValue = bytes.toString(CryptoES.enc.Utf8);
       return JSON.parse(decryptedValue);
     }
     return null;

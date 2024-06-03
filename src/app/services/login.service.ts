@@ -22,8 +22,8 @@ import {
 import { SharedService } from './shared.service';
 import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
-import CryptoJS from 'crypto-es';
-import { CryptoJSSecretKey } from './../environments/config';
+import CryptoES from 'crypto-es';
+import { CryptoESSecretKey } from './../environments/config';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +34,7 @@ export class LoginService {
   passwordIcon: string = './../../../assets/img/login/close-eye.svg';
   errorCode: string = '';
 
-  private secretKey: string = CryptoJSSecretKey.secretKey;
+  private secretKey: string = CryptoESSecretKey.secretKey;
 
   constructor(
     private firebaseService: FirebaseService,
@@ -188,7 +188,7 @@ export class LoginService {
   }
 
   getUserIdInLocalStorage(userId: string): void {
-    const encryptedValue = CryptoJS.AES.encrypt(
+    const encryptedValue = CryptoES.AES.encrypt(
       JSON.stringify(userId),
       this.secretKey
     ).toString();
