@@ -38,7 +38,7 @@ export class LoginComponent {
 
   constructor(
     private firebaseService: FirebaseService,
-    public loginSerivce: LoginService,
+    public loginService: LoginService,
     public sharedService: SharedService,
     private overlayService: OverlayService,
     private route: ActivatedRoute,
@@ -63,7 +63,7 @@ export class LoginComponent {
   onSubmit(ngForm: NgForm) {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
-      this.loginSerivce.login(this.loginData);
+      this.loginService.login(this.loginData);
     }
   }
 
@@ -77,7 +77,7 @@ export class LoginComponent {
 
   googleLogin() {
     this.sharedService.isBtnDisabled = true;
-    this.loginSerivce.googleLogin();
+    this.loginService.googleLogin();
   }
 
   checkIfUserEmailIsValid(emailValue: string) {

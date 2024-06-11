@@ -3,7 +3,6 @@ import { FirebaseService } from '../../../services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../interfaces/user.interface';
 import { AddTaskComponent } from '../add-task.component';
-import { SharedService } from '../../../services/shared.service';
 
 @Component({
   selector: 'app-assigned',
@@ -20,11 +19,8 @@ export class AssignedComponent {
 
   assigned: string[] = [];
 
-  constructor(
-    public firebaseService: FirebaseService,
-    private sharedService: SharedService
-  ) {
-    this.loadTaskAssigedData();
+  constructor(public firebaseService: FirebaseService) {
+    this.loadTaskAssignedData();
   }
 
   updateAssigned() {
@@ -50,7 +46,7 @@ export class AssignedComponent {
     }
   }
 
-  loadTaskAssigedData() {
+  loadTaskAssignedData() {
     const taskDataString = localStorage.getItem('taskData');
     if (taskDataString !== null) {
       const taskData = JSON.parse(taskDataString);

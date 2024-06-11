@@ -35,7 +35,7 @@
         <div class="error-msg">
           @if (!mail.valid && mail.touched && !sharedService.isBtnDisabled) {
           <p>{{ "login.errorMail0" | translate }}</p>
-          } @if (loginSerivce.errorCode == 'auth/invalid-email' &&
+          } @if (loginService.errorCode == 'auth/invalid-email' &&
           !sharedService.isBtnDisabled) {
           <p>{{ "login.errorMail1" | translate }}</p>
           } @if (mail.valid && mail.touched &&
@@ -49,7 +49,7 @@
           id="password"
           name="password"
           #password="ngModel"
-          [type]="loginSerivce.passwordFieldType"
+          [type]="loginService.passwordFieldType"
           placeholder="{{ 'login.password' | translate }}"
           class="custom-input"
           autocomplete="current-password"
@@ -67,15 +67,15 @@
         <img
           class="passwordEye"
           *ngIf="isPasswordIconVisible"
-          (click)="loginSerivce.togglePasswordVisibility()"
-          [src]="loginSerivce.passwordIcon"
+          (click)="loginService.togglePasswordVisibility()"
+          [src]="loginService.passwordIcon"
         />
         }
         <div class="error-msg">
           @if (!password.valid && password.touched &&
           !sharedService.isBtnDisabled) {
           <p>{{ "login.errorPassword0" | translate }}</p>
-          } @if (loginSerivce.errorCode == 'auth/invalid-credential' &&
+          } @if (loginService.errorCode == 'auth/invalid-credential' &&
           !sharedService.isBtnDisabled) {
           <p>{{ "login.errorPassword1" | translate }}</p>
           }

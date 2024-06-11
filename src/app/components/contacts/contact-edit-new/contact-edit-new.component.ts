@@ -33,7 +33,7 @@ export class ContactEditNewComponent implements OnInit {
     public sharedService: SharedService
   ) {}
 
-  inititalsEmitter(emitter: string) {
+  initialsEmitter(emitter: string) {
     this.userInitials = emitter;
   }
 

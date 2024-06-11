@@ -27,7 +27,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Input() randomColor: string = '';
   @Input() newColor: string = '';
   @Input() currentColor: string = '';
-  @Output() inititalsEmitter = new EventEmitter<string>();
+  @Output() initialsEmitter = new EventEmitter<string>();
 
   constructor(
     private router: Router,
@@ -95,7 +95,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
         initials: initials,
       };
     }
-    this.inititalsEmitter.emit(initials);
+    this.initialsEmitter.emit(initials);
   }
 
   updateUserData() {
@@ -129,7 +129,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
     }
   }
 
-  existEmailonServer(mail: string) {
+  existEmailOnServer(mail: string) {
     return this.firebaseService
       .getAllUsers()
       .filter((user) => user.email === mail);

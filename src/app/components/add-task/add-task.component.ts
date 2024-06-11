@@ -176,9 +176,9 @@ export class AddTaskComponent implements OnInit {
       : (this.dateInPast = false);
   }
 
-  tooglePriority(prio: string) {
-    this.taskData.priority !== prio
-      ? (this.taskData.priority = prio)
+  togglePriority(priority: string) {
+    this.taskData.priority !== priority
+      ? (this.taskData.priority = priority)
       : this.taskData.priority;
     this.saveTaskData();
   }

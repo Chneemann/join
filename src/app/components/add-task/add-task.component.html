@@ -173,7 +173,7 @@
                 'background-color':
                   taskData.priority == 'urgent' ? 'red' : 'white'
               }"
-              (click)="tooglePriority('urgent')"
+              (click)="togglePriority('urgent')"
             >
               <div class="btn-text">
                 <span>{{ "addTask.urgent" | translate }}</span>
@@ -190,7 +190,7 @@
                 'background-color':
                   taskData.priority == 'medium' ? 'orange' : 'white'
               }"
-              (click)="tooglePriority('medium')"
+              (click)="togglePriority('medium')"
             >
               <div class="btn-text">
                 <span>{{ "addTask.medium" | translate }}</span>
@@ -207,7 +207,7 @@
                 'background-color':
                   taskData.priority == 'low' ? 'green' : 'white'
               }"
-              (click)="tooglePriority('low')"
+              (click)="togglePriority('low')"
             >
               <div class="btn-text">
                 <span>{{ "addTask.low" | translate }}</span>

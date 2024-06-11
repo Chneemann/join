@@ -61,11 +61,11 @@ export class ContactsComponent {
   }
 
   sortFirstLetter() {
-    let filteretArray = this.loadAllUserWithoutGuest().sort((a, b) =>
+    let filterteArray = this.loadAllUserWithoutGuest().sort((a, b) =>
       a.firstName.localeCompare(b.firstName)
     );
     let usersFirstLetter = Array.from(
-      new Set(filteretArray.map((user) => user.firstName[0].toUpperCase()))
+      new Set(filterteArray.map((user) => user.firstName[0].toUpperCase()))
     );
     return usersFirstLetter;
   }

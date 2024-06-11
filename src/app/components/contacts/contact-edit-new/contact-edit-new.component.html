@@ -25,7 +25,7 @@ firebaseService.getUserDataFromId(currentUserId); track user) {
       </div>
       <div class="form">
         <app-contact-form
-          (inititalsEmitter)="inititalsEmitter($event)"
+          (initialsEmitter)="initialsEmitter($event)"
           [currentUserId]="currentUserId"
           [newColor]="newColor"
           [currentColor]="user.color"
@@ -56,7 +56,7 @@ firebaseService.getUserDataFromId(currentUserId); track user) {
       </div>
       <div class="form">
         <app-contact-form
-          (inititalsEmitter)="inititalsEmitter($event)"
+          (initialsEmitter)="initialsEmitter($event)"
           [randomColor]="randomColor"
           [newColor]="newColor"
         ></app-contact-form>
