@@ -92,7 +92,7 @@
   },
   "contactDeleteDialog": {
     "deleteContact": "Möchten Sie den Kontakt wirklich löschen?",
-    "btnCancle": "Abbrechen",
+    "btnCancel": "Abbrechen",
     "btnDelete": "Löschen"
   },
   "summary": {

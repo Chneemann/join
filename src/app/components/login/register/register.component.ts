@@ -42,7 +42,7 @@ export class RegisterComponent {
 
   constructor(
     private firebaseService: FirebaseService,
-    public loginSerivce: LoginService,
+    public loginService: LoginService,
     public sharedService: SharedService,
     public translateService: TranslateService
   ) {}
@@ -51,7 +51,7 @@ export class RegisterComponent {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
       this.splitName();
-      this.loginSerivce.register(this.registerData);
+      this.loginService.register(this.registerData);
     }
   }
 
@@ -61,7 +61,7 @@ export class RegisterComponent {
     this.registerData.lastName = names.slice(1).join(' ');
   }
 
-  existEmailonServer(mail: string) {
+  existEmailOnServer(mail: string) {
     return this.firebaseService
       .getAllUsers()
       .filter((user) => user.email === mail);

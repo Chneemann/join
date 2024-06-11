@@ -55,10 +55,10 @@ export class AppComponent {
     const startTime = localStorage.getItem('sessionTimeJOIN');
 
     if (startTime) {
-      const startTimeMillis = parseInt(startTime);
+      const startTimeMills = parseInt(startTime);
       const currentTime = new Date().getTime();
       const timeDifference = 12 * 60 * 60 * 1000; // 12h
-      if (currentTime - startTimeMillis > timeDifference) {
+      if (currentTime - startTimeMills > timeDifference) {
         localStorage.clear();
       }
     }

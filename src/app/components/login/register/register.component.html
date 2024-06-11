@@ -77,7 +77,7 @@
           !sharedService.isBtnDisabled) {
           <p>{{ "register.errorMail1" | translate }}</p>
           } @else { @if
-          (existEmailonServer(registerData.mail.toLowerCase()).length > 0 &&
+          (existEmailOnServer(registerData.mail.toLowerCase()).length > 0 &&
           !sharedService.isBtnDisabled) {
           <p>{{ "register.errorMail2" | translate }}</p>
           } } }
@@ -87,7 +87,7 @@
           id="password"
           name="password"
           #password="ngModel"
-          [type]="loginSerivce.passwordFieldType"
+          [type]="loginService.passwordFieldType"
           placeholder="{{ 'register.password' | translate }}"
           class="custom-input"
           autocomplete="new-password"
@@ -104,8 +104,8 @@
         } @else {
         <img
           class="passwordEye"
-          (click)="loginSerivce.togglePasswordVisibility()"
-          [src]="loginSerivce.passwordIcon"
+          (click)="loginService.togglePasswordVisibility()"
+          [src]="loginService.passwordIcon"
         />
         }
         <div class="error-msg">
@@ -122,7 +122,7 @@
           id="passwordConfirm"
           name="passwordConfirm"
           #passwordConfirm="ngModel"
-          [type]="loginSerivce.passwordFieldType"
+          [type]="loginService.passwordFieldType"
           placeholder="{{ 'register.passwordConfirm' | translate }}"
           class="custom-input"
           autocomplete="new-password"
@@ -139,8 +139,8 @@
         } @else {
         <img
           class="passwordEyeConfirm"
-          (click)="loginSerivce.togglePasswordVisibility()"
-          [src]="loginSerivce.passwordIcon"
+          (click)="loginService.togglePasswordVisibility()"
+          [src]="loginService.passwordIcon"
         />
         }
         <div class="error-msg">

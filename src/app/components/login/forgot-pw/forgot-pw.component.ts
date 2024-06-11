@@ -5,10 +5,8 @@ import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/fo
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { FirebaseService } from '../../../services/firebase.service';
 import { LoginService } from '../../../services/login.service';
 import { SharedService } from '../../../services/shared.service';
-import { Router } from '@angular/router';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 
 @Component({
@@ -32,27 +30,18 @@ export class ForgotPwComponent {
   };
 
   constructor(
-    private firebaseService: FirebaseService,
-    public loginSerivce: LoginService,
-    public sharedService: SharedService,
-    private router: Router
+    public loginService: LoginService,
+    public sharedService: SharedService
   ) {}
 
   onSubmit(ngForm: NgForm) {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
-      this.loginSerivce.passwordReset(this.pwResetData.mail.toLowerCase());
+      this.loginService.passwordReset(this.pwResetData.mail.toLowerCase());
     }
   }
 
-  existEmailonServer(mail: string) {
-    return this.firebaseService
-      .getAllUsers()
-      .filter((user) => user.email === mail);
-  }
-
   checkIfUserEmailIsValid(emailValue: string) {
-    const channelNameLenght = emailValue.length;
     const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
     if (emailRegex.test(emailValue)) {
       return true;
