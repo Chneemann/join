@@ -55,6 +55,7 @@
           autocomplete="current-password"
           pattern="[^<>]*"
           [(ngModel)]="loginData.password"
+          minlength="6"
           required
         />
         @if(!loginData.password) {

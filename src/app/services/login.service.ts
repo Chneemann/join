@@ -24,6 +24,7 @@ import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
 import CryptoES from 'crypto-es';
 import { CryptoESSecretKey } from './../environments/config';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,13 @@ export class LoginService {
     public sharedService: SharedService,
     private router: Router
   ) {}
+
+  checkAuthUser(): Observable<boolean> {
+    return this.firebaseService.getAuthUser().pipe(
+      map((user) => !!user),
+      catchError(() => of(false))
+    );
+  }
 
   login(loginData: { mail: string; password: string }) {
     signInWithEmailAndPassword(getAuth(), loginData.mail, loginData.password)

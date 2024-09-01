@@ -10,7 +10,7 @@
     "errorMail1": "Diese E-Mail Adresse existiert nicht!",
     "errorMail2": "Dies ist kein gültiges E-Mail-Format!",
     "errorPassword0": "Sie müssen ein Passwort eingeben!",
-    "errorPassword1": "Das Passwort stimmt nicht mit der E-Mail Adresse überein!",
+    "errorPassword1": "Das Passwort passt nicht zur E-Mail-Adresse!",
     "loginDialog0": "Einloggen",
     "loginDialog1": "Bitte warten..."
   },

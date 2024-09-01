@@ -13,6 +13,7 @@ import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
 import CryptoES from 'crypto-es';
 import { CryptoESSecretKey } from './../environments/config';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -170,6 +171,18 @@ export class FirebaseService implements OnDestroy {
       console.error(err);
       throw err;
     }
+  }
+
+  // ------------- AUTH ------------- //
+
+  getAuthUser(): Observable<any> {
+    const encryptedValue = localStorage.getItem('currentUserJOIN');
+    if (encryptedValue) {
+      const bytes = CryptoES.AES.decrypt(encryptedValue, this.secretKey);
+      const decryptedValue = bytes.toString(CryptoES.enc.Utf8);
+      return of(JSON.parse(decryptedValue));
+    }
+    return of(null);
   }
 
   ngOnDestroy() {
