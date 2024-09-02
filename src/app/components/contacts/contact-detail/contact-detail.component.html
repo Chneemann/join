@@ -1,17 +1,19 @@
 <section>
   <div class="header">
-    <div class="headerline">
+    <div class="headline">
       <div class="title">{{ "contacts.headline" | translate }}</div>
       <div class="blue-bar"></div>
       <div class="metrics-txt">
         {{ "contacts.headlineDescription" | translate }}
       </div>
     </div>
-    <img
-      [ngClass]="{ 'd-none': !currentUserId }"
-      (click)="closeUserDetails()"
-      src="./../../../../assets/img/arrow-left.svg"
-    />
+    <div class="btn-back">
+      <img
+        [ngClass]="{ 'd-none': !currentUserId }"
+        (click)="closeUserDetails()"
+        src="./../../../../assets/img/arrow-left.svg"
+      />
+    </div>
   </div>
   @if (currentUserId) { @for (user of checkUserData(currentUserId); track user)
   {
