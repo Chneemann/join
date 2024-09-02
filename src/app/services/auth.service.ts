@@ -23,7 +23,7 @@ import { SharedService } from './shared.service';
 import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
 import CryptoES from 'crypto-es';
-import { CryptoESSecretKey } from './../environments/config';
+import { CryptoESSecretKey } from '../environments/config';
 import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({

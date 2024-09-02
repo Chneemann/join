@@ -4,7 +4,7 @@ import { HeaderComponent } from '../header.component';
 import { LanguageService } from '../../../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginService } from '../../../../services/login.service';
+import { LoginService } from '../../../../services/auth.service';
 import { FirebaseService } from '../../../../services/firebase.service';
 
 @Component({

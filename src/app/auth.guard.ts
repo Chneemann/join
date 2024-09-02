@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { LoginService } from './services/login.service';
+import { LoginService } from './services/auth.service';
 
 @Injectable({
   providedIn: 'root',

@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { FirebaseService } from '../../services/firebase.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { LoginService } from '../../services/login.service';
+import { LoginService } from '../../services/auth.service';
 import { SharedService } from '../../services/shared.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
