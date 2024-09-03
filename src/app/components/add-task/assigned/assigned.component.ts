@@ -60,9 +60,7 @@ export class AssignedComponent {
     if (this.searchInput) {
       return this.filteredUsers;
     } else {
-      return this.firebaseService.getAllUserWithoutGuestCurrentUserAndCreator(
-        this.taskCreator
-      );
+      return this.firebaseService.getFilteredUsers(this.taskCreator);
     }
   }
 }

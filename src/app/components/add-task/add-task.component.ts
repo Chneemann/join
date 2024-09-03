@@ -134,7 +134,7 @@ export class AddTaskComponent implements OnInit {
   searchTask(taskCreator: string): void {
     this.updateSearchInput();
     this.filteredUsers = this.firebaseService
-      .getAllUserWithoutGuestCurrentUserAndCreator(taskCreator)
+      .getFilteredUsers(taskCreator)
       .filter(
         (user) =>
           user.firstName.toLowerCase().includes(this.searchValue) ||
