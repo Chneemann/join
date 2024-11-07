@@ -217,10 +217,13 @@ export class LoginService {
   }
 
   // FORGOT PASSWORD
-
   passwordReset(email: string) {
     const auth = getAuth();
-    sendPasswordResetEmail(auth, email)
+    const actionCodeSettings = {
+      url: 'https://join.andre-kempf.com/',
+      handleCodeInApp: true,
+    };
+    sendPasswordResetEmail(auth, email, actionCodeSettings)
       .then(() => {
         this.router.navigate(['/login/notice/pw-send']);
         this.sharedService.isBtnDisabled = false;
