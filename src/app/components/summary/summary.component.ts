@@ -18,10 +18,21 @@ export class SummaryComponent {
     private translateService: TranslateService
   ) {}
 
+  /**
+   * Return the total number of tasks.
+   *
+   * @returns The number of total tasks.
+   */
   displayNumberOfAllTasks() {
     return this.firebaseService.getAllTasks().length;
   }
 
+  /**
+   * Returns the number of tasks with the given status.
+   *
+   * @param query The task status to query for.
+   * @returns The number of tasks with the given status.
+   */
   displayNumberOfTaskStatus(query: string) {
     const filteredTasks = this.firebaseService
       .getAllTasks()
@@ -29,12 +40,23 @@ export class SummaryComponent {
     return filteredTasks.length;
   }
 
+  /**
+   * Returns the number of tasks with the "urgent" priority.
+   *
+   * @returns The number of tasks with the "urgent" priority.
+   */
   displayNumberOfTaskStatusUrgent() {
     return this.firebaseService
       .getAllTasks()
       .filter((task) => task.priority === 'urgent');
   }
 
+  /**
+   * Return the next task with the "urgent" priority or null if none
+   * exist.
+   *
+   * @returns The next task with the "urgent" priority or null.
+   */
   nextUrgentTask() {
     const urgentTasks = this.displayNumberOfTaskStatusUrgent();
     if (urgentTasks.length > 0) {
@@ -48,6 +70,12 @@ export class SummaryComponent {
     return null;
   }
 
+  /**
+   * Converts a date string to a human-readable format.
+   *
+   * @param dateString The date string to convert.
+   * @returns A string in the format "Month DD, YYYY".
+   */
   timeConverter(dateString: string) {
     var a = new Date(dateString);
     var months = [
@@ -71,6 +99,17 @@ export class SummaryComponent {
     return time;
   }
 
+  /**
+   * Displays a greeting message based on the current time of day.
+   *
+   * The time is converted to the user's local time and then compared to the
+   * following ranges to determine the greeting message:
+   * - Before 12pm: "Good morning"
+   * - 12pm to 6pm: "Good afternoon"
+   * - After 6pm: "Good evening"
+   *
+   * @returns The greeting message.
+   */
   displayGreeting() {
     let currentTime = new Date();
     let localTime = new Date(currentTime.getTime() + 3600000);
