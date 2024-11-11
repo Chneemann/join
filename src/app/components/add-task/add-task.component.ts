@@ -61,12 +61,25 @@ export class AddTaskComponent implements OnInit {
     date: this.currentDate,
   };
 
+  /**
+   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+   * This method performs the following actions:
+   * - Loads task data for editing if applicable.
+   * - Sets up route parameters to determine task status.
+   * - Loads any existing task data from local storage.
+   */
   ngOnInit() {
     this.loadEditTaskData();
     this.routeParams();
     this.loadLocalStorageData();
   }
 
+  /**
+   * Loads task data for editing if applicable, or sets the task status if this is a new task overlay.
+   * @param {string} overlayData The task id or status of the task to be loaded.
+   * @param {string} overlayType The type of overlay to be opened.
+   * @returns {void}
+   */
   loadEditTaskData() {
     const excludedValues = ['', 'todo', 'inprogress', 'awaitfeedback', 'done'];
     if (!excludedValues.includes(this.overlayData)) {
@@ -77,6 +90,13 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Lifecycle hook that is called after data-bound properties of a directive are initialized.
+   * This method performs the following actions:
+   * - Subscribes to route parameters to determine task status.
+   * - Updates the task status if a route parameter is present.
+   * @returns {void}
+   */
   routeParams() {
     if (this.route.params.subscribe()) {
       this.route.params.subscribe((params) => {
@@ -87,6 +107,11 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Loads any existing task data from local storage and assigns it to the taskData object.
+   * If no task data is present in local storage, this method saves the current taskData object to local storage.
+   * @returns {void}
+   */
   loadLocalStorageData() {
     const storedTaskData = localStorage.getItem('taskData');
     if (storedTaskData) {
@@ -96,32 +121,57 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Opens the user dialog for the given user id at the position of the mouse click
+   * @param userId the id of the user
+   * @param event the MouseEvent that triggered the dialog
+   */
   openDialog(userId: any, event: MouseEvent) {
     this.AssignedDialogId = userId;
     this.updateDialogPosition(event);
   }
 
+  /**
+   * Updates the position of the user dialog based on the MouseEvent
+   * @param event the MouseEvent that triggered the dialog
+   */
   updateDialogPosition(event: MouseEvent) {
     this.dialogX = event.clientX + 25;
     this.dialogY = event.clientY + 10;
   }
 
+  /**
+   * Closes the assigned user dialog
+   */
   closeDialog() {
     this.AssignedDialogId = '';
   }
 
+  /**
+   * Gets the task data from the Firebase service for the given task id.
+   * @param taskId the id of the task
+   * @returns {Task[]} an array of tasks with the given id
+   */
   getTaskData(taskId: string) {
     return this.firebaseService
       .getAllTasks()
       .filter((task) => task.id === taskId);
   }
 
+  /**
+   * Adds a new subtask to the task data
+   * @param subtaskName the name of the new subtask
+   */
   addSubtask(subtaskName: string) {
     this.taskData.subtasksTitle.unshift(subtaskName);
     this.taskData.subtasksDone.push(false);
     this.saveTaskData();
   }
 
+  /**
+   * Deletes a subtask from the task data.
+   * @param subtaskName the name of the subtask to delete
+   */
   deleteSubtask(subtaskName: string) {
     const index = this.taskData.subtasksTitle.indexOf(subtaskName);
     if (index !== -1) {
@@ -131,6 +181,11 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Updates the filteredUsers array with users that match the current search value
+   * from the getFilteredUsers list.
+   * @param taskCreator the id of the task creator
+   */
   searchTask(taskCreator: string): void {
     this.updateSearchInput();
     this.filteredUsers = this.firebaseService
@@ -143,6 +198,13 @@ export class AddTaskComponent implements OnInit {
       );
   }
 
+  /**
+   * Updates the search input flag and the search value by stripping any XSS
+   * characters from the search value, and then setting the search input flag
+   * to true if the search value is not empty, and false otherwise.
+   *
+   * @returns The updated search input flag.
+   */
   updateSearchInput() {
     this.searchValue = this.sharedService.replaceXSSChars(this.searchValue);
     if (this.searchValue) {
@@ -153,18 +215,39 @@ export class AddTaskComponent implements OnInit {
     return this.searchInput;
   }
 
+  /**
+   * Updates the subtask value by removing any potential XSS characters.
+   * This ensures that the subtask value is sanitized before further processing or storage.
+   */
   updateSubtaskValue() {
     this.subtaskValue = this.sharedService.replaceXSSChars(this.subtaskValue);
   }
 
+  /**
+   * Updates the taskData object with the given assigned users.
+   * @param assigned an array of user ids
+   * @returns {void}
+   */
   receiveAssigned(assigned: string[]) {
     this.taskData.assigned = assigned;
   }
 
+  /**
+   * Toggle the assigned menu for the current task.
+   * This function toggles the boolean flag isAssignedOpen, which determines whether the assigned menu is open or not.
+   * @returns {void}
+   */
   toggleAssignedMenu() {
     this.isAssignedOpen = !this.isAssignedOpen;
   }
 
+  /**
+   * Checks if the selected date is in the past.
+   *
+   * This function compares the date selected in the taskData with the current date.
+   * If the selected date is earlier than the current date, it sets the dateInPast flag to true,
+   * otherwise it sets the flag to false.
+   */
   checkDateInput() {
     const currentDateForm = this.taskData.date.replaceAll('-', '');
     const currentDate = new Date()
@@ -176,6 +259,13 @@ export class AddTaskComponent implements OnInit {
       : (this.dateInPast = false);
   }
 
+  /**
+   * Toggles the priority of the task between the given priority and the current priority.
+   * If the given priority is different from the current priority, it sets the priority to the given priority,
+   * otherwise it keeps the current priority.
+   * After setting the priority, it saves the task data.
+   * @param priority the priority to toggle to
+   */
   togglePriority(priority: string) {
     this.taskData.priority !== priority
       ? (this.taskData.priority = priority)
@@ -183,27 +273,56 @@ export class AddTaskComponent implements OnInit {
     this.saveTaskData();
   }
 
+  /**
+   * Saves the current task data to local storage.
+   *
+   * This function first runs the cross site scripting check on the task data,
+   * then saves the task data to local storage.
+   * @returns {void}
+   */
   saveTaskData() {
     this.checkCrossSiteScripting();
     localStorage.setItem('taskData', JSON.stringify(this.taskData));
   }
 
+  /**
+   * Removes the task data from local storage and resets the form and form data.
+   * @param form the form to reset
+   * @returns {void}
+   */
   removeTaskData(form: NgForm) {
     localStorage.removeItem('taskData');
     this.clearForm(form);
     this.clearFormData();
   }
 
+  /**
+   * Closes the overlay and resets the overlay data.
+   *
+   * @returns {void}
+   */
   closeOverlay() {
     this.overlayService.setOverlayData('', '');
   }
 
+  /**
+   * Resets the title, description, and category form controls to their pristine state.
+   *
+   * @param form the form containing the controls to reset
+   * @returns {void}
+   */
   clearForm(form: NgForm) {
     form.controls['title'].reset();
     form.controls['description'].reset();
     form.controls['category'].reset();
   }
 
+  /**
+   * Resets the task data to its initial state.
+   *
+   * This method sets the task date to the current date and clears the category,
+   * assigned users, subtask titles, and subtask completion states.
+   */
   clearFormData() {
     this.taskData.date = this.currentDate;
     this.taskData.category = '';
@@ -212,6 +331,15 @@ export class AddTaskComponent implements OnInit {
     this.taskData.subtasksDone = [];
   }
 
+  /**
+   * Handles the enter key press event in the subtask input field.
+   *
+   * If the enter key is pressed while the subtask input field is focused,
+   * this function adds the subtask title to the task data and resets
+   * the value of the input field.
+   * @param event the keyboard event
+   * @returns {void}
+   */
   handleEnterKey(event: Event) {
     event.preventDefault();
     if (event instanceof KeyboardEvent) {
@@ -226,6 +354,20 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Submits the task form and saves the task data to the Firebase Realtime Database.
+   *
+   * If the form is valid and the overlay data is one of the allowed values, this
+   * function adds a new task to the 'tasks' node in the Firebase Realtime Database.
+   * If the overlay data is not one of the allowed values, this function updates the
+   * task with the given overlay data in the 'tasks' node.
+   *
+   * After submitting the form, this function resets the form and closes the overlay.
+   * It then navigates to the '/board' route.
+   * @param ngForm the form to submit
+   * @param overlayData the overlay data corresponding to the task to be submitted
+   * @returns {void}
+   */
   onSubmit(ngForm: NgForm, overlayData: string) {
     const allowedValues = [
       '',
@@ -252,6 +394,11 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Sanitizes the task data by removing any potential cross-site scripting characters.
+   * This ensures that the task data is safe to be stored in the Firebase Realtime Database.
+   * @returns {void}
+   */
   checkCrossSiteScripting() {
     this.taskData.title = this.sharedService.replaceXSSChars(
       this.taskData.title
@@ -264,12 +411,23 @@ export class AddTaskComponent implements OnInit {
     );
   }
 
+  /**
+   * Deletes the task with the given overlay data from the Firebase Realtime Database and closes the overlay.
+   * @param overlayData the overlay data of the task to be deleted
+   * @returns {void}
+   */
   deleteTaskData(overlayData: string) {
     this.firebaseService.deleteTask(overlayData);
     this.closeOverlay();
   }
 
   @HostListener('document:click', ['$event'])
+  /**
+   * Closes the assigned dropdown menu if the user clicks anywhere outside of
+   * the assigned dropdown menu.
+   * @param event the MouseEvent
+   * @returns {void}
+   */
   checkOpenNavbar(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
     if (
