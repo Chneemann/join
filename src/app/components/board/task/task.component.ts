@@ -35,6 +35,14 @@ export class TaskComponent {
     private router: Router
   ) {}
 
+  /**
+   * Handles the button click event on a task in the board
+   * @param event the MouseEvent
+   * @param taskId the id of the task
+   *
+   * If the event target is a menu button or menu img, toggle the task menu
+   * If the event target is anything else, open the task details overlay
+   */
   handleMenuButtonClick(event: MouseEvent, taskId: string) {
     event.stopPropagation();
     const targetElement = event.target as HTMLElement;
@@ -44,10 +52,21 @@ export class TaskComponent {
       : this.openTaskDetailsOverlay(taskId);
   }
 
+  /**
+   * Toggle the task menu for the current task
+   */
   toggleTaskMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  /**
+   * Open the task details overlay for the given task id
+   * @param taskId the id of the task
+   *
+   * If the task menu is open, close it
+   * If the page is in the media view, navigate to the task details page
+   * If the page is not in the media view, open the task overlay
+   */
   openTaskDetailsOverlay(taskId: string) {
     if (this.isMenuOpen) {
       this.toggleTaskMenu();
@@ -58,6 +77,11 @@ export class TaskComponent {
   }
 
   @HostListener('document:click', ['$event'])
+  /**
+   * If the target element of the event is not a task menu button,
+   * task menu img, or the task menu itself, close the task menu
+   * @param event the MouseEvent
+   */
   checkToggleTaskMenu(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
     const menuSelectors = ['.menu-btn', '.menu-img', 'app-task-menu'];
@@ -72,27 +96,47 @@ export class TaskComponent {
 
   // User Dialog
 
+  /**
+   * Opens the user dialog for the given user id at the position of the mouse click
+   * @param userId the id of the user
+   * @param event the MouseEvent that triggered the dialog
+   */
   openDialog(userId: any, event: MouseEvent) {
     this.AssignedDialogId = userId;
     this.updateDialogPosition(event);
   }
 
+  /**
+   * Updates the position of the user dialog based on the MouseEvent
+   * @param event the MouseEvent that triggered the dialog
+   */
   updateDialogPosition(event: MouseEvent) {
     this.dialogX = event.clientX + 25;
     this.dialogY = event.clientY + 10;
   }
 
+  /**
+   * Closes the user dialog
+   */
   closeDialog() {
     this.AssignedDialogId = '';
   }
 
   // Subtasks
 
+  /**
+   * Returns the number of completed subtasks of the task
+   * @returns the number of completed subtasks
+   */
   completedSubtasks(): number {
     return this.task.subtasksDone.filter((subtask: boolean) => subtask === true)
       .length;
   }
 
+  /**
+   * Calculates the percentage of completed subtasks
+   * @returns the percentage of completed subtasks as a number
+   */
   completedSubtasksPercent(): number {
     const subtasks = this.task.subtasksDone;
     const completedSubtasksCount = subtasks.filter(
@@ -104,6 +148,11 @@ export class TaskComponent {
 
   // Assigned
 
+  /**
+   * Returns the initials of the user
+   * @param id the id of the user
+   * @returns the initials of the user as a string
+   */
   userBadged(id: string) {
     const userId = String(id);
     const user = this.firebaseService
@@ -122,6 +171,11 @@ export class TaskComponent {
     }
   }
 
+  /**
+   * Returns the color of the user with the given id
+   * @param id the id of the user
+   * @returns the color of the user as a string
+   */
   userBadgedColor(id: string) {
     const userId = String(id);
     const user = this.firebaseService
