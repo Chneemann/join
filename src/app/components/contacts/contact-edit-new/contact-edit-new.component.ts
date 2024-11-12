@@ -33,15 +33,32 @@ export class ContactEditNewComponent implements OnInit {
     public sharedService: SharedService
   ) {}
 
+  /**
+   * Lifecycle hook that is called after data-bound properties of a directive are
+   * initialized.
+   * This method sets a random color for the user to be edited.
+   */
+  ngOnInit() {
+    this.randomColor = this.sharedService.generateRandomColor();
+  }
+
+  /**
+   * This method is an event emitter that listens for changes to the user's initials.
+   * It is called by the contact form component and updates the userInitials
+   * variable with the new initials.
+   *
+   * @param emitter The new initials of the user.
+   */
   initialsEmitter(emitter: string) {
     this.userInitials = emitter;
   }
 
+  /**
+   * Updates the newColor variable with the newly selected color.
+   *
+   * @param newColor The new color to be set.
+   */
   updateColor(newColor: string) {
     this.newColor = newColor;
-  }
-
-  ngOnInit() {
-    this.randomColor = this.sharedService.generateRandomColor();
   }
 }

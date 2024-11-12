@@ -20,6 +20,12 @@ export class ContactDeleteComponent {
     private router: Router
   ) {}
 
+  /**
+   * Deletes the current user and performs cleanup operations.
+   * This method deletes the user with the current user ID from the database,
+   * navigates to the contacts page, and closes any open dialog flags in the shared service.
+   * It also checks if the deleted contact was assigned to any tasks and removes them.
+   */
   deleteContact() {
     this.firebaseService.deleteUser(this.currentUserId);
     this.router.navigate(['contacts']);
@@ -28,6 +34,13 @@ export class ContactDeleteComponent {
     this.checkIfContactAnAssigned();
   }
 
+  /**
+   * Checks if the deleted contact was assigned to any tasks and removes them.
+   * This method retrieves all tasks from the database, iterates over them,
+   * and checks if the current user ID is in the task's assigned array.
+   * If the ID is found, it is removed from the array and the modified task
+   * is updated in the database.
+   */
   checkIfContactAnAssigned() {
     const tasks = this.firebaseService.getAllTasks();
 
@@ -43,6 +56,10 @@ export class ContactDeleteComponent {
     });
   }
 
+  /**
+   * Closes the delete contact dialog by setting the appropriate flags in the shared service.
+   * If the edit contact dialog is not open, it also closes any open dialog flags in the shared service.
+   */
   cancelDeleteContact() {
     this.sharedService.isDeleteContactDialogOpen = false;
     if (!this.sharedService.isEditContactDialogOpen) {
