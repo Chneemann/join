@@ -12,6 +12,9 @@ import { Location } from '@angular/common';
 export class BtnBackComponent {
   constructor(private location: Location) {}
 
+  /**
+   * Navigates back in the browser's history.
+   */
   backClicked() {
     this.location.back();
   }
