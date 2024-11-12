@@ -14,6 +14,9 @@ import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 export class HelpComponent {
   constructor(private location: Location) {}
 
+  /**
+   * Navigates back in the browser's history.
+   */
   backClicked() {
     this.location.back();
   }
