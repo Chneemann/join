@@ -18,16 +18,29 @@ export class HeaderComponent {
 
   constructor(public firebaseService: FirebaseService) {}
 
-  toggleNavbar() {
+  /**
+   * Toggles the visibility of the navbar.
+   * @returns {void}
+   */
+  toggleNavbar(): void {
     this.navbarVisible = !this.navbarVisible;
   }
 
-  toggleLanguage() {
+  /**
+   * Toggles the visibility of the language selection navbar.
+   * @returns {void}
+   */
+  toggleLanguage(): void {
     this.navbarLanguageVisible = !this.navbarLanguageVisible;
   }
 
   @HostListener('document:click', ['$event'])
-  checkOpenNavbar(event: MouseEvent) {
+  /**
+   * Closes the navbar if the user clicks outside of it
+   * @param event a MouseEvent
+   * @returns {void}
+   */
+  checkOpenNavbar(event: MouseEvent): void {
     const targetElement = event.target as HTMLElement;
     if (
       !targetElement.closest('app-navbar') &&
