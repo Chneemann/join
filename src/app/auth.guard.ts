@@ -10,6 +10,12 @@ import { LoginService } from './services/auth.service';
 export class AuthGuard {
   constructor(private loginService: LoginService, private router: Router) {}
 
+  /**
+   * The canActivate guard checks if the user is authenticated.
+   * If the user is authenticated, the guard returns true.
+   * If the user is not authenticated, the guard navigates to the root route and returns false.
+   * If an error occurs during the authentication check, the guard navigates to the root route and returns false.
+   */
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     return this.loginService.checkAuthUser().pipe(
       map((isAuthenticated) => {
