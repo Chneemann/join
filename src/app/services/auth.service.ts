@@ -43,6 +43,11 @@ export class LoginService {
     private router: Router
   ) {}
 
+  /**
+   * Checks if a user is logged in.
+   *
+   * @returns An Observable resolving to a boolean indicating whether a user is logged in.
+   */
   checkAuthUser(): Observable<boolean> {
     return this.firebaseService.getAuthUser().pipe(
       map((user) => !!user),
@@ -50,6 +55,12 @@ export class LoginService {
     );
   }
 
+  /**
+   * Logs in a user given their email and password.
+   * @param loginData An object with properties `mail` and `password`.
+   * @returns A Promise resolving to void.
+   * @throws An error if the login attempt fails.
+   */
   login(loginData: { mail: string; password: string }) {
     signInWithEmailAndPassword(getAuth(), loginData.mail, loginData.password)
       .then((userCredential) => {
@@ -66,6 +77,12 @@ export class LoginService {
       });
   }
 
+  /**
+   * Registers a new user given their name, first name, last name, email and password.
+   * @param registerData An object with properties `name`, `firstName`, `lastName`, `mail` and `password`.
+   * @returns A Promise resolving to void.
+   * @throws An error if the registration attempt fails.
+   */
   register(registerData: {
     name: string;
     firstName: string;
@@ -108,6 +125,16 @@ export class LoginService {
       });
   }
 
+  /**
+   * Google login method.
+   *
+   * Signs in the user with Google Authentication.
+   * If the user is not in the database, creates a new user with the provided name and email.
+   * If the user is already in the database, logins the user.
+   *
+   * @returns {Promise<void>}
+   * @memberof LoginService
+   */
   googleLogin() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
@@ -145,6 +172,12 @@ export class LoginService {
       });
   }
 
+  /**
+   * Creates a new user in the Firestore database with the given user data.
+   * If the user already exists in the database, the method does nothing.
+   * @param user The user data to save. The user data should contain the following properties: `uId`, `email`, `firstName`, `lastName`, `initials`, `color`.
+   * @returns A Promise resolving to void.
+   */
   async createUserInFirestore(user: User) {
     const userDataToSave: User = {
       uId: user.uId,
@@ -166,6 +199,13 @@ export class LoginService {
     }
   }
 
+  /**
+   * Checks if a user with the given user id exists in the database.
+   * If the user exists, the method saves the user's id in the local storage and
+   * updates the user's online status in the database.
+   * @param user The id of the user to check.
+   * @returns void
+   */
   ifExistUser(user: string) {
     const userData = this.firebaseService.getUserDataFromUid(user);
     if (userData.length > 0 && userData[0].id) {
@@ -174,6 +214,14 @@ export class LoginService {
     }
   }
 
+  /**
+   * Updates the online status of the user with the given id in the Firestore database.
+   * If the user's status is set to true, the user's lastLogin property is also updated
+   * to the current time.
+   * @param userId The id of the user to update.
+   * @param status The new online status of the user.
+   * @returns A Promise resolving to void.
+   */
   async updateUserOnlineStatus(userId: string, status: boolean) {
     await updateDoc(doc(collection(this.firestore, 'users'), userId), {
       status: status,
@@ -182,12 +230,25 @@ export class LoginService {
     window.location.reload();
   }
 
+  /**
+   * Toggles the visibility of the password field.
+   *
+   * This function switches the input type between 'password' and 'text',
+   * allowing the user to view or hide the password as needed.
+   * It also updates the icon to reflect the current visibility state.
+   */
   togglePasswordVisibility() {
     this.passwordFieldType =
       this.passwordFieldType === 'password' ? 'text' : 'password';
     this.toggleIcon();
   }
 
+  /**
+   * Toggles the password visibility icon.
+   *
+   * This function switches the icon src between the 'close eye' and 'open eye'
+   * icons, indicating whether the password is hidden or visible.
+   */
   toggleIcon() {
     this.passwordIcon =
       this.passwordIcon === './../../../assets/img/login/close-eye.svg'
@@ -195,6 +256,16 @@ export class LoginService {
         : './../../../assets/img/login/close-eye.svg';
   }
 
+  /**
+   * Saves the given userId to local storage, encrypted with the secret key.
+   *
+   * The userId is first stringified and then encrypted with the secret key.
+   * The encrypted string is then saved to local storage under the key
+   * 'currentUserJOIN'. Additionally, the current timestamp is saved to local
+   * storage under the key 'sessionTimeJOIN'.
+   *
+   * @param userId The id of the user to be saved.
+   */
   getUserIdInLocalStorage(userId: string): void {
     const encryptedValue = CryptoES.AES.encrypt(
       JSON.stringify(userId),
@@ -206,17 +277,40 @@ export class LoginService {
 
   // LOGOUT
 
+  /**
+   * Logs out the current user by deleting the user ID from local storage and
+   * updating the user's online status to offline in the Firestore database.
+   *
+   * @param userId The id of the user to log out.
+   */
   logout(userId: string) {
     this.deleteUserIdInLocalStorage();
     this.updateUserOnlineStatus(userId, false);
   }
 
+  /**
+   * Deletes the user ID from local storage, effectively logging the user out.
+   *
+   * This function removes the user ID from local storage by deleting the
+   * 'currentUserJOIN' and 'sessionTimeJOIN' items.
+   */
   deleteUserIdInLocalStorage() {
     localStorage.removeItem('currentUserJOIN');
     localStorage.removeItem('sessionTimeJOIN');
   }
 
   // FORGOT PASSWORD
+
+  /**
+   * Initiates the password reset process for the given email address.
+   *
+   * This function sends a password reset email to the specified email address
+   * using Firebase Authentication. Upon successful sending of the email, the
+   * user is redirected to the password reset notice page. If there is an error,
+   * the button will be re-enabled for the user to try again.
+   *
+   * @param email The email address of the user requesting a password reset.
+   */
   passwordReset(email: string) {
     const auth = getAuth();
     const actionCodeSettings = {
@@ -233,6 +327,18 @@ export class LoginService {
       });
   }
 
+  /**
+   * Resets the user's password given the new password and the oobCode from the
+   * password reset email.
+   *
+   * This function sends a request to Firebase Authentication to reset the user's
+   * password. If the request is successful, it navigates to the password reset
+   * notice page and re-enables the submit button. If there is an error, the
+   * button will be re-enabled for the user to try again.
+   *
+   * @param newPW The new password to be set for the user.
+   * @param oobCode The one-time code from the password reset email.
+   */
   newPassword(newPW: string, oobCode: string) {
     const auth = getAuth();
     confirmPasswordReset(auth, oobCode, newPW)
