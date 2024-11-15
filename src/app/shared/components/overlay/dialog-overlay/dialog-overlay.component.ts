@@ -18,6 +18,11 @@ export class DialogOverlayComponent {
 
   constructor(public sharedService: SharedService, private router: Router) {}
 
+  /**
+   * Navigates to the login route and emits an empty string via the
+   * "closeDialogEmitter" output event, which can be used to close the overlay
+   * from the parent component.
+   */
   closeOverlay() {
     this.router.navigate(['/login']);
     this.closeDialogEmitter.emit('');
