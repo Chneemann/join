@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
 import { Router } from '@angular/router';
-import { AddTaskComponent } from '../../../components/add-task/add-task.component';
 import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.component';
 
 @Component({
@@ -15,7 +14,6 @@ import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.componen
     TaskOverlayComponent,
     TaskEditOverlayComponent,
     DialogOverlayComponent,
-    AddTaskComponent,
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
