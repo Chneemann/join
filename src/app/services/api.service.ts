@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { apiConfig } from '../environments/config';
 import { Task } from '../interfaces/task.interface';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,10 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   // ------------- TASKS ------------- //
+
+  getTaskById(taskId: string): Observable<Task> {
+    return this.http.get<Task>(`${this.apiUrl}/api/tasks/${taskId}/`);
+  }
 
   getTasksByStatus(status: string): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.apiUrl}/api/tasks/`, {
@@ -25,5 +30,13 @@ export class ApiService {
       `${this.apiUrl}/api/tasks/${taskId}/update_status/`,
       { status: status }
     );
+  }
+
+  // ------------- USERS ------------- //
+
+  getUsersByIds(userIds: string[]): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/api/users/`, {
+      params: { ids: userIds.join(',') },
+    });
   }
 }

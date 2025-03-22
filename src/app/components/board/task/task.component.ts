@@ -22,6 +22,9 @@ export class TaskComponent {
   dialogX: number = 0;
   dialogY: number = 0;
 
+  creator: any = '';
+  assignees: any[] = [];
+
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],
     ['Technical Task', '#20d7c2'],
@@ -129,8 +132,7 @@ export class TaskComponent {
    * @returns the number of completed subtasks
    */
   completedSubtasks(): number {
-    return this.task.subtasksDone.filter((subtask: boolean) => subtask === true)
-      .length;
+    return this.task.subtasks.filter((subtask) => subtask.done).length;
   }
 
   /**
@@ -138,12 +140,11 @@ export class TaskComponent {
    * @returns the percentage of completed subtasks as a number
    */
   completedSubtasksPercent(): number {
-    const subtasks = this.task.subtasksDone;
-    const completedSubtasksCount = subtasks.filter(
-      (subtask: boolean) => subtask === true
+    const completedSubtasksCount = this.task.subtasks.filter(
+      (subtask) => subtask.done
     ).length;
 
-    return (completedSubtasksCount / subtasks.length) * 100;
+    return (completedSubtasksCount / this.task.subtasks.length) * 100;
   }
 
   // Assigned

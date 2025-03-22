@@ -6,6 +6,8 @@ import { OverlayService } from '../../../../services/overlay.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { Task } from '../../../../interfaces/task.interface';
+import { TaskService } from '../../../../services/task.service';
 
 @Component({
   selector: 'app-task-overlay',
@@ -18,11 +20,13 @@ export class TaskOverlayComponent implements OnInit {
   @Input() overlayData: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
+  task: Task | null = null;
   overlayMobile: boolean = false;
 
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
+    private taskService: TaskService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -40,14 +44,28 @@ export class TaskOverlayComponent implements OnInit {
    * Also sets `overlayMobile` to `true` if parameters are successfully retrieved.
    */
   ngOnInit() {
-    if (this.overlayData == '') {
-      if (this.route.params.subscribe()) {
-        this.route.params.subscribe((params) => {
-          this.overlayData = params['id'];
-          this.overlayMobile = true;
-        });
-      }
+    this.setOverlayDataFromRoute();
+    this.loadTask(this.overlayData);
+  }
+
+  setOverlayDataFromRoute() {
+    if (this.overlayData === '') {
+      this.route.params.subscribe((params) => {
+        this.overlayData = params['id'];
+        this.overlayMobile = true;
+      });
     }
+  }
+
+  loadTask(taskId: string) {
+    this.taskService.loadSingleTask(taskId).subscribe({
+      next: (task) => {
+        this.task = task;
+      },
+      error: (err) => {
+        console.error('Error loading the task:', err);
+      },
+    });
   }
 
   /**
@@ -87,40 +105,6 @@ export class TaskOverlayComponent implements OnInit {
   deleteTask(overlayData: string) {
     this.firebaseService.deleteTask(overlayData);
     this.closeDialog();
-  }
-
-  /**
-   * Gets the task data from the Firebase Realtime Database for the given task id.
-   *
-   * This function takes a task id and returns an array of tasks with the given id.
-   * The function uses the Firebase service to get all tasks from the Realtime Database
-   * and then filters the result to return only the task with the given id.
-   *
-   * @param taskId The id of the task to be retrieved.
-   * @returns {Task[]} An array of tasks with the given id.
-   */
-  getTaskData(taskId: string) {
-    return this.firebaseService
-      .getAllTasks()
-      .filter((task) => task.id === taskId);
-  }
-
-  /**
-   * Retrieves the status of a single subtask of a task.
-   *
-   * This function takes the task id and the index of the subtask
-   * and returns the status of the subtask at the given index.
-   *
-   * @param taskId The task id of the task containing the subtask.
-   * @param index The index of the subtask.
-   * @returns {boolean} The status of the subtask at the given index.
-   */
-  getSubTaskStatus(taskId: string, index: number) {
-    const subtask = this.firebaseService
-      .getAllTasks()
-      .filter((task) => task.id === taskId);
-
-    return subtask[0].subtasksDone[index];
   }
 
   /**

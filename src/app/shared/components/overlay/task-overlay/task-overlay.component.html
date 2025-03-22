@@ -3,16 +3,14 @@
   overlay: !overlayMobile,
   'overlay-mobile': overlayMobile,
 }"
-  *ngIf="overlayData !== '' && getTaskData(overlayData).length > 0"
+  *ngIf="overlayData !== '' && task != null"
 >
   <div class="header">
     <div
       class="category"
-      [style.background-color]="
-        categoryColors.get(getTaskData(overlayData)[0].category)
-      "
+      [style.background-color]="categoryColors.get(task.category)"
     >
-      {{ getTaskData(overlayData)[0].category }}
+      {{ task.category }}
     </div>
     @if (overlayMobile) {
     <app-btn-back></app-btn-back>
@@ -26,126 +24,104 @@
     'content-mobile': overlayMobile,
   }"
   >
-    <div class="headline">{{ getTaskData(overlayData)[0].title }}</div>
+    <div class="headline">{{ task.title }}</div>
     <div class="description">
-      {{ getTaskData(overlayData)[0].description }}
+      {{ task.description }}
     </div>
     <div class="date">
       <p>{{ "addTask.date" | translate }}:</p>
-      {{ timeConverter(getTaskData(overlayData)[0].date) }}
+      {{ timeConverter(task.date) }}
     </div>
     <div class="priority">
       <p>{{ "addTask.priority" | translate }}:</p>
-      {{ capitalizeFirstLetter(getTaskData(overlayData)[0].priority) }}
-      <div
-        class="priority-bg priority-{{ getTaskData(overlayData)[0].priority }}"
-      ></div>
+      {{ capitalizeFirstLetter(task.priority) }}
+      <div class="priority-bg priority-{{ task.priority }}"></div>
     </div>
+
     <div class="creator">
       <p>{{ "addTask.creator" | translate }}:</p>
+      @for (user of task.userData; track user) { @if (task.creator === user.id)
+      {
       <div class="users">
         <div
           class="circle"
           [ngStyle]="{
-            'background-color': firebaseService.getUserDetails(
-              getTaskData(overlayData)[0].creator,
-              'color'
-            )
+            'background-color': user.color
           }"
         >
           <div class="initials">
-            {{
-              firebaseService.getUserDetails(
-                getTaskData(overlayData)[0].creator,
-                "initials"
-              )
-            }}
+            {{ user.initials }}
           </div>
         </div>
         <div class="details">
           <div class="name">
             <p>
-              {{
-                firebaseService.getUserDetails(
-                  getTaskData(overlayData)[0].creator,
-                  "firstName"
-                )
-              }}
+              {{ user.firstName }}
             </p>
             <span>&nbsp;</span>
             <p class="last-name">
-              {{
-                firebaseService.getUserDetails(
-                  getTaskData(overlayData)[0].creator,
-                  "lastName"
-                )
-              }}
+              {{ user.lastName }}
             </p>
           </div>
         </div>
       </div>
+      } }
     </div>
-    @if (getTaskData(overlayData)[0].assigned.length > 0) {
+    @if (task.assignees.length > 0) {
     <div class="assigned">
       <p>{{ "addTask.assigned" | translate }}:</p>
-      @for (user of getTaskData(overlayData)[0].assigned; track user) {
+      @for (assigned of task.assignees; track assigned.id) { @for (user of
+      task.userData; track user) { @if (assigned.user === user.id) {
       <div class="users">
         <div
           class="circle"
           [ngStyle]="{
-            'background-color': firebaseService.getUserDetails(user, 'color')
+            'background-color': user.color
           }"
         >
           <div class="initials">
-            {{ firebaseService.getUserDetails(user, "initials") }}
+            {{ user.initials }}
           </div>
         </div>
         <div class="details">
           <div class="name">
             <p>
-              {{ firebaseService.getUserDetails(user, "firstName") }}
+              {{ user.firstName }}
             </p>
             <span>&nbsp;</span>
             <p class="last-name">
-              {{ firebaseService.getUserDetails(user, "lastName") }}
+              {{ user.lastName }}
             </p>
           </div>
         </div>
       </div>
-      }
+      } } }
     </div>
-    } @if (getTaskData(overlayData)[0].subtasksTitle.length > 0) {
+    } @if (task.subtasks.length > 0) {
     <div class="subtasks">
       <p>{{ "addTask.subtask" | translate }}:</p>
-      @for (subtask of getTaskData(overlayData)[0].subtasksTitle; track subtask;
-      let i = $index) {
+      @for (subtask of task.subtasks; track subtask; let i = $index) {
       <div
         class="single-subtask"
         (click)="
-          toggleSubtaskStatus(
-            overlayData,
-            i,
-            getTaskData(overlayData)[0].subtasksDone,
-            getSubTaskStatus(overlayData, i)
-          )
+          toggleSubtaskStatus(overlayData, i, task.subtasksDone, subtask.done)
         "
       >
         <img
           [src]="
-            getSubTaskStatus(overlayData, i)
+            subtask.done
               ? './../../../../../assets/img/board/check-btn-checked.svg'
               : './../../../../../assets/img/board/check-btn-unchecked.svg'
           "
           alt=""
         />
-        <p>{{ subtask }}</p>
+        <p>{{ subtask.title }}</p>
       </div>
       }
     </div>
     }
   </div>
-  @if(getTaskData(overlayData)[0].creator ===
-  firebaseService.getCurrentUserId()) {
+  @if(task.creator === firebaseService.getCurrentUserId()) {
   <div class="btns">
     <div class="btn btn-delete" (click)="deleteTask(overlayData)">
       <img src="./../../../../../assets/img/contact/delete.svg" alt="" />

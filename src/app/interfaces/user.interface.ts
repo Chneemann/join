@@ -10,3 +10,11 @@ export interface User {
   status: boolean;
   lastLogin: number;
 }
+
+export interface UserSummary {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  initials: string;
+  color: string;
+}

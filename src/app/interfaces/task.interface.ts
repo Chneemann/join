@@ -1,3 +1,5 @@
+import { UserSummary } from './user.interface';
+
 export interface Task {
   id?: string;
   title: string;
@@ -9,7 +11,8 @@ export interface Task {
   subtasksTitle: string[];
   subtasksDone: boolean[];
   assigned: string[];
-  assignees: string[];
+  assignees: Assignee[];
+  userData: UserSummary[];
   creator: string;
   date: string;
 }
@@ -18,4 +21,10 @@ export interface Subtask {
   id: number;
   title: string;
   done: boolean;
+}
+
+export interface Assignee {
+  id: string;
+  user: string;
+  task: string;
 }

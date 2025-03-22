@@ -27,7 +27,7 @@
       <div class="description">
         {{ task.description }}
       </div>
-      @if(task.subtasksTitle.length > 0) {
+      @if(task.subtasks.length > 0) {
       <div class="subtask">
         <div class="subtask-line">
           <span
@@ -36,28 +36,31 @@
           ></span>
         </div>
         <div class="subtask-text">
-          {{ completedSubtasks() }} / {{ task.subtasksTitle.length }} Subtasks
+          {{ completedSubtasks() }} / {{ task.subtasks.length }} Subtasks
         </div>
       </div>
       }
       <div class="footer">
         <div class="footer-badge">
+          @for (user of task.userData; track user) { @if (task.creator ===
+          user.id) {
           <span
             class="footer-badged"
             (mousemove)="openDialog(task.creator, $event)"
             (mouseleave)="closeDialog()"
-            [style.background-color]="userBadgedColor(task.creator)"
-            >{{ userBadged(task.creator) }}</span
+            [style.background-color]="user.color"
+            >{{ user.initials }}</span
           >
-          @for (assigned of task.assigned; track assigned) {
+          } @for (assigned of task.assignees; track assigned.id) { @if
+          (assigned.user === user.id) {
           <span
             class="footer-badged"
-            (mousemove)="openDialog(assigned, $event)"
+            (mousemove)="openDialog(user.id, $event)"
             (mouseleave)="closeDialog()"
-            [style.background-color]="userBadgedColor(assigned)"
-            >{{ userBadged(assigned) }}</span
+            [style.background-color]="user.color"
+            >{{ user.initials }}</span
           >
-          }
+          } } }
         </div>
         <div class="footer-priority prio-{{ task.priority }}"></div>
       </div>
@@ -70,14 +73,15 @@
   ></app-task-menu>
   } @if (AssignedDialogId != '') {
   <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
+    @for (user of task.userData; track user) { @if (user.id ===
+    AssignedDialogId) {
     <p>
-      {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }}
-      @if (AssignedDialogId === firebaseService.getCurrentUserId()) {
-      <span>(du)</span> }
+      {{ user.firstName }}
     </p>
     <p>
-      {{ firebaseService.getUserDetails(AssignedDialogId, "lastName") }}
+      {{ user.lastName }}
     </p>
+    }}
   </div>
   } }
 </section>

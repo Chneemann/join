@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TaskHighlightedComponent } from './task/task-highlighted/task-highlighted.component';
 import { ApiService } from '../../services/api.service';
 import { Task } from '../../interfaces/task.interface';
-import { forkJoin } from 'rxjs';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-board',
@@ -37,6 +37,7 @@ export class BoardComponent {
     public dragDropService: DragDropService,
     public overlayService: OverlayService,
     private sharedService: SharedService,
+    private taskService: TaskService,
     private apiService: ApiService,
     private router: Router
   ) {}
@@ -62,22 +63,15 @@ export class BoardComponent {
    * Retrieves all tasks from the API and initializes the `allTasks` and `filteredTasks` properties.
    */
   loadTasks(): void {
-    const statuses = [
-      this.TODO,
-      this.IN_PROGRESS,
-      this.AWAIT_FEEDBACK,
-      this.DONE,
-    ];
-    const requests = statuses.map((status) =>
-      this.apiService.getTasksByStatus(status)
-    );
+    this.taskService.loadAllTasks().subscribe({
+      next: (result) => {
+        this.allTasks = result.allTasks;
+        this.filteredTasks = result.filteredTasks;
+      },
 
-    forkJoin(requests).subscribe((results) => {
-      this.allTasks = results.flat();
-      this.filteredTasks = statuses.reduce((acc, status, index) => {
-        acc[status] = results[index];
-        return acc;
-      }, {} as { [key: string]: Task[] });
+      error: (err) => {
+        console.error('Error loading the tasks:', err);
+      },
     });
   }
 
