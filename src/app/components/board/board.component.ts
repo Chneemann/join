@@ -12,6 +12,7 @@ import { TaskHighlightedComponent } from './task/task-highlighted/task-highlight
 import { ApiService } from '../../services/api.service';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
+import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-board',
@@ -23,6 +24,7 @@ import { TaskService } from '../../services/task.service';
     FormsModule,
     TranslateModule,
     TaskHighlightedComponent,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -49,6 +51,7 @@ export class BoardComponent {
   searchInput: boolean = false;
   taskMovedTo: string = '';
   taskMovedFrom: string = '';
+  isLoading = false;
 
   /**
    * Is called when the component is initialized.
@@ -62,15 +65,19 @@ export class BoardComponent {
   /**
    * Retrieves all tasks from the API and initializes the `allTasks` and `filteredTasks` properties.
    */
+
   loadTasks(): void {
+    this.isLoading = true;
+
     this.taskService.loadAllTasks().subscribe({
       next: (result) => {
         this.allTasks = result.allTasks;
         this.filteredTasks = result.filteredTasks;
+        this.isLoading = false;
       },
-
       error: (err) => {
         console.error('Error loading the tasks:', err);
+        this.isLoading = false;
       },
     });
   }

@@ -92,7 +92,7 @@ section {
 
 .subtask-line {
   display: flex;
-  width: 120px;
+  width: 144px;
   height: 8px;
   padding-right: 0px;
   flex-direction: column;
@@ -100,7 +100,6 @@ section {
   align-items: flex-start;
   border-radius: 8px;
   background-color: var(--very-light-gray);
-  margin-right: 11px;
 }
 
 .filler-full {

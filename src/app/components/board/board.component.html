@@ -61,8 +61,12 @@
 
           <!-- Show empty state if no 'todo' tasks exist -->
           } @empty {
+          <!-- Loading spinner or empty task -->
+          @if (isLoading) {
+          <app-loading-spinner></app-loading-spinner>
+          } @else {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          }
+          } }
 
           <!-- Highlight task if just moved to 'todo' -->
           @if (taskMovedTo === TODO && taskMovedFrom !== TODO) {
@@ -90,8 +94,12 @@
 
           <!-- Show empty state if no 'in progress' tasks exist -->
           } @empty {
+          <!-- Loading spinner or empty task -->
+          @if (isLoading) {
+          <app-loading-spinner></app-loading-spinner>
+          } @else {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          }
+          } }
 
           <!-- Highlight task if just moved to 'in progress' -->
           @if (taskMovedTo === IN_PROGRESS && taskMovedFrom !== IN_PROGRESS) {
@@ -119,8 +127,12 @@
 
           <!-- Show empty state if no 'await feedback' tasks exist -->
           } @empty {
+          <!-- Loading spinner or empty task -->
+          @if (isLoading) {
+          <app-loading-spinner></app-loading-spinner>
+          } @else {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          }
+          } }
 
           <!-- Highlight task if just moved to 'await feedback' -->
           @if (taskMovedTo === AWAIT_FEEDBACK && taskMovedFrom !==
@@ -149,8 +161,12 @@
 
           <!-- Show empty state if no 'done' tasks exist -->
           } @empty {
+          <!-- Loading spinner or empty task -->
+          @if (isLoading) {
+          <app-loading-spinner></app-loading-spinner>
+          } @else {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          }
+          } }
 
           <!-- Highlight task if just moved to 'done' -->
           @if (taskMovedTo === DONE && taskMovedFrom !== DONE) {
