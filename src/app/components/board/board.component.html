@@ -9,9 +9,10 @@
           type="text"
           placeholder="{{ 'board.findTask' | translate }}"
           [(ngModel)]="searchValue"
-          (input)="searchTask()"
+          (input)="searchTask(searchValue)"
         />
         <span>
+          <!-- Show clear icon when search input is active -->
           @if (this.searchInput) {
           <img
             src="./../../../assets/img/board/clear.svg"
@@ -19,6 +20,8 @@
             alt="clear"
             (click)="clearInput()"
           />
+
+          <!-- Show search icon when no search input is active -->
           } @else {
           <img
             src="./../../../assets/img/board/search.svg"
@@ -40,93 +43,117 @@
     <div class="status">
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event, 'todo')"
-        (drop)="dragDropService.drop($event, 'todo')"
+        (dragover)="dragDropService.allowDrop($event, TODO)"
+        (drop)="dragDropService.drop($event, TODO)"
       >
         <div class="headline">
           <span>{{ "board.todo" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
-            (click)="addNewTaskOverlay('todo')"
+            (click)="addNewTaskOverlay(TODO)"
           />
         </div>
         <div id="todo" class="details">
-          @for(task of getTaskStatus("todo"); track task) {
+          <!-- Loop through 'todo' tasks and display them -->
+          @for (task of filteredTasks[TODO]; track task.id) {
           <app-task [task]="task"></app-task>
+
+          <!-- Show empty state if no 'todo' tasks exist -->
           } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          } @if(taskMovedTo === "todo" && taskMovedFrom !== "todo") {
+          }
+
+          <!-- Highlight task if just moved to 'todo' -->
+          @if (taskMovedTo === TODO && taskMovedFrom !== TODO) {
           <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event, 'inprogress')"
-        (drop)="dragDropService.drop($event, 'inprogress')"
+        (dragover)="dragDropService.allowDrop($event, IN_PROGRESS)"
+        (drop)="dragDropService.drop($event, IN_PROGRESS)"
       >
         <div class="headline">
           <span>{{ "board.inProgress" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
-            (click)="addNewTaskOverlay('inprogress')"
+            (click)="addNewTaskOverlay(IN_PROGRESS)"
           />
         </div>
         <div id="inprogress" class="details">
-          @for(task of getTaskStatus("inprogress"); track task) {
+          <!-- Loop through 'in progress' tasks and display them -->
+          @for (task of filteredTasks[IN_PROGRESS]; track task.id) {
           <app-task [task]="task"></app-task>
+
+          <!-- Show empty state if no 'in progress' tasks exist -->
           } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          } @if(taskMovedTo === "inprogress" && taskMovedFrom !== "inprogress")
-          {
+          }
+
+          <!-- Highlight task if just moved to 'in progress' -->
+          @if (taskMovedTo === IN_PROGRESS && taskMovedFrom !== IN_PROGRESS) {
           <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event, 'awaitfeedback')"
-        (drop)="dragDropService.drop($event, 'awaitfeedback')"
+        (dragover)="dragDropService.allowDrop($event, AWAIT_FEEDBACK)"
+        (drop)="dragDropService.drop($event, AWAIT_FEEDBACK)"
       >
         <div class="headline">
           <span>{{ "board.awaitFeedback" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
-            (click)="addNewTaskOverlay('awaitfeedback')"
+            (click)="addNewTaskOverlay(AWAIT_FEEDBACK)"
           />
         </div>
         <div id="awaitfeedback" class="details">
-          @for(task of getTaskStatus("awaitfeedback"); track task) {
-          <app-task [task]="task"></app-task> } @empty {
+          <!-- Loop through 'await feedback' tasks and display them -->
+          @for (task of filteredTasks[AWAIT_FEEDBACK]; track task.id) {
+          <app-task [task]="task"></app-task>
+
+          <!-- Show empty state if no 'await feedback' tasks exist -->
+          } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          } @if(taskMovedTo === "awaitfeedback" && taskMovedFrom !==
-          "awaitfeedback") {
+          }
+
+          <!-- Highlight task if just moved to 'await feedback' -->
+          @if (taskMovedTo === AWAIT_FEEDBACK && taskMovedFrom !==
+          AWAIT_FEEDBACK) {
           <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event, 'done')"
-        (drop)="dragDropService.drop($event, 'done')"
+        (dragover)="dragDropService.allowDrop($event, DONE)"
+        (drop)="dragDropService.drop($event, DONE)"
       >
         <div class="headline">
           <span>{{ "board.done" | translate }}</span
           ><img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
-            (click)="addNewTaskOverlay('done')"
+            (click)="addNewTaskOverlay(DONE)"
           />
         </div>
         <div id="done" class="details">
-          @for(task of getTaskStatus("done"); track task) {
+          <!-- Loop through 'done' tasks and display them -->
+          @for (task of filteredTasks[DONE]; track task.id) {
           <app-task [task]="task"></app-task>
+
+          <!-- Show empty state if no 'done' tasks exist -->
           } @empty {
           <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          } @if(taskMovedTo === "done" && taskMovedFrom !== "done") {
+          }
+
+          <!-- Highlight task if just moved to 'done' -->
+          @if (taskMovedTo === DONE && taskMovedFrom !== DONE) {
           <app-task-highlighted></app-task-highlighted>
           }
         </div>

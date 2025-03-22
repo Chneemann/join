@@ -54,9 +54,11 @@ export class AddTaskComponent implements OnInit {
     category: '',
     status: 'todo',
     priority: 'medium',
+    subtasks: [],
     subtasksTitle: [],
     subtasksDone: [],
     assigned: [],
+    assignees: [],
     creator: this.firebaseService.getCurrentUserId(),
     date: this.currentDate,
   };
