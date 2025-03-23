@@ -46,6 +46,9 @@ export class LoginComponent {
   ) {}
 
   ngOnInit() {
+    if (this.loginService.checkAuthUser()) {
+      this.router.navigate(['/summary']);
+    }
     this.routeParams();
   }
 

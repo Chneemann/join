@@ -12,41 +12,42 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/login/register/register.component';
 import { ForgotPwComponent } from './components/login/forgot-pw/forgot-pw.component';
 import { PwResetComponent } from './components/login/forgot-pw/pw-reset/pw-reset.component';
-import { AuthGuard } from './auth.guard';
+import { AuthenticatedGuard } from './guards/authenticated.guard';
+import { RedirectIfAuthenticatedGuard } from './guards/redirect-if-authenticated.guard';
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'login/notice/:id', component: LoginComponent },
-  { path: 'login/imprint', component: ImprintComponent },
-  { path: 'login/privacy-policy', component: PrivacyPolicyComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'forgot-pw', component: ForgotPwComponent },
-  { path: 'pw-reset', component: PwResetComponent },
-  { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] },
-  { path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuard] },
+  // Parent route for all pages that do not require authenticated access
   {
-    path: 'add-task/:id',
-    component: AddTaskComponent,
-    canActivate: [AuthGuard],
+    path: '',
+    canActivate: [RedirectIfAuthenticatedGuard],
+    children: [
+      { path: '', component: LoginComponent, pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'login/notice/:id', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'forgot-pw', component: ForgotPwComponent },
+      { path: 'pw-reset', component: PwResetComponent },
+      { path: 'login/imprint', component: ImprintComponent },
+      { path: 'login/privacy-policy', component: PrivacyPolicyComponent },
+    ],
   },
-  { path: 'board', component: BoardComponent, canActivate: [AuthGuard] },
+  // Protected routes with MainLayout
   {
-    path: 'task/:id',
-    component: TaskOverlayComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'task-edit/:id',
-    component: TaskEditOverlayComponent,
-    canActivate: [AuthGuard],
-  },
-  { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
-  { path: 'help', component: HelpComponent, canActivate: [AuthGuard] },
-  { path: 'imprint', component: ImprintComponent, canActivate: [AuthGuard] },
-  {
-    path: 'privacy-policy',
-    component: PrivacyPolicyComponent,
-    canActivate: [AuthGuard],
+    path: '',
+    component: MainLayoutComponent,
+    canActivate: [AuthenticatedGuard],
+    children: [
+      { path: 'summary', component: SummaryComponent },
+      { path: 'add-task', component: AddTaskComponent },
+      { path: 'add-task/:id', component: AddTaskComponent },
+      { path: 'board', component: BoardComponent },
+      { path: 'task/:id', component: TaskOverlayComponent },
+      { path: 'task-edit/:id', component: TaskEditOverlayComponent },
+      { path: 'contacts', component: ContactsComponent },
+      { path: 'help', component: HelpComponent },
+      { path: 'imprint', component: ImprintComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+    ],
   },
 ];

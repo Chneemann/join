@@ -50,8 +50,16 @@ export class LoginService {
    */
   checkAuthUser(): Observable<boolean> {
     return this.firebaseService.getAuthUser().pipe(
-      map((user) => !!user),
-      catchError(() => of(false))
+      map((user) => {
+        if (user) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError(() => {
+        return of(false);
+      })
     );
   }
 
