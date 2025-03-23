@@ -19,7 +19,6 @@ export class RedirectIfAuthenticatedGuard {
     return this.authService.checkAuthUser().pipe(
       map((isAuthenticated) => {
         if (isAuthenticated) {
-          this.router.navigate(['/summary']);
           return false;
         }
         return true;
