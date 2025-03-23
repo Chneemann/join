@@ -18,12 +18,7 @@
       />
     </div>
     <div class="img-user" (click)="toggleNavbar()">
-      {{
-        this.firebaseService.getUserDetails(
-          firebaseService.getCurrentUserId(),
-          "initials"
-        )
-      }}
+      {{ currentUser?.initials || "" }}
     </div>
   </div>
 </div>

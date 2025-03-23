@@ -4,6 +4,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FirebaseService } from '../../../services/firebase.service';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../../services/auth.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +18,38 @@ import { FirebaseService } from '../../../services/firebase.service';
 export class HeaderComponent {
   navbarVisible: boolean = false;
   navbarLanguageVisible: boolean = false;
+  currentUser: any = null;
 
-  constructor(public firebaseService: FirebaseService) {}
+  constructor(
+    public firebaseService: FirebaseService,
+    private authService: AuthService,
+    private apiService: ApiService
+  ) {}
+
+  /**
+   * Loads the current user data by calling the loadCurrentUser method.
+   */
+  ngOnInit() {
+    this.loadCurrentUser();
+  }
+
+  /**
+   * Loads the current user data by calling the getCurrentUserId method of the AuthService.
+   */
+  loadCurrentUser(): void {
+    this.authService.getCurrentUserId().subscribe((userId) => {
+      if (userId) {
+        this.apiService.getUserById(userId).subscribe(
+          (userData) => {
+            this.currentUser = userData;
+          },
+          () => {
+            this.currentUser = {};
+          }
+        );
+      }
+    });
+  }
 
   /**
    * Toggles the visibility of the navbar.

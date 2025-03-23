@@ -34,6 +34,10 @@ export class ApiService {
 
   // ------------- USERS ------------- //
 
+  getUserById(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/api/users/${userId}/`);
+  }
+
   getUsersByIds(userIds: string[]): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/api/users/`, {
       params: { ids: userIds.join(',') },
