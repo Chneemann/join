@@ -60,7 +60,7 @@ export class TaskService {
     const userIds = new Set(
       tasks.flatMap((task) => [
         task.creator,
-        ...task.assignees.map((a) => a.user),
+        ...task.assignees.map((a) => a.userId),
       ])
     );
 
@@ -74,7 +74,7 @@ export class TaskService {
         return tasks.map((task) => ({
           ...task,
           userData: [
-            ...task.assignees.map((a) => userMap[a.user] || null),
+            ...task.assignees.map((a) => userMap[a.userId] || null),
             userMap[task.creator] || null,
           ].filter(Boolean),
         }));
@@ -86,7 +86,7 @@ export class TaskService {
     return this.apiService.getTaskById(taskId).pipe(
       switchMap((task) => {
         if (!task) return of(null);
-        const userIds = [task.creator, ...task.assignees.map((a) => a.user)];
+        const userIds = [task.creator, ...task.assignees.map((a) => a.userId)];
 
         return this.apiService.getUsersByIds(userIds).pipe(
           map((users) => ({
@@ -123,7 +123,7 @@ export class TaskService {
   private mapTaskUsers(task: Task, users: UserSummary[]): UserSummary[] {
     const userMap = this.createUserMap(users);
     return [
-      ...task.assignees.map((a) => userMap[a.user] || null),
+      ...task.assignees.map((a) => userMap[a.userId] || null),
       userMap[task.creator] || null,
     ].filter(Boolean);
   }

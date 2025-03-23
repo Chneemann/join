@@ -25,6 +25,5 @@ export interface Subtask {
 
 export interface Assignee {
   id: string;
-  user: string;
-  task: string;
+  userId: string;
 }

@@ -6,9 +6,10 @@
       {{ "summary.headlineDescription" | translate }}
     </div>
   </div>
+  @if (!isLoading) {
   <div class="content">
     <div class="left-container">
-      <!-- TOP -->
+      <!-- Top Frame -->
       <div class="top-frame">
         <div class="todo-done" routerLink="/board">
           <div class="circle">
@@ -17,7 +18,7 @@
             </div>
           </div>
           <div class="details">
-            <span>{{ displayNumberOfTaskStatus("todo") }}</span>
+            <span>{{ taskStatusCounts.get("todo") || 0 }}</span>
             <p>{{ "summary.todo" | translate }}</p>
           </div>
         </div>
@@ -26,18 +27,19 @@
             <img src="./../../../assets/img/summary/rake.svg" alt="" />
           </div>
           <div class="details">
-            <span>{{ displayNumberOfTaskStatus("done") }}</span>
+            <span>{{ taskStatusCounts.get("done") || 0 }}</span>
             <p>{{ "summary.done" | translate }}</p>
           </div>
         </div>
       </div>
-      <!-- MIDDLE -->
+
+      <!-- Middle Frame -->
       <div class="middle-frame">
         <div class="urgent" routerLink="/board">
           <div class="left">
             <img src="./../../../assets/img/summary/urgent.svg" alt="" />
             <div class="details">
-              <span>{{ displayNumberOfTaskStatusUrgent().length }}</span>
+              <span>{{ urgentTasks.length || 0 }}</span>
               <p>{{ "summary.urgent" | translate }}</p>
             </div>
           </div>
@@ -45,8 +47,8 @@
           <div class="right">
             <div class="date">
               <div>
-                @if (displayNumberOfTaskStatusUrgent().length) {
-                <span>{{ nextUrgentTask() }}</span>
+                @if (urgentTasks.length) {
+                <span>{{ nextUrgentTask }}</span>
                 <p class="spacer">
                   {{ "summary.upcomingDeadline" | translate }}
                 </p>
@@ -58,11 +60,12 @@
           </div>
         </div>
       </div>
-      <!-- BOTTOM -->
+
+      <!-- Bottom Frame -->
       <div class="bottom-frame">
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>{{ displayNumberOfAllTasks() }}</span>
+            <span>{{ totalTasks || 0 }}</span>
             <p>
               {{ "summary.taskBoard0" | translate }}<br />{{
                 "summary.taskBoard1" | translate
@@ -72,7 +75,7 @@
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>{{ displayNumberOfTaskStatus("inprogress") }}</span>
+            <span>{{ taskStatusCounts.get("inprogress") || 0 }}</span>
             <p>
               {{ "summary.taskProgress0" | translate }}<br />{{
                 "summary.taskProgress1" | translate
@@ -82,7 +85,7 @@
         </div>
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>{{ displayNumberOfTaskStatus("awaitfeedback") }}</span>
+            <span>{{ taskStatusCounts.get("awaitfeedback") || 0 }}</span>
             <p>
               {{ "summary.taskAwaitingFeedback0" | translate }}<br />{{
                 "summary.taskAwaitingFeedback1" | translate
@@ -92,22 +95,22 @@
         </div>
       </div>
     </div>
+
+    <!-- Greeting -->
     <div class="right-container">
-      <p>{{ displayGreeting() }},</p>
+      <p>{{ greeting }},</p>
+      <!-- TODO -->
       <span id="welcome-user"
-        >{{
-          this.firebaseService.getUserDetails(
-            firebaseService.getCurrentUserId(),
-            "firstName"
-          )
-        }}<br />
-        {{
-          this.firebaseService.getUserDetails(
-            firebaseService.getCurrentUserId(),
-            "lastName"
-          )
-        }}</span
+        >{{ "firstName" }}<br />
+        {{ "lastName" }}</span
       >
     </div>
   </div>
+  } @else {
+  <div class="content">
+    <div class="left-container">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+  </div>
+  }
 </section>

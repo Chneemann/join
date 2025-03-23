@@ -50,9 +50,9 @@
             (mouseleave)="closeDialog()"
             [style.background-color]="user.color"
             >{{ user.initials }}</span
-          >
-          } @for (assigned of task.assignees; track assigned.id) { @if
-          (assigned.user === user.id) {
+          >} } @for (user of task.userData; track user) { @for (assigned of
+          task.assignees; track assigned.id) { @if (assigned.userId === user.id)
+          {
           <span
             class="footer-badged"
             (mousemove)="openDialog(user.id, $event)"

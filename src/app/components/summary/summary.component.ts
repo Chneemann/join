@@ -2,124 +2,125 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FirebaseService } from '../../services/firebase.service';
+import { Task } from '../../interfaces/task.interface';
+import { TaskService } from '../../services/task.service';
+import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
+  imports: [RouterModule, TranslateModule, LoadingSpinnerComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })
 export class SummaryComponent {
   nextUrgendTask: number[] = [];
 
+  allTasks: Task[] = [];
+  isLoading = false;
+
   constructor(
     public firebaseService: FirebaseService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private taskService: TaskService
   ) {}
 
   /**
-   * Return the total number of tasks.
-   *
-   * @returns The number of total tasks.
+   * This method loads all tasks from the TaskService.
    */
-  displayNumberOfAllTasks() {
-    return this.firebaseService.getAllTasks().length;
+  ngOnInit() {
+    this.loadTasks();
   }
 
   /**
-   * Returns the number of tasks with the given status.
-   *
-   * @param query The task status to query for.
-   * @returns The number of tasks with the given status.
+   * Loads all tasks from the TaskService.
    */
-  displayNumberOfTaskStatus(query: string) {
-    const filteredTasks = this.firebaseService
-      .getAllTasks()
-      .filter((task) => task.status === query);
-    return filteredTasks.length;
+  loadTasks(): void {
+    this.isLoading = true;
+
+    this.taskService.loadAllTasks().subscribe({
+      next: (result) => {
+        this.allTasks = result.allTasks;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error loading the tasks:', err);
+        this.isLoading = false;
+      },
+    });
   }
 
   /**
-   * Returns the number of tasks with the "urgent" priority.
-   *
-   * @returns The number of tasks with the "urgent" priority.
+   * Gets the total number of tasks.
+   * @returns The total count of tasks.
    */
-  displayNumberOfTaskStatusUrgent() {
-    return this.firebaseService
-      .getAllTasks()
-      .filter((task) => task.priority === 'urgent');
+  get totalTasks(): number {
+    return this.allTasks.length;
   }
 
   /**
-   * Return the next task with the "urgent" priority or null if none
-   * exist.
-   *
-   * @returns The next task with the "urgent" priority or null.
+   * A map of task statuses to their respective counts.
+   * @returns A Map where each key is a task status and each value is the count of tasks with that status.
    */
-  nextUrgentTask() {
-    const urgentTasks = this.displayNumberOfTaskStatusUrgent();
-    if (urgentTasks.length > 0) {
-      const nextTask = urgentTasks.reduce((earliest, current) => {
-        const currentDate = Date.parse(current.date);
-        const earliestDate = Date.parse(earliest.date);
-        return currentDate < earliestDate ? current : earliest;
-      });
-      return this.timeConverter(nextTask.date);
-    }
-    return null;
+  get taskStatusCounts(): Map<string, number> {
+    return this.allTasks.reduce((acc, task) => {
+      acc.set(task.status, (acc.get(task.status) || 0) + 1);
+      return acc;
+    }, new Map<string, number>());
+  }
+
+  /**
+   * A list of tasks with the priority set to "urgent".
+   * @returns An array of tasks with the priority of "urgent".
+   */
+  get urgentTasks(): any[] {
+    return this.allTasks.filter((task) => task.priority === 'urgent');
+  }
+
+  /**
+   * Retrieves the date of the next urgent task.
+   * @returns {string | null} The date of the next urgent task formatted as a string, or null if no urgent tasks exist.
+   */
+
+  get nextUrgentTask(): string | null {
+    if (this.urgentTasks.length === 0) return null;
+
+    const nextTask = this.urgentTasks.reduce((earliest, current) => {
+      return Date.parse(current.date) < Date.parse(earliest.date)
+        ? current
+        : earliest;
+    });
+
+    return this.timeConverter(nextTask.date);
   }
 
   /**
    * Converts a date string to a human-readable format.
-   *
-   * @param dateString The date string to convert.
-   * @returns A string in the format "Month DD, YYYY".
+   * @param dateString - The date string to convert.
+   * @returns A string representing the date in the format "MMM. DD, YYYY".
    */
-  timeConverter(dateString: string) {
-    var a = new Date(dateString);
-    var months = [
-      'Jan.',
-      'Feb.',
-      'Mar.',
-      'Apr.',
-      'May.',
-      'Jun.',
-      'Jul.',
-      'Aug.',
-      'Sep.',
-      'Oct.',
-      'Nov.',
-      'Dec.',
-    ];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var time = month + ' ' + date + ', ' + year;
-    return time;
+  timeConverter(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
   }
 
   /**
-   * Displays a greeting message based on the current time of day.
-   *
-   * The time is converted to the user's local time and then compared to the
-   * following ranges to determine the greeting message:
-   * - Before 12pm: "Good morning"
-   * - 12pm to 6pm: "Good afternoon"
-   * - After 6pm: "Good evening"
-   *
-   * @returns The greeting message.
+   * Returns a greeting based on the current time of day.
+   * @returns a localized greeting string.
    */
-  displayGreeting() {
-    let currentTime = new Date();
-    let localTime = new Date(currentTime.getTime() + 3600000);
-    let currentHour = localTime.getHours();
+  get greeting(): string {
+    const currentHour = new Date().getHours();
+
     if (currentHour >= 5 && currentHour < 12) {
       return this.translateService.instant('summary.morning');
-    } else if (currentHour >= 12 && currentHour < 18) {
-      return this.translateService.instant('summary.afternoon');
-    } else {
-      return this.translateService.instant('summary.evening');
     }
+    if (currentHour >= 12 && currentHour < 18) {
+      return this.translateService.instant('summary.afternoon');
+    }
+    return this.translateService.instant('summary.evening');
   }
 }
