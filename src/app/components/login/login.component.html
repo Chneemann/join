@@ -81,6 +81,18 @@
           <p>{{ "login.errorPassword1" | translate }}</p>
           }
         </div>
+        <div class="checkbox">
+          <label class="container">
+            <input
+              type="checkbox"
+              id="checkbox"
+              name="checkbox"
+              #checkbox
+              [(ngModel)]="checkboxRememberMe"
+            />
+            {{ "login.rememberMe" | translate }}
+          </label>
+        </div>
         <div class="forgot-pw">
           <a routerLink="/forgot-pw">{{
             "login.forgotPassword" | translate

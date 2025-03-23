@@ -31,6 +31,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   isPasswordIconVisible: boolean = true;
+  checkboxRememberMe: boolean = false;
 
   loginData = {
     email: '',
@@ -65,7 +66,7 @@ export class LoginComponent {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
       try {
-        await this.authService.login(this.loginData, true);
+        await this.authService.login(this.loginData, this.checkboxRememberMe);
         this.router.navigate(['/summary']);
       } catch (error) {
         this.sharedService.isBtnDisabled = false;
@@ -81,10 +82,12 @@ export class LoginComponent {
     this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);
   }
 
+  /*   
   googleLogin() {
     this.sharedService.isBtnDisabled = true;
     this.loginService.googleLogin();
-  }
+  } 
+  */
 
   checkIfUserEmailIsValid(emailValue: string) {
     const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;

@@ -12,7 +12,8 @@
     "errorPassword0": "Sie müssen ein Passwort eingeben!",
     "errorPassword1": "Das Passwort passt nicht zur E-Mail-Adresse!",
     "loginDialog0": "Einloggen",
-    "loginDialog1": "Bitte warten..."
+    "loginDialog1": "Bitte warten...",
+    "rememberMe": "Eingeloggt bleiben"
   },
   "forgotPW": {
     "forgot": "Passwort zurücksetzen",

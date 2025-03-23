@@ -87,7 +87,7 @@ section {
 }
 
 .forgot-pw {
-  padding-bottom: 24px;
+  margin: 12px 0;
   a {
     text-align: center;
     font-size: 16px;
@@ -102,6 +102,41 @@ section {
       font-weight: 600;
     }
   }
+}
+
+// Checkbox
+
+.checkbox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: var(--gray);
+  cursor: pointer;
+  &:hover {
+    color: var(--light-blue);
+    font-weight: 600;
+  }
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  accent-color: var(--light-blue);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:hover {
+  transform: scale(1.1);
 }
 
 /*------------- RESPONSIVE -------------*/

@@ -12,7 +12,8 @@
     "errorPassword0": "You must enter a password!",
     "errorPassword1": "The password does not match the email address!",
     "loginDialog0": "Logging in",
-    "loginDialog1": "Please wait..."
+    "loginDialog1": "Please wait...",
+    "rememberMe": "Remember me"
   },
   "forgotPW": {
     "forgot": "Reset Password",
