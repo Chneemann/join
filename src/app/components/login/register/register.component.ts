@@ -5,7 +5,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/form-btn.component';
 import { FirebaseService } from '../../../services/firebase.service';
-import { LoginService } from '../../../services/auth.service';
+import { LoginService } from '../../../services/login.service';
 import { SharedService } from '../../../services/shared.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { RouterModule } from '@angular/router';

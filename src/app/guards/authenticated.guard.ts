@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
-import { LoginService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticatedGuard {
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return this.loginService.checkAuthUser().pipe(
+    const authToken = this.authService.checkAuthToken();
+    if (!authToken) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    return this.authService.checkAuthUser().pipe(
       map((isAuthenticated) => {
         if (isAuthenticated) {
           return true;

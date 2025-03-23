@@ -6,7 +6,7 @@ import { FooterComponent } from '../../footer/footer.component';
 import { HeaderComponent } from '../../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FirebaseService } from '../../../../services/firebase.service';
-import { LoginService } from '../../../../services/auth.service';
+import { LoginService } from '../../../../services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
 import { Subscription } from 'rxjs';

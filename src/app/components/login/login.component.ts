@@ -4,13 +4,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { FirebaseService } from '../../services/firebase.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { LoginService } from '../../services/auth.service';
+import { LoginService } from '../../services/login.service';
 import { SharedService } from '../../services/shared.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 import { OverlayService } from '../../services/overlay.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -32,12 +33,12 @@ export class LoginComponent {
   isPasswordIconVisible: boolean = true;
 
   loginData = {
-    mail: '',
+    email: '',
     password: '',
   };
 
   constructor(
-    private firebaseService: FirebaseService,
+    private authService: AuthService,
     public loginService: LoginService,
     public sharedService: SharedService,
     private overlayService: OverlayService,
@@ -46,9 +47,6 @@ export class LoginComponent {
   ) {}
 
   ngOnInit() {
-    if (this.loginService.checkAuthUser()) {
-      this.router.navigate(['/summary']);
-    }
     this.routeParams();
   }
 
@@ -63,16 +61,21 @@ export class LoginComponent {
     });
   }
 
-  onSubmit(ngForm: NgForm) {
+  async onSubmit(ngForm: NgForm) {
     this.sharedService.isBtnDisabled = true;
     if (ngForm.submitted && ngForm.form.valid) {
-      this.loginService.login(this.loginData);
+      try {
+        await this.authService.login(this.loginData, true);
+        this.router.navigate(['/summary']);
+      } catch (error) {
+        this.sharedService.isBtnDisabled = false;
+      }
     }
   }
 
   guestLogin() {
     this.sharedService.isBtnDisabled = true;
-    this.loginData.mail = 'guest@guestaccount.com';
+    this.loginData.email = 'guest@guestaccount.com';
     this.loginData.password = 'guest@guestaccount.com';
     this.isPasswordIconVisible = !this.isPasswordIconVisible;
     this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);

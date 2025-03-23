@@ -3,8 +3,9 @@ import { Router, RouterModule } from '@angular/router';
 import { LanguageService } from '../../../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginService } from '../../../../services/auth.service';
+import { LoginService } from '../../../../services/login.service';
 import { FirebaseService } from '../../../../services/firebase.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +23,7 @@ export class NavbarComponent {
   constructor(
     public langService: LanguageService,
     private router: Router,
+    private authService: AuthService,
     private loginService: LoginService,
     private firebaseService: FirebaseService
   ) {}
@@ -45,6 +47,6 @@ export class NavbarComponent {
    * The user is then navigated to the login page.
    */
   logout() {
-    this.loginService.logout(this.firebaseService.getCurrentUserId());
+    this.authService.logout();
   }
 }

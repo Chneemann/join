@@ -5,7 +5,7 @@ import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/fo
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginService } from '../../../services/auth.service';
+import { LoginService } from '../../../services/login.service';
 import { SharedService } from '../../../services/shared.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
-import { LoginService } from '../../../services/auth.service';
+import { LoginService } from '../../../services/login.service';
 import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({

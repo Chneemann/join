@@ -2,16 +2,21 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { LoginService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RedirectIfAuthenticatedGuard {
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return this.loginService.checkAuthUser().pipe(
+    const authToken = this.authService.checkAuthToken();
+    if (!authToken) {
+      return true;
+    }
+
+    return this.authService.checkAuthUser().pipe(
       map((isAuthenticated) => {
         if (isAuthenticated) {
           this.router.navigate(['/summary']);

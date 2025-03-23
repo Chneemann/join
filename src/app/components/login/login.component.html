@@ -20,10 +20,10 @@
           placeholder="{{ 'login.email' | translate }}"
           class="custom-input"
           autocomplete="email"
-          [(ngModel)]="loginData.mail"
+          [(ngModel)]="loginData.email"
           required
         />
-        @if(!loginData.mail) {
+        @if(!loginData.email) {
         <img
           class="custom-img"
           src="./../../../assets/img/login/mail.svg"
@@ -39,7 +39,7 @@
           !sharedService.isBtnDisabled) {
           <p>{{ "login.errorMail1" | translate }}</p>
           } @if (mail.valid && mail.touched &&
-          !checkIfUserEmailIsValid(loginData.mail.toLowerCase()) &&
+          !checkIfUserEmailIsValid(loginData.email.toLowerCase()) &&
           !sharedService.isBtnDisabled) {
           <p>{{ "login.errorMail2" | translate }}</p>
           }
@@ -87,6 +87,7 @@
           }}</a>
         </div>
       </div>
+      <!--       
       <div class="google-button">
         <app-form-btn
           [class]="'btn-google'"
@@ -95,7 +96,8 @@
           [disabled]="sharedService.isBtnDisabled"
           (click)="googleLogin()"
         ></app-form-btn>
-      </div>
+      </div> 
+      -->
       <div class="form-buttons">
         <app-form-btn
           [class]="'btn-login'"
@@ -103,11 +105,11 @@
           [value]="'login.login' | translate"
           [disabled]="
             mail.invalid ||
-            !loginData.mail ||
+            !loginData.email ||
             password.invalid ||
             !loginData.password ||
             sharedService.isBtnDisabled ||
-            !checkIfUserEmailIsValid(loginData.mail)
+            !checkIfUserEmailIsValid(loginData.email)
           "
         ></app-form-btn>
         <app-form-btn
