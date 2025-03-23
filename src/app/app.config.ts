@@ -4,15 +4,12 @@ import {
   ErrorHandler,
   importProvidersFrom,
 } from '@angular/core';
+import { withInterceptorsFromDi } from '@angular/common/http';
 import { provideRouter, Router, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import {
-  HttpClient,
-  HttpClientModule,
-  provideHttpClient,
-} from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IMAGE_CONFIG } from '@angular/common';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -26,7 +23,6 @@ export function createTranslateLoader(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(
-      HttpClientModule,
       TranslateModule.forRoot({
         defaultLanguage: 'en',
         loader: {
@@ -36,12 +32,10 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes, withViewTransitions()),
-    importProvidersFrom(
-      provideFirebaseApp(() => initializeApp(firebaseConfig))
-    ),
-    importProvidersFrom(provideFirestore(() => getFirestore())),
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirestore(() => getFirestore()),
     {
       provide: IMAGE_CONFIG,
       useValue: {
