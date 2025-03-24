@@ -10,6 +10,8 @@ import {
 import { apiConfig } from '../environments/config';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,8 @@ export class AuthService {
 
   constructor(
     private apiService: ApiService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private errorHandlingService: ErrorHandlingService
   ) {
     this.currentUserIdSubject.next(this.tokenService.getUserId());
   }
@@ -39,7 +42,8 @@ export class AuthService {
       this.currentUserIdSubject.next(data.userId);
     } catch (error) {
       console.error('Login failed:', error);
-      throw error;
+      const errorMessage = this.errorHandlingService.handleHttpError(error);
+      throw new Error(errorMessage);
     }
   }
 
@@ -56,6 +60,8 @@ export class AuthService {
       window.location.href = '/login';
     } catch (error) {
       console.error('Logout failed:', error);
+      const errorMessage = this.errorHandlingService.handleHttpError(error);
+      throw new Error(errorMessage);
     }
   }
 

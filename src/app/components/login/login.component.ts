@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 import { OverlayService } from '../../services/overlay.service';
 import { AuthService } from '../../services/auth.service';
+import { ErrorHandlingService } from '../../services/error-handling.service';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,7 @@ export class LoginComponent {
     public loginService: LoginService,
     public sharedService: SharedService,
     private overlayService: OverlayService,
+    private errorHandlingService: ErrorHandlingService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -70,6 +72,8 @@ export class LoginComponent {
         this.router.navigate(['/summary']);
       } catch (error) {
         this.sharedService.isBtnDisabled = false;
+        const errorMessage = this.errorHandlingService.handleHttpError(error);
+        alert(errorMessage);
       }
     }
   }
