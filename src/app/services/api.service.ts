@@ -1,9 +1,10 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { apiConfig } from '../environments/config';
 import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { User } from '../interfaces/user.interface';
 export class ApiService {
   private apiUrl = apiConfig.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   // ------------- TASKS ------------- //
 
@@ -42,5 +43,27 @@ export class ApiService {
     return this.http.get<User[]>(`${this.apiUrl}/api/users/`, {
       params: { ids: userIds.join(',') },
     });
+  }
+
+  // ------------- TOKEN ------------- //
+
+  private addAuthHeaders(headers: HttpHeaders): HttpHeaders {
+    const token = this.tokenService.getAuthToken();
+    if (token) {
+      return headers.set('Authorization', `Token ${token}`);
+    }
+    return headers;
+  }
+
+  post<T>(url: string, body: any): Observable<T> {
+    let headers = new HttpHeaders();
+    headers = this.addAuthHeaders(headers);
+    return this.http.post<T>(url, body, { headers });
+  }
+
+  get<T>(url: string): Observable<T> {
+    let headers = new HttpHeaders();
+    headers = this.addAuthHeaders(headers);
+    return this.http.get<T>(url, { headers });
   }
 }

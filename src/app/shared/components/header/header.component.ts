@@ -4,7 +4,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FirebaseService } from '../../../services/firebase.service';
-import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { ApiService } from '../../../services/api.service';
 

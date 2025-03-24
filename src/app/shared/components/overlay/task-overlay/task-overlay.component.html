@@ -70,7 +70,7 @@
     @if (task.assignees.length > 0) {
     <div class="assigned">
       <p>{{ "addTask.assigned" | translate }}:</p>
-      @for (assigned of task.assignees; track assigned.id) { @for (user of
+      @for (assigned of task.assignees; track assigned) { @for (user of
       task.userData; track user) { @if (assigned.userId === user.id) {
       <div class="users">
         <div

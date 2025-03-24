@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
@@ -9,99 +8,61 @@ import {
   of,
 } from 'rxjs';
 import { apiConfig } from '../environments/config';
+import { ApiService } from './api.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = apiConfig.apiUrl;
+  private currentUserIdSubject = new BehaviorSubject<string | null>(null);
 
-  private currentUserIdSubject: BehaviorSubject<string | null> =
-    new BehaviorSubject<string | null>(null);
-
-  constructor(private http: HttpClient) {
-    const storedUserId =
-      localStorage.getItem('currentUserId') ||
-      sessionStorage.getItem('currentUserId');
-    this.currentUserIdSubject = new BehaviorSubject<string | null>(
-      storedUserId
-    );
+  constructor(
+    private apiService: ApiService,
+    private tokenService: TokenService
+  ) {
+    this.currentUserIdSubject.next(this.tokenService.getUserId());
   }
 
   async login(body: any, storage: boolean) {
-    const data = (await lastValueFrom(
-      this.http.post(`${this.apiUrl}/auth/login/`, body)
-    )) as { token: string; user_id: string };
-    this.storeAuthToken(data.token, storage);
-    this.storeUserId(data.user_id, storage);
-    this.currentUserIdSubject.next(data.user_id);
+    try {
+      const data = await lastValueFrom(
+        this.apiService.post<{ token: string; userId: string }>(
+          `${this.apiUrl}/auth/login/`,
+          body
+        )
+      );
+
+      this.tokenService.storeAuthToken(data.token, storage);
+      this.tokenService.storeUserId(data.userId, storage);
+      this.currentUserIdSubject.next(data.userId);
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
   }
 
   async logout() {
-    const token = this.checkAuthToken();
-    if (!token) return;
+    try {
+      await lastValueFrom(
+        this.apiService.post(`${this.apiUrl}/auth/logout/`, {})
+      );
 
-    await lastValueFrom(
-      this.http.post(
-        `${this.apiUrl}/auth/logout/`,
-        {},
-        { headers: { Authorization: `Token ${token}` } }
-      )
-    ).catch((error) => console.error('Logout failed:', error));
+      this.tokenService.deleteAuthToken();
+      this.tokenService.deleteUserId();
+      this.currentUserIdSubject.next(null);
 
-    this.deleteAuthToken();
-    this.deleteUserId();
-    window.location.href = '/login';
+      window.location.href = '/login';
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   }
 
   checkAuthUser(): Observable<boolean> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<any>(`${this.apiUrl}/auth/`, { headers }).pipe(
-      map(() => {
-        return true;
-      }),
+    return this.apiService.get(`${this.apiUrl}/auth/`).pipe(
+      map(() => true),
       catchError(() => of(false))
-    );
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    let authToken = localStorage.getItem('authToken');
-    if (!authToken) {
-      authToken = sessionStorage.getItem('authToken');
-    }
-    return new HttpHeaders({
-      Authorization: `Token ${authToken}`,
-    });
-  }
-
-  private storeAuthToken(data: any, storage: boolean) {
-    storage
-      ? localStorage.setItem('authToken', data.toString())
-      : sessionStorage.setItem('authToken', data.toString());
-  }
-
-  private storeUserId(userId: string, storage: boolean) {
-    if (storage) {
-      localStorage.setItem('currentUserId', userId);
-    } else {
-      sessionStorage.setItem('currentUserId', userId);
-    }
-  }
-
-  private deleteAuthToken() {
-    localStorage.removeItem('authToken');
-    sessionStorage.removeItem('authToken');
-  }
-
-  private deleteUserId() {
-    localStorage.removeItem('currentUserId');
-    sessionStorage.removeItem('currentUserId');
-    this.currentUserIdSubject.next(null);
-  }
-
-  checkAuthToken(): string | null {
-    return (
-      localStorage.getItem('authToken') || sessionStorage.getItem('authToken')
     );
   }
 
