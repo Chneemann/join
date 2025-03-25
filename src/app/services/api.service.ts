@@ -10,60 +10,55 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = apiConfig.apiUrl;
+  private readonly apiUrl = apiConfig.apiUrl;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
+
+  request<T, B = unknown>(
+    method: string,
+    endpoint: string,
+    body?: B | null,
+    params?: Record<string, string | number>
+  ): Observable<T> {
+    return this.http.request<T>(method, `${this.apiUrl}${endpoint}`, {
+      body,
+      params,
+      headers: this.getHeaders(),
+    });
+  }
+
+  private getHeaders(): HttpHeaders {
+    const token = this.tokenService.getAuthToken();
+    return token
+      ? new HttpHeaders().set('Authorization', `Token ${token}`)
+      : new HttpHeaders();
+  }
 
   // ------------- TASKS ------------- //
 
   getTaskById(taskId: string): Observable<Task> {
-    return this.http.get<Task>(`${this.apiUrl}/api/tasks/${taskId}/`);
+    return this.request<Task>('GET', `/api/tasks/${taskId}/`);
   }
 
   getTasksByStatus(status: string): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}/api/tasks/`, {
-      params: { status },
-    });
+    return this.request<Task[]>('GET', '/api/tasks/', undefined, { status });
   }
 
   updateTaskStatus(taskId: string, status: string): Observable<Task> {
-    return this.http.put<Task>(
-      `${this.apiUrl}/api/tasks/${taskId}/update_status/`,
-      { status: status }
-    );
+    return this.request<Task>('PUT', `/api/tasks/${taskId}/update_status/`, {
+      status,
+    });
   }
 
   // ------------- USERS ------------- //
 
   getUserById(userId: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/api/users/${userId}/`);
+    return this.request<User>('GET', `/api/users/${userId}/`);
   }
 
   getUsersByIds(userIds: string[]): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/api/users/`, {
-      params: { ids: userIds.join(',') },
+    return this.request<User[]>('GET', '/api/users/', undefined, {
+      ids: userIds.join(','),
     });
-  }
-
-  // ------------- TOKEN ------------- //
-
-  private addAuthHeaders(headers: HttpHeaders): HttpHeaders {
-    const token = this.tokenService.getAuthToken();
-    if (token) {
-      return headers.set('Authorization', `Token ${token}`);
-    }
-    return headers;
-  }
-
-  post<T>(url: string, body: any): Observable<T> {
-    let headers = new HttpHeaders();
-    headers = this.addAuthHeaders(headers);
-    return this.http.post<T>(url, body, { headers });
-  }
-
-  get<T>(url: string): Observable<T> {
-    let headers = new HttpHeaders();
-    headers = this.addAuthHeaders(headers);
-    return this.http.get<T>(url, { headers });
   }
 }

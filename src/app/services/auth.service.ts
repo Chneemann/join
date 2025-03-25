@@ -7,17 +7,14 @@ import {
   Observable,
   of,
 } from 'rxjs';
-import { apiConfig } from '../environments/config';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = apiConfig.apiUrl;
   private currentUserIdSubject = new BehaviorSubject<string | null>(null);
 
   constructor(
@@ -28,45 +25,41 @@ export class AuthService {
     this.currentUserIdSubject.next(this.tokenService.getUserId());
   }
 
-  async login(body: any, storage: boolean) {
+  async login(credentials: any, storage: boolean): Promise<void> {
     try {
-      const data = await lastValueFrom(
-        this.apiService.post<{ token: string; userId: string }>(
-          `${this.apiUrl}/auth/login/`,
-          body
+      const { token, userId } = await lastValueFrom(
+        this.apiService.request<{ token: string; userId: string }>(
+          'POST',
+          `/auth/login/`,
+          credentials
         )
       );
 
-      this.tokenService.storeAuthToken(data.token, storage);
-      this.tokenService.storeUserId(data.userId, storage);
-      this.currentUserIdSubject.next(data.userId);
+      this.tokenService.storeAuthToken(token, storage);
+      this.tokenService.storeUserId(userId, storage);
+      this.currentUserIdSubject.next(userId);
     } catch (error) {
       console.error('Login failed:', error);
-      const errorMessage = this.errorHandlingService.handleHttpError(error);
-      throw new Error(errorMessage);
+      throw new Error(this.errorHandlingService.handleHttpError(error));
     }
   }
 
-  async logout() {
+  async logout(): Promise<void> {
     try {
-      await lastValueFrom(
-        this.apiService.post(`${this.apiUrl}/auth/logout/`, {})
-      );
+      await lastValueFrom(this.apiService.request('POST', `/auth/logout/`));
 
       this.tokenService.deleteAuthToken();
       this.tokenService.deleteUserId();
       this.currentUserIdSubject.next(null);
-
       window.location.href = '/login';
     } catch (error) {
       console.error('Logout failed:', error);
-      const errorMessage = this.errorHandlingService.handleHttpError(error);
-      throw new Error(errorMessage);
+      throw new Error(this.errorHandlingService.handleHttpError(error));
     }
   }
 
   checkAuthUser(): Observable<boolean> {
-    return this.apiService.get(`${this.apiUrl}/auth/`).pipe(
+    return this.apiService.request('GET', `/auth/`).pipe(
       map(() => true),
       catchError(() => of(false))
     );
