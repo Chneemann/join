@@ -13,6 +13,7 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
 import { OverlayService } from '../../services/overlay.service';
 import { AuthService } from '../../services/auth.service';
 import { ErrorHandlingService } from '../../services/error-handling.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +43,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     public loginService: LoginService,
+    private tokenService: TokenService,
     public sharedService: SharedService,
     private overlayService: OverlayService,
     private errorHandlingService: ErrorHandlingService,
@@ -51,6 +53,7 @@ export class LoginComponent {
 
   ngOnInit() {
     this.routeParams();
+    this.deleteTokens();
   }
 
   routeParams() {
@@ -62,6 +65,11 @@ export class LoginComponent {
         this.overlayService.setOverlayData('dialog', 'pw-change');
       }
     });
+  }
+
+  deleteTokens() {
+    this.tokenService.deleteAuthToken();
+    this.tokenService.deleteUserId();
   }
 
   async onSubmit(ngForm: NgForm) {

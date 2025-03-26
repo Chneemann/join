@@ -15,6 +15,8 @@ import { IMAGE_CONFIG } from '@angular/common';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { firebaseConfig } from './environments/config';
 import * as Sentry from '@sentry/angular';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,6 +34,8 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
+    importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(ToastrModule.forRoot()),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes, withViewTransitions()),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
