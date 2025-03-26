@@ -24,6 +24,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
+      { path: 'logout', component: LoginComponent },
       { path: 'login/notice/:id', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'forgot-pw', component: ForgotPwComponent },

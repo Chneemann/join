@@ -78,6 +78,7 @@ export class LoginComponent {
       try {
         await this.authService.login(this.loginData, this.checkboxRememberMe);
         this.router.navigate(['/summary']);
+        this.sharedService.isBtnDisabled = false;
       } catch (error) {
         this.sharedService.isBtnDisabled = false;
         const errorMessage = this.errorHandlingService.handleHttpError(error);
