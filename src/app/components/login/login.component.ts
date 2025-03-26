@@ -46,7 +46,6 @@ export class LoginComponent {
     private tokenService: TokenService,
     public sharedService: SharedService,
     private overlayService: OverlayService,
-    private errorHandlingService: ErrorHandlingService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -81,8 +80,6 @@ export class LoginComponent {
         this.sharedService.isBtnDisabled = false;
       } catch (error) {
         this.sharedService.isBtnDisabled = false;
-        const errorMessage = this.errorHandlingService.handleHttpError(error);
-        alert(errorMessage);
       }
     }
   }

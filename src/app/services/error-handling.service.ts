@@ -1,32 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorHandlingService {
-  handleHttpError(error: unknown): string {
+  constructor(private toastr: ToastrService) {}
+
+  handleHttpError(error: unknown): void {
+    let errorMessage = 'An unknown error occurred.';
+
     if (error instanceof HttpErrorResponse) {
       switch (error.status) {
         case 0:
-          return 'Network issue: Unable to reach the server.\nPlease check your internet connection or the server status.';
+          errorMessage =
+            'Network issue: Unable to reach the server. Please check your internet connection or the server status.';
+          break;
         case 401:
-          return 'Invalid login credentials.\nPlease check your email and password.';
+          errorMessage =
+            'Invalid login credentials. Please check your email and password.';
+          break;
         case 403:
-          return 'You do not have permission to access this resource.';
+          errorMessage = 'You do not have permission to access this resource.';
+          break;
         case 404:
-          return 'The requested resource was not found.';
+          errorMessage = 'The requested resource was not found.';
+          break;
         case 500:
-          return 'Server error: Please try again later.';
+          errorMessage = 'Server error: Please try again later.';
+          break;
         default:
-          return `Unknown error: ${error.statusText || error.message}`;
+          errorMessage = `Unknown error: ${error.statusText || error.message}`;
+          break;
       }
+    } else if (error instanceof Error) {
+      errorMessage = `${error.message || error.toString()}`;
     }
 
-    if (error instanceof Error) {
-      return `${error.message || error.toString()}`;
-    }
-
-    return 'An unknown error occurred.';
+    // Show the toast message with the error message
+    this.toastr.error(errorMessage, 'Error');
   }
 }

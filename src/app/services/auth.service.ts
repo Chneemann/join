@@ -45,7 +45,7 @@ export class AuthService {
       this.showLoginSuccessMessage();
     } catch (error) {
       console.error('Login failed:', error);
-      throw new Error(this.errorHandlingService.handleHttpError(error));
+      this.errorHandlingService.handleHttpError(error);
     }
   }
 
@@ -60,7 +60,7 @@ export class AuthService {
       this.router.navigate(['/logout']);
     } catch (error) {
       console.error('Logout failed:', error);
-      throw new Error(this.errorHandlingService.handleHttpError(error));
+      this.errorHandlingService.handleHttpError(error);
     }
   }
 
