@@ -38,7 +38,26 @@ export class ErrorHandlingService {
       errorMessage = `${error.message || error.toString()}`;
     }
 
-    // Show the toast message with the error message
     this.toastr.error(errorMessage, 'Error');
+  }
+
+  loginSuccessToast(): void {
+    this.toastr.success(
+      'You have successfully logged in.',
+      'Login Successful',
+      {
+        timeOut: 3000,
+      }
+    );
+  }
+
+  logoutSuccessToast(): void {
+    this.toastr.info(
+      'You have successfully logged out. Have a nice day!',
+      'Logout Successful',
+      {
+        timeOut: 3000,
+      }
+    );
   }
 }

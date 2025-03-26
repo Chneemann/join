@@ -23,7 +23,6 @@ export class AuthService {
     private apiService: ApiService,
     private tokenService: TokenService,
     private errorHandlingService: ErrorHandlingService,
-    private toastrService: ToastrService,
     private router: Router
   ) {
     this.currentUserIdSubject.next(this.tokenService.getUserId());
@@ -42,7 +41,7 @@ export class AuthService {
       this.tokenService.storeAuthToken(token, storage);
       this.tokenService.storeUserId(userId, storage);
       this.currentUserIdSubject.next(userId);
-      this.showLoginSuccessMessage();
+      this.errorHandlingService.loginSuccessToast();
     } catch (error) {
       console.error('Login failed:', error);
       this.errorHandlingService.handleHttpError(error);
@@ -56,7 +55,7 @@ export class AuthService {
       this.tokenService.deleteAuthToken();
       this.tokenService.deleteUserId();
       this.currentUserIdSubject.next(null);
-      this.showLogoutSuccessMessage();
+      this.errorHandlingService.logoutSuccessToast();
       this.router.navigate(['/logout']);
     } catch (error) {
       console.error('Logout failed:', error);
@@ -73,25 +72,5 @@ export class AuthService {
 
   getCurrentUserId(): Observable<string | null> {
     return this.currentUserIdSubject.asObservable();
-  }
-
-  private showLoginSuccessMessage() {
-    this.toastrService.success(
-      'You have successfully logged in.',
-      'Login Successful',
-      {
-        timeOut: 3000,
-      }
-    );
-  }
-
-  private showLogoutSuccessMessage() {
-    this.toastrService.info(
-      'You have successfully logged out. Have a nice day!',
-      'Logout Successful',
-      {
-        timeOut: 3000,
-      }
-    );
   }
 }
