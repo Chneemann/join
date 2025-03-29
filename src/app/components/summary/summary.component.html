@@ -99,11 +99,12 @@
     <!-- Greeting -->
     <div class="right-container">
       <p>{{ greeting }},</p>
-      <!-- TODO -->
-      <span id="welcome-user"
-        >{{ "firstName" }}<br />
-        {{ "lastName" }}</span
-      >
+      @if (currentUser) {
+      <span id="welcome-user">
+        {{ currentUser["firstName"] }}<br />
+        {{ currentUser["lastName"] }}
+      </span>
+      }
     </div>
   </div>
   } @else {

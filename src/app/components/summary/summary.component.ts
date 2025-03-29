@@ -7,6 +7,9 @@ import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { finalize } from 'rxjs';
 
+import { UserService } from '../../services/user.service';
+import { User } from '../../interfaces/user.interface';
+
 @Component({
   selector: 'app-summary',
   standalone: true,
@@ -18,11 +21,13 @@ export class SummaryComponent {
   nextUrgendTask: number[] = [];
 
   allTasks: Task[] = [];
+  currentUser: User | null = null;
   isLoading = false;
 
   constructor(
     public firebaseService: FirebaseService,
     private translateService: TranslateService,
+    private userService: UserService,
     private taskService: TaskService
   ) {}
 
@@ -31,6 +36,7 @@ export class SummaryComponent {
    */
   ngOnInit() {
     this.loadAllTasks();
+    this.loadCurrentUser();
   }
 
   /**
@@ -50,6 +56,12 @@ export class SummaryComponent {
           console.error('Error loading the tasks:', err);
         },
       });
+  }
+
+  loadCurrentUser(): void {
+    this.userService.getCurrentUser().subscribe((userData) => {
+      this.currentUser = userData;
+    });
   }
 
   /**

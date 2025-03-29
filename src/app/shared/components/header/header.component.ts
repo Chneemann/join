@@ -4,9 +4,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FirebaseService } from '../../../services/firebase.service';
-import { AuthService } from '../../../services/auth.service';
-import { ApiService } from '../../../services/api.service';
-import { catchError, of, switchMap } from 'rxjs';
+import { UserService } from '../../../services/user.service';
+import { User } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-header',
@@ -18,12 +17,11 @@ import { catchError, of, switchMap } from 'rxjs';
 export class HeaderComponent {
   navbarVisible: boolean = false;
   navbarLanguageVisible: boolean = false;
-  currentUser: any = null;
+  currentUser: User | null = null;
 
   constructor(
     public firebaseService: FirebaseService,
-    private authService: AuthService,
-    private apiService: ApiService
+    private userService: UserService
   ) {}
 
   /**
@@ -37,19 +35,9 @@ export class HeaderComponent {
    * Loads the current user data and sets it to the `currentUser` property.
    */
   loadCurrentUser(): void {
-    this.authService
-      .getCurrentUserId()
-      .pipe(
-        switchMap((userId) => {
-          if (!userId) return of(null);
-          return this.apiService
-            .getUserById(userId)
-            .pipe(catchError(() => of(null)));
-        })
-      )
-      .subscribe((userData) => {
-        this.currentUser = userData || {};
-      });
+    this.userService.getCurrentUser().subscribe((userData) => {
+      this.currentUser = userData;
+    });
   }
 
   /**
