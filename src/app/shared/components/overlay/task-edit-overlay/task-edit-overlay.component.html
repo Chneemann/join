@@ -5,7 +5,7 @@
 }"
 >
   @if (overlayType === 'newTaskOverlay' || (overlayData !== '' &&
-  getTaskData(overlayData).length > 0)) {
+  getTaskData(overlayData) !== undefined)) {
   <div class="header">
     <app-btn-close (click)="closeDialog()"></app-btn-close>
   </div>

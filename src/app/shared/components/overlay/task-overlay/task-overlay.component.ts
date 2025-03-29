@@ -8,6 +8,9 @@ import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Task } from '../../../../interfaces/task.interface';
 import { TaskService } from '../../../../services/task.service';
+import { AuthService } from '../../../../services/auth.service';
+import { map } from 'rxjs';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-task-overlay',
@@ -22,11 +25,14 @@ export class TaskOverlayComponent implements OnInit {
 
   task: Task | null = null;
   overlayMobile: boolean = false;
+  currentUserId: string = '';
 
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
     private taskService: TaskService,
+    private authService: AuthService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -44,8 +50,18 @@ export class TaskOverlayComponent implements OnInit {
    * Also sets `overlayMobile` to `true` if parameters are successfully retrieved.
    */
   ngOnInit() {
+    this.setCurrentUserId();
     this.setOverlayDataFromRoute();
     this.loadTask(this.overlayData);
+  }
+
+  setCurrentUserId() {
+    this.authService
+      .getCurrentUserId()
+      .pipe(map((userId) => userId ?? ''))
+      .subscribe((userId) => {
+        this.currentUserId = userId;
+      });
   }
 
   setOverlayDataFromRoute() {
@@ -58,7 +74,7 @@ export class TaskOverlayComponent implements OnInit {
   }
 
   loadTask(taskId: string) {
-    this.taskService.loadSingleTask(taskId).subscribe({
+    this.taskService.getTaskById(taskId).subscribe({
       next: (task) => {
         this.task = task;
       },
@@ -102,8 +118,15 @@ export class TaskOverlayComponent implements OnInit {
    * @param overlayData the overlay data of the task to be deleted
    * @returns {void}
    */
-  deleteTask(overlayData: string) {
-    this.firebaseService.deleteTask(overlayData);
+  deleteTask(taskId: string) {
+    this.apiService.deleteTaskById(taskId).subscribe({
+      next: (task) => {
+        console.log('Task deleted successfully:', task);
+      },
+      error: (err) => {
+        console.error('Error deleting task', err);
+      },
+    });
     this.closeDialog();
   }
 

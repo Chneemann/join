@@ -7,6 +7,7 @@ import { AssignedComponent } from '../../../../components/add-task/assigned/assi
 import { AddTaskComponent } from '../../../../components/add-task/add-task.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-task-edit-overlay',
@@ -24,6 +25,7 @@ export class TaskEditOverlayComponent {
 
   constructor(
     public firebaseService: FirebaseService,
+    private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -53,9 +55,7 @@ export class TaskEditOverlayComponent {
    * @returns {Task[]} an array of tasks with the given id
    */
   getTaskData(taskId: string) {
-    return this.firebaseService
-      .getAllTasks()
-      .filter((task) => task.id === taskId);
+    return this.apiService.getTaskById(taskId);
   }
 
   /**

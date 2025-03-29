@@ -13,6 +13,7 @@ import { ApiService } from '../../services/api.service';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
+import { finalize, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -30,6 +31,8 @@ import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
+  private destroy$ = new Subject<void>();
+
   readonly TODO = 'todo';
   readonly IN_PROGRESS = 'inprogress';
   readonly AWAIT_FEEDBACK = 'awaitfeedback';
@@ -53,33 +56,37 @@ export class BoardComponent {
   taskMovedFrom: string = '';
   isLoading = false;
 
-  /**
-   * Is called when the component is initialized.
-   * Calls the `loadTasks` method to load tasks and subscribes to drag-and-drop events via `subscribeToDragDropEvents`.
-   */
   ngOnInit() {
-    this.loadTasks();
+    this.loadAllTasks();
     this.subscribeToDragDropEvents();
   }
 
-  /**
-   * Retrieves all tasks from the API and initializes the `allTasks` and `filteredTasks` properties.
-   */
-
-  loadTasks(): void {
+  loadAllTasks(): void {
     this.isLoading = true;
 
-    this.taskService.loadAllTasks().subscribe({
-      next: (result) => {
-        this.allTasks = result.allTasks;
-        this.filteredTasks = result.filteredTasks;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error loading the tasks:', err);
-        this.isLoading = false;
-      },
-    });
+    this.taskService
+      .getTasksWithUsers()
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (response) => {
+          this.allTasks = response.allTasks;
+          this.filteredTasks = this.groupTasksByStatus(response.allTasks);
+        },
+        error: (err) => {
+          console.error('Error loading the tasks:', err);
+        },
+      });
+  }
+
+  groupTasksByStatus(tasks: Task[]): { [key: string]: Task[] } {
+    return tasks.reduce((acc, task) => {
+      const status = task.status;
+      if (!acc[status]) {
+        acc[status] = [];
+      }
+      acc[status].push(task);
+      return acc;
+    }, {} as { [key: string]: Task[] });
   }
 
   /**
@@ -177,5 +184,10 @@ export class BoardComponent {
         ),
       ])
     );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

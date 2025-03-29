@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { Task } from '../interfaces/task.interface';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -8,55 +8,67 @@ import { UserSummary } from '../interfaces/user.interface';
 @Injectable({ providedIn: 'root' })
 export class TaskService {
   private readonly statuses = ['todo', 'inprogress', 'awaitfeedback', 'done'];
+  private readonly priorities = ['low', 'medium', 'high'];
 
   constructor(private apiService: ApiService) {}
 
-  loadAllTasks(): Observable<{
-    allTasks: Task[];
-    filteredTasks: Record<string, Task[]>;
-  }> {
-    return forkJoin(
-      this.statuses.map((status) => this.fetchTasksByStatus(status))
-    ).pipe(
-      switchMap((results) => {
-        const allTasks = results.flat();
-        const filteredTasks = this.statuses.reduce((acc, status, index) => {
-          acc[status] = results[index] || [];
-          return acc;
-        }, {} as Record<string, Task[]>);
+  getStatuses(): string[] {
+    return this.statuses;
+  }
 
-        return this.loadUsersForTasks(allTasks).pipe(
-          map((tasksWithUsers) => {
-            const updatedFilteredTasks = this.statuses.reduce((acc, status) => {
-              acc[status] = tasksWithUsers.filter(
-                (task) => task.status === status
-              );
-              return acc;
-            }, {} as Record<string, Task[]>);
+  getPriorities(): string[] {
+    return this.priorities;
+  }
 
-            return {
-              allTasks: tasksWithUsers,
-              filteredTasks: updatedFilteredTasks,
-            };
-          })
-        );
-      })
+  getTasks(): Observable<Task[]> {
+    return this.fetchTasks();
+  }
+
+  getTasksWithUsers(): Observable<{ allTasks: Task[] }> {
+    return this.fetchTasks().pipe(
+      switchMap((tasks) =>
+        this.attachUsersToTasks(tasks).pipe(
+          map((tasksWithUsers) => ({ allTasks: tasksWithUsers }))
+        )
+      )
     );
   }
 
-  private fetchTasksByStatus(status: string): Observable<Task[]> {
-    return this.apiService.getTasksByStatus(status).pipe(
+  getTaskById(taskId: string): Observable<Task | null> {
+    return this.apiService.getTaskById(taskId).pipe(
       catchError((error) => {
-        console.error(
-          `Fehler beim Abrufen von Tasks für Status ${status}:`,
-          error
-        );
+        console.error('Error loading the task:', error);
+        return of(null);
+      }),
+      switchMap((task) => (task ? this.attachUsersToTask(task) : of(null)))
+    );
+  }
+
+  private fetchTasks(): Observable<Task[]> {
+    return this.apiService.getTasks().pipe(
+      catchError((error) => {
+        console.error('Error when retrieving the tasks:', error);
         return of([]);
       })
     );
   }
 
-  private loadUsersForTasks(tasks: Task[]): Observable<Task[]> {
+  private attachUsersToTask(task: Task): Observable<Task> {
+    const userIds = [task.creator, ...task.assignees.map((a) => a.userId)];
+
+    return this.apiService.getUsersByIds(userIds).pipe(
+      catchError((error) => {
+        console.error('Error when retrieving user data:', error);
+        return of([]);
+      }),
+      map((users) => ({
+        ...task,
+        userData: this.mapTaskUsers(task, this.createUserMap(users)),
+      }))
+    );
+  }
+
+  private attachUsersToTasks(tasks: Task[]): Observable<Task[]> {
     const userIds = new Set(
       tasks.flatMap((task) => [
         task.creator,
@@ -66,62 +78,32 @@ export class TaskService {
 
     return this.apiService.getUsersByIds([...userIds]).pipe(
       catchError((error) => {
-        console.error('Fehler beim Abrufen der Benutzer:', error);
+        console.error('Error when retrieving users:', error);
         return of([]);
       }),
       map((users) => {
         const userMap = this.createUserMap(users);
         return tasks.map((task) => ({
           ...task,
-          userData: [
-            ...task.assignees.map((a) => userMap[a.userId] || null),
-            userMap[task.creator] || null,
-          ].filter(Boolean),
+          userData: this.mapTaskUsers(task, userMap),
         }));
-      })
-    );
-  }
-
-  loadSingleTask(taskId: string): Observable<Task | null> {
-    return this.apiService.getTaskById(taskId).pipe(
-      switchMap((task) => {
-        if (!task) return of(null);
-        const userIds = [task.creator, ...task.assignees.map((a) => a.userId)];
-
-        return this.apiService.getUsersByIds(userIds).pipe(
-          map((users) => ({
-            ...task,
-            userData: this.mapTaskUsers(task, users),
-          })),
-          catchError((error) => {
-            console.error('Fehler beim Abrufen der Benutzerdaten:', error);
-            return of(task);
-          })
-        );
-      }),
-      catchError((error) => {
-        console.error('Fehler beim Laden des Tasks:', error);
-        return of(null);
       })
     );
   }
 
   private createUserMap(users: UserSummary[]): Record<string, UserSummary> {
     return users.reduce((acc, user) => {
-      if (user?.id)
-        acc[user.id] = {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          initials: user.initials,
-          color: user.color,
-        };
+      if (user?.id) {
+        acc[user.id] = user;
+      }
       return acc;
     }, {} as Record<string, UserSummary>);
   }
 
-  private mapTaskUsers(task: Task, users: UserSummary[]): UserSummary[] {
-    const userMap = this.createUserMap(users);
+  private mapTaskUsers(
+    task: Task,
+    userMap: Record<string, UserSummary>
+  ): UserSummary[] {
     return [
       ...task.assignees.map((a) => userMap[a.userId] || null),
       userMap[task.creator] || null,

@@ -36,18 +36,26 @@ export class ApiService {
 
   // ------------- TASKS ------------- //
 
+  getTasks(): Observable<Task[]> {
+    return this.request<Task[]>('GET', `/api/tasks/`);
+  }
+
   getTaskById(taskId: string): Observable<Task> {
     return this.request<Task>('GET', `/api/tasks/${taskId}/`);
   }
 
-  getTasksByStatus(status: string): Observable<Task[]> {
-    return this.request<Task[]>('GET', '/api/tasks/', undefined, { status });
-  }
-
   updateTaskStatus(taskId: string, status: string): Observable<Task> {
-    return this.request<Task>('PUT', `/api/tasks/${taskId}/update_status/`, {
+    return this.request<Task>('PATCH', `/api/tasks/${taskId}/update_status/`, {
       status,
     });
+  }
+
+  saveNewTask(task: Task): Observable<Task> {
+    return this.request<Task>('POST', '/api/tasks/', task);
+  }
+
+  deleteTaskById(taskId: string): Observable<Task> {
+    return this.request<Task>('DELETE', `/api/tasks/${taskId}/`);
   }
 
   // ------------- USERS ------------- //

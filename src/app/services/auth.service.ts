@@ -10,7 +10,6 @@ import {
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
 import { ErrorHandlingService } from './error-handling.service';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 @Injectable({

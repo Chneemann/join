@@ -5,6 +5,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-summary',
@@ -29,25 +30,26 @@ export class SummaryComponent {
    * This method loads all tasks from the TaskService.
    */
   ngOnInit() {
-    this.loadTasks();
+    this.loadAllTasks();
   }
 
   /**
    * Loads all tasks from the TaskService.
    */
-  loadTasks(): void {
+  loadAllTasks(): void {
     this.isLoading = true;
 
-    this.taskService.loadAllTasks().subscribe({
-      next: (result) => {
-        this.allTasks = result.allTasks;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error loading the tasks:', err);
-        this.isLoading = false;
-      },
-    });
+    this.taskService
+      .getTasks()
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (response) => {
+          this.allTasks = response;
+        },
+        error: (err) => {
+          console.error('Error loading the tasks:', err);
+        },
+      });
   }
 
   /**

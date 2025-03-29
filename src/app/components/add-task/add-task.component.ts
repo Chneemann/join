@@ -10,6 +10,10 @@ import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedService } from '../../services/shared.service';
+import { AuthService } from '../../services/auth.service';
+import { firstValueFrom, map } from 'rxjs';
+import { TaskService } from '../../services/task.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-add-task',
@@ -44,6 +48,9 @@ export class AddTaskComponent implements OnInit {
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
     private sharedService: SharedService,
+    private taskService: TaskService,
+    private apiService: ApiService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -52,15 +59,15 @@ export class AddTaskComponent implements OnInit {
     title: '',
     description: '',
     category: '',
-    status: 'todo',
-    priority: 'medium',
+    status: this.taskService.getStatuses()[0],
+    priority: this.taskService.getPriorities()[0],
     subtasks: [],
     subtasksTitle: [],
     subtasksDone: [],
     assigned: [],
     assignees: [],
     userData: [],
-    creator: this.firebaseService.getCurrentUserId(),
+    creator: '',
     date: this.currentDate,
   };
 
@@ -72,9 +79,19 @@ export class AddTaskComponent implements OnInit {
    * - Loads any existing task data from local storage.
    */
   ngOnInit() {
+    this.setCurrentUserId();
     this.loadEditTaskData();
     this.routeParams();
     this.loadLocalStorageData();
+  }
+
+  setCurrentUserId() {
+    this.authService
+      .getCurrentUserId()
+      .pipe(map((userId) => userId ?? ''))
+      .subscribe((userId) => {
+        this.taskData.creator = userId;
+      });
   }
 
   /**
@@ -83,10 +100,9 @@ export class AddTaskComponent implements OnInit {
    * @param {string} overlayType The type of overlay to be opened.
    * @returns {void}
    */
-  loadEditTaskData() {
-    const excludedValues = ['', 'todo', 'inprogress', 'awaitfeedback', 'done'];
-    if (!excludedValues.includes(this.overlayData)) {
-      const taskData = this.getTaskData(this.overlayData)[0];
+  async loadEditTaskData() {
+    if (this.overlayData) {
+      const taskData = await firstValueFrom(this.getTaskData(this.overlayData));
       Object.assign(this.taskData, taskData);
     } else if (this.overlayType === 'newTaskOverlay') {
       this.taskData.status = this.overlayData;
@@ -156,9 +172,7 @@ export class AddTaskComponent implements OnInit {
    * @returns {Task[]} an array of tasks with the given id
    */
   getTaskData(taskId: string) {
-    return this.firebaseService
-      .getAllTasks()
-      .filter((task) => task.id === taskId);
+    return this.apiService.getTaskById(taskId);
   }
 
   /**
@@ -357,43 +371,20 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  /**
-   * Submits the task form and saves the task data to the Firebase Realtime Database.
-   *
-   * If the form is valid and the overlay data is one of the allowed values, this
-   * function adds a new task to the 'tasks' node in the Firebase Realtime Database.
-   * If the overlay data is not one of the allowed values, this function updates the
-   * task with the given overlay data in the 'tasks' node.
-   *
-   * After submitting the form, this function resets the form and closes the overlay.
-   * It then navigates to the '/board' route.
-   * @param ngForm the form to submit
-   * @param overlayData the overlay data corresponding to the task to be submitted
-   * @returns {void}
-   */
   onSubmit(ngForm: NgForm, overlayData: string) {
-    const allowedValues = [
-      '',
-      'none',
-      'todo',
-      'inprogress',
-      'awaitfeedback',
-      'done',
-    ];
     if (ngForm.submitted && ngForm.form.valid) {
-      if (allowedValues.includes(overlayData)) {
-        const { id, ...taskWithoutId } = this.taskData;
-        this.firebaseService.addNewTask(taskWithoutId);
-        this.removeTaskData(ngForm);
-        this.closeOverlay();
-      } else {
-        if (this.getTaskData(overlayData).length > 0) {
-          const { id, ...taskWithoutId } = this.taskData;
-          this.firebaseService.replaceTaskData(overlayData, taskWithoutId);
+      const { id, ...taskWithoutId } = this.taskData;
+
+      this.apiService.saveNewTask(taskWithoutId).subscribe({
+        next: (response) => {
+          this.removeTaskData(ngForm);
           this.closeOverlay();
-        }
-      }
-      this.router.navigate(['/board']);
+          this.router.navigate(['/board']);
+        },
+        error: (error) => {
+          console.error('Fehler beim Speichern:', error);
+        },
+      });
     }
   }
 
@@ -419,9 +410,9 @@ export class AddTaskComponent implements OnInit {
    * @param overlayData the overlay data of the task to be deleted
    * @returns {void}
    */
-  deleteTaskData(overlayData: string) {
-    this.firebaseService.deleteTask(overlayData);
-    this.closeOverlay();
+  deleteTask(overlayData: string) {
+    this.apiService.deleteTaskById(overlayData);
+    this.closeDialog();
   }
 
   @HostListener('document:click', ['$event'])
