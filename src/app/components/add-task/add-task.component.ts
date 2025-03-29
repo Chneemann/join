@@ -15,6 +15,7 @@ import { firstValueFrom, map } from 'rxjs';
 import { TaskService } from '../../services/task.service';
 import { ApiService } from '../../services/api.service';
 import { TaskUpdateService } from '../../services/task-update.service';
+import { ToastNotificationService } from '../../services/toast-notification.servic';
 
 @Component({
   selector: 'app-add-task',
@@ -53,6 +54,7 @@ export class AddTaskComponent implements OnInit {
     private apiService: ApiService,
     private authService: AuthService,
     private taskUpdateService: TaskUpdateService,
+    private toastNotificationService: ToastNotificationService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -379,6 +381,7 @@ export class AddTaskComponent implements OnInit {
 
       this.apiService.saveNewTask(taskWithoutId).subscribe({
         next: (response) => {
+          this.toastNotificationService.createTaskSuccessToast();
           this.taskUpdateService.notifyTaskUpdate();
           this.removeTaskData(ngForm);
           this.closeOverlay();

@@ -12,7 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 import { OverlayService } from '../../services/overlay.service';
 import { AuthService } from '../../services/auth.service';
-import { ErrorHandlingService } from '../../services/error-handling.service';
 import { TokenService } from '../../services/token.service';
 
 @Component({

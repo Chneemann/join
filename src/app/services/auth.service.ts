@@ -9,8 +9,8 @@ import {
 } from 'rxjs';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
-import { ErrorHandlingService } from './error-handling.service';
 import { Router } from '@angular/router';
+import { ToastNotificationService } from './toast-notification.servic';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class AuthService {
   constructor(
     private apiService: ApiService,
     private tokenService: TokenService,
-    private errorHandlingService: ErrorHandlingService,
+    private toastNotificationService: ToastNotificationService,
     private router: Router
   ) {
     this.currentUserIdSubject.next(this.tokenService.getUserId());
@@ -40,10 +40,9 @@ export class AuthService {
       this.tokenService.storeAuthToken(token, storage);
       this.tokenService.storeUserId(userId, storage);
       this.currentUserIdSubject.next(userId);
-      this.errorHandlingService.loginSuccessToast();
+      this.toastNotificationService.loginSuccessToast();
     } catch (error) {
       console.error('Login failed:', error);
-      this.errorHandlingService.handleHttpError(error);
     }
   }
 
@@ -54,11 +53,10 @@ export class AuthService {
       this.tokenService.deleteAuthToken();
       this.tokenService.deleteUserId();
       this.currentUserIdSubject.next(null);
-      this.errorHandlingService.logoutSuccessToast();
+      this.toastNotificationService.logoutSuccessToast();
       this.router.navigate(['/logout']);
     } catch (error) {
       console.error('Logout failed:', error);
-      this.errorHandlingService.handleHttpError(error);
     }
   }
 

@@ -15,6 +15,7 @@ import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { TaskUpdateService } from '../../services/task-update.service';
+import { ToastNotificationService } from '../../services/toast-notification.servic';
 
 @Component({
   selector: 'app-board',
@@ -46,6 +47,7 @@ export class BoardComponent {
     private taskService: TaskService,
     private apiService: ApiService,
     private taskUpdateService: TaskUpdateService,
+    private toastNotificationService: ToastNotificationService,
     private router: Router
   ) {}
 
@@ -140,6 +142,7 @@ export class BoardComponent {
   handleItemDropped(taskId: string, status: string): void {
     this.apiService.updateTaskStatus(taskId, status).subscribe({
       next: () => {
+        this.toastNotificationService.taskStatusUpdatedToast();
         this.updateTaskStatus(taskId, status);
       },
       error: (error) => console.error('Error updating task:', error),

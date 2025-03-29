@@ -17,6 +17,8 @@ import { firebaseConfig } from './environments/config';
 import * as Sentry from '@sentry/angular';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpErrorInterceptor } from './interceptors/http-interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -59,6 +61,11 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       useFactory: () => () => {},
       deps: [Sentry.TraceService],
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true,
     },
   ],

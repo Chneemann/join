@@ -12,6 +12,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { map } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
 import { TaskUpdateService } from '../../../../services/task-update.service';
+import { ToastNotificationService } from '../../../../services/toast-notification.servic';
 
 @Component({
   selector: 'app-task-overlay',
@@ -35,6 +36,7 @@ export class TaskOverlayComponent implements OnInit {
     private authService: AuthService,
     private apiService: ApiService,
     private taskUpdateService: TaskUpdateService,
+    private toastNotificationService: ToastNotificationService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -123,6 +125,7 @@ export class TaskOverlayComponent implements OnInit {
   deleteTask(taskId: string) {
     this.apiService.deleteTaskById(taskId).subscribe({
       next: (task) => {
+        this.toastNotificationService.deleteTaskSuccessToast();
         this.taskUpdateService.notifyTaskUpdate();
       },
       error: (err) => {

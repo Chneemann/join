@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
-export class ErrorHandlingService {
+export class ErrorNotificationService {
   constructor(private toastr: ToastrService) {}
 
   handleHttpError(error: unknown): void {
@@ -28,36 +28,23 @@ export class ErrorHandlingService {
           errorMessage = 'The requested resource was not found.';
           break;
         case 500:
-          errorMessage = 'Server error: Please try again later.';
+          errorMessage =
+            'Server error: Please try again later. If the issue persists, please contact support.';
+          break;
+        case 408:
+          errorMessage =
+            'Request timed out. Please check your connection and try again.';
           break;
         default:
-          errorMessage = `Unknown error: ${error.statusText || error.message}`;
+          errorMessage =
+            error.error?.message ||
+            `Unknown error: ${error.statusText || error.message}`;
           break;
       }
     } else if (error instanceof Error) {
-      errorMessage = `${error.message || error.toString()}`;
+      errorMessage = `Network error: ${error.message || error.toString()}`;
     }
 
     this.toastr.error(errorMessage, 'Error');
-  }
-
-  loginSuccessToast(): void {
-    this.toastr.success(
-      'You have successfully logged in.',
-      'Login Successful',
-      {
-        timeOut: 3000,
-      }
-    );
-  }
-
-  logoutSuccessToast(): void {
-    this.toastr.info(
-      'You have successfully logged out. Have a nice day!',
-      'Logout Successful',
-      {
-        timeOut: 3000,
-      }
-    );
   }
 }
