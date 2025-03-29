@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 import { firstValueFrom, map } from 'rxjs';
 import { TaskService } from '../../services/task.service';
 import { ApiService } from '../../services/api.service';
+import { TaskUpdateService } from '../../services/task-update.service';
 
 @Component({
   selector: 'app-add-task',
@@ -51,6 +52,7 @@ export class AddTaskComponent implements OnInit {
     private taskService: TaskService,
     private apiService: ApiService,
     private authService: AuthService,
+    private taskUpdateService: TaskUpdateService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -377,6 +379,7 @@ export class AddTaskComponent implements OnInit {
 
       this.apiService.saveNewTask(taskWithoutId).subscribe({
         next: (response) => {
+          this.taskUpdateService.notifyTaskUpdate();
           this.removeTaskData(ngForm);
           this.closeOverlay();
           this.router.navigate(['/board']);

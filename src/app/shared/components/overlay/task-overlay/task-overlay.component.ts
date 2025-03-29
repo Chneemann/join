@@ -11,6 +11,7 @@ import { TaskService } from '../../../../services/task.service';
 import { AuthService } from '../../../../services/auth.service';
 import { map } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
+import { TaskUpdateService } from '../../../../services/task-update.service';
 
 @Component({
   selector: 'app-task-overlay',
@@ -33,6 +34,7 @@ export class TaskOverlayComponent implements OnInit {
     private taskService: TaskService,
     private authService: AuthService,
     private apiService: ApiService,
+    private taskUpdateService: TaskUpdateService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -121,7 +123,7 @@ export class TaskOverlayComponent implements OnInit {
   deleteTask(taskId: string) {
     this.apiService.deleteTaskById(taskId).subscribe({
       next: (task) => {
-        console.log('Task deleted successfully:', task);
+        this.taskUpdateService.notifyTaskUpdate();
       },
       error: (err) => {
         console.error('Error deleting task', err);

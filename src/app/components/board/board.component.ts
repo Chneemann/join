@@ -14,6 +14,7 @@ import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { finalize, Subject, takeUntil } from 'rxjs';
+import { TaskUpdateService } from '../../services/task-update.service';
 
 @Component({
   selector: 'app-board',
@@ -44,6 +45,7 @@ export class BoardComponent {
     private sharedService: SharedService,
     private taskService: TaskService,
     private apiService: ApiService,
+    private taskUpdateService: TaskUpdateService,
     private router: Router
   ) {}
 
@@ -58,6 +60,7 @@ export class BoardComponent {
 
   ngOnInit() {
     this.loadAllTasks();
+    this.subscribeToTaskUpdates();
     this.subscribeToDragDropEvents();
   }
 
@@ -87,6 +90,14 @@ export class BoardComponent {
       acc[status].push(task);
       return acc;
     }, {} as { [key: string]: Task[] });
+  }
+
+  private subscribeToTaskUpdates() {
+    this.taskUpdateService.taskUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadAllTasks();
+      });
   }
 
   /**
