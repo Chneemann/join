@@ -14,6 +14,7 @@ import { FirebaseService } from '../../../../services/firebase.service';
 import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn/form-btn.component';
 import { User } from '../../../../interfaces/user.interface';
 import { Router } from '@angular/router';
+import { ResizeService } from '../../../../services/resize.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -32,6 +33,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     public firebaseService: FirebaseService,
+    public resizeService: ResizeService,
     public sharedService: SharedService
   ) {
     this.updateContactData();

@@ -23,7 +23,7 @@
         autocomplete="off"
         required
       />
-      @if (sharedService.isContactViewMedia) {
+      @if (resizeService.isContactViewMedia) {
       <div class="error-msg">
         @if (firstName.hasError('pattern') && firstName.touched) {
         <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
@@ -49,7 +49,7 @@
         required
       />
     </div>
-    @if (sharedService.isContactViewMedia) {
+    @if (resizeService.isContactViewMedia) {
     <div class="error-msg">
       @if (lastName.hasError('pattern') && lastName.touched) {
       <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
@@ -57,7 +57,7 @@
       <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
       }}
     </div>
-    } @if (!sharedService.isContactViewMedia) {
+    } @if (!resizeService.isContactViewMedia) {
     <div class="error-msg">
       @if (firstName.hasError('pattern') || lastName.hasError('pattern') &&
       firstName.touched) {

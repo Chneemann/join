@@ -13,7 +13,7 @@
         >
           {{ task.category }}
         </div>
-        @if (sharedService.isPageViewMedia) {
+        @if (resizeService.isPageViewMedia) {
         <div class="menu-btn" (click)="handleMenuButtonClick($event, task.id)">
           <img
             class="menu-img"

@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SharedService } from '../../../services/shared.service';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { ColorService } from '../../../services/color.service';
 
 @Component({
   selector: 'app-contact-edit',
@@ -30,7 +31,8 @@ export class ContactEditNewComponent implements OnInit {
 
   constructor(
     public firebaseService: FirebaseService,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private colorService: ColorService
   ) {}
 
   /**
@@ -39,7 +41,7 @@ export class ContactEditNewComponent implements OnInit {
    * This method sets a random color for the user to be edited.
    */
   ngOnInit() {
-    this.randomColor = this.sharedService.generateRandomColor();
+    this.randomColor = this.colorService.generateRandomColor();
   }
 
   /**

@@ -227,7 +227,7 @@ export class AddTaskComponent implements OnInit {
    * @returns The updated search input flag.
    */
   updateSearchInput() {
-    this.searchValue = this.sharedService.replaceXSSChars(this.searchValue);
+    this.searchValue = this.replaceXSSChars(this.searchValue);
     if (this.searchValue) {
       this.searchInput = this.searchValue.toLowerCase().length > 0;
     } else {
@@ -241,7 +241,7 @@ export class AddTaskComponent implements OnInit {
    * This ensures that the subtask value is sanitized before further processing or storage.
    */
   updateSubtaskValue() {
-    this.subtaskValue = this.sharedService.replaceXSSChars(this.subtaskValue);
+    this.subtaskValue = this.replaceXSSChars(this.subtaskValue);
   }
 
   /**
@@ -400,14 +400,10 @@ export class AddTaskComponent implements OnInit {
    * @returns {void}
    */
   checkCrossSiteScripting() {
-    this.taskData.title = this.sharedService.replaceXSSChars(
-      this.taskData.title
-    );
-    this.taskData.description = this.sharedService.replaceXSSChars(
-      this.taskData.description
-    );
+    this.taskData.title = this.replaceXSSChars(this.taskData.title);
+    this.taskData.description = this.replaceXSSChars(this.taskData.description);
     this.taskData.subtasksTitle = this.taskData.subtasksTitle.map((title) =>
-      this.sharedService.replaceXSSChars(title)
+      this.replaceXSSChars(title)
     );
   }
 
@@ -419,6 +415,10 @@ export class AddTaskComponent implements OnInit {
   deleteTask(overlayData: string) {
     this.apiService.deleteTaskById(overlayData);
     this.closeDialog();
+  }
+
+  replaceXSSChars(input: string) {
+    return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   @HostListener('document:click', ['$event'])

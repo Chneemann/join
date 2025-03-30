@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
 import CryptoES from 'crypto-es';
 import { CryptoESSecretKey } from '../environments/config';
 import { catchError, map, Observable, of } from 'rxjs';
+import { ColorService } from './color.service';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,7 @@ export class LoginService {
 
   constructor(
     private firebaseService: FirebaseService,
+    private colorService: ColorService,
     public sharedService: SharedService,
     private router: Router
   ) {}
@@ -124,7 +126,7 @@ export class LoginService {
             ? registerData.firstName.slice(0, 1).toUpperCase() +
               registerData.lastName.slice(0, 1).toUpperCase()
             : '',
-          color: this.sharedService.generateRandomColor(),
+          color: this.colorService.generateRandomColor(),
           lastLogin: new Date().getTime(),
         };
         this.createUserInFirestore(userDataToSave);
@@ -169,7 +171,7 @@ export class LoginService {
               isOnline: true,
               phone: '',
               initials: firstName.slice(0, 1) + lastName.slice(0, 1),
-              color: this.sharedService.generateRandomColor(),
+              color: this.colorService.generateRandomColor(),
               lastLogin: 0,
             });
           } else {

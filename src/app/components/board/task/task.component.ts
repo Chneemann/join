@@ -6,7 +6,7 @@ import { FirebaseService } from '../../../services/firebase.service';
 import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
-import { SharedService } from '../../../services/shared.service';
+import { ResizeService } from '../../../services/resize.service';
 
 @Component({
   selector: 'app-task',
@@ -34,7 +34,7 @@ export class TaskComponent {
     public dragDropService: DragDropService,
     public firebaseService: FirebaseService,
     public overlayService: OverlayService,
-    public sharedService: SharedService,
+    public resizeService: ResizeService,
     private router: Router
   ) {}
 
@@ -74,7 +74,7 @@ export class TaskComponent {
     if (this.isMenuOpen) {
       this.toggleTaskMenu();
     }
-    this.sharedService.isPageViewMedia
+    this.resizeService.isPageViewMedia
       ? this.router.navigate(['/task', taskId])
       : this.overlayService.setOverlayData('taskOverlay', taskId);
   }

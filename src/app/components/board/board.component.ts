@@ -6,7 +6,6 @@ import { TaskEmptyComponent } from './task/task-empty/task-empty.component';
 import { FormsModule } from '@angular/forms';
 import { OverlayService } from '../../services/overlay.service';
 import { Router } from '@angular/router';
-import { SharedService } from '../../services/shared.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { TaskHighlightedComponent } from './task/task-highlighted/task-highlighted.component';
 import { ApiService } from '../../services/api.service';
@@ -16,6 +15,7 @@ import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { TaskUpdateService } from '../../services/task-update.service';
 import { ToastNotificationService } from '../../services/toast-notification.servic';
+import { ResizeService } from '../../services/resize.service';
 
 @Component({
   selector: 'app-board',
@@ -43,7 +43,7 @@ export class BoardComponent {
   constructor(
     public dragDropService: DragDropService,
     public overlayService: OverlayService,
-    private sharedService: SharedService,
+    private resizeService: ResizeService,
     private taskService: TaskService,
     private apiService: ApiService,
     private taskUpdateService: TaskUpdateService,
@@ -129,7 +129,7 @@ export class BoardComponent {
    * @param status The status to be used for the new task.
    */
   addNewTaskOverlay(status: string) {
-    this.sharedService.isPageViewMedia
+    this.resizeService.isPageViewMedia
       ? this.router.navigate(['/add-task', status])
       : this.overlayService.setOverlayData('newTaskOverlay', status);
   }
