@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SharedService } from '../../../services/shared.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonStateService } from '../../../services/button-state.service';
 
 @Component({
   selector: 'app-loading-dialog',
@@ -10,5 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './loading-dialog.component.scss',
 })
 export class LoadingDialogComponent {
-  constructor(public sharedService: SharedService) {}
+  constructor(private buttonStateService: ButtonStateService) {}
+
+  isButtonDisabled() {
+    return this.buttonStateService.isButtonDisabled;
+  }
 }

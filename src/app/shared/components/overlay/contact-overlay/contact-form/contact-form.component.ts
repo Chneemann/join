@@ -9,12 +9,10 @@ import {
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedService } from '../../../../services/shared.service';
-import { FirebaseService } from '../../../../services/firebase.service';
-import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn/form-btn.component';
-import { User } from '../../../../interfaces/user.interface';
-import { Router } from '@angular/router';
-import { ResizeService } from '../../../../services/resize.service';
+import { FormBtnComponent } from '../../../buttons/form-btn/form-btn.component';
+import { User } from '@sentry/angular';
+import { FirebaseService } from '../../../../../services/firebase.service';
+import { ResizeService } from '../../../../../services/resize.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -24,20 +22,17 @@ import { ResizeService } from '../../../../services/resize.service';
   styleUrl: './contact-form.component.scss',
 })
 export class ContactFormComponent implements OnInit, OnChanges {
-  @Input() currentUserId: string = '';
+  @Input() selectedUser: any = [];
   @Input() randomColor: string = '';
   @Input() newColor: string = '';
   @Input() currentColor: string = '';
   @Output() initialsEmitter = new EventEmitter<string>();
+  @Output() closeDialogEmitter = new EventEmitter<string>();
 
   constructor(
-    private router: Router,
     public firebaseService: FirebaseService,
-    public resizeService: ResizeService,
-    public sharedService: SharedService
-  ) {
-    this.updateContactData();
-  }
+    public resizeService: ResizeService
+  ) {}
 
   contactData = {
     firstName: '',
@@ -68,7 +63,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * properties of the userData object.
    */
   ngOnInit() {
-    if (!this.currentUserId) {
+    this.updateContactData();
+    if (!this.selectedUser) {
       this.userData = {
         ...this.userData,
         color: this.randomColor,
@@ -84,7 +80,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * @param changes an object containing the changed input properties
    */
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['currentUserId']) {
+    if (changes['selectedUser']) {
       this.updateContactData();
     }
   }
@@ -109,7 +105,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
       ? this.contactData.firstName.slice(0, 1).toUpperCase() +
         this.contactData.lastName.slice(0, 1).toUpperCase()
       : '';
-    if (!this.currentUserId) {
+    if (!this.selectedUser) {
       this.userData = {
         ...this.userData,
         initials: initials,
@@ -130,7 +126,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * object. Otherwise, it updates the contactData object.
    */
   updateUserData() {
-    if (!this.currentUserId) {
+    if (!this.selectedUser) {
       this.userData = {
         ...this.userData,
         firstName: this.capitalizeFirstLetter(this.contactData.firstName),
@@ -193,21 +189,11 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * joined into strings using a comma separator.
    */
   private updateContactData() {
-    this.contactData.firstName = this.firebaseService
-      .getUserDetails(this.currentUserId, 'firstName')
-      .join(', ');
-    this.contactData.lastName = this.firebaseService
-      .getUserDetails(this.currentUserId, 'lastName')
-      .join(', ');
-    this.contactData.email = this.firebaseService
-      .getUserDetails(this.currentUserId, 'email')
-      .join(', ');
-    this.contactData.phone = this.firebaseService
-      .getUserDetails(this.currentUserId, 'phone')
-      .join(', ');
-    this.contactData.initials = this.firebaseService
-      .getUserDetails(this.currentUserId, 'initials')
-      .join(', ');
+    this.contactData.firstName = this.selectedUser.firstName;
+    this.contactData.lastName = this.selectedUser.lastName;
+    this.contactData.email = this.selectedUser.email;
+    this.contactData.phone = this.selectedUser.phone;
+    this.contactData.initials = this.selectedUser.initials;
   }
 
   /**
@@ -220,45 +206,15 @@ export class ContactFormComponent implements OnInit, OnChanges {
    */
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      if (this.currentUserId) {
-        console.log(this.newColor, this.currentColor);
-
-        this.newColor !== ''
-          ? (this.contactData.color = this.newColor)
-          : (this.contactData.color = this.currentColor);
-        this.firebaseService.updateUserData(
-          this.currentUserId,
-          this.contactData
-        );
-      } else {
-        this.newColor !== ''
-          ? (this.userData.color = this.newColor)
-          : (this.userData.color = this.randomColor);
-        const { id, ...taskWithoutIds } = this.userData;
-        this.firebaseService.addNewUser(taskWithoutIds).then((docRef) => {
-          this.router.navigate([`/contacts/${docRef.id}`]);
-        });
-      }
+      this.newColor !== ''
+        ? (this.contactData.color = this.newColor)
+        : (this.contactData.color = this.currentColor);
+      console.log('Save');
       this.closeDialog();
     }
   }
 
-  /**
-   * Closes the delete contact dialog and the main dialog overlay.
-   */
-  deleteContact() {
-    this.sharedService.isDeleteContactDialogOpen = false;
-    this.sharedService.isAnyDialogOpen = false;
-  }
-
-  /**
-   * Closes the contact dialog by updating the shared service flags
-   * to indicate that no dialog, edit contact dialog, or new contact dialog
-   * is currently open.
-   */
   closeDialog() {
-    this.sharedService.isAnyDialogOpen = false;
-    this.sharedService.isEditContactDialogOpen = false;
-    this.sharedService.isNewContactDialogOpen = false;
+    this.closeDialogEmitter.emit('');
   }
 }

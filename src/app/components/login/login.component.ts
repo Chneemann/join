@@ -2,10 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
-import { FirebaseService } from '../../services/firebase.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../services/login.service';
-import { SharedService } from '../../services/shared.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,6 +11,7 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
 import { OverlayService } from '../../services/overlay.service';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
+import { ButtonStateService } from '../../services/button-state.service';
 
 @Component({
   selector: 'app-login',
@@ -43,8 +42,8 @@ export class LoginComponent {
     private authService: AuthService,
     public loginService: LoginService,
     private tokenService: TokenService,
-    public sharedService: SharedService,
     private overlayService: OverlayService,
+    private buttonStateService: ButtonStateService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -65,26 +64,30 @@ export class LoginComponent {
     });
   }
 
+  isButtonDisabled() {
+    return this.buttonStateService.isButtonDisabled;
+  }
+
   deleteTokens() {
     this.tokenService.deleteAuthToken();
     this.tokenService.deleteUserId();
   }
 
   async onSubmit(ngForm: NgForm) {
-    this.sharedService.isBtnDisabled = true;
+    this.buttonStateService.enableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       try {
         await this.authService.login(this.loginData, this.checkboxRememberMe);
         this.router.navigate(['/summary']);
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       } catch (error) {
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       }
     }
   }
 
   guestLogin() {
-    this.sharedService.isBtnDisabled = true;
+    this.buttonStateService.enableButton();
     this.loginData.email = 'guest@guestaccount.com';
     this.loginData.password = 'guest@guestaccount.com';
     this.isPasswordIconVisible = !this.isPasswordIconVisible;

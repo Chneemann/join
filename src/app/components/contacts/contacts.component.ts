@@ -1,14 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
-import { SharedService } from '../../services/shared.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { ApiService } from '../../services/api.service';
 import { UserService } from '../../services/user.service';
 import { finalize } from 'rxjs';
+import { OverlayService } from '../../services/overlay.service';
 
 @Component({
   selector: 'app-contacts',
@@ -27,7 +25,7 @@ export class ContactsComponent {
   constructor(
     public firebaseService: FirebaseService,
     private userService: UserService,
-    public sharedService: SharedService
+    private overlayService: OverlayService
   ) {}
 
   /**
@@ -95,15 +93,8 @@ export class ContactsComponent {
     return uniqueFirstLetters;
   }
 
-  /**
-   * Opens the new contact dialog.
-   * This function sets the isAnyDialogOpen and isNewContactDialogOpen
-   * properties of the shared service to true, which will open the new contact
-   * dialog.
-   */
-  openNewContactDialog() {
-    this.sharedService.isAnyDialogOpen = true;
-    this.sharedService.isNewContactDialogOpen = true;
+  addNewContact() {
+    this.overlayService.setOverlayData('contactOverlay', 'new');
   }
 
   @HostListener('window:resize', ['$event'])

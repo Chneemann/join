@@ -92,7 +92,7 @@
             !pwResetData.password ||
             passwordConfirm.invalid ||
             !pwResetData.passwordConfirm ||
-            sharedService.isBtnDisabled ||
+            isButtonDisabled() ||
             pwResetData.password.length < 6 ||
             pwResetData.password !== pwResetData.passwordConfirm
           "

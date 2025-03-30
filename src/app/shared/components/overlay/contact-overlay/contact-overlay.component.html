@@ -1,23 +1,22 @@
-@if (currentUserId) { @for (user of
-firebaseService.getUserDataFromId(currentUserId); track user) {
+@if (overlayData !== "new") {
 <section>
   <div class="dialog">
     <div class="header">
       <img src="./../../../../assets/img/logo.svg" alt="" />
       <p>{{ "contacts.editContact" | translate }}</p>
-      <app-btn-close [isContactDialogOpen]="false"></app-btn-close>
+      <app-btn-close (click)="closeDialog()"></app-btn-close>
     </div>
     <div class="content">
       <div class="badge">
         <div class="picker">
           <input
-            [(colorPicker)]="currentColor"
-            [style.background]="newColor === '' ? user.color : newColor"
+            [(colorPicker)]="overlayData.color"
+            [style.background]="newColor === '' ? overlayData.color : newColor"
             (colorPickerChange)="updateColor($event)"
           />
           <div class="initials">
             @if (!userInitials) {
-            {{ user.initials }} } @else {
+            {{ overlayData.initials }} } @else {
             {{ userInitials }}
             }
           </div>
@@ -26,22 +25,23 @@ firebaseService.getUserDataFromId(currentUserId); track user) {
       <div class="form">
         <app-contact-form
           (initialsEmitter)="initialsEmitter($event)"
-          [currentUserId]="currentUserId"
+          (closeDialogEmitter)="closeDialog()"
+          [selectedUser]="overlayData"
           [newColor]="newColor"
-          [currentColor]="user.color"
+          [currentColor]="overlayData.color"
         ></app-contact-form>
       </div>
     </div>
     <div class="notice">{{ "contacts.notice" | translate }}</div>
   </div>
 </section>
-} } @else {
+} @else {
 <section>
   <div class="dialog">
     <div class="header">
       <img src="./../../../../assets/img/logo.svg" alt="" />
       <p>{{ "contacts.addContact" | translate }}</p>
-      <app-btn-close [isContactDialogOpen]="false"></app-btn-close>
+      <app-btn-close (click)="closeDialog()"></app-btn-close>
     </div>
     <div class="content">
       <div class="badge">

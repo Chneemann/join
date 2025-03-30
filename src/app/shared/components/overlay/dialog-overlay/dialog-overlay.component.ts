@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SharedService } from '../../../../services/shared.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +15,7 @@ export class DialogOverlayComponent {
   @Input() overlayType: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
-  constructor(public sharedService: SharedService, private router: Router) {}
+  constructor(private router: Router) {}
 
   /**
    * Navigates to the login route and emits an empty string via the

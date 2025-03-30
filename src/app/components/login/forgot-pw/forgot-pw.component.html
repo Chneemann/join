@@ -57,7 +57,7 @@
           [disabled]="
             mail.invalid ||
             !pwResetData.mail ||
-            sharedService.isBtnDisabled ||
+            isButtonDisabled() ||
             !checkIfUserEmailIsValid(pwResetData.mail)
           "
         ></app-form-btn>

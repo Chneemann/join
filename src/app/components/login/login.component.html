@@ -33,14 +33,14 @@
         <img class="custom-img" alt="" />
         }
         <div class="error-msg">
-          @if (!mail.valid && mail.touched && !sharedService.isBtnDisabled) {
+          @if (!mail.valid && mail.touched && !isButtonDisabled()) {
           <p>{{ "login.errorMail0" | translate }}</p>
           } @if (loginService.errorCode == 'auth/invalid-email' &&
-          !sharedService.isBtnDisabled) {
+          !isButtonDisabled()) {
           <p>{{ "login.errorMail1" | translate }}</p>
           } @if (mail.valid && mail.touched &&
           !checkIfUserEmailIsValid(loginData.email.toLowerCase()) &&
-          !sharedService.isBtnDisabled) {
+          !isButtonDisabled()) {
           <p>{{ "login.errorMail2" | translate }}</p>
           }
         </div>
@@ -73,11 +73,10 @@
         />
         }
         <div class="error-msg">
-          @if (!password.valid && password.touched &&
-          !sharedService.isBtnDisabled) {
+          @if (!password.valid && password.touched && !isButtonDisabled()) {
           <p>{{ "login.errorPassword0" | translate }}</p>
           } @if (loginService.errorCode == 'auth/invalid-credential' &&
-          !sharedService.isBtnDisabled) {
+          !isButtonDisabled()) {
           <p>{{ "login.errorPassword1" | translate }}</p>
           }
         </div>
@@ -120,7 +119,7 @@
             !loginData.email ||
             password.invalid ||
             !loginData.password ||
-            sharedService.isBtnDisabled ||
+            isButtonDisabled() ||
             !checkIfUserEmailIsValid(loginData.email)
           "
         ></app-form-btn>
@@ -128,7 +127,7 @@
           [class]="'btn-guest-login'"
           [type]="'button'"
           [value]="'login.guest' | translate"
-          [disabled]="sharedService.isBtnDisabled"
+          [disabled]="isButtonDisabled()"
           (click)="guestLogin()"
         ></app-form-btn>
       </div>

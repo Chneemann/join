@@ -1,15 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BtnCloseComponent } from '../../../shared/components/buttons/btn-close/btn-close.component';
-import { FirebaseService } from '../../../services/firebase.service';
-import { TranslateModule } from '@ngx-translate/core';
 import { ContactFormComponent } from './contact-form/contact-form.component';
-import { SharedService } from '../../../services/shared.service';
+import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { ColorService } from '../../../services/color.service';
+import { FirebaseService } from '../../../../services/firebase.service';
 
 @Component({
-  selector: 'app-contact-edit',
+  selector: 'app-contact-overlay',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,22 +16,19 @@ import { ColorService } from '../../../services/color.service';
     TranslateModule,
     ColorPickerModule,
   ],
-  templateUrl: './contact-edit-new.component.html',
-  styleUrl: './contact-edit-new.component.scss',
+  templateUrl: './contact-overlay.component.html',
+  styleUrl: './contact-overlay.component.scss',
 })
-export class ContactEditNewComponent implements OnInit {
-  @Input() currentUserId: string = '';
-  @Input() currentColor: string = '';
+export class ContactOverlayComponent implements OnInit {
+  @Input() overlayData: any = [];
+  @Input() overlayType: string = '';
+  @Output() closeDialogEmitter = new EventEmitter<string>();
 
   randomColor: string = '';
   userInitials: string = '';
   newColor: string = '';
 
-  constructor(
-    public firebaseService: FirebaseService,
-    public sharedService: SharedService,
-    private colorService: ColorService
-  ) {}
+  constructor(public firebaseService: FirebaseService) {}
 
   /**
    * Lifecycle hook that is called after data-bound properties of a directive are
@@ -41,7 +36,16 @@ export class ContactEditNewComponent implements OnInit {
    * This method sets a random color for the user to be edited.
    */
   ngOnInit() {
-    this.randomColor = this.colorService.generateRandomColor();
+    this.randomColor = this.getRandomColor();
+  }
+
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
   /**
@@ -53,6 +57,10 @@ export class ContactEditNewComponent implements OnInit {
    */
   initialsEmitter(emitter: string) {
     this.userInitials = emitter;
+  }
+
+  closeDialog() {
+    this.closeDialogEmitter.emit('');
   }
 
   /**

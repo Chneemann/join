@@ -9,7 +9,6 @@ import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedService } from '../../services/shared.service';
 import { AuthService } from '../../services/auth.service';
 import { firstValueFrom, map } from 'rxjs';
 import { TaskService } from '../../services/task.service';
@@ -49,7 +48,6 @@ export class AddTaskComponent implements OnInit {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
-    private sharedService: SharedService,
     private taskService: TaskService,
     private apiService: ApiService,
     private authService: AuthService,

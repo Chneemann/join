@@ -6,11 +6,11 @@ import { CommonModule } from '@angular/common';
 import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/form-btn.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { LoginService } from '../../../services/login.service';
-import { SharedService } from '../../../services/shared.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
+import { ButtonStateService } from '../../../services/button-state.service';
 
 @Component({
   selector: 'app-register',
@@ -43,16 +43,20 @@ export class RegisterComponent {
   constructor(
     private firebaseService: FirebaseService,
     public loginService: LoginService,
-    public sharedService: SharedService,
-    public translateService: TranslateService
+    public translateService: TranslateService,
+    private buttonStateService: ButtonStateService
   ) {}
 
   onSubmit(ngForm: NgForm) {
-    this.sharedService.isBtnDisabled = true;
+    this.buttonStateService.enableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       this.splitName();
       this.loginService.register(this.registerData);
     }
+  }
+
+  isButtonDisabled() {
+    return this.buttonStateService.isButtonDisabled;
   }
 
   splitName() {

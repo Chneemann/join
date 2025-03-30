@@ -5,11 +5,10 @@ import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn
 import { FooterComponent } from '../../footer/footer.component';
 import { HeaderComponent } from '../../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { FirebaseService } from '../../../../services/firebase.service';
 import { LoginService } from '../../../../services/login.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from '../../../../services/shared.service';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ButtonStateService } from '../../../../services/button-state.service';
 
 @Component({
   selector: 'app-pw-reset',
@@ -35,11 +34,9 @@ export class PwResetComponent {
   };
 
   constructor(
-    private firebaseService: FirebaseService,
     public loginService: LoginService,
-    public sharedService: SharedService,
-    private route: ActivatedRoute,
-    private router: Router
+    private buttonStateService: ButtonStateService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -50,8 +47,12 @@ export class PwResetComponent {
     );
   }
 
+  isButtonDisabled() {
+    return this.buttonStateService.isButtonDisabled;
+  }
+
   onSubmit(ngForm: NgForm) {
-    this.sharedService.isBtnDisabled = true;
+    this.buttonStateService.enableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       this.loginService.newPassword(this.pwResetData.password, this.oobCode);
     }

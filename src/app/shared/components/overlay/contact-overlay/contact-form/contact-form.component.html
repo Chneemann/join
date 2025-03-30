@@ -121,13 +121,12 @@
       }
     </div>
     <div class="btns">
-      @if (currentUserId && currentUserId !==
-      firebaseService.getCurrentUserId()){
+      @if (selectedUser && selectedUser !== firebaseService.getCurrentUserId()){
       <app-form-btn
         class="btn-delete"
         type="button"
         value="{{ 'contactDialogForm.btnDelete' | translate }}"
-        (click)="deleteContact()"
+        (click)="closeDialog()"
       ></app-form-btn>
       } @else {
       <app-form-btn

@@ -19,13 +19,12 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { SharedService } from './shared.service';
 import { User } from '../interfaces/user.interface';
 import { Router } from '@angular/router';
 import CryptoES from 'crypto-es';
 import { CryptoESSecretKey } from '../environments/config';
 import { catchError, map, Observable, of } from 'rxjs';
-import { ColorService } from './color.service';
+import { ButtonStateService } from './button-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -40,8 +39,7 @@ export class LoginService {
 
   constructor(
     private firebaseService: FirebaseService,
-    private colorService: ColorService,
-    public sharedService: SharedService,
+    private buttonStateService: ButtonStateService,
     private router: Router
   ) {}
 
@@ -83,7 +81,7 @@ export class LoginService {
       })
       .catch((error) => {
         this.errorCode = error.code;
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       });
   }
 
@@ -126,13 +124,13 @@ export class LoginService {
             ? registerData.firstName.slice(0, 1).toUpperCase() +
               registerData.lastName.slice(0, 1).toUpperCase()
             : '',
-          color: this.colorService.generateRandomColor(),
+          color: '',
           lastLogin: new Date().getTime(),
         };
         this.createUserInFirestore(userDataToSave);
       })
       .catch((error) => {
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       });
   }
 
@@ -171,7 +169,7 @@ export class LoginService {
               isOnline: true,
               phone: '',
               initials: firstName.slice(0, 1) + lastName.slice(0, 1),
-              color: this.colorService.generateRandomColor(),
+              color: '',
               lastLogin: 0,
             });
           } else {
@@ -180,7 +178,7 @@ export class LoginService {
         });
       })
       .catch((error) => {
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       });
   }
 
@@ -333,10 +331,10 @@ export class LoginService {
     sendPasswordResetEmail(auth, email, actionCodeSettings)
       .then(() => {
         this.router.navigate(['/login/notice/pw-send']);
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       })
       .catch((error) => {
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       });
   }
 
@@ -357,10 +355,10 @@ export class LoginService {
     confirmPasswordReset(auth, oobCode, newPW)
       .then(() => {
         this.router.navigate(['/login/notice/pw-change']);
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       })
       .catch((error) => {
-        this.sharedService.isBtnDisabled = false;
+        this.buttonStateService.disableButton();
       });
   }
 }

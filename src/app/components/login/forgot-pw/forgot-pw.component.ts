@@ -6,8 +6,8 @@ import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginService } from '../../../services/login.service';
-import { SharedService } from '../../../services/shared.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
+import { ButtonStateService } from '../../../services/button-state.service';
 
 @Component({
   selector: 'app-forgot-pw',
@@ -31,14 +31,18 @@ export class ForgotPwComponent {
 
   constructor(
     public loginService: LoginService,
-    public sharedService: SharedService
+    private buttonStateService: ButtonStateService
   ) {}
 
   onSubmit(ngForm: NgForm) {
-    this.sharedService.isBtnDisabled = true;
+    this.buttonStateService.enableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       this.loginService.passwordReset(this.pwResetData.mail.toLowerCase());
     }
+  }
+
+  isButtonDisabled() {
+    return this.buttonStateService.isButtonDisabled;
   }
 
   checkIfUserEmailIsValid(emailValue: string) {

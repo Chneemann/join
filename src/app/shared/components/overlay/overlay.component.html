@@ -18,12 +18,18 @@
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay($event)"
     ></app-task-edit-overlay>
-    }@if (overlayType === "dialog") {
+    } @if (overlayType === "dialog") {
     <app-dialog-overlay
       [overlayData]="overlayData"
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay($event)"
     ></app-dialog-overlay>
+    } @if (overlayType === "contactOverlay") {
+    <app-contact-overlay
+      [overlayData]="overlayData"
+      [overlayType]="overlayType"
+      (closeDialogEmitter)="onCloseOverlay($event)"
+    ></app-contact-overlay>
     }
   </div>
 </div>

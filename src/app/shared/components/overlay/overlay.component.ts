@@ -5,6 +5,7 @@ import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
 import { Router } from '@angular/router';
 import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.component';
+import { ContactOverlayComponent } from './contact-overlay/contact-overlay.component';
 
 @Component({
   selector: 'app-overlay',
@@ -14,6 +15,7 @@ import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.componen
     TaskOverlayComponent,
     TaskEditOverlayComponent,
     DialogOverlayComponent,
+    ContactOverlayComponent,
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
