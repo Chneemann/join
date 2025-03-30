@@ -2,7 +2,7 @@
   <div
     class="left-frame"
     [ngClass]="{
-      'd-none': !showAllUsers && selectedUserId != undefined
+      'd-none': !showAllUsers && selectedUserId != null
     }"
   >
     <button class="btn-new" type="submit" (click)="openNewContactDialog()">
@@ -15,14 +15,14 @@
       </div>
     </button>
     <div class="content">
-      @for (sortLetter of this.sortFirstLetter(); track sortLetter) {
+      @for (sortLetter of this.getUniqueFirstLetters(); track sortLetter) {
       <div class="first-letter">{{ sortLetter }}</div>
       <div class="line"></div>
-      @for (user of this.sortUsersByFirstLetter(sortLetter); track user; let
+      @for (user of this.filterUsersByFirstLetter(sortLetter); track user; let
       index = $index) {
       <div
         class="contact"
-        (click)="showUserId(user.id)"
+        (click)="openUserDetails(user.id)"
         [ngClass]="{
           'contact-active': selectedUserId === user.id
         }"
@@ -67,7 +67,7 @@
   <div class="right-frame">
     <app-contact-detail
       [ngClass]="{
-        'd-none': !showAllUsers && selectedUserId == undefined
+        'd-none': !showAllUsers && selectedUserId == null
       }"
       [selectedUserId]="selectedUserId"
       [currentUser]="currentUser"

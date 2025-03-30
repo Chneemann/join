@@ -89,7 +89,9 @@
         @if(selectedUser.isOnline) {
         <span>{{ "contacts.contactLastOnlineTxt" | translate }}</span>
         } @else {
-        <span>{{ convertTimestamp(selectedUser.lastLogin) }}</span>
+        <span
+          >{{ selectedUser.lastLogin | date : "dd. MMM yyyy, HH:mm:ss" }}
+        </span>
         } }
       </div>
     </div>

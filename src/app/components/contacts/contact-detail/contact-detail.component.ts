@@ -25,7 +25,7 @@ import { User } from '../../../interfaces/user.interface';
   styleUrl: './contact-detail.component.scss',
 })
 export class ContactDetailComponent {
-  @Input() selectedUserId: string | undefined;
+  @Input() selectedUserId: string | null = null;
   @Input() currentUser: User | null = null;
   @Output() closeContactEmitter = new EventEmitter<boolean>();
 
@@ -33,11 +33,9 @@ export class ContactDetailComponent {
   selectedUser: User | null = null;
 
   constructor(
-    private router: Router,
     public sharedService: SharedService,
     public firebaseService: FirebaseService,
-    private userService: UserService,
-    private languageService: LanguageService
+    private userService: UserService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -108,89 +106,6 @@ export class ContactDetailComponent {
     this.sharedService.isAnyDialogOpen = true;
     this.sharedService.isDeleteContactDialogOpen = true;
     this.sharedService.isMobileNavbarOpen = false;
-  }
-
-  /**
-   * Converts a given timestamp to a human-readable date string.
-   * @param timestamp the timestamp to convert
-   * @returns a string in the format "DD. MMM. YYYY - HH:mm" in German or "MMM. DD, YYYY - hh:mm A" in English
-   */
-  convertTimestamp(timestamp: number) {
-    const date = new Date(timestamp);
-    const monthsEN = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    const monthsDE = [
-      'Jan',
-      'Feb',
-      'Mär',
-      'Apr',
-      'Mai',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Okt',
-      'Nov',
-      'Dez',
-    ];
-    const months =
-      this.languageService.currentLang === 'de' ? monthsDE : monthsEN;
-    const year = date.getFullYear();
-    const month = months[date.getMonth()];
-    const day = date.getDate();
-
-    if (this.languageService.currentLang === 'de') {
-      const time = `${day}. ${month}. ${year}`;
-      return `${time} - ${this.convertTimestampHourDE(timestamp)}`;
-    } else {
-      const time = `${month}. ${day}, ${year}`;
-      return `${time} - ${this.convertTimestampHourEN(timestamp)}`;
-    }
-  }
-
-  /**
-   * Converts a given timestamp to a human-readable time string in English.
-   * @param timestamp the timestamp to convert
-   * @returns a string in the format "hh:mm:ss AM/PM"
-   */
-  convertTimestampHourEN(timestamp: number) {
-    const date = new Date(timestamp * 1000);
-    let hour = date.getHours();
-    const minute = ('0' + date.getMinutes()).slice(-2);
-    const second = ('0' + date.getMinutes()).slice(-2);
-    const period = hour >= 12 ? 'PM' : 'AM';
-    hour = hour % 12 || 12;
-
-    let hourWithNull = ('0' + hour).slice(-2);
-
-    return `${hourWithNull}:${minute}:${second} ${period}`;
-  }
-
-  /**
-   * Converts a given timestamp to a human-readable time string in German.
-   *
-   * @param timestamp The timestamp to convert, in seconds.
-   * @returns A string in the format "HH:mm:ss Uhr".
-   */
-  convertTimestampHourDE(timestamp: number) {
-    const date = new Date(timestamp * 1000);
-    let hour = date.getHours();
-    const minute = ('0' + date.getMinutes()).slice(-2);
-    const second = ('0' + date.getMinutes()).slice(-2);
-
-    return `${hour}:${minute}:${second} Uhr`;
   }
 
   @HostListener('document:click', ['$event'])
