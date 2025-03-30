@@ -9,45 +9,45 @@
     </div>
     <div class="btn-back">
       <img
-        [ngClass]="{ 'd-none': !currentUserId }"
+        [ngClass]="{ 'd-none': !selectedUserId }"
         (click)="closeUserDetails()"
         src="./../../../../assets/img/arrow-left.svg"
       />
     </div>
   </div>
-  @if (currentUserId) { @for (user of checkUserData(currentUserId); track user)
-  {
+  @if (selectedUser && selectedUserId) {
   <div
     class="contact-details"
     [ngClass]="{
-      'animation-coming-in': currentUserId
+      'animation-coming-in': selectedUserId
     }"
   >
     <div class="content">
       <div
         class="circle"
         [ngStyle]="{
-          'background-color': user.color
+          'background-color': selectedUser.color
         }"
       >
-        @if(user.status) {
+        @if(selectedUser.isOnline) {
         <img src="./../../../assets/img/online.svg" alt="" />
         } @else {
         <img src="./../../../assets/img/offline.svg" alt="" />
         }
         <div class="initials">
-          {{ user.initials }}
+          {{ selectedUser.initials }}
         </div>
       </div>
       <div class="word-wrap">
         <div class="name">
-          {{ user.firstName }}
-          {{ user.lastName }}
-          @if (user.id === firebaseService.getCurrentUserId()) {
+          {{ selectedUser.firstName }}
+          {{ selectedUser.lastName }}
+          @if (currentUser && selectedUser.id === currentUser.id) {
           {{ "contacts.you" | translate }}
           }
         </div>
-        @if(user.uId === "" || user.id === firebaseService.getCurrentUserId()) {
+        @if(selectedUser.isContactOnly || currentUser && selectedUser.id ===
+        currentUser.id) {
         <div class="btns">
           <div class="btn btn-edit">
             <img src="./../../../../assets/img/contact/edit.svg" alt="" />
@@ -55,7 +55,8 @@
               {{ "contacts.btnEdit0" | translate }}
             </p>
           </div>
-          @if (user.id !== firebaseService.getCurrentUserId()) {
+          @if (selectedUser.isContactOnly || currentUser && selectedUser.id !==
+          currentUser.id) {
           <div class="btn btn-delete">
             <img src="./../../../../assets/img/contact/delete.svg" alt="" />
             <p (click)="deleteContact()">
@@ -74,21 +75,21 @@
       <div class="headline">{{ "contacts.contactInfo" | translate }}</div>
       <div class="info">
         <p>{{ "contacts.contactEmail" | translate }}</p>
-        <a [href]="'mail:' + user.email">
-          {{ user.email }}
+        <a [href]="'mail:' + selectedUser.email">
+          {{ selectedUser.email }}
         </a>
         <p>{{ "contacts.contactPhone" | translate }}</p>
-        @if(user.phone === '') {
+        @if(selectedUser.phone === '') {
         <span>{{ "contacts.contactPhoneTxT" | translate }}</span> } @else {
-        <a [href]="'tel:' + user.phone">
-          <span>{{ user.phone }}</span>
+        <a [href]="'tel:' + selectedUser.phone">
+          <span>{{ selectedUser.phone }}</span>
         </a>
-        } @if(user.uId !== "") {
+        } @if(selectedUser.uId !== "") {
         <p>{{ "contacts.contactLastOnline" | translate }}</p>
-        @if(user.status) {
+        @if(selectedUser.isOnline) {
         <span>{{ "contacts.contactLastOnlineTxt" | translate }}</span>
         } @else {
-        <span>{{ convertTimestamp(user.lastLogin) }}</span>
+        <span>{{ convertTimestamp(selectedUser.lastLogin) }}</span>
         } }
       </div>
     </div>
@@ -98,5 +99,5 @@
     [deleteContact]="deleteContact"
     [openEditDialog]="openEditDialog"
   ></app-contact-nav>
-  }}
+  }
 </section>

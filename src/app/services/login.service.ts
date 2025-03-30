@@ -117,7 +117,8 @@ export class LoginService {
             ? registerData.lastName.charAt(0).toUpperCase() +
               registerData.lastName.slice(1)
             : '',
-          status: true,
+          isContactOnly: false,
+          isOnline: true,
           phone: '',
           initials: registerData.name
             ? registerData.firstName.slice(0, 1).toUpperCase() +
@@ -164,7 +165,8 @@ export class LoginService {
               email: user.email || 'no mail',
               firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
               lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
-              status: true,
+              isContactOnly: false,
+              isOnline: true,
               phone: '',
               initials: firstName.slice(0, 1) + lastName.slice(0, 1),
               color: this.sharedService.generateRandomColor(),
@@ -192,7 +194,8 @@ export class LoginService {
       email: user.email,
       firstName: user.firstName || '',
       lastName: user.lastName || '',
-      status: true,
+      isContactOnly: false,
+      isOnline: true,
       phone: '',
       initials: user.initials,
       color: user.color,

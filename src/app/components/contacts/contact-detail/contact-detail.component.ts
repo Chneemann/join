@@ -4,6 +4,7 @@ import {
   HostListener,
   Input,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -12,6 +13,9 @@ import { ContactNavComponent } from '../contact-nav/contact-nav.component';
 import { FirebaseService } from '../../../services/firebase.service';
 import { LanguageService } from '../../../services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserService } from '../../../services/user.service';
+import { finalize } from 'rxjs';
+import { User } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-contact-detail',
@@ -21,34 +25,59 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './contact-detail.component.scss',
 })
 export class ContactDetailComponent {
-  @Input() currentUserId: string | undefined;
+  @Input() selectedUserId: string | undefined;
+  @Input() currentUser: User | null = null;
   @Output() closeContactEmitter = new EventEmitter<boolean>();
+
+  isLoading: boolean = false;
+  selectedUser: User | null = null;
 
   constructor(
     private router: Router,
     public sharedService: SharedService,
     public firebaseService: FirebaseService,
+    private userService: UserService,
     private languageService: LanguageService
   ) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes['selectedUserId'] !== undefined &&
+      changes['selectedUserId'].currentValue !== ''
+    ) {
+      this.loadUser();
+    } else {
+      this.selectedUser = null;
+    }
+  }
 
   /**
    * Closes the contact details view by resetting the current user id in the
    * shared service and emitting the closeContactEmitter event.
    */
   closeUserDetails() {
-    this.sharedService.currentUserId = '';
     this.closeContactEmitter.emit();
   }
 
-  /**
-   * Checks if a user with the given user id exists in the database.
-   * @param userId the id of the user
-   * @returns an array of user objects that match the given user id
-   */
-  checkUserData(userId: string) {
-    return this.firebaseService
-      .getAllUsers()
-      .filter((user) => user.id === userId);
+  loadUser(): void {
+    this.isLoading = true;
+
+    if (!this.selectedUserId) {
+      this.isLoading = false;
+      return;
+    }
+
+    this.userService
+      .getUserById(this.selectedUserId)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (response) => {
+          this.selectedUser = response;
+        },
+        error: (err) => {
+          console.error('Error loading the tasks:', err);
+        },
+      });
   }
 
   /**

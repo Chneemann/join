@@ -60,6 +60,10 @@ export class ApiService {
 
   // ------------- USERS ------------- //
 
+  getUsers(): Observable<User[]> {
+    return this.request<User[]>('GET', `/api/users/`);
+  }
+
   getUserById(userId: string): Observable<User> {
     return this.request<User>('GET', `/api/users/${userId}/`);
   }

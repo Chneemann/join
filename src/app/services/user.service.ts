@@ -63,4 +63,12 @@ export class UserService {
       })
     );
   }
+
+  getUsers(): Observable<User[]> {
+    return this.apiService.getUsers();
+  }
+
+  getUserById(userId: string): Observable<User> {
+    return this.apiService.getUserById(userId);
+  }
 }

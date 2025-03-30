@@ -6,6 +6,9 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 import { SharedService } from '../../services/shared.service';
 import { FirebaseService } from '../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ApiService } from '../../services/api.service';
+import { UserService } from '../../services/user.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-contacts',
@@ -16,13 +19,16 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ContactsComponent {
   allUsers: User[] = [];
+  currentUser: User | null = null;
+  selectedUserId: string | undefined;
   usersFirstLetter: string[] = [];
   usersByFirstLetter: { [key: string]: string[] } = {};
   showAllUsers: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     public firebaseService: FirebaseService,
-    private route: ActivatedRoute,
+    private userService: UserService,
     public sharedService: SharedService
   ) {}
 
@@ -31,6 +37,8 @@ export class ContactsComponent {
    */
   ngOnInit(): void {
     this.onResize();
+    this.loadAllUsers();
+    this.loadCurrentUser();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -43,11 +51,33 @@ export class ContactsComponent {
    * to true.
    */
   onResize() {
-    if (window.innerWidth <= 1150 && this.sharedService.currentUserId != '') {
+    if (window.innerWidth <= 1150 && this.selectedUserId != undefined) {
       this.showAllUsers = false;
     } else {
       this.showAllUsers = true;
     }
+  }
+
+  loadAllUsers(): void {
+    this.isLoading = true;
+
+    this.userService
+      .getUsers()
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (response) => {
+          this.allUsers = response;
+        },
+        error: (err) => {
+          console.error('Error loading the tasks:', err);
+        },
+      });
+  }
+
+  loadCurrentUser(): void {
+    this.userService.getCurrentUser().subscribe((userData) => {
+      this.currentUser = userData;
+    });
   }
 
   /**
@@ -56,7 +86,7 @@ export class ContactsComponent {
    * @param userId - the id of the user to be set as the current user id
    */
   showUserId(userId: string = '') {
-    this.sharedService.currentUserId = userId;
+    this.selectedUserId = userId;
     this.onResize();
   }
 
@@ -64,17 +94,8 @@ export class ContactsComponent {
    * Triggers the resize function to adjust UI elements based on the current state.
    */
   closeContactEmitter() {
+    this.selectedUserId = undefined;
     this.onResize();
-  }
-
-  /**
-   * Returns an array of users without the guest user.
-   * @returns An array of users
-   */
-  loadAllUserWithoutGuest(): User[] {
-    return this.firebaseService
-      .getAllUsers()
-      .filter((user) => user.initials !== 'G');
   }
 
   /**
@@ -83,7 +104,7 @@ export class ContactsComponent {
    * @returns An array of users with the given sort letter
    */
   sortUsersByFirstLetter(sortLetter: string) {
-    return this.loadAllUserWithoutGuest().filter(
+    return this.allUsers.filter(
       (user) => user.initials.substring(0, 1) === sortLetter
     );
   }
@@ -97,7 +118,7 @@ export class ContactsComponent {
    * @returns An array of unique first letters
    */
   sortFirstLetter() {
-    let filterteArray = this.loadAllUserWithoutGuest().sort((a, b) =>
+    let filterteArray = this.allUsers.sort((a, b) =>
       a.firstName.localeCompare(b.firstName)
     );
     let usersFirstLetter = Array.from(

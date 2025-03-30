@@ -54,7 +54,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     phone: '',
     initials: '',
     color: '',
-    status: false,
+    isContactOnly: true,
+    isOnline: false,
     lastLogin: 0,
   };
 

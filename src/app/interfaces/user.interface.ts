@@ -7,7 +7,8 @@ export interface User {
   phone: string;
   initials: string;
   color: string;
-  status: boolean;
+  isOnline: boolean;
+  isContactOnly: boolean;
   lastLogin: number;
 }
 

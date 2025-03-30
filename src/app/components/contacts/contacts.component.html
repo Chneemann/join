@@ -2,7 +2,7 @@
   <div
     class="left-frame"
     [ngClass]="{
-      'd-none': !showAllUsers && sharedService.currentUserId != undefined
+      'd-none': !showAllUsers && selectedUserId != undefined
     }"
   >
     <button class="btn-new" type="submit" (click)="openNewContactDialog()">
@@ -24,7 +24,7 @@
         class="contact"
         (click)="showUserId(user.id)"
         [ngClass]="{
-          'contact-active': sharedService.currentUserId === user.id
+          'contact-active': selectedUserId === user.id
         }"
       >
         <div
@@ -33,7 +33,7 @@
             'background-color': user.color
           }"
         >
-          @if(user.status) {
+          @if(user.isOnline) {
           <img src="./../../../assets/img/online.svg" alt="" />
           } @else {
           <img src="./../../../assets/img/offline.svg" alt="" />
@@ -47,11 +47,12 @@
             <p>
               {{ user.firstName }}
             </p>
-            <span>,&nbsp;</span>
+            @if (user.lastName ) {
             <p class="last-name">
+              <span>,</span>
               {{ user.lastName }}
             </p>
-            @if (user.id === firebaseService.getCurrentUserId()) {
+            } @if (currentUser && user.id === currentUser.id ) {
             <p>&nbsp;{{ "contacts.you" | translate }}</p>
             }
           </div>
@@ -66,9 +67,10 @@
   <div class="right-frame">
     <app-contact-detail
       [ngClass]="{
-        'd-none': !showAllUsers && sharedService.currentUserId == undefined
+        'd-none': !showAllUsers && selectedUserId == undefined
       }"
-      [currentUserId]="sharedService.currentUserId"
+      [selectedUserId]="selectedUserId"
+      [currentUser]="currentUser"
       (closeContactEmitter)="closeContactEmitter()"
     ></app-contact-detail>
   </div>
