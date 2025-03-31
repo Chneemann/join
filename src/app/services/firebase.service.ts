@@ -243,7 +243,7 @@ export class FirebaseService implements OnDestroy {
    * @returns An array of User objects with the given userUid.
    */
   getUserDataFromUid(userUid: string): User[] {
-    return this.getAllUsers().filter((user) => user.uId === userUid);
+    return this.getAllUsers().filter((user) => user.id === userUid);
   }
 
   /**

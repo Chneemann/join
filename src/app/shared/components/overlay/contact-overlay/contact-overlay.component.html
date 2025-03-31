@@ -57,6 +57,7 @@
       <div class="form">
         <app-contact-form
           (initialsEmitter)="initialsEmitter($event)"
+          (closeDialogEmitter)="closeDialog()"
           [randomColor]="randomColor"
           [newColor]="newColor"
         ></app-contact-form>

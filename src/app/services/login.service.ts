@@ -107,7 +107,6 @@ export class LoginService {
         const user = userCredential.user;
 
         const userDataToSave: User = {
-          uId: user.uid,
           email: user.email || '',
           firstName: registerData.firstName
             ? registerData.firstName.charAt(0).toUpperCase() +
@@ -161,7 +160,6 @@ export class LoginService {
             const displayName = user.displayName || '';
             const [firstName = '', lastName = ''] = displayName.split(' ');
             this.createUserInFirestore({
-              uId: user.uid,
               email: user.email || 'no mail',
               firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
               lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
@@ -190,7 +188,6 @@ export class LoginService {
    */
   async createUserInFirestore(user: User) {
     const userDataToSave: User = {
-      uId: user.uId,
       email: user.email,
       firstName: user.firstName || '',
       lastName: user.lastName || '',
@@ -204,7 +201,7 @@ export class LoginService {
     const usersCollection = collection(this.firestore, 'users');
     try {
       const docRef = await addDoc(usersCollection, userDataToSave);
-      this.ifExistUser(user.uId);
+      //this.ifExistUser(user.uId);
     } catch (error) {
       console.error(error);
     }

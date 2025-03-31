@@ -1,6 +1,5 @@
 export interface User {
   id?: string;
-  uId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -9,7 +8,7 @@ export interface User {
   color: string;
   isOnline: boolean;
   isContactOnly: boolean;
-  lastLogin: number;
+  lastLogin: number | null;
 }
 
 export interface UserSummary {

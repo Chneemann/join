@@ -10,9 +10,14 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBtnComponent } from '../../../buttons/form-btn/form-btn.component';
-import { User } from '@sentry/angular';
+
 import { FirebaseService } from '../../../../../services/firebase.service';
 import { ResizeService } from '../../../../../services/resize.service';
+import { lastValueFrom } from 'rxjs';
+import { ApiService } from '../../../../../services/api.service';
+import { ToastNotificationService } from '../../../../../services/toast-notification.servic';
+import { UpdateNotifierService } from '../../../../../services/update-notifier.service';
+import { User } from '../../../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-contact-form',
@@ -31,7 +36,10 @@ export class ContactFormComponent implements OnInit, OnChanges {
 
   constructor(
     public firebaseService: FirebaseService,
-    public resizeService: ResizeService
+    public resizeService: ResizeService,
+    private apiService: ApiService,
+    private toastNotificationService: ToastNotificationService,
+    private updateNotifierService: UpdateNotifierService
   ) {}
 
   contactData = {
@@ -44,7 +52,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
   };
 
   userData: User = {
-    uId: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -63,7 +70,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * properties of the userData object.
    */
   ngOnInit() {
-    if (this.selectedUserExists) {
+    if (!this.selectedUserExists) {
       this.userData = {
         ...this.userData,
         color: this.randomColor,
@@ -212,12 +219,48 @@ export class ContactFormComponent implements OnInit, OnChanges {
    */
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      this.newColor !== ''
-        ? (this.contactData.color = this.newColor)
-        : (this.contactData.color = this.currentColor);
-      console.log('Save');
-      this.closeDialog();
+      this.contactData.color =
+        this.newColor && this.newColor !== ''
+          ? this.newColor
+          : this.currentColor || this.randomColor;
+      this.saveContact();
     }
+  }
+
+  async saveContact() {
+    try {
+      const userData: User = {
+        firstName: this.contactData.firstName,
+        lastName: this.contactData.lastName,
+        email: this.contactData.email,
+        phone: this.contactData.phone,
+        initials: this.contactData.initials,
+        color: this.contactData.color || this.randomColor,
+        isContactOnly: true,
+        isOnline: false,
+        lastLogin: null,
+      };
+
+      const snakeCaseUserData = this.convertCamelToSnake(userData);
+      await lastValueFrom(this.apiService.saveNewUser(snakeCaseUserData));
+      this.toastNotificationService.createContactSuccessToast();
+      this.updateNotifierService.notifyUpdate('contact');
+      this.closeDialog();
+    } catch (error) {
+      console.error('Fehler beim Speichern des Kontakts:', error);
+    }
+  }
+
+  convertCamelToSnake(obj: any): any {
+    const newObj: any = {};
+    Object.keys(obj).forEach((key) => {
+      const snakeKey = key.replace(
+        /[A-Z]/g,
+        (match) => `_${match.toLowerCase()}`
+      );
+      newObj[snakeKey] = obj[key];
+    });
+    return newObj;
   }
 
   closeDialog() {

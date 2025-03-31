@@ -77,4 +77,8 @@ export class ApiService {
   deleteUserById(userId: string): Observable<User> {
     return this.request<User>('DELETE', `/api/users/${userId}/`);
   }
+
+  saveNewUser(user: User): Observable<User> {
+    return this.request<User>('POST', '/api/users/', user);
+  }
 }

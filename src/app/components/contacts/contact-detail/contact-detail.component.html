@@ -84,7 +84,7 @@
         <a [href]="'tel:' + selectedUser.phone">
           <span>{{ selectedUser.phone }}</span>
         </a>
-        } @if(selectedUser.uId !== "") {
+        } @if(selectedUser.id !== "") {
         <p>{{ "contacts.contactLastOnline" | translate }}</p>
         @if(selectedUser.isOnline) {
         <span>{{ "contacts.contactLastOnlineTxt" | translate }}</span>
