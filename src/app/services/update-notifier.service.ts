@@ -5,15 +5,15 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class UpdateNotifierService {
-  private updateSubjects: Record<string, Subject<void>> = {
-    task: new Subject<void>(),
-    contact: new Subject<void>(),
+  private updateSubjects: Record<string, Subject<string>> = {
+    task: new Subject<string>(),
+    contact: new Subject<string>(),
   };
 
   taskUpdated$ = this.updateSubjects['task'].asObservable();
   contactUpdated$ = this.updateSubjects['contact'].asObservable();
 
-  notifyUpdate(type: 'task' | 'contact') {
-    this.updateSubjects[type].next();
+  notifyUpdate(type: 'task' | 'contact', payload?: string) {
+    this.updateSubjects[type].next(payload ?? '');
   }
 }

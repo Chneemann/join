@@ -61,7 +61,8 @@ export class ContactsComponent {
   private subscribeToUserUpdates() {
     this.updateNotifierService.contactUpdated$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
+      .subscribe((userId: string) => {
+        this.selectedUserId = userId;
         this.loadAllUsers();
       });
   }

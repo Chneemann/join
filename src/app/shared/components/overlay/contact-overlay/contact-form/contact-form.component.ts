@@ -242,9 +242,11 @@ export class ContactFormComponent implements OnInit, OnChanges {
       };
 
       const snakeCaseUserData = this.convertCamelToSnake(userData);
-      await lastValueFrom(this.apiService.saveNewUser(snakeCaseUserData));
+      const savedUser = await lastValueFrom(
+        this.apiService.saveNewUser(snakeCaseUserData)
+      );
       this.toastNotificationService.createContactSuccessToast();
-      this.updateNotifierService.notifyUpdate('contact');
+      this.updateNotifierService.notifyUpdate('contact', savedUser.id);
       this.closeDialog();
     } catch (error) {
       console.error('Fehler beim Speichern des Kontakts:', error);
