@@ -5,7 +5,7 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 import { FirebaseService } from '../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../services/user.service';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { finalize, firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { OverlayService } from '../../services/overlay.service';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
 
@@ -32,44 +32,57 @@ export class ContactsComponent {
     private updateNotifierService: UpdateNotifierService
   ) {}
 
-  /**
-   * Trigger onResize when the component is initialized
-   */
   ngOnInit(): void {
     this.onResize();
-    this.loadAllUsers();
-    this.loadCurrentUser();
-    this.subscribeToUserUpdates();
+    this.initializeData();
   }
 
-  loadAllUsers(): void {
+  private async initializeData(): Promise<void> {
+    try {
+      await this.loadAllUsers();
+      this.loadCurrentUser();
+      this.subscribeToUserUpdates();
+    } catch (error) {
+      console.error('Error during initialization:', error);
+    }
+  }
+
+  private async loadAllUsers(): Promise<void> {
     this.isLoading = true;
-
-    this.userService
-      .getUsers()
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: (response) => {
-          this.allUsers = response;
-        },
-        error: (err) => {
-          console.error('Error loading the tasks:', err);
-        },
-      });
+    try {
+      const response = await firstValueFrom(
+        this.userService
+          .getUsers()
+          .pipe(finalize(() => (this.isLoading = false)))
+      );
+      this.allUsers = response;
+    } catch (err) {
+      console.error('Error loading the users:', err);
+    }
   }
 
-  private subscribeToUserUpdates() {
+  private async subscribeToUserUpdates(): Promise<void> {
     this.updateNotifierService.contactUpdated$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((userId: string) => {
-        this.selectedUserId = userId;
-        this.loadAllUsers();
+      .subscribe(async (userId: string) => {
+        this.selectedUserId = null;
+        try {
+          await this.loadAllUsers();
+          this.selectedUserId = userId;
+        } catch (error) {
+          console.error('Error while waiting for user load:', error);
+        }
       });
   }
 
-  loadCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe((userData) => {
-      this.currentUser = userData;
+  private loadCurrentUser(): void {
+    this.userService.getCurrentUser().subscribe({
+      next: (userData) => {
+        this.currentUser = userData;
+      },
+      error: (err) => {
+        console.error('Error loading current user:', err);
+      },
     });
   }
 
@@ -118,5 +131,10 @@ export class ContactsComponent {
     } else {
       this.showAllUsers = true;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

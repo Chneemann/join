@@ -81,4 +81,8 @@ export class ApiService {
   saveNewUser(user: User): Observable<User> {
     return this.request<User>('POST', '/api/users/', user);
   }
+
+  updateUser(user: User, userId: string): Observable<User> {
+    return this.request<User>('PATCH', `/api/users/${userId}/`, user);
+  }
 }

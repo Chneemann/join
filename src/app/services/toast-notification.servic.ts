@@ -45,6 +45,10 @@ export class ToastNotificationService {
     this.createSuccessToast('Contact deleted successfully!', 'Contact Deleted');
   }
 
+  updateContactSuccessToast(): void {
+    this.createSuccessToast('Contact updated successfully!', 'Contact Updated');
+  }
+
   // Helperfunctions
 
   createSuccessToast(message: string, title: string = 'Success'): void {

@@ -223,11 +223,30 @@ export class ContactFormComponent implements OnInit, OnChanges {
         this.newColor && this.newColor !== ''
           ? this.newColor
           : this.currentColor || this.randomColor;
-      this.saveContact();
+
+      if (this.selectedUserExists) {
+        this.updateContact();
+      } else {
+        this.saveNewContact();
+      }
     }
   }
 
-  async saveContact() {
+  async updateContact() {
+    try {
+      const snakeCaseUserData = this.convertCamelToSnake(this.contactData);
+      const updatedUser = await lastValueFrom(
+        this.apiService.updateUser(snakeCaseUserData, this.selectedUser.id)
+      );
+      this.toastNotificationService.updateContactSuccessToast();
+      this.updateNotifierService.notifyUpdate('contact', updatedUser.id);
+      this.closeDialog();
+    } catch (error) {
+      console.error('Error updating the contact:', error);
+    }
+  }
+
+  async saveNewContact() {
     try {
       const userData: User = {
         firstName: this.contactData.firstName,
@@ -249,7 +268,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
       this.updateNotifierService.notifyUpdate('contact', savedUser.id);
       this.closeDialog();
     } catch (error) {
-      console.error('Fehler beim Speichern des Kontakts:', error);
+      console.error('Error saving the contact:', error);
     }
   }
 
