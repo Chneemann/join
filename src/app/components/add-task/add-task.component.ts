@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { firstValueFrom, map } from 'rxjs';
 import { TaskService } from '../../services/task.service';
 import { ApiService } from '../../services/api.service';
-import { TaskUpdateService } from '../../services/task-update.service';
+import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.servic';
 
 @Component({
@@ -51,7 +51,7 @@ export class AddTaskComponent implements OnInit {
     private taskService: TaskService,
     private apiService: ApiService,
     private authService: AuthService,
-    private taskUpdateService: TaskUpdateService,
+    private updateNotifierService: UpdateNotifierService,
     private toastNotificationService: ToastNotificationService,
     private route: ActivatedRoute,
     private router: Router
@@ -380,7 +380,7 @@ export class AddTaskComponent implements OnInit {
       this.apiService.saveNewTask(taskWithoutId).subscribe({
         next: (response) => {
           this.toastNotificationService.createTaskSuccessToast();
-          this.taskUpdateService.notifyTaskUpdate();
+          this.updateNotifierService.notifyUpdate('task');
           this.removeTaskData(ngForm);
           this.closeOverlay();
           this.router.navigate(['/board']);

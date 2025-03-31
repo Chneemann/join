@@ -11,7 +11,7 @@ import { TaskService } from '../../../../services/task.service';
 import { AuthService } from '../../../../services/auth.service';
 import { map } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
-import { TaskUpdateService } from '../../../../services/task-update.service';
+import { UpdateNotifierService } from '../../../../services/update-notifier.service';
 import { ToastNotificationService } from '../../../../services/toast-notification.servic';
 
 @Component({
@@ -35,7 +35,7 @@ export class TaskOverlayComponent implements OnInit {
     private taskService: TaskService,
     private authService: AuthService,
     private apiService: ApiService,
-    private taskUpdateService: TaskUpdateService,
+    private updateNotifierService: UpdateNotifierService,
     private toastNotificationService: ToastNotificationService,
     private router: Router,
     private route: ActivatedRoute
@@ -126,7 +126,7 @@ export class TaskOverlayComponent implements OnInit {
     this.apiService.deleteTaskById(taskId).subscribe({
       next: (task) => {
         this.toastNotificationService.deleteTaskSuccessToast();
-        this.taskUpdateService.notifyTaskUpdate();
+        this.updateNotifierService.notifyUpdate('task');
       },
       error: (err) => {
         console.error('Error deleting task', err);

@@ -18,8 +18,8 @@
       @for (sortLetter of this.getUniqueFirstLetters(); track sortLetter) {
       <div class="first-letter">{{ sortLetter }}</div>
       <div class="line"></div>
-      @for (user of this.filterUsersByFirstLetter(sortLetter); track user; let
-      index = $index) {
+      @for (user of this.filterUsersByFirstLetter(sortLetter); track user.id;
+      let index = $index) {
       <div
         class="contact"
         (click)="openUserDetails(user.id)"

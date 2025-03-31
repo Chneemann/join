@@ -5,8 +5,9 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 import { FirebaseService } from '../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../services/user.service';
-import { finalize } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
 import { OverlayService } from '../../services/overlay.service';
+import { UpdateNotifierService } from '../../services/update-notifier.service';
 
 @Component({
   selector: 'app-contacts',
@@ -16,6 +17,8 @@ import { OverlayService } from '../../services/overlay.service';
   styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent {
+  private destroy$ = new Subject<void>();
+
   allUsers: User[] = [];
   currentUser: User | null = null;
   selectedUserId: string | null = null;
@@ -25,7 +28,8 @@ export class ContactsComponent {
   constructor(
     public firebaseService: FirebaseService,
     private userService: UserService,
-    private overlayService: OverlayService
+    private overlayService: OverlayService,
+    private updateNotifierService: UpdateNotifierService
   ) {}
 
   /**
@@ -35,6 +39,7 @@ export class ContactsComponent {
     this.onResize();
     this.loadAllUsers();
     this.loadCurrentUser();
+    this.subscribeToUserUpdates();
   }
 
   loadAllUsers(): void {
@@ -50,6 +55,14 @@ export class ContactsComponent {
         error: (err) => {
           console.error('Error loading the tasks:', err);
         },
+      });
+  }
+
+  private subscribeToUserUpdates() {
+    this.updateNotifierService.contactUpdated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadAllUsers();
       });
   }
 
