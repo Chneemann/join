@@ -73,4 +73,8 @@ export class ApiService {
       ids: userIds.join(','),
     });
   }
+
+  deleteUserById(userId: string): Observable<User> {
+    return this.request<User>('DELETE', `/api/users/${userId}/`);
+  }
 }

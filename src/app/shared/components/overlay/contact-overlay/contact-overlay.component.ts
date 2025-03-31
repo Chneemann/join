@@ -24,20 +24,13 @@ export class ContactOverlayComponent implements OnInit {
   @Input() overlayType: string = '';
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
-  randomColor: string = '';
+  randomColor: string = this.getRandomColor();
   userInitials: string = '';
   newColor: string = '';
 
   constructor(public firebaseService: FirebaseService) {}
 
-  /**
-   * Lifecycle hook that is called after data-bound properties of a directive are
-   * initialized.
-   * This method sets a random color for the user to be edited.
-   */
-  ngOnInit() {
-    this.randomColor = this.getRandomColor();
-  }
+  ngOnInit() {}
 
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';

@@ -9,9 +9,11 @@ import { CommonModule } from '@angular/common';
 import { FirebaseService } from '../../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
-import { finalize } from 'rxjs';
+import { finalize, lastValueFrom } from 'rxjs';
 import { User } from '../../../interfaces/user.interface';
 import { OverlayService } from '../../../services/overlay.service';
+import { ApiService } from '../../../services/api.service';
+import { ToastNotificationService } from '../../../services/toast-notification.servic';
 
 @Component({
   selector: 'app-contact-detail',
@@ -32,7 +34,9 @@ export class ContactDetailComponent {
   constructor(
     public firebaseService: FirebaseService,
     private overlayService: OverlayService,
-    private userService: UserService
+    private userService: UserService,
+    private apiService: ApiService,
+    private toastNotificationService: ToastNotificationService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -97,8 +101,13 @@ export class ContactDetailComponent {
    * Opens the delete contact dialog by setting the appropriate flags in the shared service.
    * This method is used by the contact details component to open the delete contact dialog when the user clicks the delete button.
    */
-  openDeleteContactDialog() {
-    // TODO
-    this.isMobileNavbarOpen = false;
+  async deleteContact(userId: string) {
+    try {
+      await lastValueFrom(this.apiService.deleteUserById(userId));
+      this.toastNotificationService.deleteContactSuccessToast();
+      this.closeUserDetails();
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

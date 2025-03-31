@@ -22,7 +22,7 @@ import { ResizeService } from '../../../../../services/resize.service';
   styleUrl: './contact-form.component.scss',
 })
 export class ContactFormComponent implements OnInit, OnChanges {
-  @Input() selectedUser: any = [];
+  @Input() selectedUser: any = {};
   @Input() randomColor: string = '';
   @Input() newColor: string = '';
   @Input() currentColor: string = '';
@@ -63,14 +63,17 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * properties of the userData object.
    */
   ngOnInit() {
-    this.updateContactData();
-    if (!this.selectedUser) {
+    if (this.selectedUserExists) {
       this.userData = {
         ...this.userData,
         color: this.randomColor,
         lastLogin: new Date().getTime(),
       };
     }
+  }
+
+  get selectedUserExists() {
+    return !!this.selectedUser && Object.keys(this.selectedUser).length > 0;
   }
 
   /**
@@ -101,10 +104,12 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * Finally, it emits an event containing the initials.
    */
   updateInitials() {
-    const initials = this.contactData
-      ? this.contactData.firstName.slice(0, 1).toUpperCase() +
-        this.contactData.lastName.slice(0, 1).toUpperCase()
-      : '';
+    const firstName = this.contactData?.firstName || '';
+    const lastName = this.contactData?.lastName || '';
+    const initials = (
+      firstName.slice(0, 1) + lastName.slice(0, 1)
+    ).toUpperCase();
+
     if (!this.selectedUser) {
       this.userData = {
         ...this.userData,
@@ -150,7 +155,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
    * @param {string} name - The string to modify.
    * @return {string} The modified string.
    */
-  capitalizeFirstLetter(name: string) {
+  capitalizeFirstLetter(name?: string): string {
+    if (!name) return ''; // Return an empty string if name is undefined or null
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   }
 

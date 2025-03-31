@@ -7,12 +7,12 @@
         {{ "contacts.headlineDescription" | translate }}
       </div>
     </div>
-    <div class="btn-back">
-      <img
-        [ngClass]="{ 'd-none': !selectedUserId }"
-        (click)="closeUserDetails()"
-        src="./../../../../assets/img/arrow-left.svg"
-      />
+    <div
+      class="btn-back"
+      [ngClass]="{ 'd-none': !selectedUserId }"
+      (click)="closeUserDetails()"
+    >
+      <img src="./../../../../assets/img/arrow-left.svg" />
     </div>
   </div>
   @if (selectedUser && selectedUserId) {
@@ -57,7 +57,7 @@
           </div>
           @if (selectedUser.isContactOnly || currentUser && selectedUser.id !==
           currentUser.id) {
-          <div class="btn btn-delete" (click)="openDeleteContactDialog()">
+          <div class="btn btn-delete" (click)="deleteContact(selectedUserId)">
             <img src="./../../../../assets/img/contact/delete.svg" alt="" />
             <p>
               {{ "contacts.btnDelete0" | translate }}

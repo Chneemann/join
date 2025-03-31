@@ -35,6 +35,16 @@ export class ToastNotificationService {
     this.createInfoToast('Task successfully moved!', 'Task Moved');
   }
 
+  // Contacts
+
+  createContactSuccessToast(): void {
+    this.createSuccessToast('Contact created successfully!', 'Contact Created');
+  }
+
+  deleteContactSuccessToast(): void {
+    this.createSuccessToast('Contact deleted successfully!', 'Contact Deleted');
+  }
+
   // Helperfunctions
 
   createSuccessToast(message: string, title: string = 'Success'): void {
