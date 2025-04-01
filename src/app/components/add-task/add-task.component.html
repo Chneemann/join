@@ -5,14 +5,14 @@
   }"
 >
   <div
-    class="headline"
+    class="header"
     [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
   >
     <div class="title">{{ "addTask.headline" | translate }}</div>
   </div>
 
   <form
-    (ngSubmit)="onSubmit(taskForm, overlayData)"
+    (ngSubmit)="onSubmit(taskForm)"
     (keydown.enter)="handleEnterKey($event)"
     #taskForm="ngForm"
     onsubmit="return false"
@@ -26,7 +26,9 @@
     >
       <div class="left-side">
         <div class="title">
-          <p>{{ "addTask.title" | translate }}<span class="red-dot">*</span></p>
+          <div class="headline">
+            {{ "addTask.title" | translate }}<span class="red-dot">*</span>
+          </div>
           <input
             type="text"
             id="title"
@@ -49,10 +51,10 @@
           </div>
         </div>
         <div class="description">
-          <p>
+          <div class="headline">
             {{ "addTask.description" | translate
             }}<span class="red-dot">*</span>
-          </p>
+          </div>
           <textarea
             id="description"
             rows="5"
@@ -75,62 +77,11 @@
             }
           </div>
         </div>
-        <div class="assigned">
-          <p>{{ "addTask.assigned" | translate }}</p>
-          <input
-            #searchField
-            id="search-assigned"
-            class="search-assigned"
-            name="search"
-            placeholder="{{ 'addTask.assignedFormField' | translate }}"
-            type="text"
-            [(ngModel)]="searchValue"
-            (input)="searchTask(taskData.creator)"
-            autocomplete="off"
-            (click)="toggleAssignedMenu()"
-          />
-          @if (isAssignedOpen) {
-          <app-assigned
-            [filteredUsers]="filteredUsers"
-            [taskCreator]="taskData.creator"
-            [searchInput]="searchInput"
-            (assignedChange)="receiveAssigned($event)"
-          >
-            ></app-assigned
-          >
-          <img class="close" src="./../../../assets/img/close.svg" alt="" />
-          } @else {
-          <img
-            class="open"
-            src="./../../../assets/img/add-task/arrow-down.svg"
-            alt=""
-          />
-          }
-        </div>
-        <div class="assigned-badge">
-          @for (user of taskData.assigned; track user ) {
-          <div
-            class="circle"
-            (mousemove)="openDialog(user, $event)"
-            (mouseleave)="closeDialog()"
-            [ngStyle]="{
-              'background-color': firebaseService.getUserDetails(user, 'color')
-            }"
-          >
-            <div class="initials">
-              {{ firebaseService.getUserDetails(user, "initials") }}
-            </div>
-          </div>
-          }
-        </div>
-        @if (AssignedDialogId != '') {
-        <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
-          <p>
-            {{ firebaseService.getUserDetails(AssignedDialogId, "firstName") }}
-            {{ firebaseService.getUserDetails(AssignedDialogId, "lastName") }}
-          </p>
-        </div>
-        }
+        <app-assigned
+          [taskCreator]="taskData.creator"
+          [assignedList]="taskData.assigned"
+          (assignedChange)="receiveAssigned($event)"
+        ></app-assigned>
       </div>
       <div class="middle-spacer"><div class="line"></div></div>
       <div class="right-side">
@@ -140,7 +91,9 @@
             'margin-top': overlayMobile ? '28px' : ''
           }"
         >
-          <p>{{ "addTask.date" | translate }}<span class="red-dot">*</span></p>
+          <div class="headline">
+            {{ "addTask.date" | translate }}<span class="red-dot">*</span>
+          </div>
           <input
             type="date"
             id="date"
@@ -161,7 +114,7 @@
           </div>
         </div>
         <div class="priority">
-          <p>{{ "addTask.priority" | translate }}</p>
+          <div class="headline">{{ "addTask.priority" | translate }}</div>
           <div class="btns">
             <button
               type="button"
@@ -217,9 +170,9 @@
           </div>
         </div>
         <div class="category">
-          <p>
+          <div class="headline">
             {{ "addTask.category" | translate }}<span class="red-dot">*</span>
-          </p>
+          </div>
           <select
             id="category"
             name="category"
@@ -246,7 +199,7 @@
           </div>
         </div>
         <div class="subtask">
-          <p>{{ "addTask.subtask" | translate }}</p>
+          <div class="headline">{{ "addTask.subtask" | translate }}</div>
           <input
             type="text"
             id="subtask"

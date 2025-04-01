@@ -1,101 +1,109 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FirebaseService } from '../../../services/firebase.service';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AssignedListComponent } from './assigned-list/assigned-list.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 import { User } from '../../../interfaces/user.interface';
+import { ApiService } from '../../../services/api.service';
+import { map, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-assigned',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, TranslateModule, AssignedListComponent],
   templateUrl: './assigned.component.html',
   styleUrl: './assigned.component.scss',
 })
 export class AssignedComponent {
-  @Input() filteredUsers: User[] = [];
-  @Input() searchInput: boolean = false;
   @Input() taskCreator: string = '';
+  @Input() assignedList: string[] = [];
   @Output() assignedChange = new EventEmitter<string[]>();
 
-  assigned: string[] = [];
+  tooltipUserId: string | null = null;
+  filteredUsers: User[] = [];
+  users: User[] = [];
+  searchValue: string = '';
+  searchInput: boolean = false;
+  showAssignedList: boolean = false;
+  dialogX: number = 0;
+  dialogY: number = 0;
 
-  constructor(public firebaseService: FirebaseService) {
-    this.loadTaskAssignedData();
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.loadUsers();
   }
 
-  /**
-   * Updates the assignedChange event emitter with the current list of assigned users.
-   * This should be called whenever the assigned list is updated.
-   */
-  updateAssigned() {
-    this.assignedChange.emit(this.assigned);
+  loadUsers(): void {
+    this.apiService
+      .getUsers()
+      .pipe(
+        map((users) => users.filter((user) => user.id !== this.taskCreator)),
+        catchError(() => of([]))
+      )
+      .subscribe((filteredUsers) => {
+        this.users = filteredUsers;
+        this.filteredUsers = filteredUsers;
+      });
   }
 
-  /**
-   * Toggles the assignment of a user to the task.
-   *
-   * If the user is not currently assigned, they are added to the assigned list.
-   * If the user is already assigned, they are removed from the list.
-   * Updates the local storage with the current list of assigned users and emits the
-   * assignedChange event to notify other components of the update.
-   *
-   * @param userId The ID of the user to be added or removed from the assigned list.
-   */
-  addAssignedToTask(userId: string) {
-    if (!this.assigned.includes(userId)) {
-      this.assigned.push(userId);
-    } else {
-      this.assigned.splice(this.assigned.indexOf(userId), 1);
-    }
-    this.saveTaskData();
-    this.updateAssigned();
-  }
+  searchTask(): void {
+    this.searchValue = this.replaceXSSChars(this.searchValue) || '';
+    this.searchInput = this.searchValue.trim().length > 0;
 
-  /**
-   * Saves the current list of assigned users to local storage.
-   *
-   * Retrieves the current task data from local storage, updates the assigned
-   * list with the current list of assigned users, and saves the updated task
-   * data back to local storage.
-   */
-  saveTaskData() {
-    let taskDataString = localStorage.getItem('taskData');
-    if (taskDataString !== null) {
-      let taskData = JSON.parse(taskDataString);
-      taskData.assigned = this.assigned;
-      localStorage.setItem('taskData', JSON.stringify(taskData));
+    const searchValue = this.searchValue.toLowerCase();
+    this.filteredUsers = this.users.filter(
+      (user) =>
+        user.firstName.toLowerCase().includes(searchValue) ||
+        user.lastName.toLowerCase().includes(searchValue) ||
+        user.initials.toLowerCase().includes(searchValue)
+    );
+    if (this.filteredUsers.length === 0) {
+      this.filteredUsers = [];
     }
   }
 
-  /**
-   * Loads the list of assigned users from local storage.
-   *
-   * Retrieves the task data from local storage, checks if the assigned list exists,
-   * and if so, assigns the list to the local assigned variable.
-   */
-  loadTaskAssignedData() {
-    const taskDataString = localStorage.getItem('taskData');
-    if (taskDataString !== null) {
-      const taskData = JSON.parse(taskDataString);
-      if (taskData.hasOwnProperty('assigned')) {
-        this.assigned = taskData.assigned;
-      }
-    }
+  replaceXSSChars(input: string) {
+    return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  /**
-   * Returns the list of users that should be displayed in the assigned component.
-   *
-   * If the search input is active (i.e., the user is typing in the search box),
-   * the list of filtered users is returned. Otherwise, the list of users that are
-   * not the task creator is returned.
-   *
-   * @return The list of users to be displayed in the assigned component.
-   */
-  displayAssigned() {
-    if (this.searchInput) {
-      return this.filteredUsers;
-    } else {
-      return this.firebaseService.getFilteredUsers(this.taskCreator);
+  openTooltipUser(userId: any, event: MouseEvent) {
+    this.tooltipUserId = userId;
+    this.updateTooltipUserPosition(event);
+  }
+
+  updateTooltipUserPosition(event: MouseEvent) {
+    this.dialogX = event.clientX + 25;
+    this.dialogY = event.clientY + 10;
+  }
+
+  closeTooltipUser() {
+    this.tooltipUserId = null;
+  }
+
+  receiveAssigned(assigned: string[]) {
+    this.assignedChange.emit(assigned);
+  }
+
+  toggleAssignedMenu() {
+    this.showAssignedList = !this.showAssignedList;
+  }
+
+  @HostListener('document:click', ['$event'])
+  checkOpenNavbar(event: MouseEvent) {
+    const targetElement = event.target as HTMLElement;
+    if (
+      !targetElement.closest('.search-assigned') &&
+      !targetElement.closest('app-assigned-list') &&
+      !targetElement.closest('.checkbox-img')
+    ) {
+      this.showAssignedList = false;
     }
   }
 }

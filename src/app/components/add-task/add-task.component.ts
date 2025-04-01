@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
-import { User } from '../../interfaces/user.interface';
 import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
@@ -36,14 +35,7 @@ export class AddTaskComponent implements OnInit {
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
-  isAssignedOpen: boolean = false;
   subtaskValue: string = '';
-  searchValue: string = '';
-  searchInput: boolean = false;
-  filteredUsers: User[] = [];
-  AssignedDialogId: string = '';
-  dialogX: number = 0;
-  dialogY: number = 0;
 
   constructor(
     public firebaseService: FirebaseService,
@@ -143,32 +135,6 @@ export class AddTaskComponent implements OnInit {
   }
 
   /**
-   * Opens the user dialog for the given user id at the position of the mouse click
-   * @param userId the id of the user
-   * @param event the MouseEvent that triggered the dialog
-   */
-  openDialog(userId: any, event: MouseEvent) {
-    this.AssignedDialogId = userId;
-    this.updateDialogPosition(event);
-  }
-
-  /**
-   * Updates the position of the user dialog based on the MouseEvent
-   * @param event the MouseEvent that triggered the dialog
-   */
-  updateDialogPosition(event: MouseEvent) {
-    this.dialogX = event.clientX + 25;
-    this.dialogY = event.clientY + 10;
-  }
-
-  /**
-   * Closes the assigned user dialog
-   */
-  closeDialog() {
-    this.AssignedDialogId = '';
-  }
-
-  /**
    * Gets the task data from the Firebase service for the given task id.
    * @param taskId the id of the task
    * @returns {Task[]} an array of tasks with the given id
@@ -201,40 +167,6 @@ export class AddTaskComponent implements OnInit {
   }
 
   /**
-   * Updates the filteredUsers array with users that match the current search value
-   * from the getFilteredUsers list.
-   * @param taskCreator the id of the task creator
-   */
-  searchTask(taskCreator: string): void {
-    this.updateSearchInput();
-    this.filteredUsers = this.firebaseService
-      .getFilteredUsers(taskCreator)
-      .filter(
-        (user) =>
-          user.firstName.toLowerCase().includes(this.searchValue) ||
-          user.lastName.toLowerCase().includes(this.searchValue) ||
-          user.initials.toLowerCase().includes(this.searchValue)
-      );
-  }
-
-  /**
-   * Updates the search input flag and the search value by stripping any XSS
-   * characters from the search value, and then setting the search input flag
-   * to true if the search value is not empty, and false otherwise.
-   *
-   * @returns The updated search input flag.
-   */
-  updateSearchInput() {
-    this.searchValue = this.replaceXSSChars(this.searchValue);
-    if (this.searchValue) {
-      this.searchInput = this.searchValue.toLowerCase().length > 0;
-    } else {
-      this.searchInput = false;
-    }
-    return this.searchInput;
-  }
-
-  /**
    * Updates the subtask value by removing any potential XSS characters.
    * This ensures that the subtask value is sanitized before further processing or storage.
    */
@@ -249,15 +181,6 @@ export class AddTaskComponent implements OnInit {
    */
   receiveAssigned(assigned: string[]) {
     this.taskData.assigned = assigned;
-  }
-
-  /**
-   * Toggle the assigned menu for the current task.
-   * This function toggles the boolean flag isAssignedOpen, which determines whether the assigned menu is open or not.
-   * @returns {void}
-   */
-  toggleAssignedMenu() {
-    this.isAssignedOpen = !this.isAssignedOpen;
   }
 
   /**
@@ -373,7 +296,7 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  onSubmit(ngForm: NgForm, overlayData: string) {
+  onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
       const { id, ...taskWithoutId } = this.taskData;
 
@@ -412,28 +335,9 @@ export class AddTaskComponent implements OnInit {
    */
   deleteTask(overlayData: string) {
     this.apiService.deleteTaskById(overlayData);
-    this.closeDialog();
   }
 
   replaceXSSChars(input: string) {
     return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-
-  @HostListener('document:click', ['$event'])
-  /**
-   * Closes the assigned dropdown menu if the user clicks anywhere outside of
-   * the assigned dropdown menu.
-   * @param event the MouseEvent
-   * @returns {void}
-   */
-  checkOpenNavbar(event: MouseEvent) {
-    const targetElement = event.target as HTMLElement;
-    if (
-      !targetElement.closest('.search-assigned') &&
-      !targetElement.closest('app-assigned') &&
-      !targetElement.closest('.checkbox-img')
-    ) {
-      this.isAssignedOpen = false;
-    }
   }
 }

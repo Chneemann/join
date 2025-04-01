@@ -8,21 +8,6 @@ section {
   width: 100%;
 }
 
-.dialog {
-  position: fixed;
-  width: min-content;
-  height: fit-content;
-  padding: 10px 15px;
-  border-radius: 0px 20px 20px 20px;
-  border: 1px solid var(--black);
-  z-index: 2;
-  background-color: var(--white);
-  p {
-    font-size: 18px;
-    font-weight: 400;
-  }
-}
-
 .edit-task-overlay-content {
   height: calc(700px - 148px);
   padding: 0 6px;
@@ -34,6 +19,12 @@ section {
   padding: 0 6px;
   overflow-y: auto;
   background-color: var(--very-light-gray);
+}
+
+.headline {
+  font-size: 20px;
+  font-weight: 400;
+  padding-bottom: 6px;
 }
 
 input,
@@ -65,12 +56,6 @@ select:valid {
   border: 1px solid black;
 }
 
-p {
-  font-size: 20px;
-  font-weight: 400;
-  padding-bottom: 6px;
-}
-
 .red-dot {
   color: var(--light-red);
 }
@@ -91,7 +76,7 @@ p {
 
 /*------------- HEADER -------------*/
 
-.headline {
+.header {
   margin-bottom: 48px;
   .title {
     font-size: 61px;
@@ -103,55 +88,6 @@ p {
 
 .left-side {
   width: 45%;
-}
-
-.assigned {
-  position: relative;
-  .open {
-    position: absolute;
-    top: 55px;
-    right: 20px;
-    width: 14px;
-    height: 7px;
-  }
-  .close {
-    position: absolute;
-    top: 50px;
-    right: 20px;
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    &:hover {
-      filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
-        brightness(92%) contrast(92%);
-    }
-  }
-}
-
-.assigned-badge {
-  display: flex;
-  align-items: center;
-  margin: 6px;
-  height: 40px;
-}
-
-.circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  border: 2px solid var(--white);
-  margin-right: 6px;
-  cursor: default;
-  .initials {
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--white);
-    text-shadow: 1px 1px 2px var(--black);
-  }
 }
 
 .subtask {

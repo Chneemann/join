@@ -1,47 +1,65 @@
-<section>
-  @for (user of displayAssigned(); track user; let index = $index) {
-  <div
-    class="content"
-    (click)="addAssignedToTask(user.id)"
-    [ngClass]="{ selected: assigned.includes(user.id) }"
-    *ngIf="user.id"
+<div class="assigned">
+  <div class="headline">{{ "addTask.assigned" | translate }}</div>
+  <input
+    #searchField
+    id="search-assigned"
+    class="search-assigned"
+    name="search"
+    placeholder="{{ 'addTask.assignedFormField' | translate }}"
+    type="text"
+    [(ngModel)]="searchValue"
+    (input)="searchTask()"
+    autocomplete="off"
+    (click)="toggleAssignedMenu()"
+  />
+  @if (showAssignedList) {
+  <app-assigned-list
+    [filteredUsers]="filteredUsers"
+    [taskCreator]="taskCreator"
+    [searchInput]="searchInput"
+    (assignedChange)="receiveAssigned($event)"
   >
+    ></app-assigned-list
+  >
+  <img class="close" src="./../../../assets/img/close.svg" alt="" />
+  } @else {
+  <img
+    class="open"
+    src="./../../../assets/img/add-task/arrow-down.svg"
+    alt=""
+  />
+  }
+
+  <div class="assigned-badge">
+    @for (user of users; track user; let index = $index) { @for (users of
+    assignedList; track users ) { @if (user.id === users) {
     <div
       class="circle"
+      (mousemove)="openTooltipUser(user.id, $event)"
+      (mouseleave)="closeTooltipUser()"
       [ngStyle]="{
-        'background-color': firebaseService.getUserDetails(user.id, 'color')
+        'background-color': user.color
       }"
     >
       <div class="initials">
-        {{ firebaseService.getUserDetails(user.id, "initials") }}
+        {{ user.initials }}
       </div>
     </div>
-    <div class="details">
-      <div class="name">
-        <p>
-          {{ firebaseService.getUserDetails(user.id, "firstName") }}
-        </p>
-        <span>,&nbsp;</span>
-        <p class="last-name">
-          {{ firebaseService.getUserDetails(user.id, "lastName") }}
-        </p>
-      </div>
+    } } } @if (tooltipUserId) {
+    <div
+      class="tooltip-user"
+      [style.left.px]="dialogX"
+      [style.top.px]="dialogY"
+    >
+      @for (user of users; track user) { @if (user.id === tooltipUserId) {
+      <p>
+        {{ user.firstName }}
+      </p>
+      <p>
+        {{ user.lastName }}
+      </p>
+      }}
     </div>
-    <div class="checkbox">
-      @if (assigned.includes(user.id)) {
-      <img
-        class="checkbox-img"
-        src="./../../../../assets/img/add-task/checkbox-checked.svg"
-        alt=""
-      />
-      } @else {
-      <img
-        class="checkbox-img"
-        src="./../../../../assets/img/add-task/checkbox-empty.svg"
-        alt=""
-      />
-      }
-    </div>
+    }
   </div>
-  }
-</section>
+</div>
