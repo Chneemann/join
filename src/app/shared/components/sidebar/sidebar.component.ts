@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
-import { LoginService } from '../../../services/login.service';
-import { FirebaseService } from '../../../services/firebase.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,8 +18,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private router: Router,
     public languageService: LanguageService,
-    private loginService: LoginService,
-    private firebaseService: FirebaseService
+    private authService: AuthService
   ) {}
 
   /**
@@ -30,19 +28,6 @@ export class SidebarComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getCurrentPath();
-  }
-
-  /**
-   * Logs out the current user and navigates to the login page.
-   *
-   * Calls the logout method of the LoginService with the current user ID as
-   * its argument. This will remove the user ID from the local storage and
-   * perform any other necessary cleanup operations.
-   *
-   * The user is then navigated to the login page.
-   */
-  logout() {
-    this.loginService.logout(this.firebaseService.getCurrentUserId());
   }
 
   /**
@@ -56,5 +41,15 @@ export class SidebarComponent implements OnInit {
         this.currentPath = this.router.url.substring(1);
       }
     });
+  }
+
+  /**
+   * Logs out the current user by calling the logout method of the AuthService.
+   *
+   * This will clear the user's authentication token and any associated session
+   * data, and navigate the user to the logout page.
+   */
+  logout() {
+    this.authService.logout();
   }
 }
