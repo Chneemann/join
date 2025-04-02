@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
-import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
@@ -38,7 +37,6 @@ export class AddTaskComponent implements OnInit {
   subtaskValue: string = '';
 
   constructor(
-    public firebaseService: FirebaseService,
     private overlayService: OverlayService,
     private taskService: TaskService,
     private apiService: ApiService,
@@ -57,7 +55,7 @@ export class AddTaskComponent implements OnInit {
     priority: this.taskService.getPriorities()[0],
     subtasks: [],
     subtasksTitle: [],
-    subtasksDone: [],
+    subtasksStatus: [],
     assigned: [],
     assignees: [],
     userData: [],
@@ -97,7 +95,9 @@ export class AddTaskComponent implements OnInit {
   async loadEditTaskData() {
     if (this.overlayData) {
       const taskData = await firstValueFrom(this.getTaskData(this.overlayData));
-      Object.assign(this.taskData, taskData);
+      if (taskData) {
+        this.taskData = { ...this.taskData, ...taskData };
+      }
     } else if (this.overlayType === 'newTaskOverlay') {
       this.taskData.status = this.overlayData;
     }
@@ -149,7 +149,7 @@ export class AddTaskComponent implements OnInit {
    */
   addSubtask(subtaskName: string) {
     this.taskData.subtasksTitle.unshift(subtaskName);
-    this.taskData.subtasksDone.push(false);
+    this.taskData.subtasksStatus.push(false);
     this.saveTaskData();
   }
 
@@ -161,7 +161,7 @@ export class AddTaskComponent implements OnInit {
     const index = this.taskData.subtasksTitle.indexOf(subtaskName);
     if (index !== -1) {
       this.taskData.subtasksTitle.splice(index, 1);
-      this.taskData.subtasksDone.splice(index, 1);
+      this.taskData.subtasksStatus.splice(index, 1);
       this.saveTaskData();
     }
   }
@@ -270,7 +270,7 @@ export class AddTaskComponent implements OnInit {
     this.taskData.category = '';
     this.taskData.assigned = [];
     this.taskData.subtasksTitle = [];
-    this.taskData.subtasksDone = [];
+    this.taskData.subtasksStatus = [];
   }
 
   /**
@@ -298,9 +298,7 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      const { id, ...taskWithoutId } = this.taskData;
-
-      this.apiService.saveNewTask(taskWithoutId).subscribe({
+      this.apiService.saveNewTask(this.taskData).subscribe({
         next: (response) => {
           this.toastNotificationService.createTaskSuccessToast();
           this.updateNotifierService.notifyUpdate('task');

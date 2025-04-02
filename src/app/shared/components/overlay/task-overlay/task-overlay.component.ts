@@ -46,13 +46,6 @@ export class TaskOverlayComponent implements OnInit {
     ['Technical Task', '#20d7c2'],
   ]);
 
-  /**
-   * OnInit lifecycle hook.
-   *
-   * Initializes the overlay component by checking if the `overlayData` is empty.
-   * If it is, subscribes to route parameters to obtain and assign the `id` to `overlayData`.
-   * Also sets `overlayMobile` to `true` if parameters are successfully retrieved.
-   */
   ngOnInit() {
     this.setCurrentUserId();
     this.setOverlayDataFromRoute();
@@ -117,11 +110,6 @@ export class TaskOverlayComponent implements OnInit {
     }, 10);
   }
 
-  /**
-   * Deletes the task with the given overlay data from the Firebase Realtime Database and closes the overlay.
-   * @param overlayData the overlay data of the task to be deleted
-   * @returns {void}
-   */
   deleteTask(taskId: string) {
     this.apiService.deleteTaskById(taskId).subscribe({
       next: (task) => {
@@ -135,28 +123,31 @@ export class TaskOverlayComponent implements OnInit {
     this.closeDialog();
   }
 
-  /**
-   * Toggles the status of a single subtask of a task.
-   *
-   * This function takes the task id, the index of the subtask,
-   * the array of subtask statuses, and the status of the subtask.
-   * It toggles the status of the subtask at the given index
-   * and updates the subtasksDone property of the task in the
-   * Firebase Realtime Database.
-   *
-   * @param taskId The task id of the task containing the subtask.
-   * @param index The index of the subtask.
-   * @param array The array of subtask statuses.
-   * @param status The status of the subtask at the given index.
-   */
   toggleSubtaskStatus(
     taskId: string,
-    index: number,
-    array: boolean[],
-    status: boolean
+    subtaskId: string,
+    subtaskTitle: string,
+    currentStatus: boolean
   ) {
-    status ? (array[index] = false) : (array[index] = true);
-    this.firebaseService.updateSubTask(taskId, array);
+    const body = {
+      subtask_id: subtaskId,
+      subtask_title: subtaskTitle,
+      subtask_status: !currentStatus,
+    };
+    this.apiService.updateSubtaskStatus(taskId, body).subscribe(
+      (response) => {
+        this.task?.subtasks.forEach((subtask) => {
+          if (subtask.id === subtaskId) {
+            subtask.status = !currentStatus;
+          }
+        });
+        this.toastNotificationService.updateSubtaskSuccessToast();
+        this.updateNotifierService.notifyUpdate('task');
+      },
+      (error) => {
+        console.error('Error updating subtask:', error);
+      }
+    );
   }
 
   /**
@@ -169,34 +160,5 @@ export class TaskOverlayComponent implements OnInit {
    */
   capitalizeFirstLetter(data: string) {
     return data.charAt(0).toUpperCase() + data.slice(1);
-  }
-
-  /**
-   * Converts a date string to a human-readable format.
-   *
-   * @param dateString - The date string to convert.
-   * @returns A string representing the date in the format "MMM. DD, YYYY".
-   */
-  timeConverter(dateString: string) {
-    var a = new Date(dateString);
-    var months = [
-      'Jan.',
-      'Feb.',
-      'Mar.',
-      'Apr.',
-      'May.',
-      'Jun.',
-      'Jul.',
-      'Aug.',
-      'Sep.',
-      'Oct.',
-      'Nov.',
-      'Dec.',
-    ];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var time = month + ' ' + date + ', ' + year;
-    return time;
   }
 }

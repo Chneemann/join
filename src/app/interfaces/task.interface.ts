@@ -9,7 +9,7 @@ export interface Task {
   priority: string;
   subtasks: Subtask[];
   subtasksTitle: string[];
-  subtasksDone: boolean[];
+  subtasksStatus: boolean[];
   assigned: string[];
   assignees: Assignee[];
   userData: UserSummary[];
@@ -18,9 +18,9 @@ export interface Task {
 }
 
 export interface Subtask {
-  id: number;
+  id: string;
   title: string;
-  done: boolean;
+  status: boolean;
 }
 
 export interface Assignee {

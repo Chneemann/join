@@ -35,6 +35,12 @@ export class ToastNotificationService {
     this.createInfoToast('Task successfully moved!', 'Task Moved');
   }
 
+  // Subtask
+
+  updateSubtaskSuccessToast(): void {
+    this.createSuccessToast('Subtask updated successfully!', 'Subtask Updated');
+  }
+
   // Contacts
 
   createContactSuccessToast(): void {

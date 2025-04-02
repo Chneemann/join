@@ -50,6 +50,21 @@ export class ApiService {
     });
   }
 
+  updateSubtaskStatus(
+    taskId: string,
+    body: {
+      subtask_id: string;
+      subtask_title: string;
+      subtask_status: boolean;
+    }
+  ): Observable<any> {
+    return this.request<any>(
+      'PATCH',
+      `/api/tasks/${taskId}/update_subtask/`,
+      body
+    );
+  }
+
   saveNewTask(task: Task): Observable<Task> {
     return this.request<Task>('POST', '/api/tasks/', task);
   }

@@ -30,7 +30,7 @@
     </div>
     <div class="date">
       <p>{{ "addTask.date" | translate }}:</p>
-      {{ timeConverter(task.date) }}
+      {{ task.date | date : "dd. MMM yyyy" }}
     </div>
     <div class="priority">
       <p>{{ "addTask.priority" | translate }}:</p>
@@ -104,12 +104,17 @@
       <div
         class="single-subtask"
         (click)="
-          toggleSubtaskStatus(overlayData, i, task.subtasksDone, subtask.done)
+          toggleSubtaskStatus(
+            overlayData,
+            subtask.id,
+            subtask.title,
+            subtask.status
+          )
         "
       >
         <img
           [src]="
-            subtask.done
+            subtask.status
               ? './../../../../../assets/img/board/check-btn-checked.svg'
               : './../../../../../assets/img/board/check-btn-unchecked.svg'
           "

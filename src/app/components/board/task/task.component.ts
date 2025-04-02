@@ -132,7 +132,7 @@ export class TaskComponent {
    * @returns the number of completed subtasks
    */
   completedSubtasks(): number {
-    return this.task.subtasks.filter((subtask) => subtask.done).length;
+    return this.task.subtasks.filter((subtask) => subtask.status).length;
   }
 
   /**
@@ -141,7 +141,7 @@ export class TaskComponent {
    */
   completedSubtasksPercent(): number {
     const completedSubtasksCount = this.task.subtasks.filter(
-      (subtask) => subtask.done
+      (subtask) => subtask.status
     ).length;
 
     return (completedSubtasksCount / this.task.subtasks.length) * 100;
