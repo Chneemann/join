@@ -226,15 +226,15 @@
           </div>
           } @else {
           <img class="add" src="./../../../assets/img/add.svg" alt="" />
-          } @if (taskData.subtasksTitle) {
+          } @if (taskData.subtasks.length > 0) {
           <div class="subtasks">
-            @for (task of taskData.subtasksTitle.reverse(); track task) {
+            @for (subtask of taskData.subtasks.reverse(); track subtask.title) {
             <div class="single-subtask">
-              <p>- {{ task }}</p>
+              <p>- {{ subtask.title }}</p>
               <img
                 src="./../../../assets/img/close.svg"
                 alt=""
-                (click)="deleteSubtask(task)"
+                (click)="deleteSubtask(subtask)"
               />
             </div>
             }

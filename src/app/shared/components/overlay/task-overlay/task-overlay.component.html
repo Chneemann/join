@@ -100,7 +100,8 @@
     } @if (task.subtasks.length > 0) {
     <div class="subtasks">
       <p>{{ "addTask.subtask" | translate }}:</p>
-      @for (subtask of task.subtasks; track subtask; let i = $index) {
+      @for (subtask of task.subtasks; track subtask; let i = $index) { @if
+      (subtask.id) {
       <div
         class="single-subtask"
         (click)="
@@ -122,7 +123,7 @@
         />
         <p>{{ subtask.title }}</p>
       </div>
-      }
+      } }
     </div>
     }
   </div>

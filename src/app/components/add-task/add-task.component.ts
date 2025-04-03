@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
-import { Task } from '../../interfaces/task.interface';
+import { Subtask, Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -54,8 +54,6 @@ export class AddTaskComponent implements OnInit {
     status: this.taskService.getStatuses()[0],
     priority: this.taskService.getPriorities()[0],
     subtasks: [],
-    subtasksTitle: [],
-    subtasksStatus: [],
     assigned: [],
     assignees: [],
     userData: [],
@@ -143,27 +141,20 @@ export class AddTaskComponent implements OnInit {
     return this.apiService.getTaskById(taskId);
   }
 
-  /**
-   * Adds a new subtask to the task data
-   * @param subtaskName the name of the new subtask
-   */
   addSubtask(subtaskName: string) {
-    this.taskData.subtasksTitle.unshift(subtaskName);
-    this.taskData.subtasksStatus.push(false);
+    const newSubtask: Subtask = {
+      title: subtaskName,
+      status: false,
+    };
+    this.taskData.subtasks.push(newSubtask);
     this.saveTaskData();
   }
 
-  /**
-   * Deletes a subtask from the task data.
-   * @param subtaskName the name of the subtask to delete
-   */
-  deleteSubtask(subtaskName: string) {
-    const index = this.taskData.subtasksTitle.indexOf(subtaskName);
-    if (index !== -1) {
-      this.taskData.subtasksTitle.splice(index, 1);
-      this.taskData.subtasksStatus.splice(index, 1);
-      this.saveTaskData();
-    }
+  deleteSubtask(subtaskToDelete: Subtask) {
+    this.taskData.subtasks = this.taskData.subtasks.filter(
+      (subtask) => subtask !== subtaskToDelete
+    );
+    this.saveTaskData();
   }
 
   /**
@@ -269,8 +260,7 @@ export class AddTaskComponent implements OnInit {
     this.taskData.date = this.currentDate;
     this.taskData.category = '';
     this.taskData.assigned = [];
-    this.taskData.subtasksTitle = [];
-    this.taskData.subtasksStatus = [];
+    this.taskData.subtasks = [];
   }
 
   /**
@@ -318,12 +308,13 @@ export class AddTaskComponent implements OnInit {
    * This ensures that the task data is safe to be stored in the Firebase Realtime Database.
    * @returns {void}
    */
-  checkCrossSiteScripting() {
+  checkCrossSiteScripting(): void {
     this.taskData.title = this.replaceXSSChars(this.taskData.title);
     this.taskData.description = this.replaceXSSChars(this.taskData.description);
-    this.taskData.subtasksTitle = this.taskData.subtasksTitle.map((title) =>
-      this.replaceXSSChars(title)
-    );
+    this.taskData.subtasks = this.taskData.subtasks.map((subtask) => ({
+      ...subtask,
+      title: this.replaceXSSChars(subtask.title),
+    }));
   }
 
   /**
