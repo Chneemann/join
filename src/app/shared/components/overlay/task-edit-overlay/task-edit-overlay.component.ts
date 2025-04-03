@@ -1,12 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FirebaseService } from '../../../../services/firebase.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AssignedComponent } from '../../../../components/add-task/assigned/assigned.component';
 import { AddTaskComponent } from '../../../../components/add-task/add-task.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BtnBackComponent } from '../../buttons/btn-back/btn-back.component';
 import { ApiService } from '../../../../services/api.service';
 
 @Component({
@@ -24,7 +21,6 @@ export class TaskEditOverlayComponent {
   overlayMobile: boolean = false;
 
   constructor(
-    public firebaseService: FirebaseService,
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router

@@ -4,7 +4,6 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { FirebaseService } from '../../../../services/firebase.service';
 
 @Component({
   selector: 'app-contact-overlay',
@@ -28,7 +27,7 @@ export class ContactOverlayComponent implements OnInit {
   userInitials: string = '';
   newColor: string = '';
 
-  constructor(public firebaseService: FirebaseService) {}
+  constructor() {}
 
   ngOnInit() {}
 

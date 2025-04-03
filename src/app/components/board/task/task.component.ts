@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input } from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
 import { Task } from '../../../interfaces/task.interface';
-import { FirebaseService } from '../../../services/firebase.service';
 import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
@@ -32,7 +31,6 @@ export class TaskComponent {
 
   constructor(
     public dragDropService: DragDropService,
-    public firebaseService: FirebaseService,
     public overlayService: OverlayService,
     public resizeService: ResizeService,
     private router: Router
@@ -145,47 +143,5 @@ export class TaskComponent {
     ).length;
 
     return (completedSubtasksCount / this.task.subtasks.length) * 100;
-  }
-
-  // Assigned
-
-  /**
-   * Returns the initials of the user
-   * @param id the id of the user
-   * @returns the initials of the user as a string
-   */
-  userBadged(id: string) {
-    const userId = String(id);
-    const user = this.firebaseService
-      .getAllUsers()
-      .find((user) => user.id === userId);
-    if (user) {
-      if (user.firstName === 'Guest') {
-        return user.firstName.charAt(0);
-      } else {
-        const firstNameLetter = user.firstName.charAt(0);
-        const lastNameLetter = user.lastName.charAt(0);
-        return firstNameLetter + lastNameLetter;
-      }
-    } else {
-      return;
-    }
-  }
-
-  /**
-   * Returns the color of the user with the given id
-   * @param id the id of the user
-   * @returns the color of the user as a string
-   */
-  userBadgedColor(id: string) {
-    const userId = String(id);
-    const user = this.firebaseService
-      .getAllUsers()
-      .find((user) => user.id === userId);
-    if (user) {
-      return user.color;
-    } else {
-      return;
-    }
   }
 }

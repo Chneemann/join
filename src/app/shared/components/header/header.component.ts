@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { FirebaseService } from '../../../services/firebase.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../interfaces/user.interface';
 
@@ -19,10 +18,7 @@ export class HeaderComponent {
   navbarLanguageVisible: boolean = false;
   currentUser: User | null = null;
 
-  constructor(
-    public firebaseService: FirebaseService,
-    private userService: UserService
-  ) {}
+  constructor(private userService: UserService) {}
 
   /**
    * Loads the current user data by calling the loadCurrentUser method.

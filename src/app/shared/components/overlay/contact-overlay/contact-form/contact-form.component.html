@@ -95,7 +95,7 @@
       } @else { @if (email.touched &&
       !checkIfUserEmailIsValid(contactData.email)) {
       <p>{{ "contactDialogForm.invalidMail1" | translate }}</p>
-      } @else { @if (existEmailOnServer(contactData.email).length > 0 &&
+      } @else { @if (existEmailOnServer(contactData.email) &&
       !contactData.email) {
       <p>{{ "contactDialogForm.invalidMail2" | translate }}</p>
       } } }

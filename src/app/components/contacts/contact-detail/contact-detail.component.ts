@@ -6,7 +6,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FirebaseService } from '../../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
 import { finalize, lastValueFrom } from 'rxjs';
@@ -33,7 +32,6 @@ export class ContactDetailComponent {
   isMobileNavbarOpen: boolean = false;
 
   constructor(
-    public firebaseService: FirebaseService,
     private overlayService: OverlayService,
     private userService: UserService,
     private apiService: ApiService,

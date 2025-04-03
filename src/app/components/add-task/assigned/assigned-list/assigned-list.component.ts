@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FirebaseService } from '../../../../services/firebase.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../../interfaces/user.interface';
 
@@ -20,7 +19,7 @@ export class AssignedListComponent {
   assigned: string[] = [];
   currentUser: User | null = null;
 
-  constructor(public firebaseService: FirebaseService) {}
+  constructor() {}
 
   ngOnInit() {
     this.loadTaskAssignedData();

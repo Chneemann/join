@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FirebaseService } from '../../services/firebase.service';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
@@ -25,7 +24,6 @@ export class SummaryComponent {
   isLoading = false;
 
   constructor(
-    public firebaseService: FirebaseService,
     private translateService: TranslateService,
     private userService: UserService,
     private taskService: TaskService

@@ -4,7 +4,6 @@ import { LanguageService } from '../../../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginService } from '../../../../services/login.service';
-import { FirebaseService } from '../../../../services/firebase.service';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
@@ -23,13 +22,11 @@ export class NavbarComponent {
   constructor(
     public langService: LanguageService,
     private router: Router,
-    private authService: AuthService,
-    private loginService: LoginService,
-    private firebaseService: FirebaseService
+    private authService: AuthService
   ) {}
 
   /**
-   * OnInit lifecycle hook.
+   * Lifecycle hook that is called after the component has been initialized.
    *
    * Sets the currentRoute property to the current route's url.
    */
@@ -38,13 +35,10 @@ export class NavbarComponent {
   }
 
   /**
-   * Logs out the current user and navigates to the login page.
+   * Logs out the current user by calling the logout method of the AuthService.
    *
-   * The logout method of the LoginService is called with the current user ID as
-   * its argument. This will remove the user ID from the local storage and
-   * perform any other necessary cleanup operations.
-   *
-   * The user is then navigated to the login page.
+   * This will clear the user's authentication token and any associated session
+   * data, and navigate the user to the logout page.
    */
   logout() {
     this.authService.logout();

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FirebaseService } from '../../../../services/firebase.service';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { CommonModule } from '@angular/common';
 import { OverlayService } from '../../../../services/overlay.service';
@@ -30,7 +29,6 @@ export class TaskOverlayComponent implements OnInit {
   currentUserId: string = '';
 
   constructor(
-    public firebaseService: FirebaseService,
     private overlayService: OverlayService,
     private taskService: TaskService,
     private authService: AuthService,

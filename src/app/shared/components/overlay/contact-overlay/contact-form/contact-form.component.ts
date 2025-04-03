@@ -10,8 +10,6 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormBtnComponent } from '../../../buttons/form-btn/form-btn.component';
-
-import { FirebaseService } from '../../../../../services/firebase.service';
 import { ResizeService } from '../../../../../services/resize.service';
 import { lastValueFrom } from 'rxjs';
 import { ApiService } from '../../../../../services/api.service';
@@ -35,7 +33,6 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Output() closeDialogEmitter = new EventEmitter<string>();
 
   constructor(
-    public firebaseService: FirebaseService,
     public resizeService: ResizeService,
     private apiService: ApiService,
     private toastNotificationService: ToastNotificationService,
@@ -182,16 +179,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Returns an array of users that have the same email address as the given argument.
-   * This is used to check for duplicate email addresses when adding or editing a contact.
-   * @param {string} mail - The email address to check.
-   * @return {User[]} An array of users with the same email address.
-   */
   existEmailOnServer(mail: string) {
-    return this.firebaseService
-      .getAllUsers()
-      .filter((user) => user.email === mail);
+    return false; //TODO
   }
 
   /**

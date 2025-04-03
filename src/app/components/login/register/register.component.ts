@@ -4,7 +4,6 @@ import { FooterComponent } from '../footer/footer.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/form-btn.component';
-import { FirebaseService } from '../../../services/firebase.service';
 import { LoginService } from '../../../services/login.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { RouterModule } from '@angular/router';
@@ -41,7 +40,6 @@ export class RegisterComponent {
   };
 
   constructor(
-    private firebaseService: FirebaseService,
     public loginService: LoginService,
     public translateService: TranslateService,
     private buttonStateService: ButtonStateService
@@ -66,9 +64,7 @@ export class RegisterComponent {
   }
 
   existEmailOnServer(mail: string) {
-    return this.firebaseService
-      .getAllUsers()
-      .filter((user) => user.email === mail);
+    return false; //TODO
   }
 
   checkIfUserEmailIsValid(emailValue: string) {

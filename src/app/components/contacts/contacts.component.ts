@@ -2,7 +2,6 @@ import { Component, HostListener } from '@angular/core';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
-import { FirebaseService } from '../../services/firebase.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../services/user.service';
 import { finalize, firstValueFrom, Subject, takeUntil } from 'rxjs';
@@ -26,7 +25,6 @@ export class ContactsComponent {
   isLoading: boolean = false;
 
   constructor(
-    public firebaseService: FirebaseService,
     private userService: UserService,
     private overlayService: OverlayService,
     private updateNotifierService: UpdateNotifierService
