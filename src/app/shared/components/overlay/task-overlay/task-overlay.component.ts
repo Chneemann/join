@@ -12,11 +12,18 @@ import { map } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
 import { UpdateNotifierService } from '../../../../services/update-notifier.service';
 import { ToastNotificationService } from '../../../../services/toast-notification.servic';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-task-overlay',
   standalone: true,
-  imports: [BtnCloseComponent, CommonModule, BtnBackComponent, TranslateModule],
+  imports: [
+    BtnCloseComponent,
+    CommonModule,
+    BtnBackComponent,
+    TranslateModule,
+    ConfirmDialogComponent,
+  ],
   templateUrl: './task-overlay.component.html',
   styleUrl: './task-overlay.component.scss',
 })
@@ -27,6 +34,7 @@ export class TaskOverlayComponent implements OnInit {
   task: Task | null = null;
   overlayMobile: boolean = false;
   currentUserId: string = '';
+  showConfirmDialog = false;
 
   constructor(
     private overlayService: OverlayService,
@@ -158,5 +166,9 @@ export class TaskOverlayComponent implements OnInit {
    */
   capitalizeFirstLetter(data: string) {
     return data.charAt(0).toUpperCase() + data.slice(1);
+  }
+
+  toggleConfirmDialog() {
+    this.showConfirmDialog = !this.showConfirmDialog;
   }
 }

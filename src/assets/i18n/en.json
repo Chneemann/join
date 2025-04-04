@@ -93,6 +93,7 @@
   },
   "confirmDialogComponent": {
     "deleteContact": "Do you really want to delete the contact?",
+    "deleteTask": "Do you really want to delete the task?",
     "btnCancel": "Cancel",
     "btnConfirm": "Confirm"
   },
@@ -158,7 +159,7 @@
   "contacts": {
     "headline": "Contacts",
     "headlineDescription": "Better with a team",
-    "notice": "Notice: Click in the circle to change the colour.",
+    "notice": "Notice: Click in the circle to change the color.",
     "btnNew": "Add new contact",
     "btnEdit0": "edit",
     "btnEdit1": "Edit",

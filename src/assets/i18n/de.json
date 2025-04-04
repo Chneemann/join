@@ -92,7 +92,8 @@
     "phone": "Telefon"
   },
   "confirmDialogComponent": {
-    "deleteContact": "Möchten Sie den Kontakt wirklich löschen?",
+    "deleteContact": "Willst du den Kontakt wirklich löschen?",
+    "deleteTask": "Willst du den Task wirklich löschen?",
     "btnCancel": "Abbrechen",
     "btnConfirm": "Bestätigen"
   },

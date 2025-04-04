@@ -31,9 +31,7 @@ export class ContactDetailComponent {
   isLoading: boolean = false;
   selectedUser: User | null = null;
   isMobileNavbarOpen: boolean = false;
-
   showConfirmDialog = false;
-  userToDeleteId: string | null = null;
 
   constructor(
     private overlayService: OverlayService,
