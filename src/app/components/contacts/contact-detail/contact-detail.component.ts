@@ -14,11 +14,12 @@ import { OverlayService } from '../../../services/overlay.service';
 import { ApiService } from '../../../services/api.service';
 import { ToastNotificationService } from '../../../services/toast-notification.servic';
 import { UpdateNotifierService } from '../../../services/update-notifier.service';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-contact-detail',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, ConfirmDialogComponent],
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.scss',
 })
@@ -30,6 +31,9 @@ export class ContactDetailComponent {
   isLoading: boolean = false;
   selectedUser: User | null = null;
   isMobileNavbarOpen: boolean = false;
+
+  showConfirmDialog = false;
+  userToDeleteId: string | null = null;
 
   constructor(
     private overlayService: OverlayService,
@@ -97,9 +101,13 @@ export class ContactDetailComponent {
     this.isMobileNavbarOpen = false;
   }
 
-  async deleteContact(userId: string) {
+  toggleConfirmDialog() {
+    this.showConfirmDialog = !this.showConfirmDialog;
+  }
+
+  async deleteContact() {
     try {
-      await lastValueFrom(this.apiService.deleteUserById(userId));
+      await lastValueFrom(this.apiService.deleteUserById(this.selectedUserId!));
       this.toastNotificationService.deleteContactSuccessToast();
       this.updateNotifierService.notifyUpdate('contact');
       this.closeUserDetails();

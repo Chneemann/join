@@ -10,7 +10,6 @@ app-header {
   height: 96px;
   width: 100%;
   background-color: var(--white);
-  z-index: 2;
 }
 
 app-sidebar {
@@ -35,7 +34,6 @@ app-sidebar-mobile {
   padding: 64px;
   background-color: var(--bgContent);
   overflow-y: auto;
-  z-index: 1;
 }
 
 .blur-background {

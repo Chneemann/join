@@ -91,10 +91,10 @@
     "email": "E-Mail",
     "phone": "Telefon"
   },
-  "contactDeleteDialog": {
+  "confirmDialogComponent": {
     "deleteContact": "Möchten Sie den Kontakt wirklich löschen?",
     "btnCancel": "Abbrechen",
-    "btnDelete": "Löschen"
+    "btnConfirm": "Bestätigen"
   },
   "summary": {
     "headlineDescription": "Schlüsselmetriken auf einen Blick",

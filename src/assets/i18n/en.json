@@ -91,10 +91,10 @@
     "email": "Email",
     "phone": "Phone"
   },
-  "contactDeleteDialog": {
+  "confirmDialogComponent": {
     "deleteContact": "Do you really want to delete the contact?",
     "btnCancel": "Cancel",
-    "btnDelete": "Delete"
+    "btnConfirm": "Confirm"
   },
   "summary": {
     "headlineDescription": "Key Metrics at a Glance",
