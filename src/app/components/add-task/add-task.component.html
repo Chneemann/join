@@ -34,7 +34,6 @@
             id="title"
             name="title"
             #title="ngModel"
-            (input)="saveTaskData()"
             placeholder="{{
               taskData.title
                 ? taskData.title
@@ -61,7 +60,6 @@
             name="description"
             #description="ngModel"
             minlength="10"
-            (input)="saveTaskData()"
             placeholder="{{
               taskData.description
                 ? taskData.description
@@ -79,7 +77,7 @@
         </div>
         <app-assigned
           [taskCreator]="taskData.creator"
-          [assignedList]="taskData.assigned"
+          [currentAssignees]="taskData.assignees"
           (assignedChange)="receiveAssigned($event)"
         ></app-assigned>
       </div>
@@ -177,7 +175,6 @@
             id="category"
             name="category"
             #category="ngModel"
-            (change)="saveTaskData()"
             [(ngModel)]="taskData.category"
             required
           >
@@ -263,7 +260,7 @@
               ? 'block'
               : 'none'
         }"
-        (click)="removeTaskData(taskForm)"
+        (click)="clearTaskData(taskForm)"
       ></app-form-btn>
       <app-form-btn
         [class]="'btn-delete'"

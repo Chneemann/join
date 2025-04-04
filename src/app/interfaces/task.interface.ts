@@ -8,7 +8,6 @@ export interface Task {
   status: string;
   priority: string;
   subtasks: Subtask[];
-  assigned: string[];
   assignees: Assignee[];
   userData: UserSummary[];
   creator: string;
@@ -22,5 +21,6 @@ export interface Subtask {
 }
 
 export interface Assignee {
+  id?: string;
   userId: string;
 }

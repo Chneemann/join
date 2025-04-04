@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { User } from '../../../interfaces/user.interface';
 import { ApiService } from '../../../services/api.service';
 import { map, catchError, of } from 'rxjs';
+import { Assignee } from '../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-assigned',
@@ -22,14 +23,14 @@ import { map, catchError, of } from 'rxjs';
 })
 export class AssignedComponent {
   @Input() taskCreator: string = '';
-  @Input() assignedList: string[] = [];
+  @Input() currentAssignees: Assignee[] = [];
   @Output() assignedChange = new EventEmitter<string[]>();
 
   tooltipUserId: string | null = null;
   filteredUsers: User[] = [];
   users: User[] = [];
   searchValue: string = '';
-  searchInput: boolean = false;
+  showSearch: boolean = false;
   showAssignedList: boolean = false;
   dialogX: number = 0;
   dialogY: number = 0;
@@ -55,7 +56,7 @@ export class AssignedComponent {
 
   searchTask(): void {
     this.searchValue = this.replaceXSSChars(this.searchValue) || '';
-    this.searchInput = this.searchValue.trim().length > 0;
+    this.showSearch = this.searchValue.trim().length > 0;
 
     const searchValue = this.searchValue.toLowerCase();
     this.filteredUsers = this.users.filter(
@@ -93,6 +94,10 @@ export class AssignedComponent {
 
   toggleAssignedMenu() {
     this.showAssignedList = !this.showAssignedList;
+  }
+
+  get assignedUserIds(): Set<string> {
+    return new Set(this.currentAssignees.map((assignee) => assignee.userId));
   }
 
   @HostListener('document:click', ['$event'])

@@ -54,7 +54,6 @@ export class AddTaskComponent implements OnInit {
     status: this.taskService.getStatuses()[0],
     priority: this.taskService.getPriorities()[0],
     subtasks: [],
-    assigned: [],
     assignees: [],
     userData: [],
     creator: '',
@@ -70,9 +69,8 @@ export class AddTaskComponent implements OnInit {
    */
   ngOnInit() {
     this.setCurrentUserId();
-    this.loadEditTaskData();
+    this.loadExistingTaskData();
     this.routeParams();
-    this.loadLocalStorageData();
   }
 
   setCurrentUserId() {
@@ -84,13 +82,7 @@ export class AddTaskComponent implements OnInit {
       });
   }
 
-  /**
-   * Loads task data for editing if applicable, or sets the task status if this is a new task overlay.
-   * @param {string} overlayData The task id or status of the task to be loaded.
-   * @param {string} overlayType The type of overlay to be opened.
-   * @returns {void}
-   */
-  async loadEditTaskData() {
+  async loadExistingTaskData() {
     if (this.overlayData) {
       const taskData = await firstValueFrom(this.getTaskData(this.overlayData));
       if (taskData) {
@@ -123,14 +115,6 @@ export class AddTaskComponent implements OnInit {
    * If no task data is present in local storage, this method saves the current taskData object to local storage.
    * @returns {void}
    */
-  loadLocalStorageData() {
-    const storedTaskData = localStorage.getItem('taskData');
-    if (storedTaskData) {
-      this.taskData = JSON.parse(storedTaskData);
-    } else {
-      this.saveTaskData();
-    }
-  }
 
   /**
    * Gets the task data from the Firebase service for the given task id.
@@ -147,14 +131,12 @@ export class AddTaskComponent implements OnInit {
       status: false,
     };
     this.taskData.subtasks.push(newSubtask);
-    this.saveTaskData();
   }
 
   deleteSubtask(subtaskToDelete: Subtask) {
     this.taskData.subtasks = this.taskData.subtasks.filter(
       (subtask) => subtask !== subtaskToDelete
     );
-    this.saveTaskData();
   }
 
   /**
@@ -171,7 +153,9 @@ export class AddTaskComponent implements OnInit {
    * @returns {void}
    */
   receiveAssigned(assigned: string[]) {
-    this.taskData.assigned = assigned;
+    this.taskData.assignees = assigned.map((userId) => ({
+      userId: userId,
+    }));
   }
 
   /**
@@ -203,19 +187,6 @@ export class AddTaskComponent implements OnInit {
     this.taskData.priority !== priority
       ? (this.taskData.priority = priority)
       : this.taskData.priority;
-    this.saveTaskData();
-  }
-
-  /**
-   * Saves the current task data to local storage.
-   *
-   * This function first runs the cross site scripting check on the task data,
-   * then saves the task data to local storage.
-   * @returns {void}
-   */
-  saveTaskData() {
-    this.checkCrossSiteScripting();
-    localStorage.setItem('taskData', JSON.stringify(this.taskData));
   }
 
   /**
@@ -223,8 +194,7 @@ export class AddTaskComponent implements OnInit {
    * @param form the form to reset
    * @returns {void}
    */
-  removeTaskData(form: NgForm) {
-    localStorage.removeItem('taskData');
+  clearTaskData(form: NgForm) {
     this.clearForm(form);
     this.clearFormData();
   }
@@ -259,7 +229,7 @@ export class AddTaskComponent implements OnInit {
   clearFormData() {
     this.taskData.date = this.currentDate;
     this.taskData.category = '';
-    this.taskData.assigned = [];
+    this.taskData.assignees = [];
     this.taskData.subtasks = [];
   }
 
@@ -292,7 +262,7 @@ export class AddTaskComponent implements OnInit {
         next: (response) => {
           this.toastNotificationService.createTaskSuccessToast();
           this.updateNotifierService.notifyUpdate('task');
-          this.removeTaskData(ngForm);
+          this.clearTaskData(ngForm);
           this.closeOverlay();
           this.router.navigate(['/board']);
         },
@@ -327,6 +297,9 @@ export class AddTaskComponent implements OnInit {
   }
 
   replaceXSSChars(input: string) {
+    if (!input) {
+      return '';
+    }
     return input.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 }

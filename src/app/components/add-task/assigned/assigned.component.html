@@ -15,8 +15,7 @@
   @if (showAssignedList) {
   <app-assigned-list
     [filteredUsers]="filteredUsers"
-    [taskCreator]="taskCreator"
-    [searchInput]="searchInput"
+    [currentAssignees]="currentAssignees"
     (assignedChange)="receiveAssigned($event)"
   >
     ></app-assigned-list
@@ -31,21 +30,19 @@
   }
 
   <div class="assigned-badge">
-    @for (user of users; track user; let index = $index) { @for (users of
-    assignedList; track users ) { @if (user.id === users) {
+    @for (user of users; track user) { @if (user.id &&
+    assignedUserIds.has(user.id || '')) {
     <div
       class="circle"
       (mousemove)="openTooltipUser(user.id, $event)"
       (mouseleave)="closeTooltipUser()"
-      [ngStyle]="{
-        'background-color': user.color
-      }"
+      [ngStyle]="{ 'background-color': user.color }"
     >
       <div class="initials">
         {{ user.initials }}
       </div>
     </div>
-    } } } @if (tooltipUserId) {
+    } } @if (tooltipUserId) {
     <div
       class="tooltip-user"
       [style.left.px]="dialogX"

@@ -1,49 +1,35 @@
 <section>
   @if (filteredUsers.length === 0) {
-  <div class="content"><p class="no-users">No users found</p></div>
-  } @else { @for (user of filteredUsers; track user.id) {
+  <div class="no-users">
+    <p>No users found</p>
+  </div>
+  } @else { @for (user of filteredUsers; track user.id) { @if (user.id) {
   <div
-    class="content"
-    (click)="addAssignedToTask(user.id)"
-    [ngClass]="{ selected: assigned.includes(user.id) }"
-    *ngIf="user.id"
+    class="user-item"
+    (click)="toggleAssignee(user.id)"
+    [ngClass]="{ selected: assignedUserIds.has(user.id) }"
   >
-    <div
-      class="circle"
-      [ngStyle]="{
-        'background-color': user.color
-      }"
-    >
-      <div class="initials">
-        {{ user.initials }}
-      </div>
+    <div class="circle" [ngStyle]="{ 'background-color': user.color }">
+      <div class="initials">{{ user.initials }}</div>
     </div>
     <div class="details">
       <div class="name">
-        <p>
-          {{ user.firstName }}
-        </p>
+        <p>{{ user.firstName }}</p>
         <span>,&nbsp;</span>
-        <p class="last-name">
-          {{ user.lastName }}
-        </p>
+        <p class="last-name">{{ user.lastName }}</p>
       </div>
     </div>
     <div class="checkbox">
-      @if (assigned.includes(user.id)) {
       <img
         class="checkbox-img"
-        src="./../../../../assets/img/add-task/checkbox-checked.svg"
+        [src]="
+          assignedUserIds.has(user.id)
+            ? './../../../../assets/img/add-task/checkbox-checked.svg'
+            : './../../../../assets/img/add-task/checkbox-empty.svg'
+        "
         alt=""
       />
-      } @else {
-      <img
-        class="checkbox-img"
-        src="./../../../../assets/img/add-task/checkbox-empty.svg"
-        alt=""
-      />
-      }
     </div>
   </div>
-  } }
+  } } }
 </section>
