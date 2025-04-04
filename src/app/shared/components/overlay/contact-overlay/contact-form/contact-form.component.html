@@ -113,7 +113,6 @@
       [(ngModel)]="contactData.phone"
       pattern="[\d\+\-\(\)\/]{10,15}"
       autocomplete="off"
-      required
     />
     <div class="error-msg">
       @if (!phone.valid && phone.touched) {
@@ -126,7 +125,7 @@
         class="btn-delete"
         type="button"
         value="{{ 'contactDialogForm.btnDelete' | translate }}"
-        (click)="closeDialog()"
+        (click)="deleteContact(selectedUser.id)"
       ></app-form-btn>
       } @else {
       <app-form-btn
@@ -149,8 +148,6 @@
           !contactData.lastName ||
           email.invalid ||
           !contactData.email ||
-          phone.invalid ||
-          !contactData.phone ||
           !checkIfUserEmailIsValid(contactData.email)
         "
       ></app-form-btn>

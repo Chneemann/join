@@ -273,6 +273,17 @@ export class ContactFormComponent implements OnInit, OnChanges {
     return newObj;
   }
 
+  async deleteContact(userId: string) {
+    try {
+      await lastValueFrom(this.apiService.deleteUserById(userId));
+      this.toastNotificationService.deleteContactSuccessToast();
+      this.updateNotifierService.notifyUpdate('contact');
+      this.closeDialog();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   closeDialog() {
     this.closeDialogEmitter.emit('');
   }

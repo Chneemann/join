@@ -85,7 +85,7 @@
     "invalidMail0": "You must enter a mail!",
     "invalidMail1": "This is not a valid email format!",
     "invalidMail2": "This email already exists!",
-    "invalidPhone": "A phone number is required!",
+    "invalidPhone": "Invalid phone number (10–15 chars, digits + ()-/ allowed)",
     "firstName": "First name",
     "lastName": "Last name",
     "email": "Email",
