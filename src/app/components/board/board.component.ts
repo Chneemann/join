@@ -111,8 +111,8 @@ export class BoardComponent {
    * - `itemMovedFrom`: Sets `taskMovedFrom` to the status.
    */
   private subscribeToDragDropEvents(): void {
-    this.dragDropService.itemDropped.subscribe(({ id, status }) => {
-      this.handleItemDropped(id, status);
+    this.dragDropService.itemDropped.subscribe(({ task, status }) => {
+      this.handleItemDropped(task, status);
     });
 
     this.dragDropService.itemMovedTo.subscribe(({ status }) => {
@@ -139,11 +139,13 @@ export class BoardComponent {
    * @param taskId The id of the task being moved.
    * @param status The status of the column where the task was dropped.
    */
-  handleItemDropped(taskId: string, status: string): void {
-    this.apiService.updateTaskStatus(taskId, status).subscribe({
+  handleItemDropped(task: Task, status: string): void {
+    if (!task || task.status === status) return;
+
+    this.apiService.updateTaskStatus(task.id!, status).subscribe({
       next: () => {
         this.toastNotificationService.taskStatusUpdatedToast();
-        this.updateTaskStatus(taskId, status);
+        this.updateTaskStatus(task.id!, status);
       },
       error: (error) => console.error('Error updating task:', error),
     });

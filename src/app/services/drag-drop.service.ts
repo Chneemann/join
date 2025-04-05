@@ -1,71 +1,68 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Task } from '../interfaces/task.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DragDropService {
-  itemDropped = new EventEmitter<{ id: string; status: string }>();
+  itemDropped = new EventEmitter<{ task: Task; status: string }>();
   itemMovedFrom = new EventEmitter<{ status: string }>();
   itemMovedTo = new EventEmitter<{ status: string }>();
+
+  private draggedTask: Task | null = null;
 
   constructor() {}
 
   /**
-   * This function is called when a drag event starts.
-   *
-   * It sets the `id` of the item being dragged to the `dataTransfer` object
-   * and emits an event indicating that the item has been moved from a certain
-   * status.
-   *
-   * @param event The drag event.
-   * @param id The id of the item being dragged.
-   * @param status The status of the item being dragged.
+   * Start a drag/drop operation. Called on the dragstart event.
+   * @param event The dragstart event.
+   * @param task The task being dragged.
+   * @remarks
+   * - Sets the dragged task to the given task.
+   * - Emits the `itemMovedFrom` event with the status of the task.
    */
-  startDragging(event: DragEvent, id: string | undefined, status: string) {
-    if (id !== undefined) {
-      event.dataTransfer?.setData('text/plain', id);
-      this.itemMovedFrom.emit({ status });
+  startDragging(event: DragEvent, task: Task) {
+    if (task.id) {
+      event.dataTransfer?.setData('text/plain', task.id);
+      this.draggedTask = task;
+      this.itemMovedFrom.emit({ status: task.status });
     }
   }
 
   /**
-   * Allows a drop event to occur by preventing the default handling of the event.
-   *
-   * This function is called during the dragover event to indicate that the dragged
-   * item can be dropped in the current target. It prevents the default behavior and
-   * emits an event indicating that the item is being moved to a specified status.
-   *
-   * @param event The drag event.
-   * @param status The status to which the item is being moved.
+   * Called on the dragover event.
+   * @param event The dragover event.
+   * @param status The status of the column being dropped on.
+   * @remarks
+   * - Prevents the default browser behavior.
+   * - Emits the `itemMovedTo` event with the status of the column.
    */
   allowDrop(event: DragEvent, status: string) {
     event.preventDefault();
-    const dataTransfer = event.dataTransfer;
-    if (dataTransfer) {
-      this.itemMovedTo.emit({ status });
-    }
+    this.itemMovedTo.emit({ status });
   }
 
   /**
-   * This function is called when the user drops an item that was being dragged.
-   *
-   * It prevents the default behavior of the drop event and emits an event
-   * indicating that the item has been dropped. It also emits an event indicating
-   * that the item has been moved to a certain status.
-   *
-   * @param event The drag event.
-   * @param status The status to which the item is being moved.
+   * Complete the drag/drop operation. Called on the drop event.
+   * @param event The drop event.
+   * @param newStatus The status of the column being dropped on.
+   * @remarks
+   * - Prevents the default browser behavior.
+   * - If the dragged task is not null and the new status is different from its current status,
+   *   emits the `itemDropped` event with the task and the new status.
+   * - Sets the dragged task to null.
+   * - Emits the `itemMovedTo` event with an empty status, to reset the highlight.
    */
-  drop(event: DragEvent, status: string) {
+  drop(event: DragEvent, newStatus: string) {
     event.preventDefault();
-    const dataTransfer = event.dataTransfer;
-    if (dataTransfer) {
-      const id = dataTransfer.getData('text/plain');
-      if (id) {
-        this.itemDropped.emit({ id, status });
-        status = '';
-        this.itemMovedTo.emit({ status });
+
+    if (this.draggedTask) {
+      if (this.draggedTask.status !== newStatus) {
+        this.itemDropped.emit({ task: this.draggedTask, status: newStatus });
       }
+      this.draggedTask = null;
     }
+
+    this.itemMovedTo.emit({ status: '' });
   }
 }
