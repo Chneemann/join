@@ -37,6 +37,10 @@ export class ErrorNotificationService {
           errorMessage =
             'The request timed out. Please check your connection and try again later.';
           break;
+        case 409:
+          errorMessage =
+            'The email is already in use. Please choose a different email or log in if you already have an account.';
+          break;
         case 500:
           errorMessage =
             'There was a problem on the server. Please try again later or contact support if the issue persists.';

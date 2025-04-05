@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonStateService } from '../../../services/button-state.service';
 import { LoginLoaderComponent } from '../login-loader/login-loader.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -29,11 +30,13 @@ import { LoginLoaderComponent } from '../login-loader/login-loader.component';
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
+  errorHttpMessage: string = '';
+
   registerData = {
     name: '',
     firstName: '',
     lastName: '',
-    mail: '',
+    email: '',
     password: '',
     passwordConfirm: '',
     checkboxState: '',
@@ -42,14 +45,23 @@ export class RegisterComponent {
   constructor(
     public loginService: LoginService,
     public translateService: TranslateService,
+    private authService: AuthService,
     private buttonStateService: ButtonStateService
   ) {}
 
-  onSubmit(ngForm: NgForm) {
-    this.buttonStateService.enableButton();
+  async onSubmit(ngForm: NgForm) {
+    this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
-      this.splitName();
-      this.loginService.register(this.registerData);
+      this.extractFirstAndLastName();
+      try {
+        await this.authService.register(this.registerData);
+        this.buttonStateService.enableButton();
+      } catch (error: any) {
+        this.errorHttpMessage = error.message;
+        this.buttonStateService.enableButton();
+      }
+    } else {
+      this.buttonStateService.enableButton();
     }
   }
 
@@ -57,17 +69,13 @@ export class RegisterComponent {
     return this.buttonStateService.isButtonDisabled;
   }
 
-  splitName() {
+  extractFirstAndLastName() {
     const names = this.registerData.name.split(' ');
     this.registerData.firstName = names[0];
     this.registerData.lastName = names.slice(1).join(' ');
   }
 
-  existEmailOnServer(mail: string) {
-    return false; //TODO
-  }
-
-  checkIfUserEmailIsValid(emailValue: string) {
+  isEmailValid(emailValue: string) {
     const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
     if (emailRegex.test(emailValue)) {
       return true;

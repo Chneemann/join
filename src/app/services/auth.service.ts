@@ -60,6 +60,19 @@ export class AuthService {
     }
   }
 
+  async register(credentials: any): Promise<void> {
+    try {
+      await lastValueFrom(
+        this.apiService.request('POST', `/auth/register/`, credentials)
+      );
+      this.router.navigate(['/login']);
+      this.toastNotificationService.registerSuccessToast();
+    } catch (error: any) {
+      console.error('Registration failed:', error);
+      throw new Error(error?.error?.error);
+    }
+  }
+
   checkAuthUser(): Observable<boolean> {
     return this.apiService.request('GET', `/auth/`).pipe(
       map(() => true),

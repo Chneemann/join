@@ -47,17 +47,17 @@
           }}
         </div>
         <input
-          type="mail"
-          id="mail"
-          name="mail"
+          type="email"
+          id="email"
+          name="email"
           #mail="ngModel"
           placeholder="{{ 'register.email' | translate }}"
           class="custom-input"
           autocomplete="email"
-          [(ngModel)]="registerData.mail"
+          [(ngModel)]="registerData.email"
           required
         />
-        @if(!registerData.mail) {
+        @if(!registerData.email) {
         <img
           class="custom-img"
           src="./../../../assets/img/login/mail.svg"
@@ -68,14 +68,14 @@
         }
         <div class="error-msg">
           @if(!mail.valid && mail.touched &&
-          !checkIfUserEmailIsValid(registerData.mail.toLowerCase()) &&
+          !isEmailValid(registerData.email.toLowerCase()) &&
           !isButtonDisabled()) {
           <p>{{ "register.errorMail0" | translate }}</p>
           } @else { @if (mail.touched &&
-          !checkIfUserEmailIsValid(registerData.mail.toLowerCase()) &&
+          !isEmailValid(registerData.email.toLowerCase()) &&
           !isButtonDisabled()) {
           <p>{{ "register.errorMail1" | translate }}</p>
-          } @else { @if (existEmailOnServer(registerData.mail.toLowerCase()) &&
+          } @else { @if (errorHttpMessage === 'Email already exists' &&
           !isButtonDisabled()) {
           <p>{{ "register.errorMail2" | translate }}</p>
           } } }
@@ -109,7 +109,7 @@
         <div class="error-msg">
           @if (!password.valid && password.touched && !isButtonDisabled()) {
           <p>{{ "register.errorPassword0" | translate }}</p>
-          } @else { @if (registerData.password.length < 6 && password.touched &&
+          } @else { @if (registerData.password.length < 8 && password.touched &&
           !isButtonDisabled()) {
           <p>{{ "register.errorPassword1" | translate }}</p>
           } }
@@ -181,14 +181,14 @@
           [value]="'register.signup' | translate"
           [disabled]="
             mail.invalid ||
-            !registerData.mail ||
+            !registerData.email ||
             password.invalid ||
             !registerData.password ||
             !checkbox.valid ||
             isButtonDisabled() ||
             registerData.password.length < 6 ||
             registerData.password !== registerData.passwordConfirm ||
-            !checkIfUserEmailIsValid(registerData.mail)
+            !isEmailValid(registerData.email)
           "
         ></app-form-btn>
       </div>

@@ -22,6 +22,13 @@ export class ToastNotificationService {
     );
   }
 
+  registerSuccessToast(): void {
+    this.createSuccessToast(
+      'You have successfully registered. Please log in.',
+      'Registration Successful'
+    );
+  }
+
   showSessionExpiredMessage(): void {
     this.createInfoToast(
       'Your session has expired, please log in again.',
