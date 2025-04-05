@@ -14,8 +14,8 @@ import { User } from '../../../interfaces/user.interface';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  navbarVisible: boolean = false;
-  navbarLanguageVisible: boolean = false;
+  showNavbar: boolean = false;
+  showLanguageNavbar: boolean = false;
   currentUser: User | null = null;
 
   constructor(private userService: UserService) {}
@@ -41,15 +41,15 @@ export class HeaderComponent {
    * @returns {void}
    */
   toggleNavbar(): void {
-    this.navbarVisible = !this.navbarVisible;
+    this.showNavbar = !this.showNavbar;
   }
 
   /**
    * Toggles the visibility of the language selection navbar.
    * @returns {void}
    */
-  toggleLanguage(): void {
-    this.navbarLanguageVisible = !this.navbarLanguageVisible;
+  toggleLanguageNavbar(): void {
+    this.showLanguageNavbar = !this.showLanguageNavbar;
   }
 
   @HostListener('document:click', ['$event'])
@@ -64,17 +64,17 @@ export class HeaderComponent {
       !targetElement.closest('app-navbar') &&
       !targetElement.closest('.img-user')
     ) {
-      this.navbarVisible = false;
+      this.showNavbar = false;
     }
     if (
       !targetElement.closest('app-navbar') &&
       !targetElement.closest('.img-lang')
     ) {
-      this.navbarLanguageVisible = false;
+      this.showLanguageNavbar = false;
     }
     if (targetElement.closest('.link')) {
-      this.navbarVisible = false;
-      this.navbarLanguageVisible = false;
+      this.showNavbar = false;
+      this.showLanguageNavbar = false;
     }
   }
 }

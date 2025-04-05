@@ -1,4 +1,4 @@
-@if (navbarVisible) {
+@if (showNavbar) {
 <nav class="navbar d-none">
   <div
     class="link"
@@ -22,7 +22,7 @@
     <span>{{ "navbar.logout" | translate }}</span>
   </div>
 </nav>
-} @else if (navbarLanguageVisible) {
+} @else if (showLanguageNavbar) {
 <nav class="navbar language d-none">
   <div
     class="link"

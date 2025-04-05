@@ -42,4 +42,15 @@ export class TokenService {
     localStorage.removeItem(this.USER_ID_KEY);
     sessionStorage.removeItem(this.USER_ID_KEY);
   }
+
+  isTokenExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expiry = payload.exp;
+      if (!expiry) return true;
+      return expiry * 1000 < Date.now();
+    } catch (e) {
+      return true;
+    }
+  }
 }

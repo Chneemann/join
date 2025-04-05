@@ -14,8 +14,8 @@ import { AuthService } from '../../../../services/auth.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  @Input() navbarVisible: boolean = false;
-  @Input() navbarLanguageVisible: boolean = false;
+  @Input() showNavbar: boolean = false;
+  @Input() showLanguageNavbar: boolean = false;
 
   currentRoute: string = '';
 

@@ -17,7 +17,8 @@ export class RedirectIfAuthenticatedGuard {
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     const authToken = this.tokenService.getAuthToken();
-    if (!authToken) {
+
+    if (!authToken || !this.tokenService.isTokenExpired(authToken)) {
       return true;
     }
 

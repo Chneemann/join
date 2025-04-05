@@ -12,7 +12,7 @@
     <div class="img-language">
       <img
         class="img-lang"
-        (click)="toggleLanguage()"
+        (click)="toggleLanguageNavbar()"
         src="./../../../../assets/img/header/language.svg"
         alt=""
       />
@@ -22,8 +22,8 @@
     </div>
   </div>
 </div>
-<app-navbar *ngIf="navbarVisible" [navbarVisible]="navbarVisible"></app-navbar>
+<app-navbar *ngIf="showNavbar" [showNavbar]="showNavbar"></app-navbar>
 <app-navbar
-  *ngIf="navbarLanguageVisible"
-  [navbarLanguageVisible]="navbarLanguageVisible"
+  *ngIf="showLanguageNavbar"
+  [showLanguageNavbar]="showLanguageNavbar"
 ></app-navbar>

@@ -22,6 +22,13 @@ export class ToastNotificationService {
     );
   }
 
+  showSessionExpiredMessage(): void {
+    this.createInfoToast(
+      'Your session has expired, please log in again.',
+      'Session Expired'
+    );
+  }
+
   // Tasks
   createTaskSuccessToast(): void {
     this.createSuccessToast('Task created successfully!', 'Task Created');
