@@ -84,6 +84,23 @@ export class AuthService {
     }
   }
 
+  async resetPasswordConfirm(password: string, uid: string, token: string) {
+    try {
+      await lastValueFrom(
+        this.apiService.request('POST', `/auth/reset/confirm/`, {
+          password,
+          uid,
+          token,
+        })
+      );
+      this.toastNotificationService.resetPasswordConfirmSuccessToast();
+      this.router.navigate(['/login']);
+    } catch (error: any) {
+      console.error('Password reset confirmation failed:', error);
+      throw new Error(error?.error?.error);
+    }
+  }
+
   checkAuthUser(): Observable<boolean> {
     return this.apiService.request('GET', `/auth/`).pipe(
       map(() => true),

@@ -5,10 +5,11 @@ import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn
 import { FooterComponent } from '../../footer/footer.component';
 import { HeaderComponent } from '../../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginService } from '../../../../services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ButtonStateService } from '../../../../services/button-state.service';
+import { AuthService } from '../../../../services/auth.service';
+import { LoginService } from '../../../../services/login.service';
 
 @Component({
   selector: 'app-pw-reset',
@@ -25,8 +26,11 @@ import { ButtonStateService } from '../../../../services/button-state.service';
   styleUrl: './pw-reset.component.scss',
 })
 export class PwResetComponent {
-  oobCode: string = '';
-  private queryParamsSubscription: Subscription = new Subscription();
+  private routeSubscription: Subscription = new Subscription();
+
+  uid: string = '';
+  token: string = '';
+  errorHttpMessage: string = '';
 
   pwResetData = {
     password: '',
@@ -35,26 +39,42 @@ export class PwResetComponent {
 
   constructor(
     public loginService: LoginService,
+    private authService: AuthService,
     private buttonStateService: ButtonStateService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.queryParamsSubscription = this.route.queryParams.subscribe(
-      (params) => {
-        this.oobCode = params['oobCode'];
-      }
-    );
+    this.routeSubscription = this.route.params.subscribe((params) => {
+      this.uid = params['uid'];
+      this.token = params['token'];
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   }
 
   isButtonDisabled() {
     return this.buttonStateService.isButtonDisabled;
   }
 
-  onSubmit(ngForm: NgForm) {
-    this.buttonStateService.enableButton();
+  async onSubmit(ngForm: NgForm) {
+    this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
-      this.loginService.newPassword(this.pwResetData.password, this.oobCode);
+      try {
+        await this.authService.resetPasswordConfirm(
+          this.pwResetData.password,
+          this.uid,
+          this.token
+        );
+        this.buttonStateService.enableButton();
+      } catch (error: any) {
+        this.errorHttpMessage = error.message;
+        this.buttonStateService.enableButton();
+      }
     }
   }
 }

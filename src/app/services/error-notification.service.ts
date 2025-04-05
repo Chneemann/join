@@ -33,6 +33,10 @@ export class ErrorNotificationService {
           errorMessage =
             'The requested page could not be found. Please make sure the URL is correct and try again.';
           break;
+        case 406:
+          errorMessage =
+            'The request was not acceptable. Invalid request parameters were provided.';
+          break;
         case 408:
           errorMessage =
             'The request timed out. Please check your connection and try again later.';

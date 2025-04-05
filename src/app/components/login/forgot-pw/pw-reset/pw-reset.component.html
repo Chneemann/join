@@ -43,7 +43,7 @@
         <div class="error-msg">
           @if (!password.valid && password.touched) {
           <p>{{ "register.errorPassword0" | translate }}</p>
-          } @else { @if (pwResetData.password.length < 6 && password.touched) {
+          } @else { @if (pwResetData.password.length < 8 && password.touched) {
           <p>{{ "register.errorPassword1" | translate }}</p>
           } }
         </div>
@@ -79,6 +79,8 @@
           } @if (pwResetData.password !== pwResetData.passwordConfirm &&
           pwResetData.password !== "" && pwResetData.passwordConfirm !== "") {
           <p>{{ "register.errorPassword2" | translate }}</p>
+          } @if (errorHttpMessage === 'Invalid reset link.') {
+          <p>{{ "forgotPW.invalidLink" | translate }}</p>
           }
         </div>
       </div>

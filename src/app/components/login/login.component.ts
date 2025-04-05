@@ -76,6 +76,7 @@ export class LoginComponent {
   async onSubmit(ngForm: NgForm) {
     this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
+      this.loginData.email = this.loginData.email.toLowerCase();
       try {
         await this.authService.login(this.loginData, this.checkboxRememberMe);
         this.router.navigate(['/summary']);

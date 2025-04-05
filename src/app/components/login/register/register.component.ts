@@ -53,6 +53,7 @@ export class RegisterComponent {
     this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       this.extractFirstAndLastName();
+      this.registerData.email = this.registerData.email.toLowerCase();
       try {
         await this.authService.register(this.registerData);
         this.buttonStateService.enableButton();
@@ -71,8 +72,11 @@ export class RegisterComponent {
 
   extractFirstAndLastName() {
     const names = this.registerData.name.split(' ');
-    this.registerData.firstName = names[0];
-    this.registerData.lastName = names.slice(1).join(' ');
+    this.registerData.firstName =
+      names[0].charAt(0).toUpperCase() + names[0].slice(1).toLowerCase();
+    this.registerData.lastName =
+      names.slice(1).join(' ').charAt(0).toUpperCase() +
+      names.slice(1).join(' ').slice(1).toLowerCase();
   }
 
   isEmailValid(emailValue: string) {

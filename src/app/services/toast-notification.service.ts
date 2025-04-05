@@ -36,6 +36,13 @@ export class ToastNotificationService {
     );
   }
 
+  resetPasswordConfirmSuccessToast(): void {
+    this.createSuccessToast(
+      'You have successfully reset your password. Please log in.',
+      'Password Reset Successful'
+    );
+  }
+
   showSessionExpiredMessage(): void {
     this.createInfoToast(
       'Your session has expired, please log in again.',
