@@ -10,11 +10,13 @@
     <div
       class="btn-back"
       [ngClass]="{ 'd-none': !selectedUserId }"
-      (click)="closeUserDetails()"
+      (click)="emitCloseContact()"
     >
       <img src="./../../../../assets/img/arrow-left.svg" />
     </div>
   </div>
+
+  <!--  Show contact details if a user is selected -->
   @if (selectedUser && selectedUserId) {
   <div
     class="contact-details"
@@ -29,6 +31,7 @@
           'background-color': selectedUser.color
         }"
       >
+        <!--  Show online icon if user is online, else offline icon -->
         @if(selectedUser.isOnline) {
         <img src="./../../../assets/img/online.svg" alt="" />
         } @else {
@@ -42,10 +45,14 @@
         <div class="name">
           {{ selectedUser.firstName }}
           {{ selectedUser.lastName }}
+
+          <!-- Show "you" if contact is logged in user -->
           @if (currentUser && selectedUser.id === currentUser.id) {
           {{ "contacts.you" | translate }}
           }
         </div>
+
+        <!-- Show edit and delete buttons if user is not contact only -->
         @if(selectedUser.isContactOnly || currentUser && selectedUser.id ===
         currentUser.id) {
         <div class="btns">
@@ -55,6 +62,8 @@
               {{ "contacts.btnEdit0" | translate }}
             </p>
           </div>
+
+          <!-- Show delete button if user is not contact only -->
           @if (selectedUser.isContactOnly || currentUser && selectedUser.id !==
           currentUser.id) {
           <div class="btn btn-delete" (click)="toggleConfirmDialog()">
@@ -78,16 +87,23 @@
         <a [href]="'mail:' + selectedUser.email">
           {{ selectedUser.email }}
         </a>
+
+        <!-- Show phone number if it exists -->
+        @if(selectedUser.phone) {
         <p>{{ "contacts.contactPhone" | translate }}</p>
-        @if(selectedUser.phone === '') {
-        <span>{{ "contacts.contactPhoneTxT" | translate }}</span> } @else {
         <a [href]="'tel:' + selectedUser.phone">
           <span>{{ selectedUser.phone }}</span>
         </a>
-        } @if(selectedUser.id !== "") {
+        }
+        <!-- Show last login if user is not contact only -->
+        @if(!selectedUser.isContactOnly) {
         <p>{{ "contacts.contactLastOnline" | translate }}</p>
+
+        <!-- Show last login if user is online, else if user has never logged in, else show last login -->
         @if(selectedUser.isOnline) {
-        <span>{{ "contacts.contactLastOnlineTxt" | translate }}</span>
+        <span>{{ "contacts.contactCurrentlyOnline" | translate }}</span>
+        } @else if (!selectedUser.lastLogin ) {
+        <span>{{ "contacts.contactNeverSeenOnline" | translate }}</span>
         } @else {
         <span
           >{{ selectedUser.lastLogin | date : "dd. MMM yyyy, HH:mm:ss" }}
@@ -96,10 +112,12 @@
       </div>
     </div>
   </div>
-  } @if (isMobileNavbarOpen) {
+  } @if (showMobileNavbar) {
   <!-- TODO -->
   }
 </section>
+
+<!-- Confirm dialog -->
 <app-confirm-dialog
   *ngIf="showConfirmDialog"
   [message]="'confirmDialogComponent.deleteContact' | translate"

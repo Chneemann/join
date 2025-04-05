@@ -97,7 +97,7 @@ export class ContactsComponent {
   /**
    * Triggers the resize function to adjust UI elements based on the current state.
    */
-  closeContactEmitter() {
+  handleCloseContact() {
     this.selectedUserId = null;
     this.onResize();
   }

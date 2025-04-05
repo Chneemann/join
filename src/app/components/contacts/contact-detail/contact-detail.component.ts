@@ -26,11 +26,11 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
 export class ContactDetailComponent {
   @Input() selectedUserId: string | null = null;
   @Input() currentUser: User | null = null;
-  @Output() closeContactEmitter = new EventEmitter<boolean>();
+  @Output() contactClosed = new EventEmitter<boolean>();
 
-  isLoading: boolean = false;
   selectedUser: User | null = null;
-  isMobileNavbarOpen: boolean = false;
+  isLoading = false;
+  showMobileNavbar = false;
   showConfirmDialog = false;
 
   constructor(
@@ -41,11 +41,15 @@ export class ContactDetailComponent {
     private updateNotifierService: UpdateNotifierService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes['selectedUserId'] !== undefined &&
-      changes['selectedUserId'].currentValue !== ''
-    ) {
+  /**
+   * If the `selectedUserId` input property changes and has a current value,
+   * it loads the user data. Otherwise, it resets the `selectedUser` to null.
+   *
+   * @param changes An object of key-value pairs representing the changed properties.
+   */
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedUserId']?.currentValue) {
       this.loadUser();
     } else {
       this.selectedUser = null;
@@ -53,13 +57,56 @@ export class ContactDetailComponent {
   }
 
   /**
-   * Closes the contact details view by resetting the current user id in the
-   * shared service and emitting the closeContactEmitter event.
+   * Emits an event with the value false to trigger the contact list to close.
    */
-  closeUserDetails() {
-    this.closeContactEmitter.emit();
+  emitCloseContact() {
+    this.contactClosed.emit(false);
   }
 
+  /**
+   * Toggles the visibility of the mobile contact details navbar.
+   */
+  toggleNav(): void {
+    this.showMobileNavbar = !this.showMobileNavbar;
+  }
+
+  /**
+   * Toggles the visibility of the confirmation dialog.
+   * This method switches the `showConfirmDialog` boolean state.
+   */
+  toggleConfirmDialog(): void {
+    this.showConfirmDialog = !this.showConfirmDialog;
+  }
+
+  /**
+   * Sets the overlay data for the contact overlay to the given user data,
+   * and hides the mobile contact details navbar.
+   *
+   * @param userData The user data to be edited.
+   */
+  editContact(userData: User) {
+    this.overlayService.setOverlayData('contactOverlay', userData);
+    this.showMobileNavbar = false;
+  }
+
+  /**
+   * Deletes the contact with the given id, shows a success toast, triggers an update of the contact list,
+   * and closes the contact details component.
+   */
+  async deleteContact() {
+    try {
+      await lastValueFrom(this.apiService.deleteUserById(this.selectedUserId!));
+      this.toastNotificationService.deleteContactSuccessToast();
+      this.updateNotifierService.notifyUpdate('contact');
+      this.emitCloseContact();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  /**
+   * Loads the user data with the given id and sets it to the `selectedUser` property.
+   */
   loadUser(): void {
     this.isLoading = true;
 
@@ -79,38 +126,5 @@ export class ContactDetailComponent {
           console.error('Error loading the tasks:', err);
         },
       });
-  }
-
-  /**
-   * Toggles the mobile navigation bar on and off.
-   * @remarks This method is used by the contact details component to toggle
-   * the mobile navigation bar when the user clicks the three points icon.
-   */
-  toggleNav() {
-    this.isMobileNavbarOpen = !this.isMobileNavbarOpen;
-  }
-
-  /**
-   * Opens the edit contact dialog by setting the appropriate flags in the shared service.
-   * This method is used by the contact details component to open the edit contact dialog when the user clicks the edit button.
-   */
-  editContact(userData: User) {
-    this.overlayService.setOverlayData('contactOverlay', userData);
-    this.isMobileNavbarOpen = false;
-  }
-
-  toggleConfirmDialog() {
-    this.showConfirmDialog = !this.showConfirmDialog;
-  }
-
-  async deleteContact() {
-    try {
-      await lastValueFrom(this.apiService.deleteUserById(this.selectedUserId!));
-      this.toastNotificationService.deleteContactSuccessToast();
-      this.updateNotifierService.notifyUpdate('contact');
-      this.closeUserDetails();
-    } catch (error) {
-      console.error(error);
-    }
   }
 }
