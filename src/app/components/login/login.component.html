@@ -98,17 +98,6 @@
           }}</a>
         </div>
       </div>
-      <!--       
-      <div class="google-button">
-        <app-form-btn
-          [class]="'btn-google'"
-          [type]="'button'"
-          [value]="'login.google' | translate"
-          [disabled]="sharedService.isBtnDisabled"
-          (click)="googleLogin()"
-        ></app-form-btn>
-      </div> 
-      -->
       <div class="form-buttons">
         <app-form-btn
           [class]="'btn-login'"
@@ -135,4 +124,4 @@
   </form>
   <app-footer></app-footer>
 </section>
-<app-loading-dialog></app-loading-dialog>
+<app-login-loader></app-login-loader>

@@ -8,8 +8,8 @@ import { LoginService } from '../../../services/login.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
 import { ButtonStateService } from '../../../services/button-state.service';
+import { LoginLoaderComponent } from '../login-loader/login-loader.component';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +23,7 @@ import { ButtonStateService } from '../../../services/button-state.service';
     CommonModule,
     RouterModule,
     TranslateModule,
-    LoadingDialogComponent,
+    LoginLoaderComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',

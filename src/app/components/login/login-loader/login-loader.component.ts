@@ -3,16 +3,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonStateService } from '../../../services/button-state.service';
 
 @Component({
-  selector: 'app-loading-dialog',
+  selector: 'app-login-loader',
   standalone: true,
   imports: [TranslateModule],
-  templateUrl: './loading-dialog.component.html',
-  styleUrl: './loading-dialog.component.scss',
+  templateUrl: './login-loader.component.html',
+  styleUrl: './login-loader.component.scss',
 })
-export class LoadingDialogComponent {
+export class LoginLoaderComponent {
   constructor(private buttonStateService: ButtonStateService) {}
 
-  isButtonDisabled() {
+  /**
+   * Checks if the button is disabled (i.e., loading is in progress)
+   * @returns whether the button is disabled
+   */
+  isLoginButtonDisabled(): boolean {
     return this.buttonStateService.isButtonDisabled;
   }
 }

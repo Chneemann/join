@@ -7,7 +7,7 @@ import { LoginService } from '../../services/login.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
+import { LoginLoaderComponent } from './login-loader/login-loader.component';
 import { OverlayService } from '../../services/overlay.service';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
@@ -23,7 +23,7 @@ import { ButtonStateService } from '../../services/button-state.service';
     FooterComponent,
     HeaderComponent,
     TranslateModule,
-    LoadingDialogComponent,
+    LoginLoaderComponent,
     RouterLink,
   ],
   templateUrl: './login.component.html',
@@ -74,32 +74,24 @@ export class LoginComponent {
   }
 
   async onSubmit(ngForm: NgForm) {
-    this.buttonStateService.enableButton();
+    this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       try {
         await this.authService.login(this.loginData, this.checkboxRememberMe);
         this.router.navigate(['/summary']);
-        this.buttonStateService.disableButton();
+        this.buttonStateService.enableButton();
       } catch (error) {
-        this.buttonStateService.disableButton();
+        this.buttonStateService.enableButton();
       }
     }
   }
 
   guestLogin() {
-    this.buttonStateService.enableButton();
     this.loginData.email = 'guest@guestaccount.com';
     this.loginData.password = 'guest@guestaccount.com';
     this.isPasswordIconVisible = !this.isPasswordIconVisible;
     this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);
   }
-
-  /*   
-  googleLogin() {
-    this.sharedService.isBtnDisabled = true;
-    this.loginService.googleLogin();
-  } 
-  */
 
   checkIfUserEmailIsValid(emailValue: string) {
     const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
