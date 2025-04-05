@@ -7,8 +7,7 @@
       class="nav-links-inner"
       routerLink="summary"
       [ngClass]="{
-        active: currentPath == 'summary',
-        'switch-language': languageService.currentLang == 'de'
+        'active-nav': currentPath == 'summary',
       }"
     >
       <img src="./assets/img/sidebar/summary.svg" alt="summary" /><span>{{
@@ -20,8 +19,7 @@
       class="nav-links-inner"
       routerLink="add-task"
       [ngClass]="{
-        active: currentPath == 'add-task',
-        'switch-language': languageService.currentLang == 'de'
+        'active-nav': currentPath == 'add-task',
       }"
     >
       <img src="./assets/img/sidebar/add-task.svg" alt="addtask" /><span>{{
@@ -33,8 +31,7 @@
       class="nav-links-inner"
       routerLink="board"
       [ngClass]="{
-        active: currentPath == 'board',
-        'switch-language': languageService.currentLang == 'de'
+        'active-nav': currentPath == 'board',
       }"
     >
       <img src="./assets/img/sidebar/board.svg" alt="board" /><span>{{
@@ -46,8 +43,7 @@
       class="nav-links-inner"
       routerLink="contacts"
       [ngClass]="{
-        active: currentPath == 'contacts',
-        'switch-language': languageService.currentLang == 'de'
+        'active-nav': currentPath == 'contacts',
       }"
     >
       <img src="./assets/img/sidebar/contacts.svg" alt="contacts" /><span>{{
@@ -57,10 +53,22 @@
   </nav>
 
   <div class="reference">
-    <p routerLink="privacy-policy">
+    <a
+      routerLink="privacy-policy"
+      [ngClass]="{
+        'active-link': currentPath === 'privacy-policy'
+      }"
+    >
       {{ "sidebar.privacyPolicy" | translate }}
-    </p>
-    <p routerLink="imprint">{{ "sidebar.legalNotice" | translate }}</p>
-    <p (click)="logout()">{{ "sidebar.logout" | translate }}</p>
+    </a>
+    <a
+      routerLink="imprint"
+      [ngClass]="{
+        'active-link': currentPath === 'imprint'
+      }"
+    >
+      {{ "sidebar.legalNotice" | translate }}
+    </a>
+    <a (click)="logout()">{{ "sidebar.logout" | translate }}</a>
   </div>
 </section>

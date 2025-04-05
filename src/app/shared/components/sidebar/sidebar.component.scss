@@ -45,11 +45,7 @@ nav {
   }
 }
 
-.active {
-  background-color: var(--very-dark-blue);
-}
-
-.switch-language {
+.language-de {
   padding-left: 43px;
 }
 
@@ -58,17 +54,26 @@ nav {
   align-items: center;
   flex-direction: column;
   margin-bottom: 30px;
-  p {
+  a {
+    justify-content: center;
     width: fit-content;
     padding: 8px;
     margin: 12px 0;
     display: flex;
     text-align: center;
-    justify-content: center;
+    text-decoration: none;
     color: var(--light-gray);
     cursor: pointer;
     &:hover {
       color: var(--light-blue);
     }
   }
+}
+
+.active-nav {
+  background-color: var(--very-dark-blue);
+}
+
+.active-link {
+  color: var(--light-blue) !important;
 }

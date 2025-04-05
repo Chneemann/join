@@ -22,8 +22,6 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   /**
-   * Lifecycle hook that is called after the component has been initialized.
-   *
    * Calls the getCurrentPath method to set the currentPath property to the current route's url.
    */
   ngOnInit(): void {
