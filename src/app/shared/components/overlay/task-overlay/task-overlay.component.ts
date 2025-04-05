@@ -11,7 +11,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { map } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
 import { UpdateNotifierService } from '../../../../services/update-notifier.service';
-import { ToastNotificationService } from '../../../../services/toast-notification.servic';
+import { ToastNotificationService } from '../../../../services/toast-notification.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({

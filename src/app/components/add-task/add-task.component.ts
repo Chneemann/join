@@ -12,7 +12,7 @@ import { firstValueFrom, map } from 'rxjs';
 import { TaskService } from '../../services/task.service';
 import { ApiService } from '../../services/api.service';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
-import { ToastNotificationService } from '../../services/toast-notification.servic';
+import { ToastNotificationService } from '../../services/toast-notification.service';
 
 @Component({
   selector: 'app-add-task',

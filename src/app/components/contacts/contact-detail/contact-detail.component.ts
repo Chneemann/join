@@ -12,7 +12,7 @@ import { finalize, lastValueFrom } from 'rxjs';
 import { User } from '../../../interfaces/user.interface';
 import { OverlayService } from '../../../services/overlay.service';
 import { ApiService } from '../../../services/api.service';
-import { ToastNotificationService } from '../../../services/toast-notification.servic';
+import { ToastNotificationService } from '../../../services/toast-notification.service';
 import { UpdateNotifierService } from '../../../services/update-notifier.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 

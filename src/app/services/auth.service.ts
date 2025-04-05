@@ -10,7 +10,7 @@ import {
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
 import { Router } from '@angular/router';
-import { ToastNotificationService } from './toast-notification.servic';
+import { ToastNotificationService } from './toast-notification.service';
 
 @Injectable({
   providedIn: 'root',

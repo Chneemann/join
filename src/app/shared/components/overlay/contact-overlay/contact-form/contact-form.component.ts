@@ -13,7 +13,7 @@ import { FormBtnComponent } from '../../../buttons/form-btn/form-btn.component';
 import { ResizeService } from '../../../../../services/resize.service';
 import { lastValueFrom } from 'rxjs';
 import { ApiService } from '../../../../../services/api.service';
-import { ToastNotificationService } from '../../../../../services/toast-notification.servic';
+import { ToastNotificationService } from '../../../../../services/toast-notification.service';
 import { UpdateNotifierService } from '../../../../../services/update-notifier.service';
 import { User } from '../../../../../interfaces/user.interface';
 

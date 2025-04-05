@@ -4,7 +4,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
 import { ToastrService } from 'ngx-toastr';
-import { ToastNotificationService } from '../services/toast-notification.servic';
+import { ToastNotificationService } from '../services/toast-notification.service';
 
 @Injectable({
   providedIn: 'root',

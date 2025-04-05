@@ -14,7 +14,7 @@ import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
-import { ToastNotificationService } from '../../services/toast-notification.servic';
+import { ToastNotificationService } from '../../services/toast-notification.service';
 import { ResizeService } from '../../services/resize.service';
 
 @Component({
