@@ -38,10 +38,10 @@
         }
         <div class="error-msg">
           @if(!mail.valid && mail.touched &&
-          !checkIfUserEmailIsValid(pwResetData.mail.toLowerCase())) {
+          !isEmailValid(pwResetData.mail.toLowerCase())) {
           <p>{{ "register.errorMail0" | translate }}</p>
           } @else { @if (mail.touched &&
-          !checkIfUserEmailIsValid(pwResetData.mail.toLowerCase())) {
+          !isEmailValid(pwResetData.mail.toLowerCase())) {
           <p>{{ "register.errorMail1" | translate }}</p>
           } }
         </div>
@@ -58,7 +58,7 @@
             mail.invalid ||
             !pwResetData.mail ||
             isButtonDisabled() ||
-            !checkIfUserEmailIsValid(pwResetData.mail)
+            !isEmailValid(pwResetData.mail)
           "
         ></app-form-btn>
       </div>

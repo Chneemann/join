@@ -29,6 +29,13 @@ export class ToastNotificationService {
     );
   }
 
+  resetPasswordSuccessToast(): void {
+    this.createSuccessToast(
+      'If the e-mail address is valid, you will receive an e-mail with a link to reset the password.',
+      'Password Reset Successful'
+    );
+  }
+
   showSessionExpiredMessage(): void {
     this.createInfoToast(
       'Your session has expired, please log in again.',

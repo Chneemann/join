@@ -5,9 +5,9 @@ import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/fo
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginService } from '../../../services/login.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { ButtonStateService } from '../../../services/button-state.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-forgot-pw',
@@ -30,14 +30,14 @@ export class ForgotPwComponent {
   };
 
   constructor(
-    public loginService: LoginService,
-    private buttonStateService: ButtonStateService
+    private buttonStateService: ButtonStateService,
+    private authService: AuthService
   ) {}
 
   onSubmit(ngForm: NgForm) {
     this.buttonStateService.enableButton();
     if (ngForm.submitted && ngForm.form.valid) {
-      this.loginService.passwordReset(this.pwResetData.mail.toLowerCase());
+      this.authService.resetPassword(this.pwResetData.mail.toLowerCase());
     }
   }
 
@@ -45,7 +45,7 @@ export class ForgotPwComponent {
     return this.buttonStateService.isButtonDisabled;
   }
 
-  checkIfUserEmailIsValid(emailValue: string) {
+  isEmailValid(emailValue: string) {
     const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
     if (emailRegex.test(emailValue)) {
       return true;

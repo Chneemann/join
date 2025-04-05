@@ -73,6 +73,17 @@ export class AuthService {
     }
   }
 
+  async resetPassword(email: string): Promise<void> {
+    try {
+      await lastValueFrom(
+        this.apiService.request('POST', `/auth/reset/`, { email })
+      );
+      this.toastNotificationService.resetPasswordSuccessToast();
+    } catch (error) {
+      console.error('Password reset failed:', error);
+    }
+  }
+
   checkAuthUser(): Observable<boolean> {
     return this.apiService.request('GET', `/auth/`).pipe(
       map(() => true),
