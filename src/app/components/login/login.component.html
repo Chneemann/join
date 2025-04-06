@@ -39,8 +39,7 @@
           !isButtonDisabled()) {
           <p>{{ "login.errorMail1" | translate }}</p>
           } @if (mail.valid && mail.touched &&
-          !checkIfUserEmailIsValid(loginData.email.toLowerCase()) &&
-          !isButtonDisabled()) {
+          !isEmailValid(loginData.email.toLowerCase()) && !isButtonDisabled()) {
           <p>{{ "login.errorMail2" | translate }}</p>
           }
         </div>
@@ -109,7 +108,7 @@
             password.invalid ||
             !loginData.password ||
             isButtonDisabled() ||
-            !checkIfUserEmailIsValid(loginData.email)
+            !isEmailValid(loginData.email)
           "
         ></app-form-btn>
         <app-form-btn

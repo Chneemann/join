@@ -84,6 +84,8 @@ export class LoginComponent {
       } catch (error) {
         this.buttonStateService.enableButton();
       }
+    } else {
+      this.buttonStateService.enableButton();
     }
   }
 
@@ -94,12 +96,7 @@ export class LoginComponent {
     this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);
   }
 
-  checkIfUserEmailIsValid(emailValue: string) {
-    const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
-    if (emailRegex.test(emailValue)) {
-      return true;
-    } else {
-      return false;
-    }
+  isEmailValid(emailValue: string) {
+    return /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(emailValue);
   }
 }

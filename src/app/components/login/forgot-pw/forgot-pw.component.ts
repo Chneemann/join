@@ -35,9 +35,16 @@ export class ForgotPwComponent {
   ) {}
 
   onSubmit(ngForm: NgForm) {
-    this.buttonStateService.enableButton();
+    this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
-      this.authService.resetPassword(this.pwResetData.mail.toLowerCase());
+      try {
+        this.authService.resetPassword(this.pwResetData.mail.toLowerCase());
+        this.buttonStateService.enableButton();
+      } catch (error: any) {
+        this.buttonStateService.enableButton();
+      }
+    } else {
+      this.buttonStateService.enableButton();
     }
   }
 
@@ -46,11 +53,6 @@ export class ForgotPwComponent {
   }
 
   isEmailValid(emailValue: string) {
-    const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
-    if (emailRegex.test(emailValue)) {
-      return true;
-    } else {
-      return false;
-    }
+    return /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(emailValue);
   }
 }

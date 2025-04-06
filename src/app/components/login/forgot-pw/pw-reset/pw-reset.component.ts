@@ -75,6 +75,8 @@ export class PwResetComponent {
         this.errorHttpMessage = error.message;
         this.buttonStateService.enableButton();
       }
+    } else {
+      this.buttonStateService.enableButton();
     }
   }
 }
