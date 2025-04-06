@@ -69,6 +69,10 @@ export class ApiService {
     return this.request<Task>('POST', '/api/tasks/', task);
   }
 
+  updateTask(task: Task, taskId: string): Observable<Task> {
+    return this.request<Task>('PATCH', `/api/tasks/${taskId}/`, task);
+  }
+
   deleteTaskById(taskId: string): Observable<Task> {
     return this.request<Task>('DELETE', `/api/tasks/${taskId}/`);
   }

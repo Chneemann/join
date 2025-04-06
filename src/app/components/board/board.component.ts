@@ -12,7 +12,7 @@ import { ApiService } from '../../services/api.service';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { debounceTime, finalize, Subject, takeUntil } from 'rxjs';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
 import { ResizeService } from '../../services/resize.service';
@@ -96,7 +96,7 @@ export class BoardComponent {
 
   private subscribeToTaskUpdates() {
     this.updateNotifierService.taskUpdated$
-      .pipe(takeUntil(this.destroy$))
+      .pipe(debounceTime(50), takeUntil(this.destroy$))
       .subscribe(() => {
         this.loadAllTasks();
       });

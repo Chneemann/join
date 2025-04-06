@@ -84,8 +84,10 @@ export class AddTaskComponent implements OnInit {
 
   async loadExistingTaskData() {
     if (this.overlayType === 'newTaskOverlay') {
+      // OverlayData = Status "todo"
       this.taskData.status = this.overlayData;
     } else if (this.overlayData) {
+      // OverlayData = Current TaskId
       const taskData = await firstValueFrom(this.getTaskData(this.overlayData));
       if (taskData) {
         this.taskData = { ...this.taskData, ...taskData };
@@ -258,19 +260,44 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      this.apiService.saveNewTask(this.taskData).subscribe({
-        next: (response) => {
-          this.toastNotificationService.createTaskSuccessToast();
-          this.updateNotifierService.notifyUpdate('task');
-          this.clearTaskData(ngForm);
-          this.closeOverlay();
-          this.router.navigate(['/board']);
-        },
-        error: (error) => {
-          console.error('Fehler beim Speichern:', error);
-        },
-      });
+      // OverlayData = Current TaskId
+      if (this.overlayData) {
+        this.updateTask(ngForm);
+      } else {
+        this.createTask(ngForm);
+      }
     }
+  }
+
+  createTask(ngForm: NgForm) {
+    this.apiService.saveNewTask(this.taskData).subscribe({
+      next: (response) => {
+        this.toastNotificationService.createTaskSuccessToast();
+        this.updateNotifierService.notifyUpdate('task');
+        this.clearTaskData(ngForm);
+        this.closeOverlay();
+        this.router.navigate(['/board']);
+      },
+      error: (error) => {
+        console.error('Fehler beim Speichern:', error);
+      },
+    });
+  }
+
+  updateTask(ngForm: NgForm) {
+    // OverlayData = Current TaskId
+    this.apiService.updateTask(this.taskData, this.overlayData).subscribe({
+      next: (response) => {
+        this.toastNotificationService.updateTaskSuccessToast();
+        this.updateNotifierService.notifyUpdate('task');
+        this.clearTaskData(ngForm);
+        this.closeOverlay();
+        this.router.navigate(['/board']);
+      },
+      error: (error) => {
+        console.error('Fehler beim Speichern:', error);
+      },
+    });
   }
 
   /**
@@ -293,6 +320,7 @@ export class AddTaskComponent implements OnInit {
    * @returns {void}
    */
   deleteTask(overlayData: string) {
+    // OverlayData = Current TaskId
     this.apiService.deleteTaskById(overlayData);
   }
 
