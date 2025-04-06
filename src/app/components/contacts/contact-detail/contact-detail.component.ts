@@ -76,6 +76,7 @@ export class ContactDetailComponent {
    */
   toggleConfirmDialog(): void {
     this.showConfirmDialog = !this.showConfirmDialog;
+    this.overlayService.setOverlayData('dialog', '');
   }
 
   /**

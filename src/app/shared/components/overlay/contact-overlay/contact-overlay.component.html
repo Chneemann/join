@@ -10,6 +10,8 @@
     <div class="badge">
       <div class="picker">
         <input
+          id="colorPicker"
+          name="colorPicker"
           [(colorPicker)]="overlayData.color"
           [style.background]="newColor === '' ? overlayData.color : newColor"
           (colorPickerChange)="updateColor($event)"
@@ -46,6 +48,8 @@
     <div class="badge">
       <div class="picker">
         <input
+          id="colorPicker"
+          name="colorPicker"
           [(colorPicker)]="randomColor"
           [style.background]="randomColor"
           (colorPickerSelect)="updateColor($event)"
