@@ -16,11 +16,19 @@ import { ApiService } from '../../../../../services/api.service';
 import { ToastNotificationService } from '../../../../../services/toast-notification.service';
 import { UpdateNotifierService } from '../../../../../services/update-notifier.service';
 import { User } from '../../../../../interfaces/user.interface';
+import { ConfirmDialogComponent } from '../../../confirm-dialog/confirm-dialog.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [TranslateModule, FormsModule, FormBtnComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FormsModule,
+    FormBtnComponent,
+    ConfirmDialogComponent,
+  ],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
 })
@@ -30,7 +38,7 @@ export class ContactFormComponent implements OnInit, OnChanges {
   @Input() newColor: string = '';
   @Input() currentColor: string = '';
   @Output() initialsEmitter = new EventEmitter<string>();
-  @Output() closeDialogEmitter = new EventEmitter<string>();
+  @Output() closeDialogEmitter = new EventEmitter<boolean>();
 
   constructor(
     public resizeService: ResizeService,
@@ -38,6 +46,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     private toastNotificationService: ToastNotificationService,
     private updateNotifierService: UpdateNotifierService
   ) {}
+
+  showConfirmDialog = false;
 
   contactData = {
     firstName: '',
@@ -284,7 +294,11 @@ export class ContactFormComponent implements OnInit, OnChanges {
     }
   }
 
+  toggleConfirmDialog(): void {
+    this.showConfirmDialog = !this.showConfirmDialog;
+  }
+
   closeDialog() {
-    this.closeDialogEmitter.emit('');
+    this.closeDialogEmitter.emit(false);
   }
 }

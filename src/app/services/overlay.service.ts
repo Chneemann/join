@@ -19,4 +19,8 @@ export class OverlayService {
   setOverlayData(overlay: string, data: any) {
     this.overlayDataSubject.next({ overlay, data });
   }
+
+  clearOverlayData() {
+    this.overlayDataSubject.next(null);
+  }
 }

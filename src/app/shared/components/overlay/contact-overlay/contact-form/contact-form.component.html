@@ -125,7 +125,7 @@
         class="btn-delete"
         type="button"
         value="{{ 'contactDialogForm.btnDelete' | translate }}"
-        (click)="deleteContact(selectedUser.id)"
+        (click)="toggleConfirmDialog()"
       ></app-form-btn>
       } @else {
       <app-form-btn
@@ -154,3 +154,11 @@
     </div>
   </form>
 </section>
+
+<!-- Confirm dialog -->
+<app-confirm-dialog
+  *ngIf="showConfirmDialog"
+  [message]="'confirmDialogComponent.deleteContact' | translate"
+  (onConfirm)="deleteContact(selectedUser.id)"
+  (onCancel)="toggleConfirmDialog()"
+></app-confirm-dialog>

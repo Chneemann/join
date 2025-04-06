@@ -29,7 +29,7 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
 })
 export class TaskOverlayComponent implements OnInit {
   @Input() overlayData: string = '';
-  @Output() closeDialogEmitter = new EventEmitter<string>();
+  @Output() closeDialogEmitter = new EventEmitter<boolean>();
 
   task: Task | null = null;
   overlayMobile: boolean = false;
@@ -94,7 +94,7 @@ export class TaskOverlayComponent implements OnInit {
    * can be used to close the overlay from the parent component.
    */
   closeDialog() {
-    this.closeDialogEmitter.emit('');
+    this.closeDialogEmitter.emit(false);
   }
 
   /**

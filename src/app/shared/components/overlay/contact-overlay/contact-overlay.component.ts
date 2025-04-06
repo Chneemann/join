@@ -21,7 +21,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 export class ContactOverlayComponent implements OnInit {
   @Input() overlayData: any = [];
   @Input() overlayType: string = '';
-  @Output() closeDialogEmitter = new EventEmitter<string>();
+  @Output() closeDialogEmitter = new EventEmitter<boolean>();
 
   randomColor: string = this.getRandomColor();
   userInitials: string = '';
@@ -52,7 +52,7 @@ export class ContactOverlayComponent implements OnInit {
   }
 
   closeDialog() {
-    this.closeDialogEmitter.emit('');
+    this.closeDialogEmitter.emit(false);
   }
 
   /**

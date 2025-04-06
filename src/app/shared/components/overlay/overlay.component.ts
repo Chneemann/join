@@ -14,8 +14,8 @@ import { ContactOverlayComponent } from './contact-overlay/contact-overlay.compo
     CommonModule,
     TaskOverlayComponent,
     TaskEditOverlayComponent,
-    DialogOverlayComponent,
     ContactOverlayComponent,
+    DialogOverlayComponent,
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
@@ -53,23 +53,26 @@ export class OverlayComponent implements OnInit {
    * If the overlay type is 'dialog', navigates to the login route.
    * @param emitter The string to be emitted, which will also be set as the overlay data.
    */
-  onCloseOverlay(emitter: string) {
-    this.overlayType === 'dialog' && this.router.navigate(['/login']);
+  onCloseOverlay(emitter: boolean) {
     this.overlayData = emitter;
+    this.overlayService.clearOverlayData();
   }
 
   @HostListener('document:click', ['$event'])
+
   /**
-   * Listens for clicks on the overlay background and closes the overlay if the target element does not have the class 'overlay-content'.
-   * @param event The click event.
+   * Checks if a click event occurred within the overlay but outside the content or dialog elements.
+   * If so, closes the overlay by emitting an event.
+   *
+   * @param event The MouseEvent that triggered the check.
    */
   checkOpenContactEdit(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
     if (
       targetElement.closest('.overlay') &&
-      !targetElement.closest('.overlay-content')
+      (!targetElement.closest('.content') || !targetElement.closest('.dialog'))
     ) {
-      this.onCloseOverlay('');
+      this.onCloseOverlay(false);
     }
   }
 }

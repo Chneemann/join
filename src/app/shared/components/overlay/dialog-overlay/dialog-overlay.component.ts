@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class DialogOverlayComponent {
   @Input() overlayData: string = '';
   @Input() overlayType: string = '';
-  @Output() closeDialogEmitter = new EventEmitter<string>();
+  @Output() closeDialogEmitter = new EventEmitter<boolean>();
 
   constructor(private router: Router) {}
 
@@ -24,6 +24,6 @@ export class DialogOverlayComponent {
    */
   closeOverlay() {
     this.router.navigate(['/login']);
-    this.closeDialogEmitter.emit('');
+    this.closeDialogEmitter.emit(false);
   }
 }

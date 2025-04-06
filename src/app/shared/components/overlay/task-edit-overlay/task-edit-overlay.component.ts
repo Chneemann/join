@@ -16,7 +16,7 @@ import { ApiService } from '../../../../services/api.service';
 export class TaskEditOverlayComponent {
   @Input() overlayData: string = '';
   @Input() overlayType: string = '';
-  @Output() closeDialogEmitter = new EventEmitter<string>();
+  @Output() closeDialogEmitter = new EventEmitter<boolean>();
 
   overlayMobile: boolean = false;
 
@@ -64,7 +64,7 @@ export class TaskEditOverlayComponent {
   closeDialog() {
     this.overlayMobile
       ? this.router.navigate(['/board'])
-      : this.closeDialogEmitter.emit('');
+      : this.closeDialogEmitter.emit(false);
     this.removeTaskData();
   }
 
