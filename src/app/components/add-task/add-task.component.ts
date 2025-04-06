@@ -83,13 +83,13 @@ export class AddTaskComponent implements OnInit {
   }
 
   async loadExistingTaskData() {
-    if (this.overlayData) {
+    if (this.overlayType === 'newTaskOverlay') {
+      this.taskData.status = this.overlayData;
+    } else if (this.overlayData) {
       const taskData = await firstValueFrom(this.getTaskData(this.overlayData));
       if (taskData) {
         this.taskData = { ...this.taskData, ...taskData };
       }
-    } else if (this.overlayType === 'newTaskOverlay') {
-      this.taskData.status = this.overlayData;
     }
   }
 

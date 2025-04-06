@@ -1,159 +1,157 @@
-<section>
-  <form
-    (ngSubmit)="onSubmit(contactForm)"
-    (keyup)="updateFormData()"
-    #contactForm="ngForm"
-    onsubmit="return false"
-    class="contact-formular"
-  >
-    <div class="name">
-      <input
-        id="firstName"
-        type="text"
-        class="firstName"
-        name="firstName"
-        #firstName="ngModel"
-        placeholder="{{
-          contactData.firstName !== ''
-            ? contactData.firstName
-            : ('contactDialogForm.firstName' | translate)
-        }}"
-        [(ngModel)]="contactData.firstName"
-        pattern="[A-Za-z]+"
-        autocomplete="off"
-        required
-      />
-      @if (resizeService.isContactViewMedia) {
-      <div class="error-msg">
-        @if (firstName.hasError('pattern') && firstName.touched) {
-        <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
-        } @else { @if (!firstName.valid && firstName.touched) {
-        <p>{{ "contactDialogForm.invalidFirstName" | translate }}</p>
-        }}
-      </div>
-      }
-      <input
-        id="lastName"
-        type="text"
-        class="lastName"
-        name="lastName"
-        #lastName="ngModel"
-        placeholder="{{
-          contactData.lastName !== ''
-            ? contactData.lastName
-            : ('contactDialogForm.lastName' | translate)
-        }}"
-        [(ngModel)]="contactData.lastName"
-        pattern="[A-Za-z]+"
-        autocomplete="off"
-        required
-      />
-    </div>
-    @if (resizeService.isContactViewMedia) {
-    <div class="error-msg">
-      @if (lastName.hasError('pattern') && lastName.touched) {
-      <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
-      } @else { @if (!lastName.valid && lastName.touched) {
-      <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
-      }}
-    </div>
-    } @if (!resizeService.isContactViewMedia) {
-    <div class="error-msg">
-      @if (firstName.hasError('pattern') || lastName.hasError('pattern') &&
-      firstName.touched) {
-      <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
-      } @else { @if ((!firstName.valid && firstName.touched) && (!lastName.valid
-      && lastName.touched)) {
-      <p>{{ "contactDialogForm.invalidName" | translate }}</p>
-      } @else { @if (!firstName.valid && firstName.touched &&
-      !firstName.hasError('pattern')) {
-      <p>{{ "contactDialogForm.invalidFirstName" | translate }}</p>
-      } @else { @if (!lastName.valid && lastName.touched &&
-      !lastName.hasError('pattern')) {
-      <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
-      } } } }
-    </div>
-    }
+<form
+  (ngSubmit)="onSubmit(contactForm)"
+  (keyup)="updateFormData()"
+  #contactForm="ngForm"
+  onsubmit="return false"
+  class="contact-formular"
+>
+  <div class="name">
     <input
-      id="email"
-      type="email"
-      name="email"
-      #email="ngModel"
+      id="firstName"
+      type="text"
+      class="firstName"
+      name="firstName"
+      #firstName="ngModel"
       placeholder="{{
-        contactData.email !== ''
-          ? contactData.email
-          : ('contactDialogForm.email' | translate)
+        contactData.firstName !== ''
+          ? contactData.firstName
+          : ('contactDialogForm.firstName' | translate)
       }}"
-      [(ngModel)]="contactData.email"
+      [(ngModel)]="contactData.firstName"
+      pattern="[A-Za-z]+"
       autocomplete="off"
       required
     />
+    @if (resizeService.isContactViewMedia) {
     <div class="error-msg">
-      @if(!email.valid && email.touched &&
-      !checkIfUserEmailIsValid(contactData.email)) {
-      <p>{{ "contactDialogForm.invalidMail0" | translate }}</p>
-      } @else { @if (email.touched &&
-      !checkIfUserEmailIsValid(contactData.email)) {
-      <p>{{ "contactDialogForm.invalidMail1" | translate }}</p>
-      } @else { @if (existEmailOnServer(contactData.email) &&
-      !contactData.email) {
-      <p>{{ "contactDialogForm.invalidMail2" | translate }}</p>
-      } } }
+      @if (firstName.hasError('pattern') && firstName.touched) {
+      <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
+      } @else { @if (!firstName.valid && firstName.touched) {
+      <p>{{ "contactDialogForm.invalidFirstName" | translate }}</p>
+      }}
     </div>
+    }
     <input
-      id="phone"
-      type="phone"
-      name="phone"
-      #phone="ngModel"
+      id="lastName"
+      type="text"
+      class="lastName"
+      name="lastName"
+      #lastName="ngModel"
       placeholder="{{
-        contactData.phone !== ''
-          ? contactData.phone
-          : ('contactDialogForm.phone' | translate)
+        contactData.lastName !== ''
+          ? contactData.lastName
+          : ('contactDialogForm.lastName' | translate)
       }}"
-      [(ngModel)]="contactData.phone"
-      pattern="[\d\+\-\(\)\/]{10,15}"
+      [(ngModel)]="contactData.lastName"
+      pattern="[A-Za-z]+"
       autocomplete="off"
+      required
     />
-    <div class="error-msg">
-      @if (!phone.valid && phone.touched) {
-      <p>{{ "contactDialogForm.invalidPhone" | translate }}</p>
-      }
-    </div>
-    <div class="btns">
-      @if (selectedUserExists) {
-      <app-form-btn
-        class="btn-delete"
-        type="button"
-        value="{{ 'contactDialogForm.btnDelete' | translate }}"
-        (click)="toggleConfirmDialog()"
-      ></app-form-btn>
-      } @else {
-      <app-form-btn
-        class="btn-cancel"
-        type="button"
-        value="{{ 'contactDialogForm.btnCancel' | translate }}"
-        (click)="closeDialog()"
-      ></app-form-btn>
-      }
-      <app-form-btn
-        [class]="'btn-submit'"
-        [type]="'submit'"
-        [img]="'check'"
-        [imgFilter]="'none'"
-        value="{{ 'contactDialogForm.btnSave' | translate }}"
-        [disabled]="
-          firstName.invalid ||
-          !contactData.firstName ||
-          lastName.invalid ||
-          !contactData.lastName ||
-          email.invalid ||
-          !contactData.email ||
-          !checkIfUserEmailIsValid(contactData.email)
-        "
-      ></app-form-btn>
-    </div>
-  </form>
-</section>
+  </div>
+  @if (resizeService.isContactViewMedia) {
+  <div class="error-msg">
+    @if (lastName.hasError('pattern') && lastName.touched) {
+    <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
+    } @else { @if (!lastName.valid && lastName.touched) {
+    <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
+    }}
+  </div>
+  } @if (!resizeService.isContactViewMedia) {
+  <div class="error-msg">
+    @if (firstName.hasError('pattern') || lastName.hasError('pattern') &&
+    firstName.touched) {
+    <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
+    } @else { @if ((!firstName.valid && firstName.touched) && (!lastName.valid
+    && lastName.touched)) {
+    <p>{{ "contactDialogForm.invalidName" | translate }}</p>
+    } @else { @if (!firstName.valid && firstName.touched &&
+    !firstName.hasError('pattern')) {
+    <p>{{ "contactDialogForm.invalidFirstName" | translate }}</p>
+    } @else { @if (!lastName.valid && lastName.touched &&
+    !lastName.hasError('pattern')) {
+    <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
+    } } } }
+  </div>
+  }
+  <input
+    id="email"
+    type="email"
+    name="email"
+    #email="ngModel"
+    placeholder="{{
+      contactData.email !== ''
+        ? contactData.email
+        : ('contactDialogForm.email' | translate)
+    }}"
+    [(ngModel)]="contactData.email"
+    autocomplete="off"
+    required
+  />
+  <div class="error-msg">
+    @if(!email.valid && email.touched &&
+    !checkIfUserEmailIsValid(contactData.email)) {
+    <p>{{ "contactDialogForm.invalidMail0" | translate }}</p>
+    } @else { @if (email.touched && !checkIfUserEmailIsValid(contactData.email))
+    {
+    <p>{{ "contactDialogForm.invalidMail1" | translate }}</p>
+    } @else { @if (existEmailOnServer(contactData.email) && !contactData.email)
+    {
+    <p>{{ "contactDialogForm.invalidMail2" | translate }}</p>
+    } } }
+  </div>
+  <input
+    id="phone"
+    type="phone"
+    name="phone"
+    #phone="ngModel"
+    placeholder="{{
+      contactData.phone !== ''
+        ? contactData.phone
+        : ('contactDialogForm.phone' | translate)
+    }}"
+    [(ngModel)]="contactData.phone"
+    pattern="[\d\+\-\(\)\/]{10,15}"
+    autocomplete="off"
+  />
+  <div class="error-msg">
+    @if (!phone.valid && phone.touched) {
+    <p>{{ "contactDialogForm.invalidPhone" | translate }}</p>
+    }
+  </div>
+  <div class="btns">
+    @if (selectedUserExists) {
+    <app-form-btn
+      class="btn-delete"
+      type="button"
+      value="{{ 'contactDialogForm.btnDelete' | translate }}"
+      (click)="toggleConfirmDialog()"
+    ></app-form-btn>
+    } @else {
+    <app-form-btn
+      class="btn-cancel"
+      type="button"
+      value="{{ 'contactDialogForm.btnCancel' | translate }}"
+      (click)="closeDialog()"
+    ></app-form-btn>
+    }
+    <app-form-btn
+      [class]="'btn-submit'"
+      [type]="'submit'"
+      [img]="'check'"
+      [imgFilter]="'none'"
+      value="{{ 'contactDialogForm.btnSave' | translate }}"
+      [disabled]="
+        firstName.invalid ||
+        !contactData.firstName ||
+        lastName.invalid ||
+        !contactData.lastName ||
+        email.invalid ||
+        !contactData.email ||
+        !checkIfUserEmailIsValid(contactData.email)
+      "
+    ></app-form-btn>
+  </div>
+</form>
 
 <!-- Confirm dialog -->
 <app-confirm-dialog

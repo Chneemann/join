@@ -59,19 +59,15 @@ export class OverlayComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event'])
-
   /**
-   * Checks if a click event occurred within the overlay but outside the content or dialog elements.
-   * If so, closes the overlay by emitting an event.
+   * Closes the contact edit overlay if the user clicks on the overlay background.
    *
-   * @param event The MouseEvent that triggered the check.
+   * @param event The MouseEvent triggered by a click action.
    */
   checkOpenContactEdit(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
-    if (
-      targetElement.closest('.overlay') &&
-      (!targetElement.closest('.content') || !targetElement.closest('.dialog'))
-    ) {
+
+    if (targetElement === document.querySelector('.overlay')) {
       this.onCloseOverlay(false);
     }
   }
