@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 import { LanguageService } from '../../services/language.service';
 import { SidebarMobileComponent } from '../../shared/components/sidebar/sidebar-mobile/sidebar-mobile.component';
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';

@@ -1,46 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, map, Observable, of } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
-import { ToastrService } from 'ngx-toastr';
 import { ToastNotificationService } from '../services/toast-notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticatedGuard {
+export class AuthenticatedGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private tokenService: TokenService,
-    private router: Router,
-    private toastrService: ToastrService,
-    private toastNotificationService: ToastNotificationService
+    private toastNotificationService: ToastNotificationService,
+    private router: Router
   ) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    const authToken = this.tokenService.getAuthToken();
-
-    if (!authToken || !this.tokenService.isTokenExpired(authToken)) {
+    if (
+      !this.tokenService.isTokenAvailable() ||
+      !this.tokenService.isUserIdAvailable()
+    ) {
       this.router.navigate(['/login']);
+      this.toastNotificationService.showSessionExpiredToast();
       return false;
     }
 
-    return this.authService.checkAuthUser().pipe(
-      map((isAuthenticated) => {
-        if (isAuthenticated) {
-          return true;
-        } else {
-          this.toastNotificationService.showSessionExpiredMessage();
-          this.router.navigate(['/login']);
-          return false;
-        }
-      }),
-      catchError(() => {
-        this.toastNotificationService.showSessionExpiredMessage();
-        this.router.navigate(['/login']);
-        return of(false);
-      })
-    );
+    return this.authService
+      .checkAuthUser()
+      .pipe(map((isAuthenticated) => isAuthenticated));
   }
 }

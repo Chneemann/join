@@ -43,7 +43,7 @@ export class ToastNotificationService {
     );
   }
 
-  showSessionExpiredMessage(): void {
+  showSessionExpiredToast(): void {
     this.createInfoToast(
       'Your session has expired, please log in again.',
       'Session Expired'
