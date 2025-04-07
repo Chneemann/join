@@ -7,8 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ErrorNotificationService {
   constructor(private toastr: ToastrService) {}
+  private isToastVisible = false;
 
   handleHttpError(error: unknown): void {
+    if (this.isToastVisible) {
+      return;
+    }
+
     let errorMessage = 'An unknown error occurred.';
 
     if (error instanceof HttpErrorResponse) {
@@ -22,8 +27,19 @@ export class ErrorNotificationService {
             'The request could not be processed due to invalid input. Please check your entries and try again.';
           break;
         case 401:
-          errorMessage =
-            'The login credentials are incorrect. Please check your email and password.';
+          console.log(error);
+
+          if (
+            error.error.detail &&
+            (error.error.detail.includes('Token') ||
+              error.error.detail.includes('token'))
+          ) {
+            errorMessage =
+              'The authentication token is invalid or expired. Please log in again.';
+          } else {
+            errorMessage =
+              'The login credentials are incorrect. Please check your email and password.';
+          }
           break;
         case 403:
           errorMessage =
@@ -59,10 +75,16 @@ export class ErrorNotificationService {
       errorMessage = `Network error: ${error.message || error.toString()}`;
     }
 
+    this.isToastVisible = true;
+
     this.toastr.error(errorMessage, 'Error', {
       timeOut: 3000,
       positionClass: 'toast-top-right',
       progressBar: true,
     });
+
+    setTimeout(() => {
+      this.isToastVisible = false;
+    }, 3000);
   }
 }

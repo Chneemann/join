@@ -41,6 +41,7 @@ export class AuthService {
       this.tokenService.storeUserId(userId, storage);
       this.currentUserIdSubject.next(userId);
       this.toastNotificationService.loginSuccessToast();
+      this.router.navigate(['/summary']);
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -65,8 +66,8 @@ export class AuthService {
       await lastValueFrom(
         this.apiService.request('POST', `/auth/register/`, credentials)
       );
-      this.router.navigate(['/login']);
       this.toastNotificationService.registerSuccessToast();
+      this.router.navigate(['/login']);
     } catch (error: any) {
       console.error('Registration failed:', error);
       throw new Error(error?.error?.error);

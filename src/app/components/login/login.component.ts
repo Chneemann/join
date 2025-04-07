@@ -79,7 +79,6 @@ export class LoginComponent {
       this.loginData.email = this.loginData.email.toLowerCase();
       try {
         await this.authService.login(this.loginData, this.checkboxRememberMe);
-        this.router.navigate(['/summary']);
         this.buttonStateService.enableButton();
       } catch (error) {
         this.buttonStateService.enableButton();

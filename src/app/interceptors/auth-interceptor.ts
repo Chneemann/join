@@ -53,6 +53,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(clonedReq).pipe(
       catchError((error: HttpErrorResponse) => {
+        if (error.status === 0 && !this.isNavigatingToLogin) {
+          this.tokenService.deleteAuthToken();
+          this.tokenService.deleteUserId();
+          this.router.navigate(['/login']);
+        }
         if (error.status === 401 && !this.isNavigatingToLogin) {
           this.toast.showSessionExpiredToast();
           this.router.navigate(['/login']);
