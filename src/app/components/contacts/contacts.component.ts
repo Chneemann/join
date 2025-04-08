@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../../interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
@@ -15,14 +15,14 @@ import { UpdateNotifierService } from '../../services/update-notifier.service';
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
-export class ContactsComponent {
-  private destroy$ = new Subject<void>();
-
+export class ContactsComponent implements OnInit, OnDestroy {
   allUsers: User[] = [];
   currentUser: User | null = null;
   selectedUserId: string | null = null;
   showAllUsers: boolean = false;
   isLoading: boolean = false;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private userService: UserService,
@@ -33,6 +33,11 @@ export class ContactsComponent {
   ngOnInit(): void {
     this.onResize();
     this.initializeData();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private async initializeData(): Promise<void> {
@@ -74,14 +79,17 @@ export class ContactsComponent {
   }
 
   private loadCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe({
-      next: (userData) => {
-        this.currentUser = userData;
-      },
-      error: (err) => {
-        console.error('Error loading current user:', err);
-      },
-    });
+    this.userService
+      .getCurrentUser()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (userData) => {
+          this.currentUser = userData;
+        },
+        error: (err) => {
+          console.error('Error loading current user:', err);
+        },
+      });
   }
 
   /**
@@ -129,10 +137,5 @@ export class ContactsComponent {
     } else {
       this.showAllUsers = true;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

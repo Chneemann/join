@@ -1,10 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../interfaces/user.interface';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,27 +14,37 @@ import { User } from '../../../interfaces/user.interface';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   showNavbar: boolean = false;
   showLanguageNavbar: boolean = false;
   currentUser: User | null = null;
+
+  private destroy$ = new Subject<void>();
 
   constructor(private userService: UserService) {}
 
   /**
    * Loads the current user data by calling the loadCurrentUser method.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadCurrentUser();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
    * Loads the current user data and sets it to the `currentUser` property.
    */
   loadCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe((userData) => {
-      this.currentUser = userData;
-    });
+    this.userService
+      .getCurrentUser()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((userData) => {
+        this.currentUser = userData;
+      });
   }
 
   /**

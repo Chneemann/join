@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
-import { finalize } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
 
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
@@ -16,12 +16,13 @@ import { User } from '../../interfaces/user.interface';
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })
-export class SummaryComponent {
-  nextUrgendTask: number[] = [];
-
+export class SummaryComponent implements OnInit, OnDestroy {
   allTasks: Task[] = [];
+  nextUrgendTask: number[] = [];
   currentUser: User | null = null;
   isLoading = false;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private translateService: TranslateService,
@@ -32,9 +33,14 @@ export class SummaryComponent {
   /**
    * This method loads all tasks from the TaskService.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadAllTasks();
     this.loadCurrentUser();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
@@ -45,7 +51,10 @@ export class SummaryComponent {
 
     this.taskService
       .getTasks()
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => (this.isLoading = false))
+      )
       .subscribe({
         next: (response) => {
           this.allTasks = response;
@@ -57,9 +66,12 @@ export class SummaryComponent {
   }
 
   loadCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe((userData) => {
-      this.currentUser = userData;
-    });
+    this.userService
+      .getCurrentUser()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((userData) => {
+        this.currentUser = userData;
+      });
   }
 
   /**

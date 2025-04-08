@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { CommonModule } from '@angular/common';
 import { OverlayService } from '../../../../services/overlay.service';
@@ -8,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Task } from '../../../../interfaces/task.interface';
 import { TaskService } from '../../../../services/task.service';
 import { AuthService } from '../../../../services/auth.service';
-import { map } from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
 import { UpdateNotifierService } from '../../../../services/update-notifier.service';
 import { ToastNotificationService } from '../../../../services/toast-notification.service';
@@ -27,7 +34,7 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
   templateUrl: './task-overlay.component.html',
   styleUrl: './task-overlay.component.scss',
 })
-export class TaskOverlayComponent implements OnInit {
+export class TaskOverlayComponent implements OnInit, OnDestroy {
   @Input() overlayData: string = '';
   @Output() closeDialogEmitter = new EventEmitter<boolean>();
 
@@ -35,6 +42,8 @@ export class TaskOverlayComponent implements OnInit {
   overlayMobile: boolean = false;
   currentUserId: string = '';
   showConfirmDialog = false;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private overlayService: OverlayService,
@@ -52,16 +61,24 @@ export class TaskOverlayComponent implements OnInit {
     ['Technical Task', '#20d7c2'],
   ]);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.setCurrentUserId();
     this.setOverlayDataFromRoute();
     this.loadTask(this.overlayData);
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   setCurrentUserId() {
     this.authService
       .getCurrentUserId()
-      .pipe(map((userId) => userId ?? ''))
+      .pipe(
+        takeUntil(this.destroy$),
+        map((userId) => userId ?? '')
+      )
       .subscribe((userId) => {
         this.currentUserId = userId;
       });
@@ -69,7 +86,7 @@ export class TaskOverlayComponent implements OnInit {
 
   setOverlayDataFromRoute() {
     if (this.overlayData === '') {
-      this.route.params.subscribe((params) => {
+      this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
         this.overlayData = params['id'];
         this.overlayMobile = true;
       });
@@ -77,14 +94,17 @@ export class TaskOverlayComponent implements OnInit {
   }
 
   loadTask(taskId: string) {
-    this.taskService.getTaskById(taskId).subscribe({
-      next: (task) => {
-        this.task = task;
-      },
-      error: (err) => {
-        console.error('Error loading the task:', err);
-      },
-    });
+    this.taskService
+      .getTaskById(taskId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (task) => {
+          this.task = task;
+        },
+        error: (err) => {
+          console.error('Error loading the task:', err);
+        },
+      });
   }
 
   /**
@@ -117,15 +137,18 @@ export class TaskOverlayComponent implements OnInit {
   }
 
   deleteTask(taskId: string) {
-    this.apiService.deleteTaskById(taskId).subscribe({
-      next: (task) => {
-        this.toastNotificationService.deleteTaskSuccessToast();
-        this.updateNotifierService.notifyUpdate('task');
-      },
-      error: (err) => {
-        console.error('Error deleting task', err);
-      },
-    });
+    this.apiService
+      .deleteTaskById(taskId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (task) => {
+          this.toastNotificationService.deleteTaskSuccessToast();
+          this.updateNotifierService.notifyUpdate('task');
+        },
+        error: (err) => {
+          console.error('Error deleting task', err);
+        },
+      });
     this.closeDialog();
   }
 
@@ -140,20 +163,23 @@ export class TaskOverlayComponent implements OnInit {
       subtask_title: subtaskTitle,
       subtask_status: !currentStatus,
     };
-    this.apiService.updateSubtaskStatus(taskId, body).subscribe(
-      (response) => {
-        this.task?.subtasks.forEach((subtask) => {
-          if (subtask.id === subtaskId) {
-            subtask.status = !currentStatus;
-          }
-        });
-        this.toastNotificationService.updateSubtaskSuccessToast();
-        this.updateNotifierService.notifyUpdate('task');
-      },
-      (error) => {
-        console.error('Error updating subtask:', error);
-      }
-    );
+    this.apiService
+      .updateSubtaskStatus(taskId, body)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (response) => {
+          this.task?.subtasks.forEach((subtask) => {
+            if (subtask.id === subtaskId) {
+              subtask.status = !currentStatus;
+            }
+          });
+          this.toastNotificationService.updateSubtaskSuccessToast();
+          this.updateNotifierService.notifyUpdate('task');
+        },
+        (error) => {
+          console.error('Error updating subtask:', error);
+        }
+      );
   }
 
   /**

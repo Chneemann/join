@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
@@ -8,6 +8,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { OverlayComponent } from '../../shared/components/overlay/overlay.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-main-layout',
@@ -23,8 +24,10 @@ import { OverlayComponent } from '../../shared/components/overlay/overlay.compon
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
 })
-export class MainLayoutComponent {
+export class MainLayoutComponent implements OnInit, OnDestroy {
   currentUser: User | null = null;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     public langService: LanguageService,
@@ -35,9 +38,17 @@ export class MainLayoutComponent {
     this.loadCurrentUser();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   loadCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe((userData) => {
-      this.currentUser = userData;
-    });
+    this.userService
+      .getCurrentUser()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((userData) => {
+        this.currentUser = userData;
+      });
   }
 }

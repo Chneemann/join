@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DragDropService } from '../../services/drag-drop.service';
 import { CommonModule } from '@angular/common';
 import { TaskComponent } from './task/task.component';
@@ -32,13 +32,22 @@ import { ResizeService } from '../../services/resize.service';
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
-export class BoardComponent {
-  private destroy$ = new Subject<void>();
-
+export class BoardComponent implements OnInit, OnDestroy {
   readonly TODO = 'todo';
   readonly IN_PROGRESS = 'inprogress';
   readonly AWAIT_FEEDBACK = 'awaitfeedback';
   readonly DONE = 'done';
+
+  allTasks: Task[] = [];
+  filteredTasks: { [key: string]: Task[] } = {};
+
+  searchValue: string = '';
+  searchInput: boolean = false;
+  taskMovedTo: string = '';
+  taskMovedFrom: string = '';
+  isLoading = false;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     public dragDropService: DragDropService,
@@ -51,19 +60,15 @@ export class BoardComponent {
     private router: Router
   ) {}
 
-  allTasks: Task[] = [];
-  filteredTasks: { [key: string]: Task[] } = {};
-
-  searchValue: string = '';
-  searchInput: boolean = false;
-  taskMovedTo: string = '';
-  taskMovedFrom: string = '';
-  isLoading = false;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadAllTasks();
     this.subscribeToTaskUpdates();
     this.subscribeToDragDropEvents();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   loadAllTasks(): void {
@@ -71,7 +76,10 @@ export class BoardComponent {
 
     this.taskService
       .getTasksWithUsers()
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => (this.isLoading = false))
+      )
       .subscribe({
         next: (response) => {
           this.allTasks = response.allTasks;
@@ -111,17 +119,23 @@ export class BoardComponent {
    * - `itemMovedFrom`: Sets `taskMovedFrom` to the status.
    */
   private subscribeToDragDropEvents(): void {
-    this.dragDropService.itemDropped.subscribe(({ task, status }) => {
-      this.handleItemDropped(task, status);
-    });
+    this.dragDropService.itemDropped
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ task, status }) => {
+        this.handleItemDropped(task, status);
+      });
 
-    this.dragDropService.itemMovedTo.subscribe(({ status }) => {
-      this.taskMovedTo = status;
-    });
+    this.dragDropService.itemMovedTo
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ status }) => {
+        this.taskMovedTo = status;
+      });
 
-    this.dragDropService.itemMovedFrom.subscribe(({ status }) => {
-      this.taskMovedFrom = status;
-    });
+    this.dragDropService.itemMovedFrom
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ status }) => {
+        this.taskMovedFrom = status;
+      });
   }
 
   /**
@@ -142,13 +156,16 @@ export class BoardComponent {
   handleItemDropped(task: Task, status: string): void {
     if (!task || task.status === status) return;
 
-    this.apiService.updateTaskStatus(task.id!, status).subscribe({
-      next: () => {
-        this.toastNotificationService.taskStatusUpdatedToast();
-        this.updateTaskStatus(task.id!, status);
-      },
-      error: (error) => console.error('Error updating task:', error),
-    });
+    this.apiService
+      .updateTaskStatus(task.id!, status)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.toastNotificationService.taskStatusUpdatedToast();
+          this.updateTaskStatus(task.id!, status);
+        },
+        error: (error) => console.error('Error updating task:', error),
+      });
   }
 
   /**
@@ -200,10 +217,5 @@ export class BoardComponent {
         ),
       ])
     );
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

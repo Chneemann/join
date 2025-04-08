@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AddTaskComponent } from '../../../../components/add-task/add-task.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-task-edit-overlay',
@@ -13,12 +21,14 @@ import { ApiService } from '../../../../services/api.service';
   templateUrl: './task-edit-overlay.component.html',
   styleUrl: './task-edit-overlay.component.scss',
 })
-export class TaskEditOverlayComponent {
+export class TaskEditOverlayComponent implements OnInit, OnDestroy {
   @Input() overlayData: string = '';
   @Input() overlayType: string = '';
   @Output() closeDialogEmitter = new EventEmitter<boolean>();
 
   overlayMobile: boolean = false;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private apiService: ApiService,
@@ -33,15 +43,22 @@ export class TaskEditOverlayComponent {
    * and sets the overlay data and type from the route parameters. It also sets
    * the overlay mobile flag to true.
    */
-  ngOnInit() {
-    if (this.overlayData == '') {
-      if (this.route.params.subscribe()) {
-        this.route.params.subscribe((params) => {
-          this.overlayData = params['id'];
-          this.overlayType = this.overlayType;
-          this.overlayMobile = true;
-        });
-      }
+  ngOnInit(): void {
+    this.loadOverlayData();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private loadOverlayData(): void {
+    if (this.overlayData === '') {
+      this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+        this.overlayData = params['id'];
+        this.overlayType = this.overlayType;
+        this.overlayMobile = true;
+      });
     }
   }
 

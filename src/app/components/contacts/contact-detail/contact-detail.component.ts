@@ -2,13 +2,15 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
+  OnDestroy,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from '../../../services/user.service';
-import { finalize, lastValueFrom } from 'rxjs';
+import { finalize, lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { User } from '../../../interfaces/user.interface';
 import { OverlayService } from '../../../services/overlay.service';
 import { ApiService } from '../../../services/api.service';
@@ -23,7 +25,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.scss',
 })
-export class ContactDetailComponent {
+export class ContactDetailComponent implements OnChanges, OnDestroy {
   @Input() selectedUserId: string | null = null;
   @Input() currentUser: User | null = null;
   @Output() contactClosed = new EventEmitter<boolean>();
@@ -32,6 +34,8 @@ export class ContactDetailComponent {
   isLoading = false;
   showMobileNavbar = false;
   showConfirmDialog = false;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private overlayService: OverlayService,
@@ -54,6 +58,38 @@ export class ContactDetailComponent {
     } else {
       this.selectedUser = null;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  /**
+   * Loads the user data with the given id and sets it to the `selectedUser` property.
+   */
+  loadUser(): void {
+    this.isLoading = true;
+
+    if (!this.selectedUserId) {
+      this.isLoading = false;
+      return;
+    }
+
+    this.userService
+      .getUserById(this.selectedUserId)
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => (this.isLoading = false))
+      )
+      .subscribe({
+        next: (response) => {
+          this.selectedUser = response;
+        },
+        error: (err) => {
+          console.error('Error loading the tasks:', err);
+        },
+      });
   }
 
   /**
@@ -103,29 +139,5 @@ export class ContactDetailComponent {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  /**
-   * Loads the user data with the given id and sets it to the `selectedUser` property.
-   */
-  loadUser(): void {
-    this.isLoading = true;
-
-    if (!this.selectedUserId) {
-      this.isLoading = false;
-      return;
-    }
-
-    this.userService
-      .getUserById(this.selectedUserId)
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: (response) => {
-          this.selectedUser = response;
-        },
-        error: (err) => {
-          console.error('Error loading the tasks:', err);
-        },
-      });
   }
 }

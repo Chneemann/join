@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { BtnCloseComponent } from '../../buttons/btn-close/btn-close.component';
@@ -18,7 +18,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
   templateUrl: './contact-overlay.component.html',
   styleUrl: './contact-overlay.component.scss',
 })
-export class ContactOverlayComponent implements OnInit {
+export class ContactOverlayComponent {
   @Input() overlayData: any = [];
   @Input() overlayType: string = '';
   @Output() closeDialogEmitter = new EventEmitter<boolean>();
@@ -26,10 +26,6 @@ export class ContactOverlayComponent implements OnInit {
   randomColor: string = this.getRandomColor();
   userInitials: string = '';
   newColor: string = '';
-
-  constructor() {}
-
-  ngOnInit() {}
 
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';

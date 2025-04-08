@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 import { ButtonStateService } from '../../services/button-state.service';
 import { PasswordVisibilityService } from '../../services/password-visibility.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ import { PasswordVisibilityService } from '../../services/password-visibility.se
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   isPasswordIconVisible: boolean = true;
   checkboxRememberMe: boolean = false;
 
@@ -37,6 +38,8 @@ export class LoginComponent {
     email: '',
     password: '',
   };
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     public pwVisibility: PasswordVisibilityService,
@@ -47,13 +50,18 @@ export class LoginComponent {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.routeParams();
     this.deleteTokens();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   routeParams() {
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
       if (params['id'] && params['id'] === 'pw-send') {
         this.overlayService.setOverlayData('dialog', 'pw-send');
       }

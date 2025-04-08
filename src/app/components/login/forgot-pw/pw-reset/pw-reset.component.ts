@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../../../shared/components/buttons/form-btn/form-btn.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { HeaderComponent } from '../../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { ButtonStateService } from '../../../../services/button-state.service';
 import { AuthService } from '../../../../services/auth.service';
 import { PasswordVisibilityService } from '../../../../services/password-visibility.service';
@@ -25,7 +25,7 @@ import { PasswordVisibilityService } from '../../../../services/password-visibil
   templateUrl: './pw-reset.component.html',
   styleUrl: './pw-reset.component.scss',
 })
-export class PwResetComponent {
+export class PwResetComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription = new Subscription();
 
   uid: string = '';
@@ -37,6 +37,8 @@ export class PwResetComponent {
     passwordConfirm: '',
   };
 
+  private destroy$ = new Subject<void>();
+
   constructor(
     public pwVisibility: PasswordVisibilityService,
     private authService: AuthService,
@@ -45,16 +47,19 @@ export class PwResetComponent {
   ) {}
 
   ngOnInit(): void {
-    this.routeSubscription = this.route.params.subscribe((params) => {
-      this.uid = params['uid'];
-      this.token = params['token'];
-    });
+    this.routeParams();
   }
 
   ngOnDestroy(): void {
-    if (this.routeSubscription) {
-      this.routeSubscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  routeParams() {
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      this.uid = params['uid'];
+      this.token = params['token'];
+    });
   }
 
   isButtonDisabled() {

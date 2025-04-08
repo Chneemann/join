@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
@@ -6,6 +6,7 @@ import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.
 import { Router } from '@angular/router';
 import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.component';
 import { ContactOverlayComponent } from './contact-overlay/contact-overlay.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-overlay',
@@ -20,9 +21,11 @@ import { ContactOverlayComponent } from './contact-overlay/contact-overlay.compo
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
 })
-export class OverlayComponent implements OnInit {
+export class OverlayComponent implements OnInit, OnDestroy {
   overlayType: any;
   overlayData: any;
+
+  private destroy$ = new Subject<void>();
 
   constructor(private overlayService: OverlayService, private router: Router) {}
 
@@ -34,18 +37,25 @@ export class OverlayComponent implements OnInit {
     this.checkOverlayData();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   /**
    * Subscribes to the overlay data observable from the OverlayService.
    * Updates the component's `overlayType` and `overlayData` properties
    * whenever new overlay data is emitted.
    */
   checkOverlayData() {
-    this.overlayService.overlayData$.subscribe((data) => {
-      if (data) {
-        this.overlayType = data.overlay;
-        this.overlayData = data.data;
-      }
-    });
+    this.overlayService.overlayData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        if (data) {
+          this.overlayType = data.overlay;
+          this.overlayData = data.data;
+        }
+      });
   }
 
   /**

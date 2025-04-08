@@ -3,6 +3,8 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../../interfaces/user.interface';
 import { ApiService } from '../../../services/api.service';
-import { map, catchError, of } from 'rxjs';
+import { map, catchError, of, Subject, takeUntil } from 'rxjs';
 import { Assignee } from '../../../interfaces/task.interface';
 
 @Component({
@@ -21,7 +23,7 @@ import { Assignee } from '../../../interfaces/task.interface';
   templateUrl: './assigned.component.html',
   styleUrl: './assigned.component.scss',
 })
-export class AssignedComponent {
+export class AssignedComponent implements OnInit, OnDestroy {
   @Input() taskCreator: string = '';
   @Input() currentAssignees: Assignee[] = [];
   @Output() assignedChange = new EventEmitter<string[]>();
@@ -35,16 +37,24 @@ export class AssignedComponent {
   dialogX: number = 0;
   dialogY: number = 0;
 
+  private destroy$ = new Subject<void>();
+
   constructor(private apiService: ApiService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadUsers();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   loadUsers(): void {
     this.apiService
       .getUsers()
       .pipe(
+        takeUntil(this.destroy$),
         map((users) => users.filter((user) => user.id !== this.taskCreator)),
         catchError(() => of([]))
       )

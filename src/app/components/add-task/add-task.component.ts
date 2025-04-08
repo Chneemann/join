@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
 import { Subtask, Task } from '../../interfaces/task.interface';
@@ -8,7 +8,7 @@ import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, map, Subject, takeUntil } from 'rxjs';
 import { TaskService } from '../../services/task.service';
 import { ApiService } from '../../services/api.service';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
@@ -27,7 +27,7 @@ import { ToastNotificationService } from '../../services/toast-notification.serv
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
-export class AddTaskComponent implements OnInit {
+export class AddTaskComponent implements OnInit, OnDestroy {
   @Input() overlayData: string = '';
   @Input() overlayType: string = '';
   @Input() overlayMobile: boolean = false;
@@ -35,6 +35,8 @@ export class AddTaskComponent implements OnInit {
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
   subtaskValue: string = '';
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private overlayService: OverlayService,
@@ -67,16 +69,24 @@ export class AddTaskComponent implements OnInit {
    * - Sets up route parameters to determine task status.
    * - Loads any existing task data from local storage.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.setCurrentUserId();
     this.loadExistingTaskData();
     this.routeParams();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   setCurrentUserId() {
     this.authService
       .getCurrentUserId()
-      .pipe(map((userId) => userId ?? ''))
+      .pipe(
+        takeUntil(this.destroy$),
+        map((userId) => userId ?? '')
+      )
       .subscribe((userId) => {
         this.taskData.creator = userId;
       });
@@ -103,13 +113,11 @@ export class AddTaskComponent implements OnInit {
    * @returns {void}
    */
   routeParams() {
-    if (this.route.params.subscribe()) {
-      this.route.params.subscribe((params) => {
-        if (params['id']) {
-          this.taskData.status = params['id'];
-        }
-      });
-    }
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      if (params['id']) {
+        this.taskData.status = params['id'];
+      }
+    });
   }
 
   /**
@@ -270,34 +278,40 @@ export class AddTaskComponent implements OnInit {
   }
 
   createTask(ngForm: NgForm) {
-    this.apiService.saveNewTask(this.taskData).subscribe({
-      next: (response) => {
-        this.toastNotificationService.createTaskSuccessToast();
-        this.updateNotifierService.notifyUpdate('task');
-        this.clearTaskData(ngForm);
-        this.closeOverlay();
-        this.router.navigate(['/board']);
-      },
-      error: (error) => {
-        console.error('Fehler beim Speichern:', error);
-      },
-    });
+    this.apiService
+      .saveNewTask(this.taskData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.toastNotificationService.createTaskSuccessToast();
+          this.updateNotifierService.notifyUpdate('task');
+          this.clearTaskData(ngForm);
+          this.closeOverlay();
+          this.router.navigate(['/board']);
+        },
+        error: (error) => {
+          console.error('Fehler beim Speichern:', error);
+        },
+      });
   }
 
   updateTask(ngForm: NgForm) {
     // OverlayData = Current TaskId
-    this.apiService.updateTask(this.taskData, this.overlayData).subscribe({
-      next: (response) => {
-        this.toastNotificationService.updateTaskSuccessToast();
-        this.updateNotifierService.notifyUpdate('task');
-        this.clearTaskData(ngForm);
-        this.closeOverlay();
-        this.router.navigate(['/board']);
-      },
-      error: (error) => {
-        console.error('Fehler beim Speichern:', error);
-      },
-    });
+    this.apiService
+      .updateTask(this.taskData, this.overlayData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.toastNotificationService.updateTaskSuccessToast();
+          this.updateNotifierService.notifyUpdate('task');
+          this.clearTaskData(ngForm);
+          this.closeOverlay();
+          this.router.navigate(['/board']);
+        },
+        error: (error) => {
+          console.error('Fehler beim Speichern:', error);
+        },
+      });
   }
 
   /**

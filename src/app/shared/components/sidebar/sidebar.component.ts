@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { AuthService } from '../../../services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,8 +13,10 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   currentPath: string = '';
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -28,13 +31,18 @@ export class SidebarComponent implements OnInit {
     this.getCurrentPath();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   /**
    * Subscribes to router events and updates the currentPath property
    * with the current route's URL, excluding the leading slash, whenever
    * a navigation ends.
    */
   getCurrentPath() {
-    this.router.events.subscribe((event) => {
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentPath = this.router.url.substring(1);
       }
