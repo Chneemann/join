@@ -1,25 +1,31 @@
 # Join
 
-Task manager modeled on the Kanban system. Create and organize tasks using drag-and-drop functions, assign users and categories to ensure efficient management.
+A task manager modeled after the Kanban system. Create and organize tasks using drag-and-drop functionality, assign users and categories for efficient task management.
 
-## Technologies Used  
+## Technologies Used
 
 - HTML / SCSS
 - Angular / TypeScript
-- Firebase
+- Django REST / PostgreSQL / Redis
 
 ## Features
 
-- Summary with general information on tasks and upcoming deadlines
+- Summary displaying general information about tasks and upcoming deadlines
 - Create, read, update, and delete tasks and contacts
-- Different priority levels for tasks, depending on necessity
-- Assign contacts to a task
-- Organize tasks by dragging and dropping them
+- Task prioritization based on urgency
+- Assign contacts to tasks
+- Organize tasks with drag-and-drop functionality
 
 ## Description
 
-The Join Task Manager is a powerful platform based on the Kanban system that aims to manage tasks efficiently. With a user-friendly interface, you can create and organize tasks by simply using drag-and-drop functions. Thanks to the integration of HTML / SCSS, Angular / TypeScript, and Firebase, we offer a robust and reliable environment for your task management.
+Join Task Manager is a robust platform built on the Kanban system, designed for efficient task management. With a user-friendly interface, you can easily create and organize tasks using drag-and-drop functionality. Built with HTML / SCSS, Angular / TypeScript, and Django REST, Join offers a powerful and reliable environment for managing your tasks.
 
-Key features include a summary with general information about tasks and upcoming deadlines, the creation, display, update, and deletion of tasks and contacts, and the ability to assign different priority levels to tasks depending on urgency. You can also assign tasks to contacts to improve collaboration.
+Key features include:
 
-Organizing your tasks is as simple as dragging and dropping, allowing you to manage them quickly and intuitively. With Join, you have all the tools you need to organize and keep track of your tasks efficiently, so you can focus on what's important.
+- A summary view that displays general information about tasks and upcoming deadlines
+- Full CRUD functionality (Create, Read, Update, Delete) for tasks and contacts
+- The ability to assign different priority levels to tasks based on urgency
+- Task assignment to contacts for better collaboration
+- Simple and intuitive task organization using drag-and-drop
+
+Join helps you manage tasks quickly and efficiently, keeping you focused on what truly matters.
