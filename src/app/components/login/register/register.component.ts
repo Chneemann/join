@@ -4,7 +4,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormBtnComponent } from '../../../shared/components/buttons/form-btn/form-btn.component';
-import { LoginService } from '../../../services/login.service';
+import { PasswordVisibilityService } from '../../../services/password-visibility.service';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -43,7 +43,7 @@ export class RegisterComponent {
   };
 
   constructor(
-    public loginService: LoginService,
+    public pwVisibility: PasswordVisibilityService,
     public translateService: TranslateService,
     private authService: AuthService,
     private buttonStateService: ButtonStateService

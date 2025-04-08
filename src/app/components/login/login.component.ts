@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { LoginService } from '../../services/login.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +11,7 @@ import { OverlayService } from '../../services/overlay.service';
 import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 import { ButtonStateService } from '../../services/button-state.service';
+import { PasswordVisibilityService } from '../../services/password-visibility.service';
 
 @Component({
   selector: 'app-login',
@@ -39,13 +39,12 @@ export class LoginComponent {
   };
 
   constructor(
+    public pwVisibility: PasswordVisibilityService,
     private authService: AuthService,
-    public loginService: LoginService,
     private tokenService: TokenService,
     private overlayService: OverlayService,
     private buttonStateService: ButtonStateService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {

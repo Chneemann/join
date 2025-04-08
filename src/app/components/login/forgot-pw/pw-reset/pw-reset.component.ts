@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ButtonStateService } from '../../../../services/button-state.service';
 import { AuthService } from '../../../../services/auth.service';
-import { LoginService } from '../../../../services/login.service';
+import { PasswordVisibilityService } from '../../../../services/password-visibility.service';
 
 @Component({
   selector: 'app-pw-reset',
@@ -38,7 +38,7 @@ export class PwResetComponent {
   };
 
   constructor(
-    public loginService: LoginService,
+    public pwVisibility: PasswordVisibilityService,
     private authService: AuthService,
     private buttonStateService: ButtonStateService,
     private route: ActivatedRoute

@@ -19,7 +19,7 @@
           id="password"
           name="password"
           #password="ngModel"
-          [type]="loginService.passwordFieldType"
+          [type]="pwVisibility.passwordFieldType"
           placeholder="{{ 'register.password' | translate }}"
           class="custom-input"
           autocomplete="new-password"
@@ -36,8 +36,8 @@
         } @else {
         <img
           class="passwordEye"
-          (click)="loginService.togglePasswordVisibility()"
-          [src]="loginService.passwordIcon"
+          (click)="pwVisibility.togglePasswordVisibility()"
+          [src]="pwVisibility.passwordIcon"
         />
         }
         <div class="error-msg">
@@ -52,7 +52,7 @@
           id="passwordConfirm"
           name="passwordConfirm"
           #passwordConfirm="ngModel"
-          [type]="loginService.passwordFieldType"
+          [type]="pwVisibility.passwordFieldType"
           placeholder="{{ 'register.passwordConfirm' | translate }}"
           class="custom-input"
           autocomplete="new-password"
@@ -69,8 +69,8 @@
         } @else {
         <img
           class="passwordEyeConfirm"
-          (click)="loginService.togglePasswordVisibility()"
-          [src]="loginService.passwordIcon"
+          (click)="pwVisibility.togglePasswordVisibility()"
+          [src]="pwVisibility.passwordIcon"
         />
         }
         <div class="error-msg">

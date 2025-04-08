@@ -3,7 +3,6 @@ import { Router, RouterModule } from '@angular/router';
 import { LanguageService } from '../../../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginService } from '../../../../services/login.service';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({

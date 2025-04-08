@@ -18,6 +18,9 @@ import { ToastNotificationService } from './toast-notification.service';
 export class AuthService {
   private currentUserIdSubject = new BehaviorSubject<string | null>(null);
 
+  passwordFieldType: string = 'password';
+  passwordIcon: string = './../../../assets/img/login/close-eye.svg';
+
   constructor(
     private apiService: ApiService,
     private tokenService: TokenService,
@@ -111,5 +114,18 @@ export class AuthService {
 
   getCurrentUserId(): Observable<string | null> {
     return this.currentUserIdSubject.asObservable();
+  }
+
+  togglePasswordVisibility() {
+    this.passwordFieldType =
+      this.passwordFieldType === 'password' ? 'text' : 'password';
+    this.toggleIcon();
+  }
+
+  toggleIcon() {
+    this.passwordIcon =
+      this.passwordIcon === './../../../assets/img/login/close-eye.svg'
+        ? './../../../assets/img/login/open-eye.svg'
+        : './../../../assets/img/login/close-eye.svg';
   }
 }

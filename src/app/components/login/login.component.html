@@ -35,9 +35,6 @@
         <div class="error-msg">
           @if (!mail.valid && mail.touched && !isButtonDisabled()) {
           <p>{{ "login.errorMail0" | translate }}</p>
-          } @if (loginService.errorCode == 'auth/invalid-email' &&
-          !isButtonDisabled()) {
-          <p>{{ "login.errorMail1" | translate }}</p>
           } @if (mail.valid && mail.touched &&
           !isEmailValid(loginData.email.toLowerCase()) && !isButtonDisabled()) {
           <p>{{ "login.errorMail2" | translate }}</p>
@@ -48,7 +45,7 @@
           id="password"
           name="password"
           #password="ngModel"
-          [type]="loginService.passwordFieldType"
+          [type]="pwVisibility.passwordFieldType"
           placeholder="{{ 'login.password' | translate }}"
           class="custom-input"
           autocomplete="current-password"
@@ -67,16 +64,13 @@
         <img
           class="passwordEye"
           *ngIf="isPasswordIconVisible"
-          (click)="loginService.togglePasswordVisibility()"
-          [src]="loginService.passwordIcon"
+          (click)="pwVisibility.togglePasswordVisibility()"
+          [src]="pwVisibility.passwordIcon"
         />
         }
         <div class="error-msg">
           @if (!password.valid && password.touched && !isButtonDisabled()) {
           <p>{{ "login.errorPassword0" | translate }}</p>
-          } @if (loginService.errorCode == 'auth/invalid-credential' &&
-          !isButtonDisabled()) {
-          <p>{{ "login.errorPassword1" | translate }}</p>
           }
         </div>
         <div class="checkbox">
