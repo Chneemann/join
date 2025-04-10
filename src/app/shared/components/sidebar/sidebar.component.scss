@@ -27,19 +27,23 @@ nav {
   padding-left: 56px;
   height: 46px;
   cursor: pointer;
+
   img {
     width: 30px;
     height: 30px;
     padding-right: 8px;
   }
+
   span {
     text-align: center;
     font-size: 16px;
     color: var(--light-gray);
   }
+
   &:hover {
     background-color: var(--very-dark-blue);
   }
+
   &:active {
     background-color: var(--very-dark-blue);
   }
@@ -54,6 +58,7 @@ nav {
   align-items: center;
   flex-direction: column;
   margin-bottom: 30px;
+
   a {
     justify-content: center;
     width: fit-content;
@@ -64,6 +69,19 @@ nav {
     text-decoration: none;
     color: var(--light-gray);
     cursor: pointer;
+
+    img {
+      display: none;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(75%) sepia(51%)
+          saturate(5547%) hue-rotate(164deg) brightness(97%) contrast(82%);
+      }
+    }
+
     &:hover {
       color: var(--light-blue);
     }
@@ -75,5 +93,48 @@ nav {
 }
 
 .active-link {
-  color: var(--light-blue) !important;
+  cursor: auto !important;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(51%) saturate(5547%)
+    hue-rotate(164deg) brightness(97%) contrast(82%) !important;
+}
+
+/* Media queries */
+
+@media (max-width: 1440px) {
+  section,
+  nav {
+    width: 60px;
+  }
+
+  .logo {
+    width: 40px;
+    height: 73px;
+    margin: 10px;
+  }
+
+  .nav-links-inner {
+    justify-content: center;
+    width: 100%;
+    padding: 6px 0;
+
+    img {
+      padding-right: 0;
+    }
+
+    span {
+      display: none;
+    }
+  }
+
+  .reference {
+    a {
+      img {
+        display: block;
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
 }

@@ -59,7 +59,8 @@
         'active-link': currentPath === 'privacy-policy'
       }"
     >
-      {{ "sidebar.privacyPolicy" | translate }}
+      <img src="./assets/img/sidebar/privacy-policy.svg" alt="privacy-policy" />
+      <span>{{ "sidebar.privacyPolicy" | translate }}</span>
     </a>
     <a
       routerLink="imprint"
@@ -67,8 +68,13 @@
         'active-link': currentPath === 'imprint'
       }"
     >
-      {{ "sidebar.legalNotice" | translate }}
+      <img src="./assets/img/sidebar/legal-notice.svg" alt="legal-notice" />
+      <span>{{ "sidebar.legalNotice" | translate }}</span>
     </a>
-    <a (click)="logout()">{{ "sidebar.logout" | translate }}</a>
+    <a (click)="logout()"
+      ><img src="./assets/img/sidebar/logout.svg" alt="logout" /><span>{{
+        "sidebar.logout" | translate
+      }}</span></a
+    >
   </div>
 </section>

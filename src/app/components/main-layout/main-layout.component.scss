@@ -8,7 +8,6 @@ app-header {
   left: 232px;
   right: 0;
   height: 96px;
-  width: 100%;
   background-color: var(--white);
   z-index: 1;
 }
@@ -44,6 +43,16 @@ app-sidebar-mobile {
 
 .d-none {
   display: none;
+}
+
+/* Media queries */
+
+@media (max-width: 1440px) {
+  app-header,
+  app-sidebar,
+  .main-content {
+    left: 60px;
+  }
 }
 
 @media screen and (max-width: 910px) {
