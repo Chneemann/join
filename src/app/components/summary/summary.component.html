@@ -8,7 +8,7 @@
   </div>
   @if (!isLoading) {
   <div class="content">
-    <div class="left-container">
+    <div class="summary-container">
       <!-- Top Frame -->
       <div class="top-frame">
         <div class="todo-done" routerLink="/board">
@@ -97,7 +97,7 @@
     </div>
 
     <!-- Greeting -->
-    <div class="right-container">
+    <div class="welcome-container">
       <p>{{ greeting }},</p>
       @if (currentUser) {
       <span id="welcome-user">
@@ -109,7 +109,7 @@
   </div>
   } @else {
   <div class="content">
-    <div class="left-container">
+    <div class="summary-container">
       <app-loading-spinner></app-loading-spinner>
     </div>
   </div>
