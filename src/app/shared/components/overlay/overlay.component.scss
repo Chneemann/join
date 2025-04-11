@@ -24,7 +24,7 @@
       transform: scale(1) translateY(0);
       opacity: 1;
       transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-        opacity 0.4s ease-out;
+        opacity 0.3s ease-out;
     }
   }
 
@@ -35,7 +35,7 @@
     & > .overlay-content {
       transform: scale(0.95) translateY(20px);
       opacity: 0;
-      transition: transform 0.4s ease-in, opacity 0.4s ease-out;
+      transition: transform 0.3s ease-in, opacity 0.3s ease-out;
     }
   }
 }
@@ -43,5 +43,5 @@
 .overlay-content {
   transform: scale(0.95) translateY(20px);
   opacity: 0;
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }

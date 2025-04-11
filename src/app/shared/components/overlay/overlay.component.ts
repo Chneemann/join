@@ -3,7 +3,6 @@ import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
-import { Router } from '@angular/router';
 import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.component';
 import { ContactOverlayComponent } from './contact-overlay/contact-overlay.component';
 import { Subject, takeUntil } from 'rxjs';
@@ -35,7 +34,7 @@ export class OverlayComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private overlayService: OverlayService, private router: Router) {}
+  constructor(private overlayService: OverlayService) {}
 
   /**
    * Checks the overlay data observable from the OverlayService and subscribes to it.
@@ -53,22 +52,21 @@ export class OverlayComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Subscribes to the overlay data observable from the OverlayService.
-   * Updates the overlay type and data when new data is received.
-   * Sets the overlay as visible with a slight delay if data is present.
-   * Marks the overlay as closing and invisible if no data is present.
+   * Listens to the overlay data observable from the OverlayService
+   * and handles the changes accordingly.
    */
   listenToOverlayChanges() {
     this.overlayService.overlayData$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         if (data) {
-          this.overlayType = data.overlay;
-          this.overlayData = data.data;
-          this.isClosingAnimation = false;
-          requestAnimationFrame(() => {
-            this.shouldShowOverlay = true;
-          });
+          if (data.overlay === 'taskOverlayEdit') {
+            this.startClosingAnimation(() => {
+              this.updateOverlayData(data);
+            });
+          } else {
+            this.updateOverlayData(data);
+          }
         } else {
           this.isClosingAnimation = true;
           this.shouldShowOverlay = false;
@@ -77,11 +75,34 @@ export class OverlayComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Updates the overlay data from the given data object.
+   * @param {any} data the data object containing the overlay type and data
+   */
+  updateOverlayData(data: any) {
+    this.overlayType = data.overlay;
+    this.overlayData = data.data;
+    this.isClosingAnimation = false;
+    this.shouldShowOverlay = true;
+  }
+
+  /**
+   * Starts the closing animation and calls the given callback function after the animation has finished.
+   * @param {() => void} callback the callback function to be called after the animation has finished
+   */
+  startClosingAnimation(callback: () => void) {
+    this.isClosingAnimation = true;
+
+    setTimeout(() => {
+      callback();
+      this.isClosingAnimation = false;
+    }, 300);
+  }
+
+  /**
    * Closes the overlay by clearing the overlay data from the service.
    * @param {boolean} close Indicates the close event.
    */
-  onCloseOverlay(close: boolean) {
-    this.overlayData = close;
+  onCloseOverlay() {
     this.overlayService.clearOverlayData();
   }
 
@@ -93,8 +114,12 @@ export class OverlayComponent implements OnInit, OnDestroy {
   onDocumentClick(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
 
-    if (targetElement && targetElement.classList.contains('overlay')) {
-      this.onCloseOverlay(false);
+    if (
+      targetElement &&
+      targetElement.classList.contains('overlay') &&
+      !targetElement.closest('.overlay-content')
+    ) {
+      this.onCloseOverlay();
     }
   }
 }
