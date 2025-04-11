@@ -215,7 +215,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   closeOverlay() {
-    this.overlayService.setOverlayData('', '');
+    this.overlayService.clearOverlayData();
   }
 
   /**
@@ -268,8 +268,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
 
   onSubmit(ngForm: NgForm) {
     if (ngForm.submitted && ngForm.form.valid) {
-      // OverlayData = Current TaskId
-      if (this.overlayData) {
+      if (this.overlayType === 'taskOverlayEdit') {
         this.updateTask(ngForm);
       } else {
         this.createTask(ngForm);

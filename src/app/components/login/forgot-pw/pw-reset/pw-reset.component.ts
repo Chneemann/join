@@ -6,7 +6,7 @@ import { FooterComponent } from '../../footer/footer.component';
 import { HeaderComponent } from '../../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ButtonStateService } from '../../../../services/button-state.service';
 import { AuthService } from '../../../../services/auth.service';
 import { PasswordVisibilityService } from '../../../../services/password-visibility.service';
@@ -26,8 +26,6 @@ import { PasswordVisibilityService } from '../../../../services/password-visibil
   styleUrl: './pw-reset.component.scss',
 })
 export class PwResetComponent implements OnInit, OnDestroy {
-  private routeSubscription: Subscription = new Subscription();
-
   uid: string = '';
   token: string = '';
   errorHttpMessage: string = '';

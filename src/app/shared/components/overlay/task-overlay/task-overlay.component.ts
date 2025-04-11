@@ -19,18 +19,11 @@ import { map, Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
 import { UpdateNotifierService } from '../../../../services/update-notifier.service';
 import { ToastNotificationService } from '../../../../services/toast-notification.service';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-task-overlay',
   standalone: true,
-  imports: [
-    BtnCloseComponent,
-    CommonModule,
-    BtnBackComponent,
-    TranslateModule,
-    ConfirmDialogComponent,
-  ],
+  imports: [BtnCloseComponent, CommonModule, BtnBackComponent, TranslateModule],
   templateUrl: './task-overlay.component.html',
   styleUrl: './task-overlay.component.scss',
 })

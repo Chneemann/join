@@ -16,19 +16,12 @@ import { ApiService } from '../../../../../services/api.service';
 import { ToastNotificationService } from '../../../../../services/toast-notification.service';
 import { UpdateNotifierService } from '../../../../../services/update-notifier.service';
 import { User } from '../../../../../interfaces/user.interface';
-import { ConfirmDialogComponent } from '../../../confirm-dialog/confirm-dialog.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    FormsModule,
-    FormBtnComponent,
-    ConfirmDialogComponent,
-  ],
+  imports: [CommonModule, TranslateModule, FormsModule, FormBtnComponent],
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.scss',
 })

@@ -127,9 +127,9 @@
     </div>
     }
   </div>
-  @if(task.creator === currentUserId) {
+  @if(task.creator === currentUserId && task.id) {
   <div class="btns">
-    <div class="btn btn-delete" (click)="toggleConfirmDialog()">
+    <div class="btn btn-delete" (click)="deleteTask(task.id)">
       <img src="./../../../../../assets/img/contact/delete.svg" alt="" />
       <p>{{ "addTask.delete" | translate }}</p>
     </div>
@@ -145,11 +145,3 @@
   </div>
   }
 </section>
-
-<!-- Confirm dialog -->
-<app-confirm-dialog
-  *ngIf="showConfirmDialog"
-  [message]="'confirmDialogComponent.deleteTask' | translate"
-  (onConfirm)="deleteTask(overlayData)"
-  (onCancel)="toggleConfirmDialog()"
-></app-confirm-dialog>
