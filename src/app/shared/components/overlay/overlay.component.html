@@ -1,5 +1,8 @@
-@if (overlayData) {
-<div class="overlay">
+<div
+  class="overlay"
+  [class.show]="shouldShowOverlay"
+  [class.closing]="isClosingAnimation"
+>
   <div class="overlay-content">
     @if (overlayType === "taskOverlay") {
     <app-task-overlay
@@ -18,7 +21,7 @@
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay($event)"
     ></app-task-edit-overlay>
-    } @if (overlayType === "dialog") {
+    } @if (overlayType === "dialogOverlay") {
     <app-dialog-overlay
       [overlayData]="overlayData"
       [overlayType]="overlayType"
@@ -33,4 +36,3 @@
     }
   </div>
 </div>
-}

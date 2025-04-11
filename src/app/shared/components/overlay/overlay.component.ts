@@ -22,21 +22,31 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './overlay.component.scss',
 })
 export class OverlayComponent implements OnInit, OnDestroy {
-  overlayType: any;
-  overlayData: any;
+  overlayType:
+    | 'taskOverlay'
+    | 'taskOverlayEdit'
+    | 'newTaskOverlay'
+    | 'dialogOverlay'
+    | 'contactOverlay'
+    | null = null;
+  overlayData: any = null;
+  shouldShowOverlay = false;
+  isClosingAnimation = false;
 
   private destroy$ = new Subject<void>();
 
   constructor(private overlayService: OverlayService, private router: Router) {}
 
   /**
-   * Angular lifecycle hook that is called after the component's view has been fully initialized.
-   * Invokes `checkOverlayData` to subscribe to overlay data changes and update the component's state accordingly.
+   * Checks the overlay data observable from the OverlayService and subscribes to it.
    */
   ngOnInit(): void {
-    this.checkOverlayData();
+    this.listenToOverlayChanges();
   }
 
+  /**
+   * Emits an event to stop listening to the overlay data observable and unsubscribes from it.
+   */
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -44,40 +54,46 @@ export class OverlayComponent implements OnInit, OnDestroy {
 
   /**
    * Subscribes to the overlay data observable from the OverlayService.
-   * Updates the component's `overlayType` and `overlayData` properties
-   * whenever new overlay data is emitted.
+   * Updates the overlay type and data when new data is received.
+   * Sets the overlay as visible with a slight delay if data is present.
+   * Marks the overlay as closing and invisible if no data is present.
    */
-  checkOverlayData() {
+  listenToOverlayChanges() {
     this.overlayService.overlayData$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         if (data) {
           this.overlayType = data.overlay;
           this.overlayData = data.data;
+          this.isClosingAnimation = false;
+          requestAnimationFrame(() => {
+            this.shouldShowOverlay = true;
+          });
+        } else {
+          this.isClosingAnimation = true;
+          this.shouldShowOverlay = false;
         }
       });
   }
 
   /**
-   * Emits an event to close the overlay and set the overlay type/data to the provided string.
-   * If the overlay type is 'dialog', navigates to the login route.
-   * @param emitter The string to be emitted, which will also be set as the overlay data.
+   * Closes the overlay by clearing the overlay data from the service.
+   * @param {boolean} close Indicates the close event.
    */
-  onCloseOverlay(emitter: boolean) {
-    this.overlayData = emitter;
+  onCloseOverlay(close: boolean) {
+    this.overlayData = close;
     this.overlayService.clearOverlayData();
   }
 
   @HostListener('document:click', ['$event'])
   /**
-   * Closes the contact edit overlay if the user clicks on the overlay background.
-   *
-   * @param event The MouseEvent triggered by a click action.
+   * If the event target is the overlay itself, the overlay is closed.
+   * @param {MouseEvent} event The event object passed from the document click event.
    */
-  checkOpenContactEdit(event: MouseEvent) {
+  onDocumentClick(event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
 
-    if (targetElement === document.querySelector('.overlay')) {
+    if (targetElement && targetElement.classList.contains('overlay')) {
       this.onCloseOverlay(false);
     }
   }
