@@ -4,35 +4,35 @@
   [class.closing]="isClosingAnimation"
 >
   <div class="overlay-content">
-    @if (overlayType === "taskOverlay") {
+    @switch (overlayType) { @case ('taskOverlay') {
     <app-task-overlay
       [overlayData]="overlayData"
       (closeDialogEmitter)="onCloseOverlay()"
     ></app-task-overlay>
-    } @if (overlayType === "taskOverlayEdit") {
+    } @case ('taskOverlayEdit') {
     <app-task-edit-overlay
       [overlayData]="overlayData"
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay()"
     ></app-task-edit-overlay>
-    } @if (overlayType === "newTaskOverlay") {
+    } @case ('newTaskOverlay') {
     <app-task-edit-overlay
       [overlayData]="overlayData"
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay()"
     ></app-task-edit-overlay>
-    } @if (overlayType === "dialogOverlay") {
+    } @case ('dialogOverlay') {
     <app-dialog-overlay
       [overlayData]="overlayData"
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay()"
     ></app-dialog-overlay>
-    } @if (overlayType === "contactOverlay") {
+    } @case ('contactOverlay') {
     <app-contact-overlay
       [overlayData]="overlayData"
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay()"
     ></app-contact-overlay>
-    }
+    } @default { } }
   </div>
 </div>
