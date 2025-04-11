@@ -43,6 +43,7 @@
   box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
+
 .right-frame {
   position: fixed;
   top: 96px;
@@ -153,6 +154,16 @@
 }
 
 /*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 1440px) {
+  .left-frame {
+    left: 60px;
+  }
+
+  .right-frame {
+    left: 460px;
+  }
+}
 
 @media screen and (max-width: 1150px) {
   .left-frame {
