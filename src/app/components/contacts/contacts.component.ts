@@ -132,7 +132,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    if (window.innerWidth <= 1150 && this.selectedUserId != undefined) {
+    if (window.innerWidth <= 1000 && this.selectedUserId != undefined) {
       this.showAllUsers = false;
     } else {
       this.showAllUsers = true;

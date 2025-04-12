@@ -6,6 +6,7 @@ import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
 import { ResizeService } from '../../../services/resize.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-task',
@@ -16,6 +17,7 @@ import { ResizeService } from '../../../services/resize.service';
 })
 export class TaskComponent {
   @Input() task: Task = {} as Task;
+
   isMenuOpen: boolean = false;
   AssignedDialogId: string = '';
   dialogX: number = 0;
@@ -23,11 +25,12 @@ export class TaskComponent {
 
   creator: any = '';
   assignees: any[] = [];
-
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],
     ['Technical Task', '#20d7c2'],
   ]);
+
+  pageViewMedia$ = this.resizeService.pageViewMedia$;
 
   constructor(
     public dragDropService: DragDropService,
@@ -72,9 +75,11 @@ export class TaskComponent {
     if (this.isMenuOpen) {
       this.toggleTaskMenu();
     }
-    this.resizeService.isPageViewMedia
-      ? this.router.navigate(['/task', taskId])
-      : this.overlayService.setOverlayData('taskOverlay', taskId);
+    this.pageViewMedia$.pipe(take(1)).subscribe((isPageViewMedia) => {
+      isPageViewMedia
+        ? this.router.navigate(['/task', taskId])
+        : this.overlayService.setOverlayData('taskOverlay', taskId);
+    });
   }
 
   @HostListener('document:click', ['$event'])

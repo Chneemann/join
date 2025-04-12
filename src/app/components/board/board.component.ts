@@ -12,7 +12,7 @@ import { ApiService } from '../../services/api.service';
 import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
-import { debounceTime, finalize, Subject, takeUntil } from 'rxjs';
+import { debounceTime, finalize, Subject, take, takeUntil } from 'rxjs';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
 import { ResizeService } from '../../services/resize.service';
@@ -48,6 +48,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   isLoading = false;
 
   private destroy$ = new Subject<void>();
+  private pageViewMedia$ = this.resizeService.pageViewMedia$;
 
   constructor(
     public dragDropService: DragDropService,
@@ -143,9 +144,11 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param status The status to be used for the new task.
    */
   addNewTaskOverlay(status: string) {
-    this.resizeService.isPageViewMedia
-      ? this.router.navigate(['/add-task', status])
-      : this.overlayService.setOverlayData('newTaskOverlay', status);
+    this.pageViewMedia$.pipe(take(1)).subscribe((isPageViewMedia) => {
+      isPageViewMedia
+        ? this.router.navigate(['/add-task', status])
+        : this.overlayService.setOverlayData('newTaskOverlay', status);
+    });
   }
 
   /**

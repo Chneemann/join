@@ -22,7 +22,7 @@
       autocomplete="off"
       required
     />
-    @if (resizeService.isContactViewMedia) {
+    @if (contactViewMedia$ | async) {
     <div class="error-msg">
       @if (firstName.hasError('pattern') && firstName.touched) {
       <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
@@ -48,7 +48,7 @@
       required
     />
   </div>
-  @if (resizeService.isContactViewMedia) {
+  @if (contactViewMedia$ | async) {
   <div class="error-msg">
     @if (lastName.hasError('pattern') && lastName.touched) {
     <p>{{ "contactDialogForm.invalidPattern" | translate }}</p>
@@ -56,7 +56,7 @@
     <p>{{ "contactDialogForm.invalidLastName" | translate }}</p>
     }}
   </div>
-  } @if (!resizeService.isContactViewMedia) {
+  } @else {
   <div class="error-msg">
     @if (firstName.hasError('pattern') || lastName.hasError('pattern') &&
     firstName.touched) {

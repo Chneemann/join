@@ -63,6 +63,8 @@ export class ContactFormComponent implements OnInit, OnChanges {
     lastLogin: 0,
   };
 
+  contactViewMedia$ = this.resizeService.contactViewMedia$;
+
   /**
    * OnInit lifecycle hook.
    *
