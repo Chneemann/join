@@ -16,4 +16,9 @@ export class FormBtnComponent {
   @Input() disabled: boolean = false;
   @Input() imgFilter: string =
     'brightness(0) saturate(100%) invert(57%) sepia(44%) saturate(848%) hue-rotate(155deg) brightness(95%) contrast(86%)';
+
+  get inputPaddingRight(): string {
+    if (this.disabled) return '';
+    return this.img === 'check' ? '44' : this.img ? '36' : '';
+  }
 }

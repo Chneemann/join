@@ -1,16 +1,11 @@
 <div class="input-container">
-  @if (class == "btn-google") {
-  <div class="google-image"></div>
-  }
   <input
-    class="{{ class }}"
-    type="{{ type }}"
-    value="{{ value }}"
+    class="btn"
+    [class]="class"
+    [type]="type"
+    [value]="value"
     [disabled]="disabled"
-    [style.padding-right.px]="
-      img == 'check' && !disabled ? '44' : img !== '' && !disabled ? '36' : ''
-    "
-    [style.padding-left.px]="class == 'btn-google' ? '52' : ''"
+    [style.padding-right.px]="inputPaddingRight"
   />
   <div
     class="background-image"
@@ -18,7 +13,7 @@
       '--filter': imgFilter,
       'background-image': disabled
         ? 'none'
-        : 'url(./../../../../../assets/img/' + img + '.svg)',
+        : 'url(./assets/img/' + img + '.svg)'
     }"
   ></div>
 </div>

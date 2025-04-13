@@ -1,217 +1,122 @@
-.btn-submit {
+.btn {
   width: fit-content;
   padding: 12px;
-  margin: 12px;
   border-radius: 10px;
-  border: 1px solid var(--black) !important;
-  background-color: var(--light-gray);
   font-size: 23px;
   font-weight: 400;
   transition: 125ms ease-in-out;
   cursor: pointer;
+  background-color: var(--white);
+  border: 1px solid var(--black);
+
   &:hover:not(:disabled) {
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
-    background-color: var(--light-blue) !important;
-    border: 1px solid var(--light-blue) !important;
-    cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   }
+
+  &:disabled {
+    background-color: var(--light-gray);
+    cursor: default;
+  }
+}
+
+.btn-submit {
+  background-color: var(--light-gray);
+  border: 1px solid var(--black);
+
   &:not(:disabled) {
-    background-color: var(--very-dark-blue) !important;
+    background-color: var(--very-dark-blue);
     color: var(--white);
   }
-  &:hover {
-    cursor: default;
+
+  &:hover:not(:disabled) {
+    background-color: var(--light-blue);
+    border-color: var(--light-blue);
   }
 }
 
 .btn-clear,
 .btn-cancel {
-  width: fit-content;
-  padding: 12px;
-  margin: 12px;
-  border-radius: 10px;
-  color: var(--black);
-  background-color: var(--white);
-  border: 1px solid var(--black);
-  font-size: 23px;
-  font-weight: 400;
-  transition: 125ms ease-in-out;
-  cursor: pointer;
   &:hover {
     color: var(--light-blue);
     border-color: var(--light-blue);
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
   }
 }
 
 .btn-delete {
-  width: fit-content;
-  padding: 12px;
-  margin: 12px;
-  border-radius: 10px;
   color: var(--red);
-  background-color: var(--white);
-  border: 1px solid var(--red);
-  font-size: 23px;
-  font-weight: 400;
-  transition: 125ms ease-in-out;
-  cursor: pointer;
+  border-color: var(--red);
+
   &:hover {
-    color: var(--white);
     background-color: var(--red);
+    color: var(--white);
     border-color: var(--black);
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
   }
 }
 
 .btn-login {
-  width: fit-content;
   padding: 12px 18px;
-  margin: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--black) !important;
-  background-color: var(--light-gray);
-  font-size: 23px;
   font-weight: 700;
-  transition: 125ms ease-in-out;
-  cursor: pointer;
-  &:hover:not(:disabled) {
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
-    background-color: var(--light-blue) !important;
-    border: 1px solid var(--light-blue) !important;
-    cursor: pointer;
-  }
+
   &:not(:disabled) {
-    background-color: var(--very-dark-blue) !important;
+    background-color: var(--very-dark-blue);
     color: var(--white);
   }
-  &:hover {
-    cursor: default;
+
+  &:hover:not(:disabled) {
+    background-color: var(--light-blue);
+    border-color: var(--light-blue);
   }
 }
 
 .btn-guest-login {
-  width: fit-content;
   padding: 12px 18px;
-  margin: 12px;
-  border-radius: 10px;
-  background-color: var(--light-gray);
-  border: 1px solid var(--black);
-  font-size: 23px;
   font-weight: 700;
-  transition: 125ms ease-in-out;
-  cursor: pointer;
-  &:hover:not(:disabled) {
-    color: var(--light-blue);
-    border-color: var(--light-blue);
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-  }
-  &:not(:disabled) {
-    background-color: var(--white) !important;
-    color: var(--black);
-  }
-  &:hover {
-    cursor: default;
-  }
-}
 
-.btn-google {
-  width: fit-content;
-  padding: 12px 18px;
-  margin: 12px;
-  border-radius: 10px;
-  background-color: var(--light-gray);
-  border: 1px solid var(--black);
-  font-size: 23px;
-  font-weight: 700;
-  transition: 125ms ease-in-out;
-  cursor: pointer;
+  &:not(:disabled) {
+    background-color: var(--white);
+    color: var(--black);
+  }
+
   &:hover:not(:disabled) {
     color: var(--light-blue);
     border-color: var(--light-blue);
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-  }
-  &:not(:disabled) {
-    background-color: var(--white) !important;
-    color: var(--black);
-  }
-  &:hover {
-    cursor: default;
   }
 }
 
 .input-container {
   position: relative;
   display: inline-block;
-}
+  margin: 12px;
 
-.input-container .background-image {
-  position: absolute;
-  top: 0;
-  right: 12px;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  background-size: auto 20%;
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  transition: filter 125ms ease-in-out;
-}
-
-.input-container .google-image {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 12px;
-  pointer-events: none;
-  background-image: url(./../../../../../assets/img/login/google.svg);
-  background-size: auto 38px;
-  background-repeat: no-repeat;
-  background-position: left 12px center;
-  transition: filter 125ms ease-in-out;
-}
-
-.input-container:hover .background-image {
-  filter: var(--filter);
-}
-
-/*------------- RESPONSIVE -------------*/
-
-@media screen and (max-width: 650px) {
-  .input-container .google-image {
-    background-size: auto 24px;
-    background-position: left 15px center;
+  .background-image {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    background-size: auto 30%;
+    background-repeat: no-repeat;
+    background-position: right center;
+    transition: filter 125ms ease-in-out;
   }
 
-  .btn-login,
-  .btn-guest-login,
-  .btn-google {
-    font-size: 21px;
-    font-weight: 700;
+  &:hover .background-image {
+    filter: var(--filter, none);
   }
 }
 
 @media screen and (max-width: 450px) {
-  .btn-login,
-  .btn-guest-login,
-  .btn-google {
-    padding: 8px 12px;
+  .input-container {
     margin: 6px;
-    font-size: 18px;
-    font-weight: 700;
-  }
-}
 
-@media screen and (max-width: 400px) {
-  .btn-submit,
-  .btn-clear,
-  .btn-delete {
-    padding: 8px;
-    margin: 6px;
-    font-size: 18px;
-    font-weight: 400;
+    .background-image {
+      right: 15px;
+    }
+  }
+
+  .btn {
+    padding: 9px;
+    font-size: 19px;
   }
 }
