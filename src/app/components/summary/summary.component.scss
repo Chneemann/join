@@ -204,14 +204,6 @@
   }
 }
 
-@media screen and (max-width: 910px) {
-  section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
 @media screen and (max-width: 700px) {
   .header {
     flex-direction: column;
@@ -274,7 +266,7 @@
   }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 560px) {
   .summary-container {
     height: fit-content;
   }
@@ -334,7 +326,7 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 470px) {
   .header {
     .title {
       font-size: 47px;
@@ -374,7 +366,7 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 410px) {
   .todo-done,
   .urgent,
   .tasks {
@@ -414,7 +406,7 @@
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 360px) {
   .todo-done,
   .urgent,
   .tasks {
@@ -422,7 +414,7 @@
   }
 
   .details {
-    width: 75px;
+    width: 70px;
 
     p {
       font-size: 10px;

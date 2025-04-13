@@ -55,29 +55,26 @@ app-sidebar-mobile {
   }
 }
 
-@media screen and (max-width: 910px) {
+@media screen and (max-width: 800px) {
   .main-content {
     padding: 32px;
-    left: 0;
-    bottom: 80px;
-  }
-
-  app-header {
-    left: 0;
-  }
-
-  app-sidebar-mobile {
-    display: unset;
   }
 }
 
 @media screen and (max-width: 700px) {
   .main-content {
     top: 80px;
+    left: 0;
+    bottom: 80px;
   }
 
   app-header {
     height: 80px;
+    left: 0;
+  }
+
+  app-sidebar-mobile {
+    display: unset;
   }
 }
 

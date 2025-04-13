@@ -16,6 +16,8 @@ import { UpdateNotifierService } from '../../services/update-notifier.service';
   styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent implements OnInit, OnDestroy {
+  private readonly CONTACT_VIEW_BREAKPOINT = 950;
+
   allUsers: User[] = [];
   currentUser: User | null = null;
   selectedUserId: string | null = null;
@@ -132,7 +134,10 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    if (window.innerWidth <= 1000 && this.selectedUserId != undefined) {
+    if (
+      window.innerWidth <= this.CONTACT_VIEW_BREAKPOINT &&
+      this.selectedUserId != undefined
+    ) {
       this.showAllUsers = false;
     } else {
       this.showAllUsers = true;

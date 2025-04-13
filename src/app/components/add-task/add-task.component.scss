@@ -261,26 +261,20 @@ select:valid {
     width: calc(100%);
   }
 }
+
+@media screen and (max-width: 950px) {
+  .header {
+    margin-bottom: 24px;
+    .title {
+      font-size: 50px;
+    }
+  }
+}
+
 @media screen and (max-width: 560px) {
   .btn-text {
     span {
       display: none;
     }
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .headline {
-    margin-bottom: 24px;
-    .title {
-      font-size: 47px;
-      font-weight: 700;
-    }
-  }
-
-  input,
-  textarea,
-  select {
-    font-size: 16px;
   }
 }

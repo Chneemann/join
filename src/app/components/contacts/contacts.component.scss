@@ -64,7 +64,7 @@
   font-size: 20px;
   font-weight: 400;
   padding-left: 32px;
-  margin: 32px 0 12px 0;
+  margin-bottom: 12px;
 }
 
 .line {
@@ -72,6 +72,10 @@
   height: 1px;
   margin-bottom: 6px;
   background-color: var(--light-gray);
+}
+
+.spacer {
+  margin: 6px;
 }
 
 .contact {
@@ -165,7 +169,7 @@
   }
 }
 
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 950px) {
   .left-frame {
     right: 0;
     width: auto;
@@ -175,7 +179,7 @@
 
   .right-frame {
     top: 96px;
-    left: 232px;
+    left: 60px;
     bottom: 0;
     right: 0;
   }
@@ -187,17 +191,17 @@
   }
 }
 
-@media screen and (max-width: 910px) {
+@media screen and (max-width: 700px) {
   .left-frame {
     top: 80px;
-    left: 0;
+    left: 60px;
     bottom: 80px;
     padding: 0;
   }
 
   .right-frame {
     top: 80px;
-    left: 0;
+    left: 60px;
     bottom: 80px;
   }
 
@@ -217,9 +221,14 @@
     height: 56px;
     width: 56px;
     border-radius: 100%;
+    padding: 0 0 0 12px;
+    margin: 0;
     z-index: 1;
     cursor: pointer;
     img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 0;
       width: 32px;
       height: 32px;
@@ -227,19 +236,24 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 700px) {
+  .left-frame,
   .right-frame {
-    padding: 16px;
+    left: 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .content,
+  .contact,
+  .right-frame {
+    padding: 12px;
   }
 
   .first-letter {
     &:first-child {
       margin-top: 0;
     }
-  }
-
-  .contact {
-    padding: 16px 0;
   }
 
   .first-letter {
