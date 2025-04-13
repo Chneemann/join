@@ -57,7 +57,10 @@
         <div id="todo" class="details">
           <!-- Loop through 'todo' tasks and display them -->
           @for (task of filteredTasks[TODO]; track task.id) {
-          <app-task [task]="task"></app-task>
+          <app-task
+            [task]="task"
+            (updateStatusEmitter)="onStatusUpdate($event)"
+          ></app-task>
 
           <!-- Show empty state if no 'todo' tasks exist -->
           } @empty {
@@ -90,7 +93,10 @@
         <div id="inprogress" class="details">
           <!-- Loop through 'in progress' tasks and display them -->
           @for (task of filteredTasks[IN_PROGRESS]; track task.id) {
-          <app-task [task]="task"></app-task>
+          <app-task
+            [task]="task"
+            (updateStatusEmitter)="onStatusUpdate($event)"
+          ></app-task>
 
           <!-- Show empty state if no 'in progress' tasks exist -->
           } @empty {
@@ -123,7 +129,10 @@
         <div id="awaitfeedback" class="details">
           <!-- Loop through 'await feedback' tasks and display them -->
           @for (task of filteredTasks[AWAIT_FEEDBACK]; track task.id) {
-          <app-task [task]="task"></app-task>
+          <app-task
+            [task]="task"
+            (updateStatusEmitter)="onStatusUpdate($event)"
+          ></app-task>
 
           <!-- Show empty state if no 'await feedback' tasks exist -->
           } @empty {
@@ -157,7 +166,10 @@
         <div id="done" class="details">
           <!-- Loop through 'done' tasks and display them -->
           @for (task of filteredTasks[DONE]; track task.id) {
-          <app-task [task]="task"></app-task>
+          <app-task
+            [task]="task"
+            (updateStatusEmitter)="onStatusUpdate($event)"
+          ></app-task>
 
           <!-- Show empty state if no 'done' tasks exist -->
           } @empty {

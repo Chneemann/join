@@ -1,7 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 import { DragDropService } from '../../../services/drag-drop.service';
-import { Task } from '../../../interfaces/task.interface';
+import {
+  Assignee,
+  Task,
+  TaskMoveEvent,
+} from '../../../interfaces/task.interface';
 import { OverlayService } from '../../../services/overlay.service';
 import { Router } from '@angular/router';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
@@ -16,15 +26,13 @@ import { take } from 'rxjs';
   styleUrl: './task.component.scss',
 })
 export class TaskComponent {
-  @Input() task: Task = {} as Task;
+  @Input() task!: Task;
+  @Output() updateStatusEmitter = new EventEmitter<TaskMoveEvent>();
 
-  isMenuOpen: boolean = false;
-  AssignedDialogId: string = '';
-  dialogX: number = 0;
-  dialogY: number = 0;
+  readonly DISABLE_DRAG_BREAKPOINT = 667;
+  readonly DIALOG_OFFSET_X = 25;
+  readonly DIALOG_OFFSET_Y = 10;
 
-  creator: any = '';
-  assignees: any[] = [];
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],
     ['Technical Task', '#20d7c2'],
@@ -32,12 +40,35 @@ export class TaskComponent {
 
   pageViewMedia$ = this.resizeService.pageViewMedia$;
 
+  menuOpen = false;
+  disableDrag = false;
+  AssignedDialogId = '';
+  dialogX = 0;
+  dialogY = 0;
+
+  creator = '';
+  assignees: Assignee[] = [];
+
   constructor(
     public dragDropService: DragDropService,
     public overlayService: OverlayService,
     public resizeService: ResizeService,
     private router: Router
   ) {}
+
+  /**
+   * Sets the initial state of the `disableDrag` property based on the window width.
+   */
+  ngOnInit(): void {
+    this.updateDisableDragStatus();
+  }
+
+  /**
+   * Updates the `disableDrag` property based on the current window width.
+   */
+  private updateDisableDragStatus(): void {
+    this.disableDrag = window.innerWidth > this.DISABLE_DRAG_BREAKPOINT;
+  }
 
   /**
    * Handles the button click event on a task in the board
@@ -60,7 +91,7 @@ export class TaskComponent {
    * Toggle the task menu for the current task
    */
   toggleTaskMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.menuOpen = !this.menuOpen;
   }
 
   /**
@@ -72,7 +103,7 @@ export class TaskComponent {
    * If the page is not in the media view, open the task overlay
    */
   openTaskDetailsOverlay(taskId: string) {
-    if (this.isMenuOpen) {
+    if (this.menuOpen) {
       this.toggleTaskMenu();
     }
     this.pageViewMedia$.pipe(take(1)).subscribe((isPageViewMedia) => {
@@ -96,7 +127,7 @@ export class TaskComponent {
     );
 
     if (!isMenuClicked) {
-      this.isMenuOpen = false;
+      this.menuOpen = false;
     }
   }
 
@@ -117,8 +148,8 @@ export class TaskComponent {
    * @param event the MouseEvent that triggered the dialog
    */
   updateDialogPosition(event: MouseEvent) {
-    this.dialogX = event.clientX + 25;
-    this.dialogY = event.clientY + 10;
+    this.dialogX = event.clientX + this.DIALOG_OFFSET_X;
+    this.dialogY = event.clientY + this.DIALOG_OFFSET_Y;
   }
 
   /**
@@ -148,5 +179,25 @@ export class TaskComponent {
     ).length;
 
     return (completedSubtasksCount / this.task.subtasks.length) * 100;
+  }
+
+  /**
+   * Emits an event to update the status of a task.
+   * @param event The TaskMoveEvent containing the task and the new status to move to.
+   */
+  onStatusUpdate(event: TaskMoveEvent) {
+    this.updateStatusEmitter.emit({
+      task: event.task,
+      moveTo: event.moveTo,
+    });
+  }
+
+  @HostListener('window:resize')
+  /**
+   * Called when the window is resized.
+   * Updates the disableDragStatus so that tasks are not draggable on mobile devices.
+   */
+  onResize() {
+    this.updateDisableDragStatus();
   }
 }

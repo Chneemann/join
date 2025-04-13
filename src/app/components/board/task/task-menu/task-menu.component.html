@@ -1,11 +1,11 @@
 <section>
-  @if (boardTaskStatus !== 'todo') {
-  <div class="link" (click)="moveTask('todo')">To do</div>
-  } @if (boardTaskStatus !== 'inprogress') {
-  <div class="link" (click)="moveTask('inprogress')">In progress</div>
-  } @if (boardTaskStatus !== 'awaitfeedback') {
-  <div class="link" (click)="moveTask('awaitfeedback')">Await feedback</div>
-  } @if (boardTaskStatus !== 'done') {
-  <div class="link" (click)="moveTask('done')">Done</div>
+  @if (boardTaskStatus !== TODO) {
+  <div class="link" (click)="moveTask(TODO)">To do</div>
+  } @if (boardTaskStatus !== IN_PROGRESS) {
+  <div class="link" (click)="moveTask(IN_PROGRESS)">In progress</div>
+  } @if (boardTaskStatus !== AWAIT_FEEDBACK) {
+  <div class="link" (click)="moveTask(AWAIT_FEEDBACK)">Await feedback</div>
+  } @if (boardTaskStatus !== DONE) {
+  <div class="link" (click)="moveTask(DONE)">Done</div>
   }
 </section>

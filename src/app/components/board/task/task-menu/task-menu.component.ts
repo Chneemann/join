@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Task, TaskMoveEvent } from '../../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-task-menu',
@@ -8,22 +9,19 @@ import { Component, Input } from '@angular/core';
   styleUrl: './task-menu.component.scss',
 })
 export class TaskMenuComponent {
-  @Input() taskId: string = '';
-  @Input() boardTaskStatus: string = '';
+  @Input() task!: Task;
+  @Input() boardTaskStatus!: string;
+  @Output() updateStatusEmitter = new EventEmitter<TaskMoveEvent>();
 
-  constructor() {}
+  readonly TODO = 'todo';
+  readonly IN_PROGRESS = 'inprogress';
+  readonly AWAIT_FEEDBACK = 'awaitfeedback';
+  readonly DONE = 'done';
 
-  /**
-   * Moves the task to a specified status.
-   *
-   * This function updates the status of the task identified by `taskId`
-   * in both `allTasks` and `filteredTasks` lists to the new status
-   * specified by `moveTo`. It also updates the task status in the
-   * Firestore database.
-   *
-   * @param moveTo - The new status to move the task to.
-   */
   moveTask(moveTo: string) {
-    // TODO
+    this.updateStatusEmitter.emit({
+      task: this.task,
+      moveTo: moveTo,
+    });
   }
 }

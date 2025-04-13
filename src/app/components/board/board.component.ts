@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { TaskHighlightedComponent } from './task/task-highlighted/task-highlighted.component';
 import { ApiService } from '../../services/api.service';
-import { Task } from '../../interfaces/task.interface';
+import { Task, TaskMoveEvent } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { debounceTime, finalize, Subject, take, takeUntil } from 'rxjs';
@@ -38,13 +38,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   readonly AWAIT_FEEDBACK = 'awaitfeedback';
   readonly DONE = 'done';
 
-  allTasks: Task[] = [];
+  allTasks: Array<Task> = [];
   filteredTasks: { [key: string]: Task[] } = {};
 
-  searchValue: string = '';
-  searchInput: boolean = false;
-  taskMovedTo: string = '';
-  taskMovedFrom: string = '';
+  taskMovedTo = '';
+  taskMovedFrom = '';
+  searchValue = '';
+  searchInput = false;
   isLoading = false;
 
   private destroy$ = new Subject<void>();
@@ -149,6 +149,14 @@ export class BoardComponent implements OnInit, OnDestroy {
         ? this.router.navigate(['/add-task', status])
         : this.overlayService.setOverlayData('newTaskOverlay', status);
     });
+  }
+
+  /**
+   * Updates the status of a task when its status is changed.
+   * @param event The event containing the task and the new status to move to.
+   */
+  onStatusUpdate(event: TaskMoveEvent) {
+    this.handleItemDropped(event.task, event.moveTo);
   }
 
   /**

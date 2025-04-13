@@ -1,10 +1,13 @@
 <section>
   @if (task.id) {
   <div (click)="handleMenuButtonClick($event, task.id)">
+    {{ disableDrag }}
     <div
       class="content"
-      draggable="true"
-      (dragstart)="dragDropService.startDragging($event, task)"
+      [draggable]="disableDrag"
+      (dragstart)="
+        disableDrag ? dragDropService.startDragging($event, task) : null
+      "
     >
       <div class="header">
         <div
@@ -65,10 +68,11 @@
       </div>
     </div>
   </div>
-  @if (isMenuOpen){
+  @if (menuOpen){
   <app-task-menu
-    [taskId]="task.id"
+    [task]="task"
     [boardTaskStatus]="task.status"
+    (updateStatusEmitter)="onStatusUpdate($event)"
   ></app-task-menu>
   } @if (AssignedDialogId != '') {
   <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">

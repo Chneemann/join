@@ -24,3 +24,8 @@ export interface Assignee {
   id?: string;
   userId: string;
 }
+
+export interface TaskMoveEvent {
+  task: Task;
+  moveTo: string;
+}
