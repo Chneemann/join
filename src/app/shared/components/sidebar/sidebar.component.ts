@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { AuthService } from '../../../services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,17 +21,23 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private userService: UserService,
     public languageService: LanguageService,
     private authService: AuthService
   ) {}
 
   /**
-   * Calls the getCurrentPath method to set the currentPath property to the current route's url.
+   * Calls the getCurrentPath method to set the currentPath property to the
+   * current route's url.
    */
   ngOnInit(): void {
     this.getCurrentPath();
   }
 
+  /**
+   * Emits a value to the `destroy$` subject and completes it to clean up
+   * any subscriptions and prevent memory leaks.
+   */
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -56,6 +63,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
    * data, and navigate the user to the logout page.
    */
   logout() {
+    this.userService.resetUserCache();
     this.authService.logout();
   }
 }

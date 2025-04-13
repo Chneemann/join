@@ -4,6 +4,7 @@ import { LanguageService } from '../../../../services/language.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../services/auth.service';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,12 +22,11 @@ export class NavbarComponent {
   constructor(
     public langService: LanguageService,
     private router: Router,
+    private userService: UserService,
     private authService: AuthService
   ) {}
 
   /**
-   * Lifecycle hook that is called after the component has been initialized.
-   *
    * Sets the currentRoute property to the current route's url.
    */
   ngOnInit() {
@@ -40,6 +40,7 @@ export class NavbarComponent {
    * data, and navigate the user to the logout page.
    */
   logout() {
+    this.userService.resetUserCache();
     this.authService.logout();
   }
 }

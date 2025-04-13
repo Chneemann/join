@@ -64,10 +64,29 @@ export class UserService {
     );
   }
 
+  /**
+   * Resets the current user cache and emits a null value to the current user Observable.
+   */
+  resetUserCache(): void {
+    this.currentUserCache = null;
+    this.currentUserSubject.next(null);
+  }
+
+  /**
+   * Retrieves the list of all users from the API.
+   *
+   * @returns An Observable resolving to the list of all users.
+   */
   getUsers(): Observable<User[]> {
     return this.apiService.getUsers();
   }
 
+  /**
+   * Retrieves a user by its ID from the API.
+   *
+   * @param userId The ID of the user to be retrieved.
+   * @returns An Observable resolving to the user with the given ID, or an empty Observable if the user does not exist.
+   */
   getUserById(userId: string): Observable<User> {
     return this.apiService.getUserById(userId);
   }
