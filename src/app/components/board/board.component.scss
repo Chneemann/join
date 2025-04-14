@@ -112,6 +112,7 @@ d-none {
   flex-wrap: wrap;
   width: 100%;
   margin-top: 48px;
+  gap: 32px;
 }
 
 .headline {
@@ -140,8 +141,6 @@ d-none {
   display: flex;
   flex-direction: column;
   width: 270px;
-  padding-right: 32px;
-  padding-top: 6px;
   &:first-child {
     padding-left: 0;
   }
@@ -209,7 +208,6 @@ d-none {
 @media screen and (max-width: 667px) {
   .column {
     width: 100%;
-    padding-right: 0;
   }
 
   app-task-empty {
@@ -222,10 +220,7 @@ d-none {
     width: calc(100vw - 85px);
     overflow-x: auto;
     padding: 0 5px;
-  }
-
-  app-task {
-    padding-right: 16px;
+    gap: 18px;
   }
 }
 

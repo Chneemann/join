@@ -2,8 +2,8 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  top: 96px;
-  right: 15px;
+  top: 80px;
+  right: 40px;
   width: 150px;
   height: 158px;
   background-color: var(--bgSidebar);
@@ -15,6 +15,8 @@
 
 .language {
   height: 108px;
+  top: 70px;
+  right: 107px;
 }
 
 .link {
@@ -27,6 +29,7 @@
   cursor: pointer;
   span {
     width: 118px;
+    text-align: center;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
@@ -57,6 +60,10 @@ span {
 
 @media screen and (max-width: 700px) {
   .navbar {
-    top: 83px;
+    top: 72px;
+  }
+
+  .language {
+    top: 62px;
   }
 }

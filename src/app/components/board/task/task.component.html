@@ -1,7 +1,6 @@
 <section>
   @if (task.id) {
   <div (click)="handleMenuButtonClick($event, task.id)">
-    {{ disableDrag }}
     <div
       class="content"
       [draggable]="disableDrag"
@@ -74,7 +73,7 @@
     [boardTaskStatus]="task.status"
     (updateStatusEmitter)="onStatusUpdate($event)"
   ></app-task-menu>
-  } @if (AssignedDialogId != '') {
+  } @if (AssignedDialogId) {
   <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
     @for (user of task.userData; track user) { @if (user.id ===
     AssignedDialogId) {
