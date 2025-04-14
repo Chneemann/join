@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  HostListener,
   Input,
   OnChanges,
   OnDestroy,
@@ -31,8 +32,7 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
 
   selectedUser: User | null = null;
   isLoading = false;
-  showMobileNavbar = false;
-  showConfirmDialog = false;
+  isMobileNavbarVisible = false;
 
   private destroy$ = new Subject<void>();
 
@@ -102,15 +102,7 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
    * Toggles the visibility of the mobile contact details navbar.
    */
   toggleNav(): void {
-    this.showMobileNavbar = !this.showMobileNavbar;
-  }
-
-  /**
-   * Toggles the visibility of the confirmation dialog.
-   * This method switches the `showConfirmDialog` boolean state.
-   */
-  toggleConfirmDialog(): void {
-    this.showConfirmDialog = !this.showConfirmDialog;
+    this.isMobileNavbarVisible = !this.isMobileNavbarVisible;
   }
 
   /**
@@ -121,7 +113,7 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
    */
   editContact(userData: User) {
     this.overlayService.setOverlayData('contactOverlay', userData);
-    this.showMobileNavbar = false;
+    this.isMobileNavbarVisible = false;
   }
 
   /**
@@ -136,6 +128,21 @@ export class ContactDetailComponent implements OnChanges, OnDestroy {
       this.emitCloseContact();
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  /**
+   * Closes the mobile navbar if the user clicks outside of it.
+   * @param event - A MouseEvent from the document.
+   */
+  closeNavbarOnOutsideClick(event: MouseEvent): void {
+    const clickedElement = event.target as HTMLElement;
+    if (
+      !clickedElement.closest('mobile-nav') &&
+      !clickedElement.closest('.btn-mobile')
+    ) {
+      this.isMobileNavbarVisible = false;
     }
   }
 }

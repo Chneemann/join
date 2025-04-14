@@ -181,6 +181,44 @@
   display: none;
 }
 
+.mobile-nav {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 120px;
+  right: 80px;
+  width: 100px;
+  height: fit-content;
+  background-color: var(--bgSidebar);
+  border-radius: 20px 20px 0 20px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 5;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--white);
+  cursor: pointer;
+  span {
+    width: 118px;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+  &:hover {
+    background-color: var(--very-dark-blue);
+    span {
+      color: var(--light-blue);
+    }
+  }
+}
+
 /*------------- ANIMATION -------------*/
 
 .animation-coming-in {

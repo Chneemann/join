@@ -112,7 +112,23 @@
       </div>
     </div>
   </div>
-  } @if (showMobileNavbar) {
-  <!-- TODO -->
+  } @if (isMobileNavbarVisible) {
+  <div class="mobile-nav">
+    @if(selectedUser!.isContactOnly || currentUser && selectedUser!.id ===
+    currentUser.id) {
+    <div class="link" (click)="editContact(selectedUser!)">
+      <span>
+        {{ "contacts.btnEdit1" | translate }}
+      </span>
+    </div>
+    } @if (selectedUser!.isContactOnly || currentUser && selectedUser!.id !==
+    currentUser.id) {
+    <div class="link" (click)="deleteContact(selectedUserId!)">
+      <span>
+        {{ "contacts.btnDelete1" | translate }}
+      </span>
+    </div>
+    }
+  </div>
   }
 </section>
