@@ -4,7 +4,6 @@ A task manager modeled after the Kanban system. Create and organize tasks using 
 
 ## Technologies Used
 
-- HTML / SCSS
 - Angular / TypeScript
 - Django REST / PostgreSQL / Redis
 
@@ -18,7 +17,7 @@ A task manager modeled after the Kanban system. Create and organize tasks using 
 
 ## Description
 
-Join Task Manager is a robust platform built on the Kanban system, designed for efficient task management. With a user-friendly interface, you can easily create and organize tasks using drag-and-drop functionality. Built with HTML / SCSS, Angular / TypeScript, and Django REST, Join offers a powerful and reliable environment for managing your tasks.
+Join Task Manager is a robust platform built on the Kanban system, designed to help you manage tasks efficiently. With an intuitive, user-friendly interface, you can easily create, organize, and prioritize tasks using drag-and-drop functionality. Built with Angular, TypeScript, and Django REST, Join offers a powerful and reliable environment for managing your tasks.
 
 Key features include:
 
@@ -29,3 +28,17 @@ Key features include:
 - Simple and intuitive task organization using drag-and-drop
 
 Join helps you manage tasks quickly and efficiently, keeping you focused on what truly matters.
+
+## Environment Setup
+
+Before starting the app, copy the example environment file:
+
+```bash
+cp src/environments/environment.example.ts src/environments/environment.ts
+```
+
+If you’re planning to build for production, you can also copy it as:
+
+```bash
+cp src/environments/environment.example.ts src/environments/environment.prod.ts
+```

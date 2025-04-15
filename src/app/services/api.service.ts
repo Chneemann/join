@@ -1,7 +1,7 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { apiConfig } from '../environments/config';
+import { environment } from '../../environments/environment';
 import { Task } from '../interfaces/task.interface';
 import { User } from '../interfaces/user.interface';
 import { TokenService } from './token.service';
@@ -10,7 +10,7 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly apiUrl = apiConfig.apiUrl;
+  private readonly apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
