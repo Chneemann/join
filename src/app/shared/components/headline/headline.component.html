@@ -1,0 +1,10 @@
+<div class="headline" [class.is-contacts]="isContacts">
+  <div class="title">{{ title }}</div>
+
+  @if (description) {
+  <div class="blue-bar"></div>
+  <div class="description">
+    {{ description }}
+  </div>
+  }
+</div>

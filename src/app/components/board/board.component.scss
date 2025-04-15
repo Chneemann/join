@@ -4,12 +4,6 @@ section {
   padding-bottom: 32px;
 }
 
-.title {
-  font-size: 61px;
-  font-weight: 700;
-  padding-right: 24px;
-}
-
 /*------------- HEADER -------------*/
 
 .header {
@@ -112,7 +106,7 @@ d-none {
   flex-wrap: wrap;
   width: 100%;
   margin-top: 48px;
-  gap: 32px;
+  gap: 28px;
 }
 
 .headline {
@@ -140,7 +134,7 @@ d-none {
 .column {
   display: flex;
   flex-direction: column;
-  width: 270px;
+  width: 265px;
   &:first-child {
     padding-left: 0;
   }
@@ -168,24 +162,12 @@ d-none {
       display: none;
     }
   }
-
-  .title {
-    font-size: 50px;
-  }
-
-  .status {
-    justify-content: center;
-  }
 }
 
 @media screen and (max-width: 750px) {
   .header {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .title {
-    margin-bottom: 24px;
   }
 
   .search {

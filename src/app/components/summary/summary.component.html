@@ -1,11 +1,8 @@
 <section>
-  <div class="header">
-    <div class="title">Join 360</div>
-    <div class="blue-bar"></div>
-    <div class="metrics-txt">
-      {{ "summary.headlineDescription" | translate }}
-    </div>
-  </div>
+  <app-headline
+    [title]="'Join 360'"
+    [description]="'summary.headlineDescription' | translate"
+  ></app-headline>
   @if (!isLoading) {
   <div class="content">
     <div class="summary-container">

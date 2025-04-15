@@ -1,12 +1,9 @@
 <section>
   <div class="header">
-    <div class="headline">
-      <div class="title">{{ "contacts.headline" | translate }}</div>
-      <div class="blue-bar"></div>
-      <div class="metrics-txt">
-        {{ "contacts.headlineDescription" | translate }}
-      </div>
-    </div>
+    <app-headline
+      [title]="'contacts.headline' | translate"
+      [description]="'contacts.headlineDescription' | translate"
+    ></app-headline>
     <div
       class="btn-back"
       [ngClass]="{ 'd-none': !selectedUserId }"

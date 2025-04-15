@@ -78,10 +78,6 @@ select:valid {
 
 .header {
   margin-bottom: 48px;
-  .title {
-    font-size: 61px;
-    font-weight: 700;
-  }
 }
 
 /*------------- LEFT SIDE -------------*/
@@ -265,9 +261,6 @@ select:valid {
 @media screen and (max-width: 950px) {
   .header {
     margin-bottom: 24px;
-    .title {
-      font-size: 50px;
-    }
   }
 }
 

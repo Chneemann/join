@@ -8,11 +8,17 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
+import { HeadlineComponent } from '../../shared/components/headline/headline.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [RouterModule, TranslateModule, LoadingSpinnerComponent],
+  imports: [
+    RouterModule,
+    TranslateModule,
+    LoadingSpinnerComponent,
+    HeadlineComponent,
+  ],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })

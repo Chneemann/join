@@ -16,12 +16,14 @@ import { debounceTime, finalize, Subject, take, takeUntil } from 'rxjs';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
 import { ResizeService } from '../../services/resize.service';
+import { HeadlineComponent } from '../../shared/components/headline/headline.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
   imports: [
     CommonModule,
+    HeadlineComponent,
     TaskComponent,
     TaskEmptyComponent,
     FormsModule,

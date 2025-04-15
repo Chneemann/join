@@ -17,11 +17,12 @@ import { OverlayService } from '../../../services/overlay.service';
 import { ApiService } from '../../../services/api.service';
 import { ToastNotificationService } from '../../../services/toast-notification.service';
 import { UpdateNotifierService } from '../../../services/update-notifier.service';
+import { HeadlineComponent } from '../../../shared/components/headline/headline.component';
 
 @Component({
   selector: 'app-contact-detail',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [HeadlineComponent, CommonModule, TranslateModule],
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.scss',
 })

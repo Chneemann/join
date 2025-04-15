@@ -1,0 +1,83 @@
+.headline {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 73px;
+
+  .title {
+    font-size: 61px;
+    font-weight: 700;
+    padding-right: 24px;
+  }
+
+  .description {
+    font-size: 27px;
+    font-weight: 400;
+    padding-left: 24px;
+  }
+
+  .blue-bar {
+    height: 80%;
+    width: 3px;
+    background-color: var(--light-blue);
+  }
+}
+
+/*------------- MIXIN -------------*/
+
+@mixin mobileHeadlineLayout {
+  flex-direction: column;
+  align-items: start;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+  .description {
+    padding: 0;
+  }
+
+  .blue-bar {
+    position: absolute;
+    bottom: -15px;
+    height: 3px;
+    width: 100px;
+  }
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 1020px) {
+  .headline {
+    .title {
+      font-size: 50px;
+    }
+
+    .description {
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 1235px) {
+  .headline.is-contacts {
+    @include mobileHeadlineLayout;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .headline {
+    @include mobileHeadlineLayout;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .headline {
+    .title {
+      font-size: 47px;
+    }
+
+    .description {
+      font-size: 20px;
+    }
+  }
+}

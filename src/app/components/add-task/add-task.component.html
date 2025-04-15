@@ -8,7 +8,7 @@
     class="header"
     [ngStyle]="{ display: overlayData !== '' ? 'none' : 'block' }"
   >
-    <div class="title">{{ "addTask.headline" | translate }}</div>
+    <app-headline [title]="'addTask.headline' | translate"></app-headline>
   </div>
 
   <form

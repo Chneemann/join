@@ -13,6 +13,7 @@ import { TaskService } from '../../services/task.service';
 import { ApiService } from '../../services/api.service';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
+import { HeadlineComponent } from '../../shared/components/headline/headline.component';
 
 @Component({
   selector: 'app-add-task',
@@ -20,6 +21,7 @@ import { ToastNotificationService } from '../../services/toast-notification.serv
   imports: [
     FormsModule,
     CommonModule,
+    HeadlineComponent,
     AssignedComponent,
     FormBtnComponent,
     TranslateModule,
