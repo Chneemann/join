@@ -33,21 +33,19 @@ export class TaskComponent {
   readonly DIALOG_OFFSET_X = 25;
   readonly DIALOG_OFFSET_Y = 10;
 
+  pageViewMedia$ = this.resizeService.pageViewMedia$;
+
+  assignees: Assignee[] = [];
   categoryColors = new Map<string, string>([
     ['User Story', '#0038ff'],
     ['Technical Task', '#20d7c2'],
   ]);
 
-  pageViewMedia$ = this.resizeService.pageViewMedia$;
-
-  menuOpen = false;
+  mobileMenuOpen = false;
   disableDrag = false;
-  AssignedDialogId = '';
+  assignedDialogId = '';
   dialogX = 0;
   dialogY = 0;
-
-  creator = '';
-  assignees: Assignee[] = [];
 
   constructor(
     public dragDropService: DragDropService,
@@ -78,20 +76,20 @@ export class TaskComponent {
    * If the event target is a menu button or menu img, toggle the task menu
    * If the event target is anything else, open the task details overlay
    */
-  handleMenuButtonClick(event: MouseEvent, taskId: string) {
+  handleMenuButtonClick(event: MouseEvent, taskId: string): void {
     event.stopPropagation();
     const targetElement = event.target as HTMLElement;
     targetElement.classList.contains('menu-btn') ||
     targetElement.classList.contains('menu-img')
-      ? this.toggleTaskMenu()
+      ? this.toggleMobileMenu()
       : this.openTaskDetailsOverlay(taskId);
   }
 
   /**
    * Toggle the task menu for the current task
    */
-  toggleTaskMenu() {
-    this.menuOpen = !this.menuOpen;
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   /**
@@ -102,9 +100,9 @@ export class TaskComponent {
    * If the page is in the media view, navigate to the task details page
    * If the page is not in the media view, open the task overlay
    */
-  openTaskDetailsOverlay(taskId: string) {
-    if (this.menuOpen) {
-      this.toggleTaskMenu();
+  openTaskDetailsOverlay(taskId: string): void {
+    if (this.mobileMenuOpen) {
+      this.toggleMobileMenu();
     }
     this.pageViewMedia$.pipe(take(1)).subscribe((isPageViewMedia) => {
       isPageViewMedia
@@ -113,33 +111,13 @@ export class TaskComponent {
     });
   }
 
-  @HostListener('document:click', ['$event'])
-  /**
-   * If the target element of the event is not a task menu button,
-   * task menu img, or the task menu itself, close the task menu
-   * @param event the MouseEvent
-   */
-  checkToggleTaskMenu(event: MouseEvent) {
-    const targetElement = event.target as HTMLElement;
-    const menuSelectors = ['.menu-btn', '.menu-img', 'app-task-menu'];
-    const isMenuClicked = menuSelectors.some((selector) =>
-      targetElement.closest(selector)
-    );
-
-    if (!isMenuClicked) {
-      this.menuOpen = false;
-    }
-  }
-
-  // User Dialog
-
   /**
    * Opens the user dialog for the given user id at the position of the mouse click
    * @param userId the id of the user
    * @param event the MouseEvent that triggered the dialog
    */
-  openDialog(userId: any, event: MouseEvent) {
-    this.AssignedDialogId = userId;
+  openDialog(userId: string, event: MouseEvent): void {
+    this.assignedDialogId = userId;
     this.updateDialogPosition(event);
   }
 
@@ -147,7 +125,7 @@ export class TaskComponent {
    * Updates the position of the user dialog based on the MouseEvent
    * @param event the MouseEvent that triggered the dialog
    */
-  updateDialogPosition(event: MouseEvent) {
+  updateDialogPosition(event: MouseEvent): void {
     this.dialogX = event.clientX + this.DIALOG_OFFSET_X;
     this.dialogY = event.clientY + this.DIALOG_OFFSET_Y;
   }
@@ -155,11 +133,9 @@ export class TaskComponent {
   /**
    * Closes the user dialog
    */
-  closeDialog() {
-    this.AssignedDialogId = '';
+  closeDialog(): void {
+    this.assignedDialogId = '';
   }
-
-  // Subtasks
 
   /**
    * Returns the number of completed subtasks of the task
@@ -178,18 +154,38 @@ export class TaskComponent {
       (subtask) => subtask.status
     ).length;
 
-    return (completedSubtasksCount / this.task.subtasks.length) * 100;
+    return this.task.subtasks.length > 0
+      ? (completedSubtasksCount / this.task.subtasks.length) * 100
+      : 0;
   }
 
   /**
    * Emits an event to update the status of a task.
    * @param event The TaskMoveEvent containing the task and the new status to move to.
    */
-  onStatusUpdate(event: TaskMoveEvent) {
+  onStatusUpdate(event: TaskMoveEvent): void {
     this.updateStatusEmitter.emit({
       task: event.task,
       moveTo: event.moveTo,
     });
+  }
+
+  @HostListener('document:click', ['$event'])
+  /**
+   * If the target element of the event is not a task menu button,
+   * task menu img, or the task menu itself, close the task menu
+   * @param event the MouseEvent
+   */
+  checkToggleTaskMenu(event: MouseEvent): void {
+    const targetElement = event.target as HTMLElement;
+    const menuSelectors = ['.menu-btn', '.menu-img', 'app-task-menu'];
+    const isMenuClicked = menuSelectors.some((selector) =>
+      targetElement.closest(selector)
+    );
+
+    if (!isMenuClicked) {
+      this.mobileMenuOpen = false;
+    }
   }
 
   @HostListener('window:resize')
@@ -197,7 +193,7 @@ export class TaskComponent {
    * Called when the window is resized.
    * Updates the disableDragStatus so that tasks are not draggable on mobile devices.
    */
-  onResize() {
+  onResize(): void {
     this.updateDisableDragStatus();
   }
 }

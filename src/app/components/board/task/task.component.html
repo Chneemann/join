@@ -1,8 +1,9 @@
 <section>
-  @if (task.id) {
+  <!-- If the task exists, display it -->
+  @if (task && task.id) {
   <div (click)="handleMenuButtonClick($event, task.id)">
     <div
-      class="content"
+      class="task"
       [draggable]="disableDrag"
       (dragstart)="
         disableDrag ? dragDropService.startDragging($event, task) : null
@@ -13,8 +14,10 @@
           class="category"
           [style.background-color]="categoryColors.get(task.category)"
         >
-          {{ task.category }}
+          <p>{{ task.category }}</p>
         </div>
+
+        <!-- If the user is on a mobile device, show the menu button -->
         @if (pageViewMedia$ | async) {
         <div class="menu-btn" (click)="handleMenuButtonClick($event, task.id)">
           <img
@@ -25,10 +28,13 @@
         </div>
         }
       </div>
-      <div class="headline">{{ task.title }}</div>
+
+      <div class="title">{{ task.title }}</div>
       <div class="description">
         {{ task.description }}
       </div>
+
+      <!-- If the task has subtasks, display them -->
       @if(task.subtasks.length > 0) {
       <div class="subtask">
         <div class="subtask-line">
@@ -37,46 +43,67 @@
             [style.width.%]="completedSubtasksPercent()"
           ></span>
         </div>
-        <div class="subtask-text">
-          {{ completedSubtasks() }} / {{ task.subtasks.length }} Subtasks
-        </div>
+        <p>{{ completedSubtasks() }} / {{ task.subtasks.length }} Subtasks</p>
       </div>
       }
-      <div class="footer">
-        <div class="footer-badge">
-          @for (user of task.userData; track user) { @if (task.creator ===
-          user.id) {
-          <span
-            class="footer-badged"
+
+      <div class="assignees">
+        <div class="assigned">
+          <!-- Loop through user data -->
+          @for (user of task.userData; track user) {
+
+          <!-- If this user is the creator of the task, display the badge -->
+          @if (task.creator === user.id) {
+          <div
+            class="assigned-badged"
             (mousemove)="openDialog(task.creator, $event)"
             (mouseleave)="closeDialog()"
             [style.background-color]="user.color"
-            >{{ user.initials }}</span
-          >} } @for (user of task.userData; track user) { @for (assigned of
-          task.assignees; track assigned) { @if (assigned.userId === user.id) {
-          <span
-            class="footer-badged"
+          >
+            <span>{{ user.initials }}</span>
+          </div>
+          } }
+
+          <!-- Loop through user data -->
+          @for (user of task.userData; track user) {
+
+          <!-- Loop through task assignees -->
+          @for (assigned of task.assignees; track assigned) {
+
+          <!-- If this user is assigned to the task, display the badge -->
+          @if (assigned.userId === user.id) {
+          <div
+            class="assigned-badged"
             (mousemove)="openDialog(user.id, $event)"
             (mouseleave)="closeDialog()"
             [style.background-color]="user.color"
-            >{{ user.initials }}</span
           >
+            <span>{{ user.initials }}</span>
+          </div>
           } } }
         </div>
-        <div class="footer-priority prio-{{ task.priority }}"></div>
+        <div class="priority priority-{{ task.priority }}"></div>
       </div>
     </div>
   </div>
-  @if (menuOpen){
+
+  <!-- If the task menu is open, display it -->
+  @if (mobileMenuOpen){
   <app-task-menu
     [task]="task"
     [boardTaskStatus]="task.status"
     (updateStatusEmitter)="onStatusUpdate($event)"
   ></app-task-menu>
-  } @if (AssignedDialogId) {
+  }
+
+  <!-- If the assigned dialog is open, display it -->
+  @if (assignedDialogId) {
   <div class="dialog" [style.left.px]="dialogX" [style.top.px]="dialogY">
-    @for (user of task.userData; track user) { @if (user.id ===
-    AssignedDialogId) {
+    <!-- Loop through user data -->
+    @for (user of task.userData; track user) {
+
+    <!-- If the user id matches the assigned dialog id, display the user details -->
+    @if (user.id === assignedDialogId) {
     <p>
       {{ user.firstName }}
     </p>
