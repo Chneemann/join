@@ -9,7 +9,11 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { TaskHighlightedComponent } from './task/task-highlighted/task-highlighted.component';
 import { ApiService } from '../../services/api.service';
-import { Task, TaskMoveEvent } from '../../interfaces/task.interface';
+import {
+  Task,
+  TaskMoveEvent,
+  TaskStatus,
+} from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { debounceTime, finalize, Subject, take, takeUntil } from 'rxjs';
@@ -17,6 +21,7 @@ import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
 import { ResizeService } from '../../services/resize.service';
 import { HeadlineComponent } from '../../shared/components/headline/headline.component';
+import { STATUS_LABELS, STATUSES } from '../../constants/task-status.constants';
 
 @Component({
   selector: 'app-board',
@@ -35,10 +40,8 @@ import { HeadlineComponent } from '../../shared/components/headline/headline.com
   styleUrl: './board.component.scss',
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  readonly TODO = 'todo';
-  readonly IN_PROGRESS = 'inprogress';
-  readonly AWAIT_FEEDBACK = 'awaitfeedback';
-  readonly DONE = 'done';
+  readonly STATUSES = STATUSES;
+  readonly STATUS_LABELS = STATUS_LABELS;
 
   allTasks: Array<Task> = [];
   filteredTasks: { [key: string]: Task[] } = {};
@@ -166,7 +169,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param taskId The id of the task being moved.
    * @param status The status of the column where the task was dropped.
    */
-  handleItemDropped(task: Task, status: string): void {
+  handleItemDropped(task: Task, status: TaskStatus): void {
     if (!task || task.status === status) return;
 
     this.apiService
@@ -186,7 +189,7 @@ export class BoardComponent implements OnInit, OnDestroy {
    * @param taskId The ID of the task to be updated.
    * @param status The new status to assign to the task.
    */
-  updateTaskStatus(taskId: string, status: string) {
+  updateTaskStatus(taskId: string, status: TaskStatus) {
     const updatedTask = this.allTasks.find((task) => task.id === taskId);
     if (updatedTask) {
       const oldStatus = updatedTask.status;

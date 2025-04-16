@@ -1,11 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Task } from '../interfaces/task.interface';
+import { Task, TaskStatus } from '../interfaces/task.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DragDropService {
-  itemDropped = new EventEmitter<{ task: Task; status: string }>();
+  itemDropped = new EventEmitter<{ task: Task; status: TaskStatus }>();
   itemMovedFrom = new EventEmitter<{ status: string }>();
   itemMovedTo = new EventEmitter<{ status: string }>();
 
@@ -37,7 +37,7 @@ export class DragDropService {
    * - Prevents the default browser behavior.
    * - Emits the `itemMovedTo` event with the status of the column.
    */
-  allowDrop(event: DragEvent, status: string) {
+  allowDrop(event: DragEvent, status: TaskStatus) {
     event.preventDefault();
     this.itemMovedTo.emit({ status });
   }
@@ -53,7 +53,7 @@ export class DragDropService {
    * - Sets the dragged task to null.
    * - Emits the `itemMovedTo` event with an empty status, to reset the highlight.
    */
-  drop(event: DragEvent, newStatus: string) {
+  drop(event: DragEvent, newStatus: TaskStatus) {
     event.preventDefault();
 
     if (this.draggedTask) {

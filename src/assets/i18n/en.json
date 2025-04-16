@@ -117,15 +117,17 @@
   },
   "board": {
     "headline": "Board",
-    "todo": "To-do",
-    "inProgress": "In progress",
-    "awaitFeedback": "Await feedback",
-    "done": "Done",
     "addTask": "Add Task",
     "findTask": "Find Task",
     "noTasks": "No tasks",
     "dropHere": "Drop here",
     "emptyTask": "No tasks"
+  },
+  "taskStatus": {
+    "todo": "To-do",
+    "inProgress": "In progress",
+    "awaitFeedback": "Await feedback",
+    "done": "Done"
   },
   "addTask": {
     "headline": "Add Task",

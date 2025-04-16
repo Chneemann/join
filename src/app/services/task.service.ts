@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { Task } from '../interfaces/task.interface';
+import { Task, TaskStatus } from '../interfaces/task.interface';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { UserSummary } from '../interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private readonly statuses = ['todo', 'inprogress', 'awaitfeedback', 'done'];
+  private readonly statuses: TaskStatus[] = [
+    TaskStatus.TODO,
+    TaskStatus.IN_PROGRESS,
+    TaskStatus.AWAIT_FEEDBACK,
+    TaskStatus.DONE,
+  ];
   private readonly priorities = ['low', 'medium', 'high'];
 
   constructor(private apiService: ApiService) {}
 
-  getStatuses(): string[] {
+  getStatuses(): TaskStatus[] {
     return this.statuses;
   }
 

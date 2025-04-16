@@ -1,11 +1,22 @@
 import { UserSummary } from './user.interface';
 
+// Enums
+
+export enum TaskStatus {
+  TODO = 'todo',
+  IN_PROGRESS = 'inProgress',
+  AWAIT_FEEDBACK = 'awaitFeedback',
+  DONE = 'done',
+}
+
+// Interfaces
+
 export interface Task {
   id?: string;
   title: string;
   description: string;
   category: string;
-  status: string;
+  status: TaskStatus;
   priority: string;
   subtasks: Subtask[];
   assignees: Assignee[];
@@ -27,5 +38,5 @@ export interface Assignee {
 
 export interface TaskMoveEvent {
   task: Task;
-  moveTo: string;
+  moveTo: TaskStatus;
 }

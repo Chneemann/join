@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
-import { Subtask, Task } from '../../interfaces/task.interface';
+import { Subtask, Task, TaskStatus } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -97,7 +97,13 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   async loadExistingTaskData() {
     if (this.overlayType === 'newTaskOverlay') {
       // OverlayData = Status "todo"
-      this.taskData.status = this.overlayData;
+      const statusCandidate = this.overlayData as TaskStatus;
+
+      if (Object.values(TaskStatus).includes(statusCandidate)) {
+        this.taskData.status = statusCandidate;
+      } else {
+        console.warn('Invalid status in overlayData:', this.overlayData);
+      }
     } else if (this.overlayData) {
       // OverlayData = Current TaskId
       const taskData = await firstValueFrom(this.getTaskData(this.overlayData));

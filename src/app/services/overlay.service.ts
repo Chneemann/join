@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { TaskState } from 'zone.js/lib/zone-impl';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class OverlayService {
    * @param overlay The overlay type.
    * @param data The overlay data.
    */
-  setOverlayData(overlay: string, data: any) {
+  setOverlayData(overlay: string | TaskState, data: any) {
     this.overlayDataSubject.next({ overlay, data });
   }
 

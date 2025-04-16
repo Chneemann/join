@@ -91,7 +91,7 @@
   @if (mobileMenuOpen){
   <app-task-menu
     [task]="task"
-    [boardTaskStatus]="task.status"
+    [currentTaskStatus]="task.status"
     (updateStatusEmitter)="onStatusUpdate($event)"
   ></app-task-menu>
   }

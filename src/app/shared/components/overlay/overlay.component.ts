@@ -103,6 +103,9 @@ export class OverlayComponent implements OnInit, OnDestroy {
    * @param {boolean} close Indicates the close event.
    */
   onCloseOverlay() {
+    this.overlayType = null;
+    this.overlayData = null;
+    this.shouldShowOverlay = false;
     this.overlayService.clearOverlayData();
   }
 

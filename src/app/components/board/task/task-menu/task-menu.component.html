@@ -1,11 +1,11 @@
 <section>
-  @if (boardTaskStatus !== TODO) {
-  <div class="link" (click)="moveTask(TODO)">To do</div>
-  } @if (boardTaskStatus !== IN_PROGRESS) {
-  <div class="link" (click)="moveTask(IN_PROGRESS)">In progress</div>
-  } @if (boardTaskStatus !== AWAIT_FEEDBACK) {
-  <div class="link" (click)="moveTask(AWAIT_FEEDBACK)">Await feedback</div>
-  } @if (boardTaskStatus !== DONE) {
-  <div class="link" (click)="moveTask(DONE)">Done</div>
-  }
+  <!-- Loop through statuses -->
+  @for (status of STATUSES; track status) {
+
+  <!--  If the status is not the current task status, display a link to move the task to that status -->
+  @if (status !== currentTaskStatus) {
+  <div class="link" (click)="moveTask(status)">
+    {{ STATUS_LABELS[status] | translate }}
+  </div>
+  } }
 </section>

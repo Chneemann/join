@@ -12,7 +12,6 @@
           (input)="searchTask(searchValue)"
         />
         <span>
-          <!-- Show clear icon when search input is active -->
           @if (this.searchInput) {
           <img
             src="./../../../assets/img/board/clear.svg"
@@ -20,18 +19,21 @@
             alt="clear"
             (click)="clearInput()"
           />
-
-          <!-- Show search icon when no search input is active -->
           } @else {
           <img
             src="./../../../assets/img/board/search.svg"
             class="icon-search"
             alt="search"
-          />}</span
-        >
+          />
+          }
+        </span>
         <span class="line"></span>
       </div>
-      <button class="btn" type="submit" (click)="addNewTaskOverlay(TODO)">
+      <button
+        class="btn"
+        type="submit"
+        (click)="addNewTaskOverlay(STATUSES[0])"
+      >
         <div class="btn-inside">
           <span>{{ "board.addTask" | translate }}</span>
           <img src="./../../../assets/img/board/add_white.svg" alt="check" />
@@ -39,133 +41,26 @@
       </button>
     </div>
   </div>
+
   <div class="content">
     <div class="status">
+      @for (status of STATUSES; track status) {
       <div
         class="column"
-        (dragover)="dragDropService.allowDrop($event, TODO)"
-        (drop)="dragDropService.drop($event, TODO)"
+        (dragover)="dragDropService.allowDrop($event, status)"
+        (drop)="dragDropService.drop($event, status)"
       >
         <div class="headline">
-          <span>{{ "board.todo" | translate }}</span
-          ><img
+          <span>{{ STATUS_LABELS[status] | translate }}</span>
+          <img
             src="./../../../assets/img/board/plus.svg"
             alt="add"
-            (click)="addNewTaskOverlay(TODO)"
+            (click)="addNewTaskOverlay(status)"
           />
         </div>
-        <div id="todo" class="details">
-          <!-- Loop through 'todo' tasks and display them -->
-          @for (task of filteredTasks[TODO]; track task.id) {
-          <app-task
-            [task]="task"
-            (updateStatusEmitter)="onStatusUpdate($event)"
-          ></app-task>
-
-          <!-- Show empty state if no 'todo' tasks exist -->
-          } @empty {
-          <!-- Loading spinner or empty task -->
-          @if (isLoading) {
-          <app-loading-spinner></app-loading-spinner>
-          } @else {
-          <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          } }
-
-          <!-- Highlight task if just moved to 'todo' -->
-          @if (taskMovedTo === TODO && taskMovedFrom !== TODO) {
-          <app-task-highlighted></app-task-highlighted>
-          }
-        </div>
-      </div>
-      <div
-        class="column"
-        (dragover)="dragDropService.allowDrop($event, IN_PROGRESS)"
-        (drop)="dragDropService.drop($event, IN_PROGRESS)"
-      >
-        <div class="headline">
-          <span>{{ "board.inProgress" | translate }}</span
-          ><img
-            src="./../../../assets/img/board/plus.svg"
-            alt="add"
-            (click)="addNewTaskOverlay(IN_PROGRESS)"
-          />
-        </div>
-        <div id="inprogress" class="details">
-          <!-- Loop through 'in progress' tasks and display them -->
-          @for (task of filteredTasks[IN_PROGRESS]; track task.id) {
-          <app-task
-            [task]="task"
-            (updateStatusEmitter)="onStatusUpdate($event)"
-          ></app-task>
-
-          <!-- Show empty state if no 'in progress' tasks exist -->
-          } @empty {
-          <!-- Loading spinner or empty task -->
-          @if (isLoading) {
-          <app-loading-spinner></app-loading-spinner>
-          } @else {
-          <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          } }
-
-          <!-- Highlight task if just moved to 'in progress' -->
-          @if (taskMovedTo === IN_PROGRESS && taskMovedFrom !== IN_PROGRESS) {
-          <app-task-highlighted></app-task-highlighted>
-          }
-        </div>
-      </div>
-      <div
-        class="column"
-        (dragover)="dragDropService.allowDrop($event, AWAIT_FEEDBACK)"
-        (drop)="dragDropService.drop($event, AWAIT_FEEDBACK)"
-      >
-        <div class="headline">
-          <span>{{ "board.awaitFeedback" | translate }}</span
-          ><img
-            src="./../../../assets/img/board/plus.svg"
-            alt="add"
-            (click)="addNewTaskOverlay(AWAIT_FEEDBACK)"
-          />
-        </div>
-        <div id="awaitfeedback" class="details">
-          <!-- Loop through 'await feedback' tasks and display them -->
-          @for (task of filteredTasks[AWAIT_FEEDBACK]; track task.id) {
-          <app-task
-            [task]="task"
-            (updateStatusEmitter)="onStatusUpdate($event)"
-          ></app-task>
-
-          <!-- Show empty state if no 'await feedback' tasks exist -->
-          } @empty {
-          <!-- Loading spinner or empty task -->
-          @if (isLoading) {
-          <app-loading-spinner></app-loading-spinner>
-          } @else {
-          <app-task-empty>{{ "board.noTasks" | translate }}</app-task-empty>
-          } }
-
-          <!-- Highlight task if just moved to 'await feedback' -->
-          @if (taskMovedTo === AWAIT_FEEDBACK && taskMovedFrom !==
-          AWAIT_FEEDBACK) {
-          <app-task-highlighted></app-task-highlighted>
-          }
-        </div>
-      </div>
-      <div
-        class="column"
-        (dragover)="dragDropService.allowDrop($event, DONE)"
-        (drop)="dragDropService.drop($event, DONE)"
-      >
-        <div class="headline">
-          <span>{{ "board.done" | translate }}</span
-          ><img
-            src="./../../../assets/img/board/plus.svg"
-            alt="add"
-            (click)="addNewTaskOverlay(DONE)"
-          />
-        </div>
-        <div id="done" class="details">
+        <div [id]="status" class="details">
           <!-- Loop through 'done' tasks and display them -->
-          @for (task of filteredTasks[DONE]; track task.id) {
+          @for (task of filteredTasks[status]; track task.id) {
           <app-task
             [task]="task"
             (updateStatusEmitter)="onStatusUpdate($event)"
@@ -173,6 +68,7 @@
 
           <!-- Show empty state if no 'done' tasks exist -->
           } @empty {
+
           <!-- Loading spinner or empty task -->
           @if (isLoading) {
           <app-loading-spinner></app-loading-spinner>
@@ -181,11 +77,12 @@
           } }
 
           <!-- Highlight task if just moved to 'done' -->
-          @if (taskMovedTo === DONE && taskMovedFrom !== DONE) {
+          @if (taskMovedTo === status && taskMovedFrom !== status) {
           <app-task-highlighted></app-task-highlighted>
           }
         </div>
       </div>
+      }
     </div>
     <div id="content-tasks"></div>
   </div>

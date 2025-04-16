@@ -117,15 +117,17 @@
   },
   "board": {
     "headline": "Tafel",
-    "todo": "Zu Erledigen",
-    "inProgress": "In Bearbeitung",
-    "awaitFeedback": "Warte auf Rückmeldung",
-    "done": "Erledigt",
     "addTask": "Neue Aufgabe",
     "findTask": "Aufgabe suchen",
     "noTasks": "Keine Aufgaben",
     "dropHere": "Hier ablegen",
     "emptyTask": "Keine Aufgaben"
+  },
+  "taskStatus": {
+    "todo": "Zu Erledigen",
+    "inProgress": "In Bearbeitung",
+    "awaitFeedback": "Warte auf Rückmeldung",
+    "done": "Erledigt"
   },
   "addTask": {
     "headline": "Aufgabe",
