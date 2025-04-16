@@ -2,7 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
-import { Subtask, Task, TaskStatus } from '../../interfaces/task.interface';
+import {
+  Subtask,
+  Task,
+  TaskCategory,
+  TaskPriority,
+  TaskStatus,
+} from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +20,10 @@ import { ApiService } from '../../services/api.service';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
 import { HeadlineComponent } from '../../shared/components/headline/headline.component';
+import {
+  PRIORITIES,
+  PRIORITY_LABELS,
+} from '../../constants/task-priority.constants';
 
 @Component({
   selector: 'app-add-task',
@@ -33,6 +43,9 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   @Input() overlayData: string = '';
   @Input() overlayType: string = '';
   @Input() overlayMobile: boolean = false;
+
+  readonly PRIORITIES = PRIORITIES;
+  readonly PRIORITY_LABELS = PRIORITY_LABELS;
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
@@ -54,9 +67,9 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   taskData: Task = {
     title: '',
     description: '',
-    category: '',
-    status: this.taskService.getStatuses()[0],
-    priority: this.taskService.getPriorities()[0],
+    category: TaskCategory.USER_STORY,
+    status: TaskStatus.TODO,
+    priority: TaskPriority.LOW,
     subtasks: [],
     assignees: [],
     userData: [],
@@ -128,11 +141,35 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Loads any existing task data from local storage and assigns it to the taskData object.
-   * If no task data is present in local storage, this method saves the current taskData object to local storage.
-   * @returns {void}
-   */
+  getPriorityColor(priority: TaskPriority): string {
+    switch (priority) {
+      case TaskPriority.URGENT:
+        return 'red';
+      case TaskPriority.MEDIUM:
+        return 'orange';
+      case TaskPriority.LOW:
+        return 'green';
+      default:
+        return 'white';
+    }
+  }
+
+  getPriorityIcon(priority: TaskPriority): string {
+    switch (priority) {
+      case TaskPriority.URGENT:
+        return './../../../assets/img/urgent.svg';
+      case TaskPriority.MEDIUM:
+        return './../../../assets/img/medium.svg';
+      case TaskPriority.LOW:
+        return './../../../assets/img/low.svg';
+      default:
+        return '';
+    }
+  }
+
+  togglePriority(priority: TaskPriority): void {
+    this.taskData.priority = priority;
+  }
 
   /**
    * Gets the task data from the Firebase service for the given task id.
@@ -195,19 +232,6 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Toggles the priority of the task between the given priority and the current priority.
-   * If the given priority is different from the current priority, it sets the priority to the given priority,
-   * otherwise it keeps the current priority.
-   * After setting the priority, it saves the task data.
-   * @param priority the priority to toggle to
-   */
-  togglePriority(priority: string) {
-    this.taskData.priority !== priority
-      ? (this.taskData.priority = priority)
-      : this.taskData.priority;
-  }
-
-  /**
    * Removes the task data from local storage and resets the form and form data.
    * @param form the form to reset
    * @returns {void}
@@ -246,7 +270,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
    */
   clearFormData() {
     this.taskData.date = this.currentDate;
-    this.taskData.category = '';
+    this.taskData.category = TaskCategory.USER_STORY;
     this.taskData.assignees = [];
     this.taskData.subtasks = [];
   }

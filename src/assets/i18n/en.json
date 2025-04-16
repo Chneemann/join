@@ -129,6 +129,11 @@
     "awaitFeedback": "Await feedback",
     "done": "Done"
   },
+  "taskPriority": {
+    "urgent": "Urgent",
+    "medium": "Medium",
+    "low": "Low"
+  },
   "addTask": {
     "headline": "Add Task",
     "title": "Title",
@@ -140,9 +145,6 @@
     "date": "Due date",
     "priority": "Priority",
     "creator": "Creator",
-    "urgent": "Urgent",
-    "medium": "Medium",
-    "low": "Low",
     "category": "Category",
     "categorySelection": "Select task category",
     "subtask": "Subtasks",

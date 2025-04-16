@@ -129,6 +129,11 @@
     "awaitFeedback": "Warte auf Rückmeldung",
     "done": "Erledigt"
   },
+  "taskPriority": {
+    "low": "Niedrig",
+    "medium": "Mittel",
+    "urgent": "Dringend"
+  },
   "addTask": {
     "headline": "Aufgabe",
     "title": "Titel",
@@ -140,9 +145,6 @@
     "date": "Stichtag",
     "priority": "Priorität",
     "creator": "Ersteller",
-    "urgent": "Dringend",
-    "medium": "Mittel",
-    "low": "Niedrig",
     "category": "Kategorie",
     "categorySelection": "Kategorie wählen",
     "subtask": "Unteraufgaben",

@@ -25,6 +25,7 @@
       }"
     >
       <div class="left-side">
+        <!-- Title -->
         <div class="title">
           <div class="headline">
             {{ "addTask.title" | translate }}<span class="red-dot">*</span>
@@ -49,6 +50,8 @@
             }
           </div>
         </div>
+
+        <!-- Description -->
         <div class="description">
           <div class="headline">
             {{ "addTask.description" | translate
@@ -75,14 +78,19 @@
             }
           </div>
         </div>
+
+        <!-- Assignees -->
         <app-assigned
           [taskCreator]="taskData.creator"
           [currentAssignees]="taskData.assignees"
           (assignedChange)="receiveAssigned($event)"
         ></app-assigned>
       </div>
+
       <div class="middle-spacer"><div class="line"></div></div>
+
       <div class="right-side">
+        <!-- Date -->
         <div
           class="date"
           [ngStyle]="{
@@ -111,62 +119,39 @@
             }
           </div>
         </div>
+
+        <!-- Priority -->
         <div class="priority">
           <div class="headline">{{ "addTask.priority" | translate }}</div>
           <div class="btns">
+            @for (priority of PRIORITIES; track priority) {
             <button
               type="button"
               class="btn"
               [ngClass]="{
-                'btn-active': taskData.priority == 'urgent'
+                'btn-active': taskData.priority === priority
               }"
               [ngStyle]="{
                 'background-color':
-                  taskData.priority == 'urgent' ? 'red' : 'white'
+                  taskData.priority === priority
+                    ? getPriorityColor(priority)
+                    : 'white'
               }"
-              (click)="togglePriority('urgent')"
+              (click)="togglePriority(priority)"
             >
               <div class="btn-text">
-                <span>{{ "addTask.urgent" | translate }}</span>
-                <img src="./../../../assets/img/urgent.svg" alt="" />
+                <span>{{ PRIORITY_LABELS[priority] | translate }}</span>
+                <img
+                  [src]="getPriorityIcon(priority)"
+                  [alt]="priority + ' icon'"
+                />
               </div>
             </button>
-            <button
-              type="button"
-              class="btn"
-              [ngClass]="{
-                'btn-active': taskData.priority == 'medium'
-              }"
-              [ngStyle]="{
-                'background-color':
-                  taskData.priority == 'medium' ? 'orange' : 'white'
-              }"
-              (click)="togglePriority('medium')"
-            >
-              <div class="btn-text">
-                <span>{{ "addTask.medium" | translate }}</span>
-                <img src="./../../../assets/img/medium.svg" alt="" />
-              </div>
-            </button>
-            <button
-              type="button"
-              class="btn"
-              [ngClass]="{
-                'btn-active': taskData.priority == 'low'
-              }"
-              [ngStyle]="{
-                'background-color':
-                  taskData.priority == 'low' ? 'green' : 'white'
-              }"
-              (click)="togglePriority('low')"
-            >
-              <div class="btn-text">
-                <span>{{ "addTask.low" | translate }}</span>
-                <img src="./../../../assets/img/low.svg" alt="" />
-              </div>
-            </button>
+            }
           </div>
         </div>
+
+        <!-- Category -->
         <div class="category">
           <div class="headline">
             {{ "addTask.category" | translate }}<span class="red-dot">*</span>
@@ -195,6 +180,8 @@
             }
           </div>
         </div>
+
+        <!-- Subtasks -->
         <div class="subtask">
           <div class="headline">{{ "addTask.subtask" | translate }}</div>
           <input

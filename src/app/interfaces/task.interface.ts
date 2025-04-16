@@ -9,15 +9,26 @@ export enum TaskStatus {
   DONE = 'done',
 }
 
+export enum TaskPriority {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  URGENT = 'urgent',
+}
+
+export enum TaskCategory {
+  USER_STORY = 'User Story',
+  TECHNICAL_TASK = 'Technical Task',
+}
+
 // Interfaces
 
 export interface Task {
   id?: string;
   title: string;
   description: string;
-  category: string;
+  category: TaskCategory;
   status: TaskStatus;
-  priority: string;
+  priority: TaskPriority;
   subtasks: Subtask[];
   assignees: Assignee[];
   userData: UserSummary[];
