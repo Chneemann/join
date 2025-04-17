@@ -1,26 +1,7 @@
+import { TaskCategory } from '../constants/task-category.constants';
+import { TaskPriority } from '../constants/task-priority.constants';
+import { TaskStatus } from '../constants/task-status.constants';
 import { UserSummary } from './user.interface';
-
-// Enums
-
-export enum TaskStatus {
-  TODO = 'todo',
-  IN_PROGRESS = 'inProgress',
-  AWAIT_FEEDBACK = 'awaitFeedback',
-  DONE = 'done',
-}
-
-export enum TaskPriority {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  URGENT = 'urgent',
-}
-
-export enum TaskCategory {
-  USER_STORY = 'User Story',
-  TECHNICAL_TASK = 'Technical Task',
-}
-
-// Interfaces
 
 export interface Task {
   id?: string;

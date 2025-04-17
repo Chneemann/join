@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import {
-  Task,
-  TaskCategory,
-  TaskPriority,
-  TaskStatus,
-} from '../interfaces/task.interface';
+import { Task } from '../interfaces/task.interface';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { UserSummary } from '../interfaces/user.interface';
 

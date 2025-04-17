@@ -1,12 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  Task,
-  TaskMoveEvent,
-  TaskStatus,
-} from '../../../../interfaces/task.interface';
+import { Task, TaskMoveEvent } from '../../../../interfaces/task.interface';
 import {
   STATUS_LABELS,
   STATUSES,
+  TaskStatus,
 } from '../../../../constants/task-status.constants';
 import { TranslateModule } from '@ngx-translate/core';
 

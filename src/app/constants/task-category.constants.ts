@@ -1,4 +1,7 @@
-import { TaskCategory } from '../interfaces/task.interface';
+export enum TaskCategory {
+  USER_STORY = 'User Story',
+  TECHNICAL_TASK = 'Technical Task',
+}
 
 export const CATEGORIES: TaskCategory[] = [
   TaskCategory.USER_STORY,

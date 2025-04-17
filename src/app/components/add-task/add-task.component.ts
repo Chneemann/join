@@ -2,13 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AssignedComponent } from './assigned/assigned.component';
-import {
-  Subtask,
-  Task,
-  TaskCategory,
-  TaskPriority,
-  TaskStatus,
-} from '../../interfaces/task.interface';
+import { Subtask, Task } from '../../interfaces/task.interface';
 import { OverlayService } from '../../services/overlay.service';
 import { FormBtnComponent } from '../../shared/components/buttons/form-btn/form-btn.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,11 +16,14 @@ import { HeadlineComponent } from '../../shared/components/headline/headline.com
 import {
   PRIORITIES,
   PRIORITY_LABELS,
+  TaskPriority,
 } from '../../constants/task-priority.constants';
 import {
   CATEGORIES,
   CATEGORY_LABELS,
+  TaskCategory,
 } from '../../constants/task-category.constants';
+import { TaskStatus } from '../../constants/task-status.constants';
 
 @Component({
   selector: 'app-add-task',

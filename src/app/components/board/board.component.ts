@@ -9,11 +9,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { TaskHighlightedComponent } from './task/task-highlighted/task-highlighted.component';
 import { ApiService } from '../../services/api.service';
-import {
-  Task,
-  TaskMoveEvent,
-  TaskStatus,
-} from '../../interfaces/task.interface';
+import { Task, TaskMoveEvent } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { debounceTime, finalize, Subject, take, takeUntil } from 'rxjs';
@@ -21,7 +17,11 @@ import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
 import { ResizeService } from '../../services/resize.service';
 import { HeadlineComponent } from '../../shared/components/headline/headline.component';
-import { STATUS_LABELS, STATUSES } from '../../constants/task-status.constants';
+import {
+  STATUS_LABELS,
+  STATUSES,
+  TaskStatus,
+} from '../../constants/task-status.constants';
 import {
   CATEGORIES,
   CATEGORY_LABELS,

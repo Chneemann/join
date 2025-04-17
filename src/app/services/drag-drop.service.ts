@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Task, TaskStatus } from '../interfaces/task.interface';
+import { Task } from '../interfaces/task.interface';
+import { TaskStatus } from '../constants/task-status.constants';
 
 @Injectable({
   providedIn: 'root',

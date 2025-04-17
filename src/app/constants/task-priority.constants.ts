@@ -1,4 +1,8 @@
-import { TaskPriority } from '../interfaces/task.interface';
+export enum TaskPriority {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  URGENT = 'urgent',
+}
 
 export const PRIORITIES: TaskPriority[] = [
   TaskPriority.LOW,

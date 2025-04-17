@@ -1,4 +1,9 @@
-import { TaskStatus } from '../interfaces/task.interface';
+export enum TaskStatus {
+  TODO = 'todo',
+  IN_PROGRESS = 'inProgress',
+  AWAIT_FEEDBACK = 'awaitFeedback',
+  DONE = 'done',
+}
 
 export const STATUSES: TaskStatus[] = [
   TaskStatus.TODO,
