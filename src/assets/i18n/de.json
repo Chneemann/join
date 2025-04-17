@@ -134,6 +134,10 @@
     "medium": "Mittel",
     "urgent": "Dringend"
   },
+  "taskCategory": {
+    "userStory": "Benutzergeschichte",
+    "technicalTask": "Technischer Auftrag"
+  },
   "addTask": {
     "headline": "Aufgabe",
     "title": "Titel",

@@ -12,9 +12,9 @@
       <div class="header">
         <div
           class="category"
-          [style.background-color]="categoryColors.get(task.category)"
+          [style.backgroundColor]="categoryColors[task.category]"
         >
-          <p>{{ task.category }}</p>
+          <p>{{ CATEGORY_LABELS[task.category] | translate }}</p>
         </div>
 
         <!-- If the user is on a mobile device, show the menu button -->

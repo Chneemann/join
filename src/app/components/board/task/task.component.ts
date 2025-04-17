@@ -17,11 +17,16 @@ import { Router } from '@angular/router';
 import { TaskMenuComponent } from './task-menu/task-menu.component';
 import { ResizeService } from '../../../services/resize.service';
 import { take } from 'rxjs';
+import {
+  CATEGORY_COLORS,
+  CATEGORY_LABELS,
+} from '../../../constants/task-category.constants';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [CommonModule, TaskMenuComponent],
+  imports: [CommonModule, TranslateModule, TaskMenuComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
@@ -29,6 +34,8 @@ export class TaskComponent {
   @Input() task!: Task;
   @Output() updateStatusEmitter = new EventEmitter<TaskMoveEvent>();
 
+  readonly CATEGORY_LABELS = CATEGORY_LABELS;
+  readonly categoryColors = CATEGORY_COLORS;
   readonly DISABLE_DRAG_BREAKPOINT = 667;
   readonly DIALOG_OFFSET_X = 25;
   readonly DIALOG_OFFSET_Y = 10;
@@ -36,10 +43,6 @@ export class TaskComponent {
   pageViewMedia$ = this.resizeService.pageViewMedia$;
 
   assignees: Assignee[] = [];
-  categoryColors = new Map<string, string>([
-    ['User Story', '#0038ff'],
-    ['Technical Task', '#20d7c2'],
-  ]);
 
   mobileMenuOpen = false;
   disableDrag = false;

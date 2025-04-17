@@ -134,6 +134,10 @@
     "medium": "Medium",
     "low": "Low"
   },
+  "taskCategory": {
+    "userStory": "User Story",
+    "technicalTask": "Technical Task"
+  },
   "addTask": {
     "headline": "Add Task",
     "title": "Title",

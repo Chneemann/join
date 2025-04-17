@@ -166,8 +166,11 @@
             <option value="" disabled [selected]="!taskData.category">
               {{ "addTask.categorySelection" | translate }}
             </option>
-            <option value="User Story">User Story</option>
-            <option value="Technical Task">Technical Task</option>
+            @for (category of CATEGORIES; track category) {
+            <option [value]="category">
+              {{ CATEGORY_LABELS[category] | translate }}
+            </option>
+            }
           </select>
           <img
             class="open"

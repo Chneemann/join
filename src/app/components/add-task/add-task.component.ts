@@ -15,7 +15,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
 import { firstValueFrom, map, Subject, takeUntil } from 'rxjs';
-import { TaskService } from '../../services/task.service';
 import { ApiService } from '../../services/api.service';
 import { UpdateNotifierService } from '../../services/update-notifier.service';
 import { ToastNotificationService } from '../../services/toast-notification.service';
@@ -24,6 +23,10 @@ import {
   PRIORITIES,
   PRIORITY_LABELS,
 } from '../../constants/task-priority.constants';
+import {
+  CATEGORIES,
+  CATEGORY_LABELS,
+} from '../../constants/task-category.constants';
 
 @Component({
   selector: 'app-add-task',
@@ -46,6 +49,8 @@ export class AddTaskComponent implements OnInit, OnDestroy {
 
   readonly PRIORITIES = PRIORITIES;
   readonly PRIORITY_LABELS = PRIORITY_LABELS;
+  readonly CATEGORIES = CATEGORIES;
+  readonly CATEGORY_LABELS = CATEGORY_LABELS;
 
   currentDate: string = new Date().toISOString().split('T')[0];
   dateInPast: boolean = false;
@@ -55,7 +60,6 @@ export class AddTaskComponent implements OnInit, OnDestroy {
 
   constructor(
     private overlayService: OverlayService,
-    private taskService: TaskService,
     private apiService: ApiService,
     private authService: AuthService,
     private updateNotifierService: UpdateNotifierService,

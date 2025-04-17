@@ -22,6 +22,10 @@ import { ToastNotificationService } from '../../services/toast-notification.serv
 import { ResizeService } from '../../services/resize.service';
 import { HeadlineComponent } from '../../shared/components/headline/headline.component';
 import { STATUS_LABELS, STATUSES } from '../../constants/task-status.constants';
+import {
+  CATEGORIES,
+  CATEGORY_LABELS,
+} from '../../constants/task-category.constants';
 
 @Component({
   selector: 'app-board',

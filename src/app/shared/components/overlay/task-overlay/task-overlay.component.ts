@@ -19,6 +19,11 @@ import { map, Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../../../../services/api.service';
 import { UpdateNotifierService } from '../../../../services/update-notifier.service';
 import { ToastNotificationService } from '../../../../services/toast-notification.service';
+import {
+  CATEGORY_COLORS,
+  CATEGORY_LABELS,
+} from '../../../../constants/task-category.constants';
+import { PRIORITY_LABELS } from '../../../../constants/task-priority.constants';
 
 @Component({
   selector: 'app-task-overlay',
@@ -30,6 +35,10 @@ import { ToastNotificationService } from '../../../../services/toast-notificatio
 export class TaskOverlayComponent implements OnInit, OnDestroy {
   @Input() overlayData: string = '';
   @Output() closeDialogEmitter = new EventEmitter<boolean>();
+
+  readonly CATEGORY_LABELS = CATEGORY_LABELS;
+  readonly PRIORITY_LABELS = PRIORITY_LABELS;
+  readonly categoryColors = CATEGORY_COLORS;
 
   task: Task | null = null;
   overlayMobile: boolean = false;
@@ -48,11 +57,6 @@ export class TaskOverlayComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute
   ) {}
-
-  categoryColors = new Map<string, string>([
-    ['User Story', '#0038ff'],
-    ['Technical Task', '#20d7c2'],
-  ]);
 
   ngOnInit(): void {
     this.setCurrentUserId();
@@ -175,16 +179,9 @@ export class TaskOverlayComponent implements OnInit, OnDestroy {
       );
   }
 
-  /**
-   * Capitalizes the first letter of a given string.
-   *
-   * This function takes a string as an argument and returns a new string
-   * with the first letter capitalized.
-   * @param data The string to capitalize.
-   * @returns {string} A new string with the first letter capitalized.
-   */
-  capitalizeFirstLetter(data: string) {
-    return data.charAt(0).toUpperCase() + data.slice(1);
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value.charAt(0).toUpperCase() + value.slice(1);
   }
 
   toggleConfirmDialog() {

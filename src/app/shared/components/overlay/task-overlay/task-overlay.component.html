@@ -8,9 +8,9 @@
   <div class="header">
     <div
       class="category"
-      [style.background-color]="categoryColors.get(task.category)"
+      [style.backgroundColor]="categoryColors[task.category]"
     >
-      {{ task.category }}
+      <p>{{ CATEGORY_LABELS[task.category] | translate }}</p>
     </div>
     @if (overlayMobile) {
     <app-btn-back></app-btn-back>
@@ -34,7 +34,7 @@
     </div>
     <div class="priority">
       <p>{{ "addTask.priority" | translate }}:</p>
-      {{ capitalizeFirstLetter(task.priority) }}
+      {{ PRIORITY_LABELS[task.priority] | translate }}
       <div class="priority-bg priority-{{ task.priority }}"></div>
     </div>
 
