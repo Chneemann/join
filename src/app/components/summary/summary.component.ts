@@ -5,10 +5,17 @@ import { Task } from '../../interfaces/task.interface';
 import { TaskService } from '../../services/task.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner/loading-spinner.component';
 import { finalize, Subject, takeUntil } from 'rxjs';
-
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { HeadlineComponent } from '../../shared/components/headline/headline.component';
+import {
+  STATUS_LABELS,
+  TaskStatus,
+} from '../../constants/task-status.constants';
+import {
+  PRIORITIES,
+  PRIORITY_LABELS,
+} from '../../constants/task-priority.constants';
 
 @Component({
   selector: 'app-summary',
@@ -24,9 +31,14 @@ import { HeadlineComponent } from '../../shared/components/headline/headline.com
 })
 export class SummaryComponent implements OnInit, OnDestroy {
   allTasks: Task[] = [];
-  nextUrgendTask: number[] = [];
   currentUser: User | null = null;
   isLoading = false;
+
+  readonly UPPER_STATUSES = [TaskStatus.TODO, TaskStatus.DONE];
+  readonly LOWER_STATUSES = [TaskStatus.IN_PROGRESS, TaskStatus.AWAIT_FEEDBACK];
+  readonly PRIORITIES = PRIORITIES;
+  readonly PRIORITY_LABELS = PRIORITY_LABELS;
+  readonly STATUS_LABELS = STATUS_LABELS;
 
   private destroy$ = new Subject<void>();
 
@@ -37,20 +49,26 @@ export class SummaryComponent implements OnInit, OnDestroy {
   ) {}
 
   /**
-   * This method loads all tasks from the TaskService.
+   * This method performs the following actions:
+   * - Calls the loadAllTasks method to load all tasks.
+   * - Calls the loadCurrentUser method to load the current user.
    */
   ngOnInit(): void {
     this.loadAllTasks();
     this.loadCurrentUser();
   }
 
+  /**
+   * Emits a value to the `destroy$` subject and completes it to clean up
+   * subscriptions and prevent memory leaks.
+   */
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
   /**
-   * Loads all tasks from the TaskService.
+   * Loads all tasks from the TaskService and sets them to the `allTasks` property.
    */
   loadAllTasks(): void {
     this.isLoading = true;
@@ -71,6 +89,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Loads the current user from the UserService and sets it to the `currentUser` property.
+   */
   loadCurrentUser(): void {
     this.userService
       .getCurrentUser()

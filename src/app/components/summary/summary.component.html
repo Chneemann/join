@@ -3,41 +3,39 @@
     [title]="'Join 360'"
     [description]="'summary.headlineDescription' | translate"
   ></app-headline>
+  <!--  Show summary if not loading -->
   @if (!isLoading) {
   <div class="content">
     <div class="summary-container">
-      <!-- Top Frame -->
-      <div class="top-frame">
+      <!-- TOP CONTAINER -->
+      <div class="top-container">
+        <!-- Loop through statuses -->
+        @for (status of UPPER_STATUSES; track status) {
         <div class="todo-done" routerLink="/board">
           <div class="circle">
-            <div class="inline">
-              <img src="./../../../assets/img/summary/pencil.svg" alt="" />
-            </div>
+            <!-- If the status is 'todo', display the 'pencil' icon, otherwise display the 'rake' icon -->
+            @if (status === 'todo') {
+            <img src="./../../../assets/img/summary/pencil.svg" alt="Todo" />
+            } @else {
+            <img src="./../../../assets/img/summary/rake.svg" alt="Done" />
+            }
           </div>
           <div class="details">
-            <span>{{ taskStatusCounts.get("todo") || 0 }}</span>
-            <p>{{ "summary.todo" | translate }}</p>
+            <span>{{ taskStatusCounts.get(status) || 0 }}</span>
+            <p>{{ STATUS_LABELS[status] | translate }}</p>
           </div>
         </div>
-        <div class="todo-done" routerLink="/board">
-          <div class="circle">
-            <img src="./../../../assets/img/summary/rake.svg" alt="" />
-          </div>
-          <div class="details">
-            <span>{{ taskStatusCounts.get("done") || 0 }}</span>
-            <p>{{ "summary.done" | translate }}</p>
-          </div>
-        </div>
+        }
       </div>
 
-      <!-- Middle Frame -->
-      <div class="middle-frame">
+      <!-- MIDDLE CONTAINER -->
+      <div class="middle-container">
         <div class="urgent" routerLink="/board">
           <div class="left">
             <img src="./../../../assets/img/summary/urgent.svg" alt="" />
             <div class="details">
               <span>{{ urgentTasks.length || 0 }}</span>
-              <p>{{ "summary.urgent" | translate }}</p>
+              <p>{{ PRIORITY_LABELS[PRIORITIES[2]] | translate }}</p>
             </div>
           </div>
           <div class="line"></div>
@@ -58,8 +56,8 @@
         </div>
       </div>
 
-      <!-- Bottom Frame -->
-      <div class="bottom-frame">
+      <!-- BOTTOM CONTAINER -->
+      <div class="bottom-container">
         <div class="tasks" routerLink="/board">
           <div class="details">
             <span>{{ totalTasks || 0 }}</span>
@@ -70,40 +68,32 @@
             </p>
           </div>
         </div>
+
+        <!-- Loop through statuses -->
+        @for (status of LOWER_STATUSES; track status) {
         <div class="tasks" routerLink="/board">
           <div class="details">
-            <span>{{ taskStatusCounts.get("inprogress") || 0 }}</span>
+            <span>{{ taskStatusCounts.get(status) || 0 }}</span>
             <p>
-              {{ "summary.taskProgress0" | translate }}<br />{{
-                "summary.taskProgress1" | translate
-              }}
+              {{ STATUS_LABELS[status] | translate }}
             </p>
           </div>
         </div>
-        <div class="tasks" routerLink="/board">
-          <div class="details">
-            <span>{{ taskStatusCounts.get("awaitfeedback") || 0 }}</span>
-            <p>
-              {{ "summary.taskAwaitingFeedback0" | translate }}<br />{{
-                "summary.taskAwaitingFeedback1" | translate
-              }}
-            </p>
-          </div>
-        </div>
+        }
       </div>
     </div>
 
-    <!-- Greeting -->
+    <!-- GREETING CONTAINER -->
     <div class="welcome-container">
       <p>{{ greeting }},</p>
-      @if (currentUser) {
       <span id="welcome-user">
-        {{ currentUser["firstName"] }}<br />
-        {{ currentUser["lastName"] }}
+        {{ currentUser!.firstName }}<br />
+        {{ currentUser!.lastName }}
       </span>
-      }
     </div>
   </div>
+
+  <!-- Show loading spinner if loading -->
   } @else {
   <div class="content">
     <div class="summary-container">
