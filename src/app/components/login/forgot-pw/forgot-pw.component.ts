@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BtnBackComponent } from '../../../shared/components/buttons/btn-back/btn-back.component';
 import { ButtonStateService } from '../../../services/button-state.service';
 import { AuthService } from '../../../services/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-forgot-pw',
@@ -25,6 +26,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './forgot-pw.component.scss',
 })
 export class ForgotPwComponent {
+  errorMessage = false;
   pwResetData = {
     mail: '',
   };
@@ -34,15 +36,18 @@ export class ForgotPwComponent {
     private authService: AuthService
   ) {}
 
-  async onSubmit(ngForm: NgForm) {
+  async onSubmit(ngForm: NgForm): Promise<void> {
     this.buttonStateService.disableButton();
+    if (this.checkGuestEmail()) return;
+
     if (ngForm.submitted && ngForm.form.valid) {
       try {
         await this.authService.resetPassword(
           this.pwResetData.mail.toLowerCase()
         );
-        this.buttonStateService.enableButton();
       } catch (error) {
+        this.buttonStateService.enableButton();
+      } finally {
         this.buttonStateService.enableButton();
       }
     } else {
@@ -50,11 +55,25 @@ export class ForgotPwComponent {
     }
   }
 
-  isButtonDisabled() {
+  checkGuestEmail(): boolean {
+    this.errorMessage = false;
+
+    if (
+      this.pwResetData.mail.toLowerCase() ===
+      environment.guestEmail.toLowerCase()
+    ) {
+      this.errorMessage = true;
+      this.buttonStateService.enableButton();
+      return true;
+    }
+    return false;
+  }
+
+  isButtonDisabled(): boolean {
     return this.buttonStateService.isButtonDisabled;
   }
 
-  isEmailValid(emailValue: string) {
+  isEmailValid(emailValue: string): boolean {
     return /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(emailValue);
   }
 }

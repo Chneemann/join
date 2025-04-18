@@ -56,9 +56,10 @@ export class RegisterComponent {
       this.registerData.email = this.registerData.email.toLowerCase();
       try {
         await this.authService.register(this.registerData);
-        this.buttonStateService.enableButton();
       } catch (error: any) {
         this.errorHttpMessage = error.message;
+        this.buttonStateService.enableButton();
+      } finally {
         this.buttonStateService.enableButton();
       }
     } else {

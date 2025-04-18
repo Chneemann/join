@@ -68,15 +68,15 @@ export class PwResetComponent implements OnInit, OnDestroy {
     this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       try {
-        console.log(this.uidb64, this.token);
         await this.authService.resetPasswordConfirm(
           this.pwResetData.password,
           this.uidb64,
           this.token
         );
-        this.buttonStateService.enableButton();
       } catch (error: any) {
         this.errorHttpMessage = error.message;
+        this.buttonStateService.enableButton();
+      } finally {
         this.buttonStateService.enableButton();
       }
     } else {

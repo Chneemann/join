@@ -20,6 +20,7 @@
     "email": "Your Email",
     "sendMail": "Send Mail",
     "pwChange": "Change Password",
+    "guestPwChange": "Guest account password cannot be changed",
     "invalidLink": "This link to reset your password is invalid",
     "notice": "We will send you an email to change your password."
   },

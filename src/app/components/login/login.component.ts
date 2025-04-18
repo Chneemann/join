@@ -13,6 +13,7 @@ import { TokenService } from '../../services/token.service';
 import { ButtonStateService } from '../../services/button-state.service';
 import { PasswordVisibilityService } from '../../services/password-visibility.service';
 import { Subject, takeUntil } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -86,8 +87,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loginData.email = this.loginData.email.toLowerCase();
       try {
         await this.authService.login(this.loginData, this.checkboxRememberMe);
-        this.buttonStateService.enableButton();
       } catch (error) {
+        this.buttonStateService.enableButton();
+      } finally {
         this.buttonStateService.enableButton();
       }
     } else {
@@ -96,8 +98,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   guestLogin() {
-    this.loginData.email = 'guest@guestaccount.com';
-    this.loginData.password = 'guest@guestaccount.com';
+    this.loginData.email = environment.guestEmail.toLowerCase();
+    this.loginData.password = environment.guestPassword.toLowerCase();
     this.isPasswordIconVisible = !this.isPasswordIconVisible;
     this.onSubmit({ submitted: true, form: { valid: true } } as NgForm);
   }

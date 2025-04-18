@@ -43,7 +43,9 @@
           } @else { @if (mail.touched &&
           !isEmailValid(pwResetData.mail.toLowerCase())) {
           <p>{{ "register.errorMail1" | translate }}</p>
-          } }
+          } } @if(errorMessage) {
+          <p>{{ "forgotPW.guestPwChange" | translate }}</p>
+          }
         </div>
       </div>
       <div class="notice">

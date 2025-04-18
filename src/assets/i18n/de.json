@@ -20,6 +20,7 @@
     "email": "Ihre E-Mail",
     "sendMail": "E-Mail senden",
     "pwChange": "Passwort ändern",
+    "guestPwChange": "Das Passwort für das Gastkonto kann nicht geändert werden",
     "invalidLink": "Dieser Link zum Zurücksetzen Ihres Passworts ist ungültig",
     "notice": "Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern können"
   },
@@ -153,7 +154,7 @@
     "categorySelection": "Kategorie wählen",
     "subtask": "Unteraufgaben",
     "subtaskFormField": "Unteraufgabe hinzufügen",
-    "edit": "Barbeiten",
+    "edit": "Bearbeiten",
     "clear": "Leeren",
     "delete": "Löschen",
     "update": "Aktualisieren",
