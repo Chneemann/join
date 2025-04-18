@@ -27,6 +27,7 @@
   border-radius: 25px;
   background-color: var(--white);
   color: var(--light-blue);
+  transition: all 0.3s ease;
   cursor: pointer;
   &:hover {
     background-color: var(--very-light-gray);

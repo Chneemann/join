@@ -19,10 +19,12 @@
   cursor: pointer;
   font-size: 21px;
   font-weight: 700;
+
   &:hover {
     background-color: var(--light-blue);
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
   }
+
   img {
     padding-left: 12px;
   }
@@ -83,9 +85,11 @@
   align-items: center;
   padding: 16px;
   border-radius: 10px;
+  transition: all 0.3s ease;
   cursor: pointer;
+
   &:hover {
-    background-color: var(--very-light-gray);
+    background-color: var(--light-gray);
   }
 }
 
@@ -93,6 +97,7 @@
   color: var(--white);
   background-color: var(--dark-blue);
   cursor: unset;
+
   &:hover {
     background-color: var(--dark-blue);
   }
@@ -108,12 +113,14 @@
   height: 42px;
   border-radius: 100%;
   border: 2px solid var(--white);
+
   .initials {
     font-size: 12px;
     font-weight: 400;
     color: var(--white);
     text-shadow: 1px 1px 2px var(--black);
   }
+
   img {
     position: absolute;
     width: 12px;
@@ -225,6 +232,7 @@
     margin: 0;
     z-index: 1;
     cursor: pointer;
+
     img {
       display: flex;
       align-items: center;

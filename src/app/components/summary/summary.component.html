@@ -84,13 +84,15 @@
     </div>
 
     <!-- GREETING CONTAINER -->
+    @if (currentUser) {
     <div class="welcome-container">
       <p>{{ greeting }},</p>
       <span id="welcome-user">
-        {{ currentUser!.firstName }}<br />
-        {{ currentUser!.lastName }}
+        {{ currentUser.firstName }}<br />
+        {{ currentUser.lastName }}
       </span>
     </div>
+    }
   </div>
 
   <!-- Show loading spinner if loading -->

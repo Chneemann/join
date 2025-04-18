@@ -26,6 +26,7 @@ nav {
   padding: 4px 0;
   padding-left: 56px;
   height: 46px;
+  transition: background-color 0.3s ease;
   cursor: pointer;
 
   img {
@@ -68,12 +69,14 @@ nav {
     text-align: center;
     text-decoration: none;
     color: var(--light-gray);
+    transition: color 0.3s ease;
     cursor: pointer;
 
     img {
       display: none;
       width: 30px;
       height: 30px;
+      transition: filter 0.3s ease;
       cursor: pointer;
 
       &:hover {

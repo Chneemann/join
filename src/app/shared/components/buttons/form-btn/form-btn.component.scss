@@ -8,6 +8,7 @@
   cursor: pointer;
   background-color: var(--white);
   border: 1px solid var(--black);
+  transition: all 0.3s ease;
 
   &:hover:not(:disabled) {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
