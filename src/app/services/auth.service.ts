@@ -83,17 +83,18 @@ export class AuthService {
         this.apiService.request('POST', `/auth/reset/`, { email })
       );
       this.toastNotificationService.resetPasswordSuccessToast();
+      this.router.navigate(['/login']);
     } catch (error) {
       console.error('Password reset failed:', error);
     }
   }
 
-  async resetPasswordConfirm(password: string, uid: string, token: string) {
+  async resetPasswordConfirm(password: string, uidb64: string, token: string) {
     try {
       await lastValueFrom(
         this.apiService.request('POST', `/auth/reset/confirm/`, {
           password,
-          uid,
+          uidb64,
           token,
         })
       );

@@ -28,7 +28,7 @@ export const routes: Routes = [
       { path: 'login/notice/:id', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'forgot-pw', component: ForgotPwComponent },
-      { path: 'pw-reset/:uid/:token', component: PwResetComponent },
+      { path: 'pw-reset/:uidb64/:token', component: PwResetComponent },
       { path: 'login/imprint', component: ImprintComponent },
       { path: 'login/privacy-policy', component: PrivacyPolicyComponent },
     ],
@@ -51,4 +51,5 @@ export const routes: Routes = [
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
     ],
   },
+  { path: '**', component: LoginComponent },
 ];

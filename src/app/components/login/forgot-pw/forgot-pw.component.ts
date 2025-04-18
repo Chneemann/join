@@ -34,13 +34,15 @@ export class ForgotPwComponent {
     private authService: AuthService
   ) {}
 
-  onSubmit(ngForm: NgForm) {
+  async onSubmit(ngForm: NgForm) {
     this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       try {
-        this.authService.resetPassword(this.pwResetData.mail.toLowerCase());
+        await this.authService.resetPassword(
+          this.pwResetData.mail.toLowerCase()
+        );
         this.buttonStateService.enableButton();
-      } catch (error: any) {
+      } catch (error) {
         this.buttonStateService.enableButton();
       }
     } else {

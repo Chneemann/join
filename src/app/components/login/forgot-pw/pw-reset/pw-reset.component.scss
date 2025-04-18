@@ -67,18 +67,25 @@ section {
       top: 102px;
     }
   }
-  .passwordEye {
-    position: absolute;
-    right: -5px;
-    top: 15px;
-    cursor: pointer;
-  }
+
+  .passwordEye,
   .passwordEyeConfirm {
     position: absolute;
     right: -5px;
-    top: 102px;
+    top: 15px;
+    transition: filter 0.3s ease;
     cursor: pointer;
+
+    &:hover {
+      filter: brightness(0) saturate(100%) invert(53%) sepia(83%) saturate(480%)
+        hue-rotate(155deg) brightness(94%) contrast(88%);
+    }
   }
+
+  .passwordEyeConfirm {
+    top: 102px;
+  }
+
   .custom-input:focus + .custom-img {
     display: none;
   }

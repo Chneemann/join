@@ -26,7 +26,7 @@ import { PasswordVisibilityService } from '../../../../services/password-visibil
   styleUrl: './pw-reset.component.scss',
 })
 export class PwResetComponent implements OnInit, OnDestroy {
-  uid: string = '';
+  uidb64: string = '';
   token: string = '';
   errorHttpMessage: string = '';
 
@@ -55,7 +55,7 @@ export class PwResetComponent implements OnInit, OnDestroy {
 
   routeParams() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.uid = params['uid'];
+      this.uidb64 = params['uidb64'];
       this.token = params['token'];
     });
   }
@@ -68,9 +68,10 @@ export class PwResetComponent implements OnInit, OnDestroy {
     this.buttonStateService.disableButton();
     if (ngForm.submitted && ngForm.form.valid) {
       try {
+        console.log(this.uidb64, this.token);
         await this.authService.resetPasswordConfirm(
           this.pwResetData.password,
-          this.uid,
+          this.uidb64,
           this.token
         );
         this.buttonStateService.enableButton();
