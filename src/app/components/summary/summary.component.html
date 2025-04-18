@@ -43,7 +43,7 @@
             <div class="date">
               <div>
                 @if (urgentTasks.length) {
-                <span>{{ nextUrgentTask }}</span>
+                <span>{{ nextUrgentTask | date }}</span>
                 <p class="spacer">
                   {{ "summary.upcomingDeadline" | translate }}
                 </p>

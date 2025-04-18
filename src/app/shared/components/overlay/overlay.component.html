@@ -21,12 +21,6 @@
       [overlayType]="overlayType"
       (closeDialogEmitter)="onCloseOverlay()"
     ></app-task-edit-overlay>
-    } @case ('dialogOverlay') {
-    <app-dialog-overlay
-      [overlayData]="overlayData"
-      [overlayType]="overlayType"
-      (closeDialogEmitter)="onCloseOverlay()"
-    ></app-dialog-overlay>
     } @case ('contactOverlay') {
     <app-contact-overlay
       [overlayData]="overlayData"

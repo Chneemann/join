@@ -52,24 +52,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.routeParams();
     this.deleteTokens();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  routeParams() {
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      if (params['id'] && params['id'] === 'pw-send') {
-        this.overlayService.setOverlayData('dialog', 'pw-send');
-      }
-      if (params['id'] && params['id'] === 'pw-change') {
-        this.overlayService.setOverlayData('dialog', 'pw-change');
-      }
-    });
   }
 
   isButtonDisabled() {

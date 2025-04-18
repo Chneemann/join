@@ -16,11 +16,13 @@ import {
   PRIORITIES,
   PRIORITY_LABELS,
 } from '../../constants/task-priority.constants';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
     TranslateModule,
     LoadingSpinnerComponent,
@@ -49,9 +51,8 @@ export class SummaryComponent implements OnInit, OnDestroy {
   ) {}
 
   /**
-   * This method performs the following actions:
-   * - Calls the loadAllTasks method to load all tasks.
-   * - Calls the loadCurrentUser method to load the current user.
+   * Loads all tasks and the current user. Initializes the component
+   * by fetching necessary data from the TaskService and UserService.
    */
   ngOnInit(): void {
     this.loadAllTasks();
@@ -132,31 +133,12 @@ export class SummaryComponent implements OnInit, OnDestroy {
    * Retrieves the date of the next urgent task.
    * @returns {string | null} The date of the next urgent task formatted as a string, or null if no urgent tasks exist.
    */
-
   get nextUrgentTask(): string | null {
-    if (this.urgentTasks.length === 0) return null;
-
-    const nextTask = this.urgentTasks.reduce((earliest, current) => {
-      return Date.parse(current.date) < Date.parse(earliest.date)
-        ? current
-        : earliest;
-    });
-
-    return this.timeConverter(nextTask.date);
-  }
-
-  /**
-   * Converts a date string to a human-readable format.
-   * @param dateString - The date string to convert.
-   * @returns A string representing the date in the format "MMM. DD, YYYY".
-   */
-  timeConverter(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    return this.urgentTasks.length
+      ? this.urgentTasks.reduce((a, b) =>
+          Date.parse(a.date) < Date.parse(b.date) ? a : b
+        ).date
+      : null;
   }
 
   /**
@@ -164,14 +146,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
    * @returns a localized greeting string.
    */
   get greeting(): string {
-    const currentHour = new Date().getHours();
-
-    if (currentHour >= 5 && currentHour < 12) {
-      return this.translateService.instant('summary.morning');
-    }
-    if (currentHour >= 12 && currentHour < 18) {
-      return this.translateService.instant('summary.afternoon');
-    }
-    return this.translateService.instant('summary.evening');
+    const hour = new Date().getHours();
+    const key =
+      hour < 5 || hour >= 18 ? 'evening' : hour < 12 ? 'morning' : 'afternoon';
+    return this.translateService.instant(`summary.${key}`);
   }
 }

@@ -3,7 +3,6 @@ import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { TaskOverlayComponent } from './task-overlay/task-overlay.component';
 import { TaskEditOverlayComponent } from './task-edit-overlay/task-edit-overlay.component';
-import { DialogOverlayComponent } from './dialog-overlay/dialog-overlay.component';
 import { ContactOverlayComponent } from './contact-overlay/contact-overlay.component';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -15,7 +14,6 @@ import { Subject, takeUntil } from 'rxjs';
     TaskOverlayComponent,
     TaskEditOverlayComponent,
     ContactOverlayComponent,
-    DialogOverlayComponent,
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss',
@@ -25,7 +23,6 @@ export class OverlayComponent implements OnInit, OnDestroy {
     | 'taskOverlay'
     | 'taskOverlayEdit'
     | 'newTaskOverlay'
-    | 'dialogOverlay'
     | 'contactOverlay'
     | null = null;
   overlayData: any = null;
